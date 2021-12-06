@@ -1,6 +1,3 @@
-// https://twitter.com/max_strebel/status/1051435009373016065
-// Color goal: Have a list of specific colors, map them to primary/secondary/tertiary
-
 // colors
 $black: black;
 $white: white;
@@ -12,9 +9,9 @@ $color-secondary: $white;
 $color-background: #111111;
 
 // Fonts
-$font-primary: "Montserrat", sans-serif;
-$font-secondary: "Roboto", serif;
-$font-tertiary: "Space Mono", monospace;
+$font-primary: 'Montserrat', sans-serif;
+$font-secondary: 'Roboto', serif;
+$font-tertiary: 'Space Mono', monospace;
 
 // Sizes relative to root font-size
 $size-1: 0.125rem; // 2px (assuming root font-size is 16px)
