@@ -1,23 +1,12 @@
-import React, { useEffect } from 'react'
-import css from './cube.module.scss'
+import { useEffect } from 'react'
 import { init } from './webgl/js'
-
-const PermanentDiv = React.memo(function MyComponent() {
-  return <div className="content"></div>
-})
 
 const Cube = () => {
   useEffect(() => {
     init()
   }, [])
 
-  // return null
-
-  return (
-    <div>
-      <PermanentDiv />
-    </div>
-  )
+  return null
 }
 
 export default Cube

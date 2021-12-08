@@ -5,7 +5,7 @@
 import Regl from 'regl'
 
 export const regl = Regl({
-  container: document.querySelector('.content'),
+  container: document.getElementById('cube'),
   attributes: {
     antialias: true,
     alpha: false,

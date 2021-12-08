@@ -1,20 +1,15 @@
 /**
  * @author Lorenzo Cadamuro / http://lorenzocadamuro.com
  */
-
 import { mat4 } from 'gl-matrix'
-import stats from './helpers/stats'
-import gui from './helpers/gui'
+// import stats from './helpers/stats'
+// import gui from './helpers/gui'
 import Texture from './helpers/Texture'
 import { regl, play } from './renderer'
 import camera from './camera'
 import cube, { Types as CubeTypes, Faces as CubeFaces, Masks as CubeMasks } from './components/cube'
 import content, { Types as ContentTypes } from './components/content'
 import reflection from './components/reflection'
-
-// import '~css/main.css'
-
-// export const init = () => console.log('hey')
 
 export const init = () => {
   console.log(regl, 'regl')
@@ -61,7 +56,7 @@ export const init = () => {
       maskId: CubeMasks.M1,
     },
     {
-      texture: Texture(regl, 'logo.png'),
+      texture: Texture(regl, 'logo-2.png'),
       typeId: ContentTypes.BLUE,
       maskId: CubeMasks.M2,
     },
@@ -83,7 +78,7 @@ export const init = () => {
   ]
 
   const animate = ({ viewportWidth, viewportHeight, tick }) => {
-    stats.begin()
+    // stats.begin()
 
     const { rotation, rotateX, rotateY, rotateZ, velocity, cameraX, cameraY, cameraZ } = CONFIG
 
@@ -182,7 +177,7 @@ export const init = () => {
       ])
     })
 
-    stats.end()
+    // stats.end()
   }
 
   play(animate)
