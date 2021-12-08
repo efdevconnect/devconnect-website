@@ -4,16 +4,248 @@
 
 .main {
   height: 100%;
-  // min-height: 100vh;
-  // padding: 4rem 0;
-  // flex: 1;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  z-index: 1;
+
+  .menu {
+    display: flex;
+    flex-wrap: nowrap;
+    text-transform: uppercase;
+
+    // > a {
+    //   &:hover {
+    //     text-decoration: underline;
+    //   }
+    // }
+
+    > * {
+      margin-right: 50px;
+      font-weight: 700;
+      cursor: pointer;
+
+      &:last-child {
+        margin-right: 0px;
+      }
+    }
+  }
+}
+
+.scene {
+  height: var(--viewport-height);
+  max-height: var(--viewport-height);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+}
 
-  .cube {
-    height: 70vh;
+.scene-1 {
+  // position: sticky;
+  // top: 0px;
+  // z-index: -1;
+  // top: var(--viewport-height);
+
+  // transform: translateY(var(--scroll-y));
+  // transition: 0.01s ease-in-out;
+
+  .cube-container {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+
+    .cube {
+      transform: translateY(-25px);
+      height: min(100vw, 1050px);
+      width: 100%;
+    }
   }
+
+  .info {
+    position: absolute;
+    top: 50%;
+
+    .place {
+      font-weight: 700;
+    }
+
+    .date-container {
+      position: relative;
+      display: inline-block;
+
+      .date {
+        font-weight: 400;
+      }
+
+      > * {
+        &:not(p) {
+          position: absolute !important;
+          width: auto;
+          // No idea what's going on here, wanted to do left 100% but that shrinks the image - no time to fix so just estimating position
+          right: calc(-100% + 22px);
+          top: calc(-100% - 15px);
+        }
+      }
+    }
+
+    .description {
+      margin-top: 40px;
+      max-width: 650px;
+      font-size: 48px;
+      line-height: 56.25px;
+      font-family: 'Roboto Condensed', sans-serif;
+
+      > span {
+        font-weight: 300;
+      }
+
+      .red-underline {
+        position: relative;
+        border-bottom: 5px solid #fd0909;
+
+        // To-do: curve the border
+        // &:after {
+        //   content: '';
+        //   position: absolute;
+        //   top: 100%;
+        //   width: 100%;
+        //   left: 0px;
+        //   border: 5px solid #fd0909;
+        // }
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-shrink: 0;
+    z-index: 1;
+
+    .scroll-for-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      p {
+        color: #ffffff80;
+        text-transform: uppercase;
+        margin-right: 22px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.scene-2 {
+  // background: #0085ff;
+  background: #1c1c1c;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 90px;
+
+  .text-container {
+    flex-grow: 1;
+
+    .about-text {
+      margin-top: 70px;
+    }
+
+    .about-title {
+      font-size: 218px;
+      letter-spacing: 0.2px;
+      opacity: 0.7;
+      transform: translateX(-15px);
+    }
+  }
+
+  .get-involved-button {
+    // position: ;
+  }
+
+  // &:after {
+  //   content: '';
+  //   position: absolute;
+  //   background: white;
+  //   bottom: 0px;
+  //   width: 100%;
+  //   height: 40%;
+  //   left: 0px;
+  //   z-index: 1;
+  //   background-image: url('../assets/images/about-background-full.png');
+  //   background-repeat: repeat;
+  //   background-size: cover;
+  //   opacity: 0.4;
+  // }
+
+  // &:before {
+  //   content: '';
+  //   z-index: 2;
+  //   background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 80%);
+  //   position: absolute;
+  //   bottom: -1px;
+  //   pointer-events: none;
+  //   width: 100%;
+  //   left: 0px;
+  //   bottom: 0px;
+  //   -webkit-transform-style: preserve-3d;
+  //   -webkit-backface-visibility: hidden;
+  //   height: 40%;
+  // }
+}
+
+.scene-3 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 90px;
+
+  background: white;
+  color: black;
+
+  .content {
+    display: flex;
+    flex-grow: 1;
+
+    .description-container {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+      flex-basis: 65%;
+      padding-right: 90px;
+      flex-shrink: 0;
+
+      .background-header {
+        position: absolute;
+        overflow: hidden;
+        width: 100%;
+        margin-top: 0px;
+        top: 0px;
+      }
+
+      > * {
+        margin-top: 28px;
+      }
+    }
+
+    .image {
+      flex-grow: 1;
+      position: relative;
+    }
+  }
+}
+
+.scene-4 {
+  // background: black;
 }

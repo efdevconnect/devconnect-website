@@ -17,7 +17,7 @@ setTimeout(() => {
   const parsed = queryString.parse(location.search)
   const debugMode = parsed.debug === 'true'
 
-  if (debugMode || devMode) {
+  if (debugMode || (devMode && false) /* Not interested in GUI for now, remove the false if you want it */) {
     init()
   }
 })

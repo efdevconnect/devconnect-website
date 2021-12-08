@@ -5,9 +5,87 @@ html,
 body,
 #__next {
   height: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
   color: $white;
   background-color: $black;
+}
+
+.section {
+  padding: 0px 64px;
+
+  &-clear-vertical {
+    padding: 32px 64px;
+  }
+}
+
+.section-header {
+  font-size: 36px;
+  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: 0.2px;
+  font-weight: 400;
+  text-transform: uppercase;
+
+  &.grey {
+    color: $color-grey;
+  }
+}
+
+.massive-header {
+  font-size: 218px;
+  letter-spacing: 0.2px;
+  opacity: 0.7;
+  transform: translateX(-15px);
+  text-transform: uppercase;
+}
+
+// .subheader {
+//   font-size: 18px;
+//   font-weight: 700;
+//   letter-spacing: 0.2px;
+
+//   &.grey {
+//     color: $color-grey;
+//   }
+// }
+
+.bold {
+  font-weight: 700;
+}
+
+.subheader {
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.button {
+  border-radius: 44px;
+  background: #e8e8e8;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.18);
+  height: 64px;
+  align-self: flex-start;
+  font-family: inherit;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0px 70px;
+  cursor: pointer;
+
+  &:hover {
+    background: rgb(0, 0, 0);
+    color: rgb(209, 209, 209);
+  }
+
+  &.blue {
+    color: $color-blue;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
 }

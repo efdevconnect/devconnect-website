@@ -12,8 +12,6 @@ import content, { Types as ContentTypes } from './components/content'
 import reflection from './components/reflection'
 
 export const init = () => {
-  console.log(regl, 'regl')
-
   const CONFIG = {
     cameraX: 0,
     cameraY: 0,
@@ -22,7 +20,7 @@ export const init = () => {
     rotateX: 1,
     rotateY: 1,
     rotateZ: 1,
-    velocity: 0.009,
+    velocity: 0.005,
   }
 
   // gui.get(gui => {

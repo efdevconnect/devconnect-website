@@ -14,6 +14,10 @@ module.exports = {
         ...config.module,
         rules: [
           {
+            test: /\.svg$/,
+            use: ['@svgr/webpack'],
+          },
+          {
             test: /\.(glsl|vs|fs|vert|frag)$/,
             exclude: /node_modules/,
             use: ['raw-loader', 'glslify-loader'],

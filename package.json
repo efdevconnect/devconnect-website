@@ -16,6 +16,7 @@
     "query-string": "^7.0.1",
     "raw-loader": "^4.0.2",
     "react": "17.0.2",
+    "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-dom": "17.0.2",
     "regl": "^2.1.0",
     "resl": "^1.0.3",
@@ -23,6 +24,7 @@
     "stats.js": "^0.17.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^6.1.1",
     "@types/node": "16.11.11",
     "@types/react": "17.0.37",
     "eslint": "7",

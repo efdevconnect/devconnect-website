@@ -1,0 +1,47 @@
+.outer-wrap {
+  // background: white;
+  position: absolute;
+  overflow: hidden;
+  left: 0px;
+  height: 80px;
+  width: 100%;
+}
+
+.inner-wrap {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.marquee-style {
+  display: inline-block;
+  /* Apply animation to this element */
+  animation: scrolling-left1 40s linear infinite;
+  padding-right: 50px;
+}
+
+.marquee-style-2 {
+  display: inline-block;
+  /* Apply animation to this element */
+  animation: scrolling-left2 40s linear infinite;
+  padding-right: 50px;
+  animation-delay: 20s;
+}
+
+/* scrolling-left is continuous/repeatly text */
+@keyframes scrolling-left1 {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scrolling-left2 {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
