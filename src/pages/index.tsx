@@ -28,8 +28,12 @@ const Header = () => {
       <div className={css['menu']}>
         <AnchorLink href="#about">About</AnchorLink>
         <AnchorLink href="#amsterdam">Amsterdam</AnchorLink>
-        <AnchorLink href="#get-involved">Get Involved</AnchorLink>
-        <a className={css['twitter']} href="https://twitter.com/efdevconnect">
+
+        <a target="_blank" rel="noreferrer" href="https://forms.gle/m5KWJ3aX5H3kTR7s6">
+          Get Involved
+        </a>
+
+        <a className={css['twitter']} target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
           <TwitterIcon style={{ fill: 'white' }} />
         </a>
       </div>
@@ -121,11 +125,39 @@ const Home: NextPage = () => {
 
         <Scene growVertically id="about" className={`${css['scene-2']} section-clear-vertical`}>
           <h1 className="section-header">About</h1>
+
           <div className={css['text-container']}>
             <p className={`${css['about-text']} subheader`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
-            <p className="massive-header">DEV/CONNECT</p>
+            {/* <p className="massive-header">DEV/CONNECT</p> */}
+
+            <p className="section-header">
+              Devconnect is a week-long and in-person gathering that will feature independent Ethereum events, each with
+              a unique focus. The goal is to focus on depth-first gatherings rather than size, and to bring the Ethereum
+              community together in smaller groups to talk (and learn) about, or to make sincere progress on, specific
+              subjects.
+            </p>
+            <p className="subheader">
+              Events at and around Devconnect will be hosted and curated by experts in those domains. As for everyone
+              coming to town and wanting to hang out and work together between events, we'll maintain a space for
+              collaboration for all who are interested.
+            </p>
+
+            <a href="" target="_blank" rel="noreferrer" className={`subheader ${css['read-blog']}`}>
+              READ BLOG POST
+            </a>
           </div>
-          <a href="https://forms.gle/m5KWJ3aX5H3kTR7s6" className="button">
+
+          <div className={css['topics-container']}>
+            <p className="subheader">Topics Include</p>
+            <HorizontalLooper slow>
+              <p className="section-header">
+                zkEVM • metaverse • STAKING • CONSENSUS LAYER • Web3 UX NFTS • solidity • governance • developer
+                infrastructure • Execution Layer • Web2 -> Web3 dev • ETHconomics • Rollups • MEV • Security • Sustainability • Advocacy • VDFs • Hackathon • Workshops
+              </p>
+            </HorizontalLooper>
+          </div>
+
+          <a href="https://forms.gle/m5KWJ3aX5H3kTR7s6" target="_blank" rel="noreferrer" className={`button ${css['get-involved-button']}`}>
             Get Involved
           </a>
         </Scene>
@@ -136,7 +168,7 @@ const Home: NextPage = () => {
           </h1>
 
           <div className={css['content']}>
-            <div className={css['description-container']}>
+            <div className={css['text-container']}>
               <div className={css['background-header']}>
                 <HorizontalLooper>
                   <p className={`massive-header`}>Amsterdam</p>
@@ -154,10 +186,6 @@ const Home: NextPage = () => {
               <Image src={Amsterdam} objectFit="cover" layout="fill" alt="Amsterdam" />
             </div>
           </div>
-        </Scene>
-
-        <Scene growVertically id="get-involved" className={`${css['scene-4']} section-clear-vertical`}>
-          <h1 className="section-header grey">Get Involved</h1>
         </Scene>
       </main>
     </div>

@@ -1,30 +1,26 @@
-.outer-wrap {
-  // background: white;
-  position: absolute;
-  overflow: hidden;
-  left: 0px;
-  height: 80px;
-  width: 100%;
-}
-
-.inner-wrap {
+.wrap {
   width: 100%;
   white-space: nowrap;
+  --animation-speed: 40s;
+
+  &.slow {
+    --animation-speed: 80s;
+  }
 }
 
 .marquee-style {
   display: inline-block;
   /* Apply animation to this element */
-  animation: scrolling-left1 40s linear infinite;
+  animation: scrolling-left1 var(--animation-speed) linear infinite;
   padding-right: 50px;
 }
 
 .marquee-style-2 {
   display: inline-block;
   /* Apply animation to this element */
-  animation: scrolling-left2 40s linear infinite;
+  animation: scrolling-left2 var(--animation-speed) linear infinite;
   padding-right: 50px;
-  animation-delay: 20s;
+  animation-delay: calc(var(--animation-speed) / 2);
 }
 
 /* scrolling-left is continuous/repeatly text */

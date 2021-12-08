@@ -113,3 +113,13 @@ a {
 .unset-img > div {
   position: unset !important;
 }
+
+.text-spacing {
+  > * {
+    margin-top: 28px;
+
+    @media (max-width: $screen-lg) {
+      margin-top: 16px;
+    }
+  }
+}
