@@ -1,3 +1,5 @@
+@import 'styles/variables.scss';
+
 .container {
   height: 100%;
 }
@@ -17,11 +19,13 @@
     flex-wrap: nowrap;
     text-transform: uppercase;
 
-    // > a {
-    //   &:hover {
-    //     text-decoration: underline;
-    //   }
-    // }
+    > a {
+      &:not(.twitter) {
+        @media (max-width: $screen-sm) {
+          display: none;
+        }
+      }
+    }
 
     > * {
       margin-right: 50px;
@@ -40,9 +44,18 @@
   max-height: var(--viewport-height);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+
+  &.grow-vertically {
+    @media (max-width: $screen-md) {
+      height: auto;
+      max-height: none;
+    }
+  }
 }
 
 .scene-1 {
+  position: relative;
   // position: sticky;
   // top: 0px;
   // z-index: -1;
@@ -61,7 +74,7 @@
 
     .cube {
       transform: translateY(-25px);
-      height: min(100vw, 1050px);
+      height: min(125vw, 1050px);
       width: 100%;
     }
   }
@@ -69,6 +82,11 @@
   .info {
     position: absolute;
     top: 50%;
+
+    @media (max-width: $screen-lg) {
+      top: unset;
+      bottom: 100px;
+    }
 
     .place {
       font-weight: 700;
@@ -98,7 +116,12 @@
       max-width: 650px;
       font-size: 48px;
       line-height: 56.25px;
-      font-family: 'Roboto Condensed', sans-serif;
+
+      @media (max-width: $screen-lg) {
+        font-size: 24px;
+        line-height: 1em;
+        margin-top: 20px;
+      }
 
       > span {
         font-weight: 300;
@@ -210,12 +233,20 @@
   justify-content: space-between;
   padding-bottom: 90px;
 
+  @media (max-width: $screen-lg) {
+    padding-bottom: 36px;
+  }
+
   background: white;
   color: black;
 
   .content {
     display: flex;
     flex-grow: 1;
+
+    @media (max-width: $screen-lg) {
+      flex-direction: column;
+    }
 
     .description-container {
       position: relative;
@@ -226,22 +257,47 @@
       padding-right: 90px;
       flex-shrink: 0;
 
+      @media (max-width: $screen-lg) {
+        order: 2;
+        flex-direction: column;
+        padding-right: 0px;
+        flex-basis: auto;
+      }
+
       .background-header {
         position: absolute;
         overflow: hidden;
         width: 100%;
         margin-top: 0px;
         top: 0px;
+
+        @media (max-width: $screen-lg) {
+          display: none;
+        }
       }
 
       > * {
         margin-top: 28px;
+
+        @media (max-width: $screen-lg) {
+          margin-top: 16px;
+        }
       }
     }
 
     .image {
+      display: flex;
+      justify-content: flex-end;
       flex-grow: 1;
       position: relative;
+      height: 100%;
+
+      @media (max-width: $screen-lg) {
+        height: 50vh;
+        margin-top: 20px;
+        order: 1;
+        justify-content: center;
+      }
     }
   }
 }

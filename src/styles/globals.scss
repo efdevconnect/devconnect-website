@@ -16,8 +16,16 @@ body {
 .section {
   padding: 0px 64px;
 
+  @media (max-width: $screen-sm) {
+    padding: 0px 16px;
+  }
+
   &-clear-vertical {
     padding: 32px 64px;
+
+    @media (max-width: $screen-sm) {
+      padding: 16px 16px;
+    }
   }
 }
 
@@ -27,6 +35,10 @@ body {
   letter-spacing: 0.2px;
   font-weight: 400;
   text-transform: uppercase;
+
+  @media (max-width: $screen-sm) {
+    font-size: 20px;
+  }
 
   &.grey {
     color: $color-grey;
@@ -41,16 +53,6 @@ body {
   text-transform: uppercase;
 }
 
-// .subheader {
-//   font-size: 18px;
-//   font-weight: 700;
-//   letter-spacing: 0.2px;
-
-//   &.grey {
-//     color: $color-grey;
-//   }
-// }
-
 .bold {
   font-weight: 700;
 }
@@ -60,9 +62,16 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.2px;
   font-family: 'Roboto Condensed', sans-serif;
+
+  @media (max-width: $screen-sm) {
+    font-size: 14px;
+  }
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 44px;
   background: #e8e8e8;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.18);
@@ -73,6 +82,7 @@ body {
   text-transform: uppercase;
   font-weight: 700;
   padding: 0px 70px;
+  color: black;
   cursor: pointer;
 
   &:hover {
@@ -88,4 +98,18 @@ body {
 a {
   color: inherit;
   text-decoration: inherit;
+}
+
+.width-first-image {
+  object-fit: contain;
+  width: 100% !important;
+  position: relative !important;
+  height: unset !important;
+}
+
+.unset-img {
+  width: 100%;
+}
+.unset-img > div {
+  position: unset !important;
 }

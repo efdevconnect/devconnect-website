@@ -10,9 +10,9 @@ import HeaderLogo from 'assets/images/header-logo.png'
 import Logo from 'assets/images/logo.png'
 import FingersCrossed from 'assets/images/fingers-crossed.png'
 import Amsterdam from 'assets/images/amsterdam.png'
+import HorizontalLooper from 'common/components/horizontal-looper'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
-import HorizontalLooper from 'common/components/horizontal-looper'
 
 const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
@@ -29,7 +29,9 @@ const Header = () => {
         <AnchorLink href="#about">About</AnchorLink>
         <AnchorLink href="#amsterdam">Amsterdam</AnchorLink>
         <AnchorLink href="#get-involved">Get Involved</AnchorLink>
-        <TwitterIcon style={{ fill: 'white' }} />
+        <a className={css['twitter']} href="https://twitter.com/efdevconnect">
+          <TwitterIcon style={{ fill: 'white' }} />
+        </a>
       </div>
     </header>
   )
@@ -57,8 +59,7 @@ const Scene = (props: any) => {
   // const scrollY = useScrollY()
 
   if (props.className) className += ` ${props.className}`
-
-  // console.log(scrollY, 'scroll y')
+  if (props.growVertically) className += ` ${css['grow-vertically']}`
 
   return (
     <>
@@ -118,16 +119,18 @@ const Home: NextPage = () => {
           </div>
         </Scene>
 
-        <Scene id="about" className={`${css['scene-2']} section-clear-vertical`}>
+        <Scene growVertically id="about" className={`${css['scene-2']} section-clear-vertical`}>
           <h1 className="section-header">About</h1>
           <div className={css['text-container']}>
             <p className={`${css['about-text']} subheader`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
             <p className="massive-header">DEV/CONNECT</p>
           </div>
-          <button className="button">Get Involved</button>
+          <a href="https://forms.gle/m5KWJ3aX5H3kTR7s6" className="button">
+            Get Involved
+          </a>
         </Scene>
 
-        <Scene id="amsterdam" className={`${css['scene-3']} section-clear-vertical`}>
+        <Scene growVertically id="amsterdam" className={`${css['scene-3']} section-clear-vertical`}>
           <h1 className="section-header grey">
             Amsterdam <br /> Netherlands
           </h1>
@@ -148,11 +151,12 @@ const Home: NextPage = () => {
               </p>
             </div>
             <div className={css['image']}>
-              <Image src={Amsterdam} alt="Amsterdam" layout="fill" />
+              <Image src={Amsterdam} objectFit="cover" layout="fill" alt="Amsterdam" />
             </div>
           </div>
         </Scene>
-        <Scene id="get-involved" className={`${css['scene-4']} section-clear-vertical`}>
+
+        <Scene growVertically id="get-involved" className={`${css['scene-4']} section-clear-vertical`}>
           <h1 className="section-header grey">Get Involved</h1>
         </Scene>
       </main>
