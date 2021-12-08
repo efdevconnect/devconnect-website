@@ -48,7 +48,7 @@ body {
 .massive-header {
   font-size: 218px;
   letter-spacing: 0.2px;
-  opacity: 0.7;
+  opacity: 0.2;
   transform: translateX(-15px);
   text-transform: uppercase;
 }
@@ -98,20 +98,6 @@ body {
 a {
   color: inherit;
   text-decoration: inherit;
-}
-
-.width-first-image {
-  object-fit: contain;
-  width: 100% !important;
-  position: relative !important;
-  height: unset !important;
-}
-
-.unset-img {
-  width: 100%;
-}
-.unset-img > div {
-  position: unset !important;
 }
 
 .text-spacing {

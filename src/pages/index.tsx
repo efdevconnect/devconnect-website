@@ -5,11 +5,14 @@ import css from './index.module.scss'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import TwitterIcon from 'assets/icons/twitter.svg'
-// import MouseIcon from 'assets/icons/mouse-animated.svg'
-import HeaderLogo from 'assets/images/header-logo.png'
-import Logo from 'assets/images/logo.png'
+import ArrowUpIcon from 'assets/icons/arrow-up.svg'
+import HeaderLogo from 'assets/images/header-logo.svg'
+import Logo from 'assets/images/logo.svg'
 import FingersCrossed from 'assets/images/fingers-crossed.png'
 import Amsterdam from 'assets/images/amsterdam.png'
+import DevconnectAmsterdamText from 'assets/images/amsterdam-logo-text.png'
+import DevconnectAmsterdam from 'assets/images/amsterdam-logo.png'
+import RoadToDevcon from 'assets/images/road-to-devcon.png'
 import HorizontalLooper from 'common/components/horizontal-looper'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
@@ -22,7 +25,8 @@ const Header = () => {
   return (
     <header className={`${css['header']} section-clear-vertical`}>
       <div className={css['logo']}>
-        <Image src={HeaderLogo} alt="Devonnect Header Logo" />
+        <HeaderLogo />
+        {/* <Image src={HeaderLogo} alt="Devonnect Header Logo" /> */}
       </div>
 
       <div className={css['menu']}>
@@ -38,6 +42,66 @@ const Header = () => {
         </a>
       </div>
     </header>
+  )
+}
+
+const Footer = () => {
+  return (
+    <div className={`${css['footer']} section-clear-vertical`}>
+      <Logo className={css['background']} viewBox="0 0 65 65" />
+
+      <div className={css['top']}>
+        <Image src={DevconnectAmsterdam} alt="Devconnect amsterdam" />
+        <Image src={DevconnectAmsterdamText} alt="Devconnect amsterdam text" />
+      </div>
+
+      <div className={css['middle']}>
+        <div className={css['left']}>
+          <div className={css['road-to-devcon']}>
+            <p className={css['title']}>A road to devcon event</p>
+            <Image src={RoadToDevcon} alt="Road to devcon: man and dog" />
+          </div>
+          <p>Brought to you by the Ethereum Foundation</p>
+        </div>
+
+        <div className={css['menu']}>
+          <AnchorLink href="#main">
+            Back to top <ArrowUpIcon />
+          </AnchorLink>
+
+          <AnchorLink href="#about">About</AnchorLink>
+
+          <AnchorLink href="#amsterdam">Amsterdam</AnchorLink>
+
+          <a target="_blank" rel="noreferrer" href="https://forms.gle/m5KWJ3aX5H3kTR7s6">
+            Get Involved
+          </a>
+
+          <a target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
+            <TwitterIcon style={{ fill: 'white' }} />
+          </a>
+        </div>
+      </div>
+
+      <div className={css['bottom']}>
+        <div className={css['crafted-by']}>
+          <p>Crafted and curated with passion ♥ ✨ at the Ethereum Foundation.</p>
+          <p className={css['copyright']}>© 2021 — Ethereum Foundation. All Rights Reserved.</p>
+        </div>
+
+        <div className={css['links']}>
+          <a target="_blank" rel="noreferrer" href="https://devcon.org">
+            Devcon
+          </a>
+          <a target="_blank" rel="noreferrer" href="mailto:support@devcon.org">
+            Contact Us
+          </a>
+          <a target="_blank" rel="noreferrer" href="https://ethereum.foundation">
+            Ethereum Foundation
+          </a>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -85,7 +149,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={css.main}>
+      <main id="main" className={css.main}>
         <Scene className={css['scene-1']}>
           <Header />
 
@@ -114,7 +178,8 @@ const Home: NextPage = () => {
           </div>
 
           <div className={`section-clear-vertical ${css['bottom']}`}>
-            <Image src={Logo} alt="Devconnect logo" />
+            <Logo />
+            {/* <Image src={Logo} alt="Devconnect logo" /> */}
 
             <div className={css['scroll-for-more']}>
               <p>Scroll to learn more</p>
@@ -157,8 +222,13 @@ const Home: NextPage = () => {
               collaboration for all who are interested.
             </p>
 
-            <a href="" target="_blank" rel="noreferrer" className={`subheader ${css['read-blog']}`}>
-              READ BLOG POST
+            <a
+              href="https://blog.ethereum.org/2021/11/03/devcon-archive-v2/"
+              target="_blank"
+              rel="noreferrer"
+              className={`subheader ${css['read-blog']}`}
+            >
+              READ BLOG POST (TO-DO: UPDATE URL)
             </a>
           </div>
 
@@ -209,6 +279,8 @@ const Home: NextPage = () => {
           </div>
         </Scene>
       </main>
+
+      <Footer />
     </div>
   )
 }

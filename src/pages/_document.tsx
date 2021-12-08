@@ -11,7 +11,7 @@ export default function Document() {
           rel="stylesheet"
         />
 
-        {!process.env.devMode && (
+        {process.env.NODE_ENV === 'production' && (
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{
