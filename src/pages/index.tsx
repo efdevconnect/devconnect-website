@@ -150,9 +150,10 @@ const Home: NextPage = () => {
               community together in smaller groups to talk (and learn) about, or to make sincere progress on, specific
               subjects.
             </p>
+
             <p className="subheader">
               Events at and around Devconnect will be hosted and curated by experts in those domains. As for everyone
-              coming to town and wanting to hang out and work together between events, we'll maintain a space for
+              coming to town and wanting to hang out and work together between events, we&apos;ll maintain a space for
               collaboration for all who are interested.
             </p>
 
