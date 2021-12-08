@@ -35,21 +35,21 @@ const Header = () => {
   )
 }
 
-const useScrollY = () => {
-  const [y, setY] = React.useState(false)
+// const useScrollY = () => {
+//   const [y, setY] = React.useState(false)
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setY(window.scrollY)
-    }
+//   React.useEffect(() => {
+//     const handleScroll = () => {
+//       setY(window.scrollY)
+//     }
 
-    window.addEventListener('scroll', handleScroll)
+//     window.addEventListener('scroll', handleScroll)
 
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+//     return () => window.removeEventListener('scroll', handleScroll)
+//   }, [])
 
-  return y
-}
+//   return y
+// }
 
 const Scene = (props: any) => {
   let className = css['scene']
