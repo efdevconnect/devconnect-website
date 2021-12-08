@@ -5,7 +5,7 @@ import css from './index.module.scss'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import TwitterIcon from 'assets/icons/twitter.svg'
-import MouseIcon from 'assets/icons/mouse.svg'
+// import MouseIcon from 'assets/icons/mouse-animated.svg'
 import HeaderLogo from 'assets/images/header-logo.png'
 import Logo from 'assets/images/logo.png'
 import FingersCrossed from 'assets/images/fingers-crossed.png'
@@ -118,7 +118,21 @@ const Home: NextPage = () => {
 
             <div className={css['scroll-for-more']}>
               <p>Scroll to learn more</p>
-              <MouseIcon />
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 16 16" width="16" height="16">
+                <g className="nc-icon-wrapper" fill="#ffffff">
+                  <g className={`${css['nc-loop-mouse-16-icon-f']}`}>
+                    <path
+                      d="M10,0H6A4.012,4.012,0,0,0,2,4v8a4.012,4.012,0,0,0,4,4h4a4.012,4.012,0,0,0,4-4V4A4.012,4.012,0,0,0,10,0Zm2,12a2.006,2.006,0,0,1-2,2H6a2.006,2.006,0,0,1-2-2V4A2.006,2.006,0,0,1,6,2h4a2.006,2.006,0,0,1,2,2Z"
+                      fill="#ffffff"
+                    ></path>
+                    <path
+                      d="M8,4A.945.945,0,0,0,7,5V7A.945.945,0,0,0,8,8,.945.945,0,0,0,9,7V5A.945.945,0,0,0,8,4Z"
+                      fill="#ffffff"
+                      data-color="color-2"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
             </div>
           </div>
         </Scene>
@@ -152,12 +166,18 @@ const Home: NextPage = () => {
             <HorizontalLooper slow>
               <p className="section-header">
                 zkEVM • metaverse • STAKING • CONSENSUS LAYER • Web3 UX NFTS • solidity • governance • developer
-                infrastructure • Execution Layer • Web2 -> Web3 dev • ETHconomics • Rollups • MEV • Security • Sustainability • Advocacy • VDFs • Hackathon • Workshops
+                infrastructure • Execution Layer • Web2 &gt; Web3 dev • ETHconomics • Rollups • MEV • Security •
+                Sustainability • Advocacy • VDFs • Hackathon • Workshops
               </p>
             </HorizontalLooper>
           </div>
 
-          <a href="https://forms.gle/m5KWJ3aX5H3kTR7s6" target="_blank" rel="noreferrer" className={`button ${css['get-involved-button']}`}>
+          <a
+            href="https://forms.gle/m5KWJ3aX5H3kTR7s6"
+            target="_blank"
+            rel="noreferrer"
+            className={`button ${css['get-involved-button']}`}
+          >
             Get Involved
           </a>
         </Scene>
