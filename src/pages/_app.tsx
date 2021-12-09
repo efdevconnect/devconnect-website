@@ -1,6 +1,6 @@
-import '../styles/globals.scss'
+import 'styles/globals.scss'
 import type { AppProps } from 'next/app'
-import SEO from 'common/components/SEO'
+import { SEO } from 'common/components/SEO'
 
 // Safari 100vh works poorly - this is the workaround
 if (typeof window !== 'undefined') {
@@ -9,7 +9,7 @@ if (typeof window !== 'undefined') {
     doc.style.setProperty('--viewport-height', `${window.innerHeight}px`)
   }
 
-  // window.addEventListener('resize', appHeight) // this causes jank on ios because the bottom nav changes viewport height
+  // window.addEventListener('resize', appHeight) // this causes jank on ios because the bottom nav changes viewport height causing content to resize on scroll
   window.addEventListener('orientationchange', appHeight)
 
   appHeight()

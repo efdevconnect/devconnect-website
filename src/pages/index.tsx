@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import Image from 'next/image'
 import css from './index.module.scss'
 import dynamic from 'next/dynamic'
@@ -145,19 +144,13 @@ const Scene = (props: any) => {
   )
 }
 
-const Home: NextPage = () => {
+const Home: NextPage = (props: any) => {
   const [dateHovered, setDateHovered] = React.useState(false)
 
   return (
     <div className={css.container}>
-      <Head>
-        <title>Devconnect</title>
-        <meta name="description" content="Devconnect landing page" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main id="main" className={css.main}>
-        <Scene className={css['scene-1']}>
+        <Scene className={css['scene-hero']}>
           <Header />
 
           <div className={css['cube-container']}>
@@ -186,7 +179,6 @@ const Home: NextPage = () => {
 
           <div className={`section-clear-vertical ${css['bottom']}`}>
             <Logo />
-            {/* <Image src={Logo} alt="Devconnect logo" /> */}
 
             <div className={css['scroll-for-more']}>
               <p>Scroll to learn more</p>
@@ -209,13 +201,13 @@ const Home: NextPage = () => {
           </div>
         </Scene>
 
-        <Scene growVertically id="about" className={`${css['scene-2']} section-clear-vertical`}>
+        <Scene growVertically id="about" className={`${css['scene-about']} section-clear-vertical`}>
           <h1 className="section-header">About</h1>
 
           <div className={css['text-container']}>
-            <p className={`${css['about-text']} subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
-            {/* <p className="massive-header">DEV/CONNECT</p> */}
+            <p className={`massive-header ${css['background-title']}`}>DEV/CONNECT</p>
 
+            <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
             <p className="section-header as-text-body">
               Devconnect is a week-long and in-person gathering that will feature independent Ethereum events, each with
               a unique focus. The goal is to focus on depth-first gatherings rather than size, and to bring the Ethereum
@@ -260,7 +252,7 @@ const Home: NextPage = () => {
           </a>
         </Scene>
 
-        <Scene growVertically id="amsterdam" className={`${css['scene-3']} section-clear-vertical`}>
+        <Scene growVertically id="amsterdam" className={`${css['scene-amsterdam']} section-clear-vertical`}>
           <h1 className="section-header grey">
             Amsterdam <br /> Netherlands
           </h1>
@@ -288,7 +280,6 @@ const Home: NextPage = () => {
           </div>
         </Scene>
       </main>
-
       <Footer />
     </div>
   )

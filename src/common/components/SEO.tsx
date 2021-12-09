@@ -9,7 +9,7 @@ interface SEOProps {
   imageUrl?: string
 }
 
-const SEO = (props: SEOProps) => {
+export function SEO(props: SEOProps) {
   const router = useRouter()
   const title = props.title ? `${props.title} · ${TITLE}` : `${TITLE} · Amsterdam`
   const description = props.description || DESCRIPTION
@@ -46,5 +46,3 @@ const SEO = (props: SEOProps) => {
     </Head>
   )
 }
-
-export default SEO

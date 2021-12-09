@@ -55,7 +55,7 @@
   }
 }
 
-.scene-1 {
+.scene-hero {
   position: relative;
   // position: sticky;
   // top: 0px;
@@ -173,7 +173,7 @@
   }
 }
 
-.scene-2 {
+.scene-about {
   background: linear-gradient(180deg, #6a4efa 0%, #f286fd 113.61%);
   position: relative;
   display: flex;
@@ -182,20 +182,16 @@
 
   .text-container {
     flex-basis: 70%;
-
-    // .about-text {
-    //   margin-top: 70px;
-    // }
+    position: relative;
 
     @media (max-width: $screen-md) {
       max-width: auto;
     }
 
-    .about-title {
-      font-size: 218px;
-      letter-spacing: 0.2px;
-      opacity: 0.7;
-      transform: translateX(-15px);
+    .background-title {
+      position: absolute;
+      left: 0px;
+      top: -5%;
     }
 
     .read-blog {
@@ -218,7 +214,7 @@
   }
 }
 
-.scene-3 {
+.scene-amsterdam {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -465,8 +461,8 @@
   }
 }
 
-.scene-2,
-.scene-3 {
+.scene-about,
+.scene-amsterdam {
   padding-bottom: 90px;
 
   @media (max-width: $screen-lg) {
