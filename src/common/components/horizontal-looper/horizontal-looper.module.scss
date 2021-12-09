@@ -6,6 +6,13 @@
   &.slow {
     --animation-speed: 80s;
   }
+
+  &.unpadded {
+    .marquee-style,
+    .marquee-style-2 {
+      padding-right: 0px !important;
+    }
+  }
 }
 
 .marquee-style {

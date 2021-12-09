@@ -24,7 +24,7 @@ body {
     padding: 32px 64px;
 
     @media (max-width: $screen-sm) {
-      padding: 16px 16px;
+      padding: 24px 16px;
     }
   }
 }
@@ -43,6 +43,10 @@ body {
   letter-spacing: 0.2px;
   font-weight: 400;
   text-transform: uppercase;
+
+  &.as-text-body {
+    font-family: 'Roboto', sans-serif;
+  }
 
   @media (max-width: $screen-sm) {
     font-size: 20px;
@@ -66,6 +70,10 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.2px;
   font-family: 'Roboto Condensed', sans-serif;
+
+  &.as-text-body {
+    font-family: 'Roboto', sans-serif;
+  }
 
   @media (max-width: $screen-sm) {
     font-size: 14px;

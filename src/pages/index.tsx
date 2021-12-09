@@ -8,11 +8,12 @@ import TwitterIcon from 'assets/icons/twitter.svg'
 import ArrowUpIcon from 'assets/icons/arrow-up.svg'
 import HeaderLogo from 'assets/images/header-logo.svg'
 import Logo from 'assets/images/logo.svg'
+import LogoBig from 'assets/images/logo-big.svg'
 import FingersCrossed from 'assets/images/fingers-crossed.png'
 import Amsterdam from 'assets/images/amsterdam.png'
 import DevconnectAmsterdamText from 'assets/images/amsterdam-logo-text.svg'
 // import
-import DevconnectAmsterdam from 'assets/images/amsterdam-logo.png'
+import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import RoadToDevcon from 'assets/images/rtd.png'
 import HorizontalLooper from 'common/components/horizontal-looper'
 // @ts-ignore
@@ -49,11 +50,12 @@ const Header = () => {
 const Footer = () => {
   return (
     <div className={`${css['footer']} section-clear-vertical`}>
-      <Logo className={css['background']} viewBox="0 0 100 100" />
+      <LogoBig className={css['background']} />
 
       <div className={css['top']}>
-        <Image src={DevconnectAmsterdam} alt="Devconnect amsterdam" />
+        <DevconnectAmsterdam />
         <DevconnectAmsterdamText />
+        {/* <Image src={DevconnectAmsterdam} alt="Devconnect amsterdam" /> */}
         {/* <Image src={DevconnectAmsterdamText} alt="Devconnect amsterdam text" /> */}
       </div>
 
@@ -212,17 +214,17 @@ const Home: NextPage = () => {
           <h1 className="section-header">About</h1>
 
           <div className={css['text-container']}>
-            <p className={`${css['about-text']} subheader`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
+            <p className={`${css['about-text']} subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
             {/* <p className="massive-header">DEV/CONNECT</p> */}
 
-            <p className="section-header">
+            <p className="section-header as-text-body">
               Devconnect is a week-long and in-person gathering that will feature independent Ethereum events, each with
               a unique focus. The goal is to focus on depth-first gatherings rather than size, and to bring the Ethereum
               community together in smaller groups to talk (and learn) about, or to make sincere progress on, specific
               subjects.
             </p>
 
-            <p className="subheader">
+            <p className="subheader as-text-body">
               Events at and around Devconnect will be hosted and curated by experts in those domains. As for everyone
               coming to town and wanting to hang out and work together between events, we&apos;ll maintain a space for
               collaboration for all who are interested.
@@ -239,12 +241,12 @@ const Home: NextPage = () => {
           </div>
 
           <div className={css['topics-container']}>
-            <p className="subheader">Topics Include</p>
-            <HorizontalLooper slow>
-              <p className="section-header">
-                zkEVM • metaverse • STAKING • CONSENSUS LAYER • Web3 UX NFTS • solidity • governance • developer
-                infrastructure • Execution Layer • Web2 &gt; Web3 dev • ETHconomics • Rollups • MEV • Security •
-                Sustainability • Advocacy • VDFs • Hackathon • Workshops
+            <p className="subheader as-text-body">Topics Include</p>
+            <HorizontalLooper slow unpadded>
+              <p className="section-header as-text-body">
+                zkEVM • metaverse • STAKING • CONSENSUS LAYER • Web3 UX • NFTS • solidity • governance • developer
+                infrastructure • Execution Layer • Web2 ➞ Web3 dev • ETHconomics • Rollups • MEV • Security •
+                Sustainability • Advocacy • VDFs • Hackathon • Workshops •&nbsp;
               </p>
             </HorizontalLooper>
           </div>
@@ -271,9 +273,11 @@ const Home: NextPage = () => {
                   <p className={`massive-header`}>Amsterdam</p>
                 </HorizontalLooper>
               </div>
-              <p className={`${css['about-text']} subheader`}>AMSTERDAM - [ ahm-stuhr-dahYUMMMm ]</p>
-              <p className="section-header">Amsterdam is known as one of the world’s most multicultural cities.</p>
-              <p className="section-header">
+              <p className={`${css['about-text']} subheader as-text-body`}>AMSTERDAM - [ ahm-stuhr-dahYUMMMm ]</p>
+              <p className="section-header as-text-body">
+                Amsterdam is known as one of the world’s most multicultural cities.
+              </p>
+              <p className="section-header as-text-body">
                 Like Ethereum, it can mean many things to many different people, and there’s something interesting for
                 everyone. So where better to give a distributed (and passionate) ecosystem a more connected feel than in
                 a city brought together by canals 🛶, bike lanes 🚲, and culture 🏫 throughout?

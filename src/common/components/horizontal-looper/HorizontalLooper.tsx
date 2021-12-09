@@ -5,6 +5,7 @@ const HorizontalLooper = (props: any) => {
   let className = css['wrap']
 
   if (props.slow) className += ` ${css['slow']}`
+  if (props.unpadded) className += ` ${css['unpadded']}`
 
   return (
     <div className={className}>

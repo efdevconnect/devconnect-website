@@ -46,6 +46,8 @@
   overflow: hidden;
 
   &.grow-vertically {
+    min-height: var(--viewport-height);
+
     @media (max-width: $screen-md) {
       height: auto;
       max-height: none;
@@ -302,9 +304,9 @@
     width: 200%;
     height: 200%;
 
-    * {
-      fill: #191919;
-    }
+    // * {
+    //   fill: #191919;
+    // }
   }
 
   .top {
