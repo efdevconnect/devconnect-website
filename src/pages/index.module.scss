@@ -279,6 +279,10 @@
 }
 
 .footer {
+  $width-right-column: 190px;
+
+  background: #0d0d0d;
+
   .background {
     position: absolute;
     left: 40%;
@@ -291,21 +295,36 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    > * {
+      &:nth-child(2) {
+        width: $width-right-column;
+      }
+    }
   }
 
   .middle {
+    margin-top: 40px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    // align-items: ;
+    text-transform: uppercase;
 
     .left {
+      font-weight: 700;
+
       .road-to-devcon {
         display: flex;
         align-items: flex-end;
+      }
 
-        .title {
-          font-size: 50px;
-        }
+      .subtext {
+      }
+
+      .email {
+        text-decoration: underline;
+        margin-bottom: 90px;
+        margin-top: 45px;
       }
     }
 
@@ -314,13 +333,29 @@
       flex-direction: column;
       text-transform: uppercase;
       font-weight: 700;
+      width: $width-right-column;
+
+      .back-to-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 15px;
+      }
+
+      > a {
+        margin-top: 32px;
+
+        @media (max-width: $screen-md) {
+          margin-top: 18px;
+        }
+      }
     }
   }
 
   .bottom {
     margin-top: 24px;
     padding-top: 24px;
-    border-top: 1px solid $color-dark-grey;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -341,7 +376,6 @@
     .links {
       display: flex;
       text-transform: uppercase;
-      font-weight: 700;
 
       > * {
         margin-left: 25px;

@@ -58,14 +58,18 @@ const Footer = () => {
       <div className={css['middle']}>
         <div className={css['left']}>
           <div className={css['road-to-devcon']}>
-            <p className={css['title']}>A road to devcon event</p>
+            <p className={`${css['title']} extra-large-text title`}>
+              A road to <br /> devcon event
+            </p>
             <Image src={RoadToDevcon} alt="Road to devcon: man and dog" />
           </div>
-          <p>Brought to you by the Ethereum Foundation</p>
+
+          <p className={`${css['subtext']} dark-grey`}>Brought to you by the Ethereum Foundation</p>
+          <p className={`${css['email']} medium-text`}>support@devcon.org</p>
         </div>
 
         <div className={css['menu']}>
-          <AnchorLink href="#main">
+          <AnchorLink href="#main" className={`${css['back-to-top']} dark-grey`}>
             Back to top <ArrowUpIcon />
           </AnchorLink>
 
@@ -85,18 +89,18 @@ const Footer = () => {
 
       <div className={css['bottom']}>
         <div className={css['crafted-by']}>
-          <p>Crafted and curated with passion ♥ ✨ at the Ethereum Foundation.</p>
-          <p className={css['copyright']}>© 2021 — Ethereum Foundation. All Rights Reserved.</p>
+          <p className="small-text">Crafted and curated with passion ♥ ✨ at the Ethereum Foundation.</p>
+          <p className={`${css['copyright']} tiny-text`}>© 2021 — Ethereum Foundation. All Rights Reserved.</p>
         </div>
 
         <div className={css['links']}>
-          <a target="_blank" rel="noreferrer" href="https://devcon.org">
+          <a className="small-text" target="_blank" rel="noreferrer" href="https://devcon.org">
             Devcon
           </a>
-          <a target="_blank" rel="noreferrer" href="mailto:support@devcon.org">
+          <a className="small-text" target="_blank" rel="noreferrer" href="mailto:support@devcon.org">
             Contact Us
           </a>
-          <a target="_blank" rel="noreferrer" href="https://ethereum.foundation">
+          <a className="small-text" target="_blank" rel="noreferrer" href="https://ethereum.foundation">
             Ethereum Foundation
           </a>
         </div>

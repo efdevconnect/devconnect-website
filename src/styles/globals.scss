@@ -29,6 +29,14 @@ body {
   }
 }
 
+.dark-grey {
+  color: $color-dark-grey;
+
+  * {
+    fill: $color-dark-grey;
+  }
+}
+
 .section-header {
   font-size: 36px;
   font-family: 'Roboto Condensed', sans-serif;
@@ -53,10 +61,6 @@ body {
   text-transform: uppercase;
 }
 
-.bold {
-  font-weight: 700;
-}
-
 .subheader {
   font-size: 18px;
   text-transform: uppercase;
@@ -66,6 +70,54 @@ body {
   @media (max-width: $screen-sm) {
     font-size: 14px;
   }
+}
+
+.tiny-text {
+  font-size: 12px;
+
+  @media (max-width: $screen-sm) {
+    font-size: 10px;
+  }
+}
+
+.small-text {
+  font-size: 14px;
+
+  @media (max-width: $screen-sm) {
+    font-size: 12px;
+  }
+}
+
+.medium-text {
+  font-size: 16px;
+
+  @media (max-width: $screen-sm) {
+    font-size: 14px;
+  }
+}
+
+.large-text {
+  font-size: 24px;
+
+  @media (max-width: $screen-sm) {
+    font-size: 18px;
+  }
+}
+
+.extra-large-text {
+  font-size: 36px;
+
+  @media (max-width: $screen-sm) {
+    font-size: 24px;
+  }
+
+  &.title {
+    letter-spacing: 0.05em;
+  }
+}
+
+.bold {
+  font-weight: 700;
 }
 
 .button {
