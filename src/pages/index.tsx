@@ -48,7 +48,7 @@ const Header = () => {
 const Footer = () => {
   return (
     <div className={`${css['footer']} section-clear-vertical`}>
-      <Logo className={css['background']} viewBox="0 0 65 65" />
+      <Logo className={css['background']} viewBox="0 0 100 100" />
 
       <div className={css['top']}>
         <Image src={DevconnectAmsterdam} alt="Devconnect amsterdam" />

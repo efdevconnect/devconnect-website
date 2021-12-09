@@ -9,7 +9,7 @@ if (typeof window !== 'undefined') {
     doc.style.setProperty('--viewport-height', `${window.innerHeight}px`)
   }
 
-  window.addEventListener('resize', appHeight)
+  // window.addEventListener('resize', appHeight) // this causes jank on ios
   window.addEventListener('orientationchange', appHeight)
 
   appHeight()

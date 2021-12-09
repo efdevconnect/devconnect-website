@@ -280,18 +280,26 @@
 
 .footer {
   $width-right-column: 190px;
+  position: relative;
 
+  overflow: hidden;
   background: #0d0d0d;
 
   .background {
     position: absolute;
-    left: 40%;
+    top: 0px;
+    left: 0px;
+    // left: 40%
+    width: 200%;
+    height: 200%;
+
     * {
-      fill: $color-dark-grey;
+      fill: #191919;
     }
   }
 
   .top {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -304,10 +312,10 @@
   }
 
   .middle {
+    position: relative;
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
-    // align-items: ;
     text-transform: uppercase;
 
     .left {
@@ -319,6 +327,7 @@
       }
 
       .subtext {
+        margin-top: 6px;
       }
 
       .email {
@@ -353,6 +362,7 @@
   }
 
   .bottom {
+    position: relative;
     margin-top: 24px;
     padding-top: 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
