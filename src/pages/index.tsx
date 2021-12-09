@@ -14,6 +14,7 @@ import DevconnectAmsterdamText from 'assets/images/amsterdam-logo-text.svg'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import RoadToDevcon from 'assets/images/rtd.png'
 import HorizontalLooper from 'common/components/horizontal-looper'
+import SunEmoji from 'assets/images/sun-heart-emoji.png'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 
@@ -59,12 +60,12 @@ const Footer = () => {
 
       <div className={css['middle']}>
         <div className={css['left']}>
-          <div className={css['road-to-devcon']}>
+          <a target="_blank" rel="noreferrer" href="https://devcon.org" className={css['road-to-devcon']}>
             <p className={`${css['title']} extra-large-text title`}>
               A road to <br /> devcon event
             </p>
             <Image src={RoadToDevcon} alt="Road to devcon: man and dog" />
-          </div>
+          </a>
 
           <p className={`${css['subtext']} dark-grey`}>Brought to you by the Ethereum Foundation</p>
           <p className={`${css['email']} medium-text`}>support@devcon.org</p>
@@ -204,31 +205,40 @@ const Home: NextPage = (props: any) => {
         <Scene growVertically id="about" className={`${css['scene-about']} section-clear-vertical`}>
           <h1 className="section-header">About</h1>
 
+          <p className={`massive-header ${css['background-title']} section`}>DEV/CONNECT</p>
+
           <div className={css['text-container']}>
-            <p className={`massive-header ${css['background-title']}`}>DEV/CONNECT</p>
+            <div className={css['body']}>
+              <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
+              <p className="section-header as-text-body">
+                Devconnect is a week-long and in-person gathering that will feature independent Ethereum events, each
+                with a unique focus. The goal is to focus on depth-first gatherings rather than size, and to bring the
+                Ethereum community together in smaller groups to talk (and learn) about, or to make sincere progress on,
+                specific subjects.
+              </p>
 
-            <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
-            <p className="section-header as-text-body">
-              Devconnect is a week-long and in-person gathering that will feature independent Ethereum events, each with
-              a unique focus. The goal is to focus on depth-first gatherings rather than size, and to bring the Ethereum
-              community together in smaller groups to talk (and learn) about, or to make sincere progress on, specific
-              subjects.
-            </p>
+              <p className="subheader as-text-body">
+                Events at and around Devconnect will be hosted and curated by experts in those domains.
+              </p>
 
-            <p className="subheader as-text-body">
-              Events at and around Devconnect will be hosted and curated by experts in those domains. As for everyone
-              coming to town and wanting to hang out and work together between events, we&apos;ll maintain a space for
-              collaboration for all who are interested.
-            </p>
+              <p className="subheader as-text-body">
+                As for everyone coming to town and wanting to hang out and work together between events, we&apos;ll
+                maintain a space for collaboration for all who are interested.
+              </p>
 
-            <a
-              href="https://blog.ethereum.org/2021/11/03/devcon-archive-v2/"
-              target="_blank"
-              rel="noreferrer"
-              className={`subheader ${css['read-blog']}`}
-            >
-              READ BLOG POST (TO-DO: UPDATE URL)
-            </a>
+              <a
+                href="https://blog.ethereum.org/2021/11/03/devcon-archive-v2/"
+                target="_blank"
+                rel="noreferrer"
+                className={`subheader ${css['read-blog']}`}
+              >
+                READ BLOG POST (TO-DO: UPDATE URL)
+              </a>
+            </div>
+
+            <div className={css['sun-emoji']}>
+              <Image src={SunEmoji} objectFit="contain" alt="Sun emoji" />
+            </div>
           </div>
 
           <div className={css['topics-container']}>
