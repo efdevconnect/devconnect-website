@@ -307,6 +307,10 @@
     > * {
       &:nth-child(2) {
         width: $width-right-column;
+
+        @media (max-width: $screen-md) {
+          width: auto;
+        }
       }
     }
   }
@@ -317,6 +321,11 @@
     display: flex;
     justify-content: space-between;
     text-transform: uppercase;
+
+    @media (max-width: $screen-md) {
+      flex-direction: column;
+      justify-content: flex-start;
+    }
 
     .left {
       font-weight: 700;
@@ -334,6 +343,11 @@
         text-decoration: underline;
         margin-bottom: 90px;
         margin-top: 45px;
+
+        @media (max-width: $screen-md) {
+          margin-bottom: 0px;
+          margin-top: 18px;
+        }
       }
     }
 
@@ -344,11 +358,25 @@
       font-weight: 700;
       width: $width-right-column;
 
+      @media (max-width: $screen-md) {
+        margin-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        width: 100%;
+      }
+
       .back-to-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding-right: 15px;
+
+        > * {
+          &:nth-child(1) {
+            @media (max-width: $screen-md) {
+              display: none;
+            }
+          }
+        }
       }
 
       > a {
@@ -372,9 +400,18 @@
 
     @media (max-width: $screen-md) {
       flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin-top: 18px;
+      padding-top: 18px;
     }
 
     .crafted-by {
+      @media (max-width: $screen-md) {
+        order: 2;
+        margin-top: 18px;
+      }
+
       display: flex;
       flex-direction: column;
 
@@ -384,8 +421,13 @@
     }
 
     .links {
+      @media (max-width: $screen-md) {
+        order: 1;
+      }
+
       display: flex;
       text-transform: uppercase;
+      font-weight: 700;
 
       > * {
         margin-left: 25px;
