@@ -10,9 +10,10 @@ import HeaderLogo from 'assets/images/header-logo.svg'
 import Logo from 'assets/images/logo.svg'
 import FingersCrossed from 'assets/images/fingers-crossed.png'
 import Amsterdam from 'assets/images/amsterdam.png'
-import DevconnectAmsterdamText from 'assets/images/amsterdam-logo-text.png'
+import DevconnectAmsterdamText from 'assets/images/amsterdam-logo-text.svg'
+// import
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo.png'
-import RoadToDevcon from 'assets/images/road-to-devcon.png'
+import RoadToDevcon from 'assets/images/rtd.png'
 import HorizontalLooper from 'common/components/horizontal-looper'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
@@ -52,7 +53,8 @@ const Footer = () => {
 
       <div className={css['top']}>
         <Image src={DevconnectAmsterdam} alt="Devconnect amsterdam" />
-        <Image src={DevconnectAmsterdamText} alt="Devconnect amsterdam text" />
+        <DevconnectAmsterdamText />
+        {/* <Image src={DevconnectAmsterdamText} alt="Devconnect amsterdam text" /> */}
       </div>
 
       <div className={css['middle']}>

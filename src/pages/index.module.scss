@@ -179,11 +179,15 @@
   justify-content: space-between;
 
   .text-container {
-    flex-grow: 1;
+    flex-basis: 70%;
 
     // .about-text {
     //   margin-top: 70px;
     // }
+
+    @media (max-width: $screen-md) {
+      max-width: auto;
+    }
 
     .about-title {
       font-size: 218px;
@@ -338,6 +342,10 @@
       .road-to-devcon {
         display: flex;
         align-items: flex-end;
+
+        > :not(p) {
+          width: 150px !important;
+        }
       }
 
       .subtext {
