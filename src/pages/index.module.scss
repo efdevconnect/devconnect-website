@@ -222,8 +222,8 @@
       flex-basis: 65%;
       flex-shrink: 0;
 
-      @media (max-width: $screen-md) {
-        width: auto;
+      @media (max-width: $screen-lg) {
+        flex-basis: 100%;
       }
 
       :global(.subheader) {
@@ -239,6 +239,10 @@
     .sun-emoji {
       position: relative;
       flex-grow: 1;
+
+      @media (max-width: $screen-lg) {
+        display: none;
+      }
     }
   }
 

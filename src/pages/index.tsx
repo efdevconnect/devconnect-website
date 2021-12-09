@@ -244,7 +244,7 @@ const Home: NextPage = (props: any) => {
           <div className={css['topics-container']}>
             <p className="subheader as-text-body">Topics Include</p>
             <HorizontalLooper slow unpadded>
-              <p className="section-header as-text-body">
+              <p className="section-header">
                 zkEVM • metaverse • STAKING • CONSENSUS LAYER • Web3 UX • NFTS • solidity • governance • developer
                 infrastructure • Execution Layer • Web2 ➞ Web3 dev • ETHconomics • Rollups • MEV • Security •
                 Sustainability • Advocacy • VDFs • Hackathon • Workshops •&nbsp;

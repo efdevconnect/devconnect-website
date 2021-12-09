@@ -46,6 +46,11 @@ body {
 
   &.as-text-body {
     font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+
+    @media (max-width: $screen-sm) {
+      font-size: 16px;
+    }
   }
 
   @media (max-width: $screen-sm) {
@@ -59,6 +64,7 @@ body {
 
 .massive-header {
   font-size: 218px;
+  font-weight: 700;
   letter-spacing: 0.2px;
   opacity: 0.1;
   transform: translateX(-15px);
