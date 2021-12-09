@@ -12,7 +12,6 @@ import LogoBig from 'assets/images/logo-big.svg'
 import FingersCrossed from 'assets/images/fingers-crossed.png'
 import Amsterdam from 'assets/images/amsterdam.png'
 import DevconnectAmsterdamText from 'assets/images/amsterdam-logo-text.svg'
-// import
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import RoadToDevcon from 'assets/images/rtd.png'
 import HorizontalLooper from 'common/components/horizontal-looper'
