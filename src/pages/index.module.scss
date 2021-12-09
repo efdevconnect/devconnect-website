@@ -73,6 +73,11 @@
 
     .cube {
       transform: translateY(-25px);
+
+      @media (max-width: $screen-md) {
+        transform: translateY(-50px);
+      }
+
       height: min(125vw, 1050px);
       width: 100%;
     }
