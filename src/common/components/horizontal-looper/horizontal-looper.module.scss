@@ -1,50 +1,36 @@
 .wrap {
-  width: 100%;
+  max-width: 100%;
+  // overflow: hidden;
+}
+
+.marquee {
+  animation: marquee var(--animation-speed) linear infinite;
   white-space: nowrap;
-  --animation-speed: 40s;
+  display: inline-block;
+
+  --animation-speed: 60s;
 
   &.slow {
     --animation-speed: 80s;
   }
 
   &.unpadded {
-    .marquee-style,
-    .marquee-style-2 {
+    > * {
       padding-right: 0px !important;
     }
   }
+
+  > * {
+    display: inline-block;
+    padding-right: 50px;
+  }
 }
 
-.marquee-style {
-  display: inline-block;
-  /* Apply animation to this element */
-  animation: scrolling-left1 var(--animation-speed) linear infinite;
-  padding-right: 50px;
-}
-
-.marquee-style-2 {
-  display: inline-block;
-  /* Apply animation to this element */
-  animation: scrolling-left2 var(--animation-speed) linear infinite;
-  padding-right: 50px;
-  animation-delay: calc(var(--animation-speed) / 2);
-}
-
-/* scrolling-left is continuous/repeatly text */
-@keyframes scrolling-left1 {
+@keyframes marquee {
   0% {
-    transform: translateX(100%);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes scrolling-left2 {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-200%);
+    transform: translate3d(-50%, 0, 0);
   }
 }

@@ -2,15 +2,17 @@ import React from 'react'
 import css from './horizontal-looper.module.scss'
 
 const HorizontalLooper = (props: any) => {
-  let className = css['wrap']
+  let className = css['marquee']
 
   if (props.slow) className += ` ${css['slow']}`
   if (props.unpadded) className += ` ${css['unpadded']}`
 
   return (
-    <div className={className}>
-      <div className={css['marquee-style']}>{props.children}</div>
-      <div className={css['marquee-style-2']}>{props.children}</div>
+    <div className={css['wrap']}>
+      <div className={className}>
+        {props.children}
+        {props.children}
+      </div>
     </div>
   )
 }
