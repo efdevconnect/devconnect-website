@@ -241,12 +241,12 @@ const Home: NextPage = (props: any) => {
                   </p>
 
                   <a
-                    href="https://blog.ethereum.org/2021/11/03/devcon-archive-v2/"
+                    href="https://blog.ethereum.org/2021/12/13/announcing-devconnect/"
                     target="_blank"
                     rel="noreferrer"
                     className={`subheader ${css['read-blog']}`}
                   >
-                    READ BLOG POST (TO-DO: UPDATE URL)
+                    READ BLOG POST
                   </a>
                 </div>
 
