@@ -41,7 +41,7 @@
 .scene {
   // $height: min(100vh, var(--viewport-height));
   $height: var(--viewport-height);
-  transition: all 0.2s;
+  transition: all 0.6s;
   height: $height;
   max-height: $height;
   overflow: hidden;
