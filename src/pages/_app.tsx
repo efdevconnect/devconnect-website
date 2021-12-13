@@ -9,7 +9,7 @@ if (typeof window !== 'undefined') {
     doc.style.setProperty('--viewport-height', `${window.innerHeight}px`)
   }
 
-  // window.addEventListener('resize', appHeight) // this causes jank on ios because the bottom nav changes viewport height causing content to resize on scroll
+  window.addEventListener('resize', appHeight) // this causes jank on ios because the bottom nav changes viewport height causing content to resize on scroll
   window.addEventListener('orientationchange', appHeight)
 
   appHeight()

@@ -39,12 +39,15 @@
 }
 
 .scene {
-  height: var(--viewport-height);
-  max-height: var(--viewport-height);
+  // $height: min(100vh, var(--viewport-height));
+  $height: var(--viewport-height);
+  transition: all 0.2s;
+  height: $height;
+  max-height: $height;
   overflow: hidden;
 
   &.grow-vertically {
-    min-height: var(--viewport-height);
+    min-height: $height;
     height: auto;
     max-height: none;
   }
