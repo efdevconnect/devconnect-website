@@ -28,7 +28,6 @@ const Header = () => {
       <header className={`${css['header']} clear-vertical`}>
         <div className={css['logo']}>
           <HeaderLogo />
-          {/* <Image src={HeaderLogo} alt="Devonnect Header Logo" /> */}
         </div>
 
         <div className={css['menu']}>
@@ -58,8 +57,6 @@ const Footer = () => {
           <div className={css['top']}>
             <DevconnectAmsterdam />
             <DevconnectAmsterdamText />
-            {/* <Image src={DevconnectAmsterdam} alt="Devconnect amsterdam" /> */}
-            {/* <Image src={DevconnectAmsterdamText} alt="Devconnect amsterdam text" /> */}
           </div>
 
           <div className={css['middle']}>
@@ -118,33 +115,15 @@ const Footer = () => {
   )
 }
 
-// const useScrollY = () => {
-//   const [y, setY] = React.useState(false)
-
-//   React.useEffect(() => {
-//     const handleScroll = () => {
-//       setY(window.scrollY)
-//     }
-
-//     window.addEventListener('scroll', handleScroll)
-
-//     return () => window.removeEventListener('scroll', handleScroll)
-//   }, [])
-
-//   return y
-// }
-
 const Scene = (props: any) => {
   let className = css['scene']
-
-  // const scrollY = useScrollY()
 
   if (props.className) className += ` ${props.className}`
   if (props.growVertically) className += ` ${css['grow-vertically']}`
 
   return (
     <>
-      <div id={props.id} className={className} /*style={{ '--scroll-y': `${scrollY}px` }}*/>
+      <div id={props.id} className={className}>
         {props.children}
       </div>
     </>
