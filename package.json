@@ -8,10 +8,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@notionhq/client": "^0.4.11",
     "dat.gui": "^0.7.7",
     "gl-matrix": "^3.4.3",
     "glslify": "^7.1.1",
     "glslify-loader": "^2.0.0",
+    "moment": "^2.29.1",
     "next": "12.0.4",
     "query-string": "^7.0.1",
     "raw-loader": "^4.0.2",

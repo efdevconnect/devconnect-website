@@ -22,7 +22,7 @@ const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
 })
 
-const Header = () => {
+export const Header = () => {
   return (
     <div className="section">
       <header className={`${css['header']} clear-vertical`}>
@@ -47,7 +47,7 @@ const Header = () => {
   )
 }
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <div className={css['footer-container']}>
       <LogoBig className={css['background']} />
