@@ -9,7 +9,7 @@ import CalendarIcon from 'assets/icons/calendar.svg'
 
 // moment.tz.setDefault("America/New_York"); <--- to do
 
-console.log('test netlify preview')
+console.log('test netlify preview again')
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
