@@ -168,6 +168,10 @@ $max-content-width: $content-width + ($side-gap * 2);
   font-weight: 700;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 .button {
   display: flex;
   justify-content: center;
@@ -207,5 +211,33 @@ a {
     @media (max-width: $screen-lg) {
       margin-top: 16px;
     }
+  }
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 50px;
+  background: white;
+  border: 1px solid black;
+  margin-right: 8px;
+  text-transform: uppercase;
+
+  &.purple {
+    background: #e7e3ff;
+  }
+}
+
+.border {
+  &-bottom {
+    border-color: $monochrome-5;
+    border-style: solid;
+    border-bottom-width: 1px;
+  }
+
+  &-top {
+    border-color: $monochrome-5;
+    border-style: solid;
+    border-top-width: 1px;
   }
 }

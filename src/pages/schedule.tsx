@@ -6,10 +6,11 @@ import { Header, Footer } from './index'
 import moment from 'moment'
 import ListIcon from 'assets/icons/list.svg'
 import CalendarIcon from 'assets/icons/calendar.svg'
+import ChevronDown from 'assets/icons/chevron-down.svg'
+import ChevronUp from 'assets/icons/chevron-up.svg'
+import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
 
-// moment.tz.setDefault("America/New_York"); <--- to do
-
-console.log('test netlify preview again')
+// moment.tz.setDefault("America/New_York"); <--- to do, set amsterdam time zone
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -53,6 +54,7 @@ const calculateEventDuration = (min: moment.Moment | undefined, max: moment.Mome
   return 0
 }
 
+// Utility function for keeping track of placed nodes (used by calendar view algo)
 const createPlacementTracker = () => {
   const occupiedNodes = {} as {
     [key: number]: {
@@ -131,10 +133,7 @@ const Calendar = (props: any) => {
             )}
           </div>
 
-          <div className={css['meta']}>
-            <div className={`${css['tag']} tiny-text`}>Working Group</div>
-            <div className="tiny-text">Beginner</div>
-          </div>
+          <EventMeta />
         </div>
       </div>
     )
@@ -160,8 +159,24 @@ const Calendar = (props: any) => {
   )
 }
 
+const EventMeta = (props: any) => {
+  return (
+    <div className={css['meta']}>
+      <div className={`tag tiny-text`}>Working Group</div>
+      <div className="tiny-text">Beginner</div>
+    </div>
+  )
+}
+
 const ListCalendarTableHeader = (props: any) => {
-  return <div className={css['table-header']}></div>
+  return (
+    <div className={`${css['calendar-list-table-header']} ${css['calendar-list-grid']}`}>
+      <div className={css['col-1']}>Date & Time</div>
+      <div className={css['col-2']}>Event</div>
+      <div className={css['col-3']}>Organizers</div>
+      <div className={css['col-4']}>Attend</div>
+    </div>
+  )
 }
 
 const ListCalendarDayHeader = (props: any) => {
@@ -170,26 +185,85 @@ const ListCalendarDayHeader = (props: any) => {
   const date = props.date.format('MMM DD')
 
   return (
-    <div className={css['day-header']}>
-      <div className={css['date']}>
-        <p>{day}</p>
-        <p>{date}</p>
-      </div>
+    <>
+      <div className={css['day-header']} onClick={() => setOpen(!open)}>
+        <div className={css['date']}>
+          <p className="section-header">{day}</p>
+          <p className="section-header small-text">{date}</p>
+        </div>
 
-      <button className={css['toggle-open']} onClick={() => setOpen(!open)}>
-        {open ? '-' : '+'}
-      </button>
-    </div>
+        <div className={css['toggle-open']}>{open ? <ChevronUp /> : <ChevronDown />}</div>
+      </div>
+      {open && props.children}
+    </>
   )
 }
 
 const ListCalendarEvent = (props: any) => {
-  return <div>{props.event.Name}</div>
+  const currentDate = props.day
+  const startDate = moment(props.event.Date.startDate)
+  const endDate = moment(props.event.Date.endDate)
+  const formattedDate = currentDate.format('MMM DD')
+  const formattedStartDate = startDate.format('MMM DD')
+  const formattedEndDate = endDate.format('MMM DD')
+  const duration = calculateEventDuration(startDate, endDate)
+  const isMultiDayEvent = duration > 1
+  const areTicketsAvailable = true
+
+  return (
+    <>
+      {/* List view as table/grid (desktop) */}
+      <div className={`${css['event-in-table']} ${css['calendar-list-grid']}`}>
+        <div className={`${css['date']} ${css['col-1']}`}>Date & Time</div>
+        <div className={`${css['description']} ${css['col-2']}`}>Event</div>
+        <div className={`${css['organizers']} ${css['col-3']}`}>Organizers</div>
+        <div className={`${css['attend']} ${css['col-4']}`}>Attend</div>
+        <div className={`${css['calendar']} ${css['col-5']}`}>
+          <AddToCalendarIcon />
+        </div>
+      </div>
+
+      {/* List view (mobile) */}
+      <div className={`${css['event']}`}>
+        <p className="large-text uppercase">{props.event.Name}</p>
+
+        <div className={css['date']}>
+          <p className="small-text uppercase">
+            {formattedDate} — <br /> <span className="large-text">08:00 - 16:00</span>
+          </p>
+          <p className={`${css['end-date']} small-text uppercase`}>
+            {formattedStartDate}
+            {isMultiDayEvent && ` — ${formattedEndDate}`}
+          </p>
+        </div>
+
+        {isMultiDayEvent && <div className={`tag purple tiny-text`}>Multi-day Event</div>}
+
+        {props.event.Content && <p className={`${css['description']} small-text`}>{props.event.Content}</p>}
+
+        {props.event['Potential Organizer'] && (
+          <p className={css['organizers']}>{props.event['Potential Organizer'].join(', ')}</p>
+        )}
+        {areTicketsAvailable && (
+          <p className={`${css['ticket-availability']} border-top border-bottom purple small-text uppercase`}>
+            Tickets Available
+          </p>
+        )}
+
+        <div className={css['bottom']}>
+          <EventMeta />
+
+          <AddToCalendarIcon className={css['add-to-calendar']} />
+        </div>
+      </div>
+    </>
+  )
 }
 
 const ListCalendar = (props: any) => {
   const { min, max } = getEventBoundaries(props.events)
   const eventDuration = calculateEventDuration(min, max)
+  // Group events by their dates (including spreading out over multiple days if events are multiday)
   const eventsByDay = React.useMemo(() => {
     const eventsByDayDict = {} as { [key: number]: any[] }
 
@@ -220,11 +294,11 @@ const ListCalendar = (props: any) => {
 
         return (
           <React.Fragment key={index}>
-            <ListCalendarDayHeader date={day} />
-
-            {eventsForDay.map((event: any, index: number) => {
-              return <ListCalendarEvent event={event} key={index} />
-            })}
+            <ListCalendarDayHeader date={day}>
+              {eventsForDay.map((event: any, index: number) => {
+                return <ListCalendarEvent event={event} key={index} day={day} />
+              })}
+            </ListCalendarDayHeader>
           </React.Fragment>
         )
       })}
@@ -237,26 +311,28 @@ const Schedule: NextPage = (props: any) => {
 
   return (
     <div className={`${css['schedule']} section`}>
-      <Header />
+      {/* <Header /> */}
       <div className="clear-vertical">
         <div className={css['header-row']}>
           <h1 className="section-header">Events</h1>
           <div className={`${css['view']} small-text`}>
             <div>View:</div>
-            <button
-              className={`${scheduleView === 'list' && css['selected']} ${css['switch']}`}
-              onClick={() => setScheduleView('list')}
-            >
-              <ListIcon />
-              <p className={css['text']}>List</p>
-            </button>
-            <button
-              className={`${scheduleView === 'calendar' && css['selected']} ${css['switch']}`}
-              onClick={() => setScheduleView('calendar')}
-            >
-              <CalendarIcon />
-              <p className={css['text']}>Timeline</p>
-            </button>
+            <div className={css['options']}>
+              <button
+                className={`${scheduleView === 'list' && css['selected']} ${css['switch']}`}
+                onClick={() => setScheduleView('list')}
+              >
+                <ListIcon />
+                <p className={css['text']}>List</p>
+              </button>
+              <button
+                className={`${scheduleView === 'calendar' && css['selected']} ${css['switch']}`}
+                onClick={() => setScheduleView('calendar')}
+              >
+                <CalendarIcon />
+                <p className={css['text']}>Timeline</p>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -265,8 +341,13 @@ const Schedule: NextPage = (props: any) => {
           {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Swipe for more →</p>}
         </div>
 
+        {scheduleView === 'list' && (
+          <>
+            <ListCalendarTableHeader />
+            <ListCalendar events={props.events} />
+          </>
+        )}
         {scheduleView === 'calendar' && <Calendar events={props.events} />}
-        {scheduleView === 'list' && <ListCalendar events={props.events} />}
       </div>
       <Footer />
     </div>
@@ -275,8 +356,8 @@ const Schedule: NextPage = (props: any) => {
 
 export default Schedule
 
+// Notion fetch/format below
 const notionDatabasePropertyResolver = (property: any) => {
-  // console.log(property.type, property)
   switch (property.type) {
     case 'text':
     case 'rich_text':
@@ -302,9 +383,6 @@ const notionDatabasePropertyResolver = (property: any) => {
     case 'select':
       return property.select && property.select.name
 
-    // case 'rich_text':
-    //   console.log(property, 'property')
-
     default:
       return 'default value no handler for: ' + property.type
   }
@@ -318,7 +396,7 @@ const formatResult = (result: any) => {
 
     if (Array.isArray(val)) {
       properties[key] = val
-    } else if (typeof val === 'object') {
+    } else if (typeof val === 'object' && val !== null) {
       properties[key] = {
         ...val,
       }

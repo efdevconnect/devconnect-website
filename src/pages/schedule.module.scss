@@ -7,6 +7,7 @@
   .header-row {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
     margin-bottom: 20px;
     color: $monochrome-6;
@@ -14,42 +15,54 @@
     .view {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       text-transform: uppercase;
       color: $monochrome-6;
+
+      @media (max-width: $screen-tiny) {
+        width: 100%;
+        margin-top: 16px;
+      }
 
       background: #f8f8f8;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
       border-radius: 44px;
       padding: 0px 20px;
 
-      .switch {
-        all: unset;
-        height: 100%;
-        padding: 20px 0px;
+      .options {
         display: flex;
         align-items: center;
-        cursor: pointer;
+        margin-left: 16px;
 
-        &:not(:first-child) {
-          margin-left: 16px;
-        }
+        .switch {
+          all: unset;
+          height: 100%;
+          padding: 20px 0px;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
 
-        .text {
-          margin-left: 8px;
-        }
+          &:not(:first-child) {
+            margin-left: 16px;
+          }
 
-        &.selected {
-          color: black;
-          font-weight: bold;
-          // border-bottom: 4px solid black;
+          .text {
+            margin-left: 8px;
+          }
+
+          &.selected {
+            color: black;
+            font-weight: bold;
+            // border-bottom: 4px solid black;
+
+            * {
+              fill: black;
+            }
+          }
 
           * {
-            fill: black;
+            fill: #666666;
           }
-        }
-
-        * {
-          fill: #666666;
         }
       }
     }
@@ -64,6 +77,11 @@
   }
 }
 
+.event,
+.event-in-table {
+  border-top: 4px solid #8f78fb;
+}
+
 .day,
 .day-header,
 .top-bar {
@@ -73,11 +91,117 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
+.meta {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.calendar-list-grid {
+  @media (min-width: $screen-md) {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+
+    .col-1 {
+      grid-column: span 2;
+    }
+
+    .col-2 {
+      grid-column: span 5;
+    }
+
+    .col-3 {
+      grid-column: span 2;
+    }
+
+    .col-4 {
+      grid-column: span 2;
+    }
+
+    .col-5 {
+      grid-column: span 1;
+    }
+  }
+}
+
+.calendar-list-table-header {
+  display: none;
+  @media (min-width: $screen-md) {
+    display: grid;
+  }
+
+  background: $monochrome-4;
+  padding: 16px;
+}
+
 .calendar-list {
   .day-header {
+    width: 100%;
+    align-items: center;
     display: flex;
+    cursor: pointer;
     justify-content: space-between;
     margin-top: 8px;
+    color: $monochrome-7;
+  }
+
+  .event,
+  .event-in-table {
+    padding: 16px;
+    margin-top: 4px;
+    background: #f9f8ff;
+
+    .date {
+      // margin: 8px 0px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      .end-date {
+        color: $monochrome-6;
+      }
+    }
+  }
+
+  .event-in-table {
+    display: none;
+
+    @media (min-width: $screen-md) {
+      display: grid;
+    }
+  }
+
+  .event {
+    @media (min-width: $screen-md) {
+      display: none;
+    }
+
+    .date {
+      margin: 8px 0px;
+    }
+
+    .organizers {
+      margin-bottom: 8px;
+    }
+
+    .description {
+      margin: 8px 0px;
+    }
+
+    .ticket-availability {
+      padding: 12px 0px;
+      margin-bottom: 8px;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .add-to-calendar {
+        fill: $monochrome-6;
+      }
+    }
   }
 }
 
@@ -107,7 +231,6 @@
     padding: 16px;
     margin-top: 10px;
     min-height: 200px;
-    border-top: 4px solid #8f78fb;
     background: #f9f8ff;
     display: flex;
     justify-content: space-between;
@@ -131,19 +254,6 @@
       .organizers {
         margin-bottom: 8px;
         color: $monochrome-9;
-      }
-
-      .meta {
-        display: flex;
-        align-items: center;
-
-        .tag {
-          padding: 4px 8px;
-          border-radius: 50px;
-          background: white;
-          border: 1px solid black;
-          margin-right: 8px;
-        }
       }
     }
   }
