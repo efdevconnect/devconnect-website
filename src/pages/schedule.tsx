@@ -214,11 +214,42 @@ const ListCalendarEvent = (props: any) => {
     <>
       {/* List view as table/grid (desktop) */}
       <div className={`${css['event-in-table']} ${css['calendar-list-grid']}`}>
-        <div className={`${css['date']} ${css['col-1']}`}>Date & Time</div>
-        <div className={`${css['description']} ${css['col-2']}`}>Event</div>
-        <div className={`${css['organizers']} ${css['col-3']}`}>Organizers</div>
-        <div className={`${css['attend']} ${css['col-4']}`}>Attend</div>
-        <div className={`${css['calendar']} ${css['col-5']}`}>
+        <div className={`${css['date']} ${css['col-1']}`}>
+          <div>
+            <p className="small-text uppercase">
+              {formattedDate} — <br /> <span className="large-text">08:00 - 16:00</span>
+            </p>
+            {isMultiDayEvent && (
+              <p className={`${css['end-date']} tiny-text uppercase`}>
+                {formattedStartDate} — {formattedEndDate}
+              </p>
+            )}
+          </div>
+
+          {isMultiDayEvent && <div className={`tag purple tiny-text`}>Multi-day Event</div>}
+        </div>
+
+        <div className={`${css['description']} ${css['col-2']}`}>
+          <div>
+            <p className={`${css['title']} large-text uppercase`}>{props.event.Name}</p>
+            {props.event.Content && <p className={`${css['body']} small-text`}>{props.event.Content}</p>}
+          </div>
+          <EventMeta />
+        </div>
+
+        <div className={`${css['organizers']} ${css['col-3']}`}>
+          {props.event['Potential Organizer'] && (
+            <p className={`uppercase ${css['organizers']}`}>{props.event['Potential Organizer'].join(', ')}</p>
+          )}
+        </div>
+
+        <div className={`${css['attend']} ${css['col-4']}`}>
+          {areTicketsAvailable && (
+            <p className={`${css['ticket-availability']} purple small-text uppercase`}>Tickets Available</p>
+          )}
+        </div>
+
+        <div className={`${css['calendar-add']} ${css['col-5']}`}>
           <AddToCalendarIcon />
         </div>
       </div>
@@ -231,10 +262,11 @@ const ListCalendarEvent = (props: any) => {
           <p className="small-text uppercase">
             {formattedDate} — <br /> <span className="large-text">08:00 - 16:00</span>
           </p>
-          <p className={`${css['end-date']} small-text uppercase`}>
-            {formattedStartDate}
-            {isMultiDayEvent && ` — ${formattedEndDate}`}
-          </p>
+          {isMultiDayEvent && (
+            <p className={`${css['end-date']} small-text uppercase`}>
+              {formattedStartDate} — {formattedEndDate}
+            </p>
+          )}
         </div>
 
         {isMultiDayEvent && <div className={`tag purple tiny-text`}>Multi-day Event</div>}
@@ -242,7 +274,7 @@ const ListCalendarEvent = (props: any) => {
         {props.event.Content && <p className={`${css['description']} small-text`}>{props.event.Content}</p>}
 
         {props.event['Potential Organizer'] && (
-          <p className={css['organizers']}>{props.event['Potential Organizer'].join(', ')}</p>
+          <p className={`uppercase ${css['organizers']}`}>{props.event['Potential Organizer'].join(', ')}</p>
         )}
         {areTicketsAvailable && (
           <p className={`${css['ticket-availability']} border-top border-bottom purple small-text uppercase`}>
@@ -265,6 +297,8 @@ const ListCalendar = (props: any) => {
   const eventDuration = calculateEventDuration(min, max)
   // Group events by their dates (including spreading out over multiple days if events are multiday)
   const eventsByDay = React.useMemo(() => {
+    // Turns out reversing the calendar view sorting algorithm yields good results for multi-day events in list view:
+    const sortedEvents = props.events.slice().sort(sortEvents).reverse()
     const eventsByDayDict = {} as { [key: number]: any[] }
 
     props.events.forEach((event: any) => {
@@ -288,9 +322,13 @@ const ListCalendar = (props: any) => {
 
   return (
     <div className={css['calendar-list']}>
+      <ListCalendarTableHeader />
       {Array.from(Array(eventDuration)).map((_, index: number) => {
         const day = moment(props.events[0].Date.startDate).add(index, 'days')
         const eventsForDay = eventsByDay[index]
+
+        // Some days within the event range may not have any events
+        if (!eventsForDay) return null
 
         return (
           <React.Fragment key={index}>
@@ -341,12 +379,7 @@ const Schedule: NextPage = (props: any) => {
           {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Swipe for more →</p>}
         </div>
 
-        {scheduleView === 'list' && (
-          <>
-            <ListCalendarTableHeader />
-            <ListCalendar events={props.events} />
-          </>
-        )}
+        {scheduleView === 'list' && <ListCalendar events={props.events} />}
         {scheduleView === 'calendar' && <Calendar events={props.events} />}
       </div>
       <Footer />
