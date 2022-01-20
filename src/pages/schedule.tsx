@@ -170,7 +170,7 @@ const EventMeta = (props: any) => {
 
 const ListCalendarTableHeader = (props: any) => {
   return (
-    <div className={`${css['calendar-list-table-header']} ${css['calendar-list-grid']}`}>
+    <div className={`uppercase bold ${css['calendar-list-table-header']} ${css['calendar-list-grid']}`}>
       <div className={css['col-1']}>Date & Time</div>
       <div className={css['col-2']}>Event</div>
       <div className={css['col-3']}>Organizers</div>
