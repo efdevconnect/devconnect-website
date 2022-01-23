@@ -78,6 +78,7 @@
 }
 
 .event {
+  border: 1px solid #a5a5a5;
   border-top: 4px solid #8f78fb;
 }
 
@@ -143,8 +144,10 @@
     justify-content: space-between;
     margin-top: 4px;
     color: $monochrome-7;
+    background: white;
   }
 
+  // Styles shared by event and event-in-table
   .event,
   .event-in-table {
     padding: 16px;
@@ -172,7 +175,9 @@
     }
   }
 
+  // Specific styles/overrides for event in table
   .event-in-table {
+    border: 1px solid #a5a5a5;
     border-left: 4px solid #8f78fb;
 
     display: none;
@@ -197,11 +202,11 @@
       flex-direction: column;
 
       .title {
-        margin-bottom: 16px;
+        margin-bottom: 8px;
       }
 
       .body {
-        margin-bottom: 16px;
+        margin-bottom: 32px;
       }
     }
 
@@ -214,6 +219,7 @@
     }
   }
 
+  // Specific styles/overrides for event in regular list view
   .event {
     @media (min-width: $screen-lg) {
       display: none;
@@ -248,6 +254,7 @@
   }
 }
 
+// Calendar/timeline view
 .calendar {
   display: grid;
   background: white;
@@ -271,21 +278,28 @@
   }
 
   .event {
-    padding: 16px;
+    padding: 12px;
     // margin-top: 10px;
     // min-height: 200px;
+    font-size: 12px;
     background: #f9f8ff;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    margin-right: 12px;
+
+    &:nth-child(odd) {
+      background: #fffbf8;
+      border-top-color: #fba778;
+    }
 
     .top {
       margin-bottom: 12px;
       .title {
         margin-bottom: 8px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        // overflow: hidden;
+        // white-space: nowrap;
+        // text-overflow: ellipsis;
       }
 
       .when {

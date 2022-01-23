@@ -117,7 +117,7 @@ const Calendar = (props: any) => {
     return (
       <div key={event.Name} className={css['event']} style={gridPlacement}>
         <div className={css['top']}>
-          <p className={`large-text ${css['title']}`}>{event.Name}</p>
+          <p className={`large-text-em ${css['title']}`}>{event.Name}</p>
           <div className={css['when']}>
             {/* Need a data point for duration for each day; date range isnt enough */}
             <p>08:00 - 16:00</p>
@@ -162,8 +162,8 @@ const Calendar = (props: any) => {
 const EventMeta = (props: any) => {
   return (
     <div className={css['meta']}>
-      <div className={`tag tiny-text`}>Working Group</div>
-      <div className="tiny-text">Beginner</div>
+      <div className={`tag tiny-text-em`}>Working Group</div>
+      <div className="tiny-text-em">Beginner</div>
     </div>
   )
 }

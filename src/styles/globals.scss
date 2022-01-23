@@ -126,6 +126,10 @@ $max-content-width: $content-width + ($side-gap * 2);
   @media (max-width: $screen-sm) {
     font-size: 10px;
   }
+
+  &-em {
+    font-size: 0.66em;
+  }
 }
 
 .small-text {
@@ -133,6 +137,10 @@ $max-content-width: $content-width + ($side-gap * 2);
 
   @media (max-width: $screen-sm) {
     font-size: 12px;
+  }
+
+  &-em {
+    font-size: 0.88em;
   }
 }
 
@@ -142,6 +150,10 @@ $max-content-width: $content-width + ($side-gap * 2);
   @media (max-width: $screen-sm) {
     font-size: 14px;
   }
+
+  &-em {
+    font-size: 1em;
+  }
 }
 
 .large-text {
@@ -149,6 +161,10 @@ $max-content-width: $content-width + ($side-gap * 2);
 
   @media (max-width: $screen-sm) {
     font-size: 18px;
+  }
+
+  &-em {
+    font-size: 1.5em;
   }
 }
 
@@ -161,6 +177,10 @@ $max-content-width: $content-width + ($side-gap * 2);
 
   &.title {
     letter-spacing: 0.05em;
+  }
+
+  &-em {
+    font-size: 2em;
   }
 }
 
