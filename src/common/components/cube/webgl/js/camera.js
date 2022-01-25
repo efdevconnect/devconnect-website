@@ -4,19 +4,12 @@
 
 import { mat4 } from 'gl-matrix'
 import { regl } from './renderer'
-import gui from './helpers/gui'
 
 const CONFIG = {
   fov: 45,
   near: 0.01,
   far: 1000,
 }
-
-gui.get(gui => {
-  const folder = gui.addFolder('Camera')
-
-  folder.add(CONFIG, 'fov', 0, 200)
-})
 
 const cameraConfig = {
   eye: [0, 0, 6],

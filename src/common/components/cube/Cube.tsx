@@ -3,7 +3,9 @@ import { init } from './webgl/js'
 
 const Cube = () => {
   useEffect(() => {
-    init()
+    const stop = init()
+
+    return () => stop()
   }, [])
 
   return null

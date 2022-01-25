@@ -3,13 +3,13 @@
  */
 
 import { mat4 } from 'gl-matrix'
-import { regl } from '../../renderer'
-import gui from '../../helpers/gui'
+// import { regl } from '../../renderer'
+// import gui from '../../helpers/gui'
 import { positions, uv, elements } from './config'
 import frag from './shader.frag'
 import vert from './shader.vert'
 
-const emptyTexture = regl.texture()
+// const emptyTexture = regl.texture()
 
 const CONFIG = {
   translateX: 0,
@@ -22,83 +22,85 @@ const CONFIG = {
   scale: 1.4,
 }
 
-gui.get(gui => {
-  const folder = gui.addFolder('Content')
+// gui.get(gui => {
+//   const folder = gui.addFolder('Content')
 
-  folder.add(CONFIG, 'translateX', -30, 30).step(0.01)
-  folder.add(CONFIG, 'translateY', -30, 30).step(0.01)
-  folder.add(CONFIG, 'translateZ', -30, 30).step(0.01)
-  folder.add(CONFIG, 'rotation', -5, 5).step(0.0001)
-  folder.add(CONFIG, 'rotateX', 0, 10).step(0.1)
-  folder.add(CONFIG, 'rotateY', 0, 10).step(0.1)
-  folder.add(CONFIG, 'rotateZ', 0, 10).step(0.1)
-  folder.add(CONFIG, 'scale', 0, 10).step(0.01)
-})
+//   folder.add(CONFIG, 'translateX', -30, 30).step(0.01)
+//   folder.add(CONFIG, 'translateY', -30, 30).step(0.01)
+//   folder.add(CONFIG, 'translateZ', -30, 30).step(0.01)
+//   folder.add(CONFIG, 'rotation', -5, 5).step(0.0001)
+//   folder.add(CONFIG, 'rotateX', 0, 10).step(0.1)
+//   folder.add(CONFIG, 'rotateY', 0, 10).step(0.1)
+//   folder.add(CONFIG, 'rotateZ', 0, 10).step(0.1)
+//   folder.add(CONFIG, 'scale', 0, 10).step(0.01)
+// })
 
-const draw = regl({
-  frag,
-  vert,
-  attributes: {
-    a_position: positions,
-    a_uv: uv,
-  },
-  uniforms: {
-    u_texture: regl.prop('texture'),
-    u_typeId: regl.prop('typeId'),
-    u_maskId: regl.prop('maskId'),
-  },
-  depth: {
-    enable: true,
-    mask: false,
-    func: 'less',
-  },
-  blend: {
-    enable: true,
-    func: {
-      srcRGB: 'src alpha',
-      srcAlpha: 1,
-      dstRGB: 'one minus src alpha',
-      dstAlpha: 1,
+export default regl => props => {
+  const emptyTexture = regl.texture()
+
+  const draw = regl({
+    frag,
+    vert,
+    attributes: {
+      a_position: positions,
+      a_uv: uv,
     },
-    equation: {
-      rgb: 'add',
-      alpha: 'add',
+    uniforms: {
+      u_texture: regl.prop('texture'),
+      u_typeId: regl.prop('typeId'),
+      u_maskId: regl.prop('maskId'),
     },
-    color: [0, 0, 0, 0],
-  },
-  elements,
-  count: 6,
-})
-
-const setup = regl({
-  context: {
-    world: () => {
-      const { translateX, translateY, translateZ, rotation, rotateX, rotateY, rotateZ, scale } = CONFIG
-
-      const world = mat4.create()
-
-      mat4.translate(world, world, [translateX, translateY, translateZ])
-      mat4.rotate(world, world, rotation, [rotateX, rotateY, rotateZ])
-      mat4.scale(world, world, [scale, scale, scale])
-
-      return world
+    depth: {
+      enable: true,
+      mask: false,
+      func: 'less',
     },
-    mask: (context, { mask }) => {
-      return mask || emptyTexture
+    blend: {
+      enable: true,
+      func: {
+        srcRGB: 'src alpha',
+        srcAlpha: 1,
+        dstRGB: 'one minus src alpha',
+        dstAlpha: 1,
+      },
+      equation: {
+        rgb: 'add',
+        alpha: 'add',
+      },
+      color: [0, 0, 0, 0],
     },
-    displacement: (context, { displacement }) => {
-      return displacement || emptyTexture
-    },
-  },
-  uniforms: {
-    u_world: regl.context('world'),
-    u_mask: regl.context('mask'),
-    u_displacement: regl.context('displacement'),
-    u_tick: regl.context('tick'),
-  },
-})
+    elements,
+    count: 6,
+  })
 
-export default props => {
+  const setup = regl({
+    context: {
+      world: () => {
+        const { translateX, translateY, translateZ, rotation, rotateX, rotateY, rotateZ, scale } = CONFIG
+
+        const world = mat4.create()
+
+        mat4.translate(world, world, [translateX, translateY, translateZ])
+        mat4.rotate(world, world, rotation, [rotateX, rotateY, rotateZ])
+        mat4.scale(world, world, [scale, scale, scale])
+
+        return world
+      },
+      mask: (context, { mask }) => {
+        return mask || emptyTexture
+      },
+      displacement: (context, { displacement }) => {
+        return displacement || emptyTexture
+      },
+    },
+    uniforms: {
+      u_world: regl.context('world'),
+      u_mask: regl.context('mask'),
+      u_displacement: regl.context('displacement'),
+      u_tick: regl.context('tick'),
+    },
+  })
+
   setup(props, (context, { textures }) => {
     regl.clear({
       color: [0, 0, 0, 0],
