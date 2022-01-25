@@ -181,4 +181,4 @@ export const init = () => {
   play(animate)
 }
 
-init()
+// init()

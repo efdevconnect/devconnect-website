@@ -2,7 +2,8 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 import css from './index.module.scss'
 import dynamic from 'next/dynamic'
-import React from 'react'
+import Link from 'next/link'
+import React, { useEffect } from 'react'
 import TwitterIcon from 'assets/icons/twitter.svg'
 import ArrowUpIcon from 'assets/icons/arrow-up.svg'
 import HeaderLogo from 'assets/images/header-logo.svg'
@@ -31,8 +32,13 @@ export const Header = () => {
         </div>
 
         <div className={css['menu']}>
-          <AnchorLink href="#about">About</AnchorLink>
-          <AnchorLink href="#amsterdam">Amsterdam</AnchorLink>
+          <Link href="/">About</Link>
+
+          <Link href="/schedule">Schedule</Link>
+
+          <Link href="/cowork">Cowork</Link>
+
+          <Link href="/city-guide">Amsterdam</Link>
 
           <a target="_blank" rel="noreferrer" href="https://forms.gle/m5KWJ3aX5H3kTR7s6">
             Get Involved
@@ -73,13 +79,17 @@ export const Footer = () => {
             </div>
 
             <div className={css['menu']}>
-              <AnchorLink href="#main" className={`${css['back-to-top']} dark-grey`}>
+              <AnchorLink href="#__next" className={`${css['back-to-top']} dark-grey`}>
                 Back to top <ArrowUpIcon />
               </AnchorLink>
 
-              <AnchorLink href="#about">About</AnchorLink>
+              <Link href="/">About</Link>
 
-              <AnchorLink href="#amsterdam">Amsterdam</AnchorLink>
+              <Link href="/schedule">Schedule</Link>
+
+              <Link href="/cowork">Cowork</Link>
+
+              <Link href="/city-guide">Amsterdam</Link>
 
               <a target="_blank" rel="noreferrer" href="https://forms.gle/m5KWJ3aX5H3kTR7s6">
                 Get Involved
@@ -258,7 +268,7 @@ const Home: NextPage = (props: any) => {
           </div>
         </Scene>
 
-        <Scene growVertically id="amsterdam" className={`${css['scene-amsterdam']} section`}>
+        {/* <Scene growVertically id="amsterdam" className={`${css['scene-amsterdam']} section`}>
           <h1 className="section-header clear-vertical grey">
             Amsterdam <br /> Netherlands
           </h1>
@@ -286,7 +296,7 @@ const Home: NextPage = (props: any) => {
               <Image src={Amsterdam} objectFit="cover" layout="fill" alt="Amsterdam" />
             </div>
           </div>
-        </Scene>
+        </Scene> */}
       </main>
       <Footer />
     </div>

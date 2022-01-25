@@ -78,7 +78,7 @@
 }
 
 .event {
-  border: 1px solid #a5a5a5;
+  border: 1px solid #e3e3e3;
   border-top: 4px solid #8f78fb;
 }
 
@@ -259,7 +259,7 @@
   display: grid;
   background: white;
   grid-gap: 4px;
-  overflow-x: auto;
+  // overflow-x: auto;
   text-transform: uppercase;
 
   .day {
@@ -278,15 +278,15 @@
   }
 
   .event {
-    padding: 12px;
-    // margin-top: 10px;
-    // min-height: 200px;
+    --padding: 12px;
+    --margin: 12px;
+    padding: var(--padding);
+    margin-right: var(--margin);
     font-size: 12px;
     background: #f9f8ff;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    margin-right: 12px;
 
     &:nth-child(odd) {
       background: #fffbf8;
@@ -295,14 +295,27 @@
 
     .top {
       margin-bottom: 12px;
+
       .title {
         margin-bottom: 8px;
-        // overflow: hidden;
-        // white-space: nowrap;
-        // text-overflow: ellipsis;
       }
 
       .when {
+        display: grid;
+        grid-gap: 4px;
+        grid-template-columns: repeat(1fr, var(--eventLength));
+        // width: calc(100% + calc(var(--padding) * 2));
+        // left: -var(--padding);
+
+        > * {
+          grid-column: span 1;
+          grid-row: 1;
+          // margin-right: calc(24px / var(--eventLength));
+
+          // &:first-child {
+          //   padding-left: 0px;
+          // }
+        }
       }
     }
 

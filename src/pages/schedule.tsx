@@ -9,6 +9,7 @@ import CalendarIcon from 'assets/icons/calendar.svg'
 import ChevronDown from 'assets/icons/chevron-down.svg'
 import ChevronUp from 'assets/icons/chevron-up.svg'
 import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
+import SwipeToScroll from 'common/components/swipe-to-scroll'
 
 // moment.tz.setDefault("America/New_York"); <--- to do, set amsterdam time zone
 
@@ -54,6 +55,50 @@ const calculateEventDuration = (min: moment.Moment | undefined, max: moment.Mome
   return 0
 }
 
+const useScheduleData = (events: any) => {
+  const scheduleHelpers = React.useMemo(() => {
+    const { min, max } = getEventBoundaries(events)
+    const eventDuration = calculateEventDuration(min, max)
+    const sortedEvents = events.slice().sort(sortEvents)
+    const eventsByDay = {} as { [key: number]: any[] }
+
+    // Group events by their dates (including spreading out over multiple days if events are multiday) - makes it easier to work with later, e.g. to check if a given day in the event range actually has events or not
+    sortedEvents
+      .slice()
+      // Turns out reversing the "timeline view" sorting algorithm yields good results for multi-day events in list view
+      .reverse()
+      .forEach((event: any) => {
+        const eventBoundaries = getEventBoundaries([event])
+        const firstDay = eventBoundaries.min ? eventBoundaries.min.diff(min, 'days') : 0
+        const lastDay = eventBoundaries.max ? eventBoundaries.max.diff(min, 'days') + 1 : 1
+
+        for (let i = firstDay; i < lastDay; i++) {
+          const dayIsIndexed = !!eventsByDay[i]
+
+          if (dayIsIndexed) {
+            eventsByDay[i] = [event, ...eventsByDay[i]]
+          } else {
+            eventsByDay[i] = [event]
+          }
+        }
+      })
+
+    // const nEmptyDays = eventDuration - Object.keys(eventsByDay).length
+
+    return {
+      sortedEvents,
+      events,
+      eventsByDay,
+      eventDuration,
+      // nEmptyDays,
+      min,
+      max,
+    }
+  }, [events])
+
+  return scheduleHelpers
+}
+
 // Utility function for keeping track of placed nodes (used by calendar view algo)
 const createPlacementTracker = () => {
   const occupiedNodes = {} as {
@@ -85,16 +130,23 @@ const createPlacementTracker = () => {
 
 // Calendar view (as opposed to list view)
 const Calendar = (props: any) => {
-  const sortedEvents = props.events.slice().sort(sortEvents)
-  const { min, max } = getEventBoundaries(sortedEvents)
-  const eventDuration = calculateEventDuration(min, max)
+  const { min, sortedEvents, events: defaultSortEvents, eventDuration, eventsByDay } = props
   const placementTracker = createPlacementTracker()
 
   const events = sortedEvents.map((event: any) => {
-    const startDay = moment(event.Date.startDate),
-      endDay = moment(event.Date.endDate),
-      totalDays = endDay.diff(startDay, 'days') + 1,
-      offsetFromFirstDay = startDay.diff(min, 'days') + 1
+    const startDay = moment(event.Date.startDate)
+    const endDay = moment(event.Date.endDate)
+    const totalDays = endDay.diff(startDay, 'days') + 1
+    const offsetFromFirstDay = startDay.diff(min, 'days') + 1
+
+    // We don't render empty days, so we have to account for that when placing items into our grid - we subtract the empty days prior to the current event, treating them as if they don't exist in the grid
+    const offsetFromFirstEventInSchedule = startDay.diff(moment(sortedEvents[0].Date.startDate), 'days')
+    let subtractDays = 0
+    Array.from(Array(offsetFromFirstEventInSchedule)).forEach((_, index: number) => {
+      const emptyDay = !eventsByDay[index]
+
+      if (emptyDay) subtractDays++
+    })
 
     let currentRow = 1 // css property grid-row starts at 1
 
@@ -104,13 +156,13 @@ const Calendar = (props: any) => {
           note: Horizontally there will always be room, by definition, because we are filling in left to right 
         3) Keep track of used grid slots along the way (to allow for step 2)
       */
-    while (!placementTracker.placeItem(currentRow, offsetFromFirstDay, totalDays)) {
+    while (!placementTracker.placeItem(currentRow, offsetFromFirstDay - subtractDays, totalDays)) {
       currentRow++
     }
 
     const gridPlacement = {
       gridRow: currentRow + 1, // Add 1 to account for the dates occupying the first row
-      gridColumn: `${offsetFromFirstDay} / span ${totalDays}`,
+      gridColumn: `${offsetFromFirstDay - subtractDays} / span ${totalDays}`,
       '--eventLength': totalDays,
     }
 
@@ -119,43 +171,46 @@ const Calendar = (props: any) => {
         <div className={css['top']}>
           <p className={`large-text-em ${css['title']}`}>{event.Name}</p>
           <div className={css['when']}>
-            {/* Need a data point for duration for each day; date range isnt enough */}
-            <p>08:00 - 16:00</p>
+            {Array.from(Array(totalDays)).map((_, index: number) => {
+              const time = event['Time of Day'] && event['Time of Day'].split(',')[index]
+
+              return <p key={index}>{time || 'xx:xx - xx:xx'}</p>
+            })}
           </div>
         </div>
         <div className={css['bottom']}>
           <div className={css['organizers']}>
-            {event['Potential Organizer'] ? (
-              // event['Potential Organizer'].map((organizer: any) => <p key={organizer}>{organizer}</p>)
-              event['Potential Organizer'].join(', ')
-            ) : (
-              <p>Organizer</p>
-            )}
+            {event['Potential Organizer'] ? event['Potential Organizer'].join(', ') : <p>Organizer</p>}
           </div>
 
-          <EventMeta />
+          <EventMeta event={event} />
         </div>
       </div>
     )
   })
 
   return (
-    <div className={css['calendar']}>
-      {events}
+    <SwipeToScroll>
+      <div className={css['calendar']}>
+        {events}
 
-      {Array.from(Array(eventDuration)).map((_, index: number) => {
-        const day = moment(sortedEvents[0].Date.startDate).add(index, 'days') // .format('MMM DD')
-        const weekday = day.format('ddd')
-        const date = day.format('DD')
+        {Array.from(Array(eventDuration)).map((_, index: number) => {
+          const day = moment(defaultSortEvents[0].Date.startDate).add(index, 'days') // .format('MMM DD')
+          const weekday = day.format('ddd')
+          const date = day.format('DD')
+          const noEventsForDay = !eventsByDay[index]
 
-        return (
-          <div className={css['day']} key={index}>
-            <p>{weekday}</p>
-            <p>{date}</p>
-          </div>
-        )
-      })}
-    </div>
+          if (noEventsForDay) return null
+
+          return (
+            <div className={css['day']} key={index}>
+              <p>{weekday}</p>
+              <p>{date}</p>
+            </div>
+          )
+        })}
+      </div>
+    </SwipeToScroll>
   )
 }
 
@@ -163,7 +218,7 @@ const EventMeta = (props: any) => {
   return (
     <div className={css['meta']}>
       <div className={`tag tiny-text-em`}>Working Group</div>
-      <div className="tiny-text-em">Beginner</div>
+      {props.event['Difficulty'] && <div className="tiny-text-em">{props.event.Difficulty}</div>}
     </div>
   )
 }
@@ -209,6 +264,9 @@ const ListCalendarEvent = (props: any) => {
   const duration = calculateEventDuration(startDate, endDate)
   const isMultiDayEvent = duration > 1
   const areTicketsAvailable = true
+  const timeOfDayArray = props.event['Time of Day'] && props.event['Time of Day'].split(',')
+  const timeOfDayIndex = currentDate.diff(startDate, 'days')
+  const timeOfDay = timeOfDayArray && timeOfDayArray[timeOfDayIndex]
 
   return (
     <>
@@ -217,7 +275,7 @@ const ListCalendarEvent = (props: any) => {
         <div className={`${css['date']} ${css['col-1']}`}>
           <div>
             <p className="small-text uppercase">
-              {formattedDate} — <br /> <span className="large-text">08:00 - 16:00</span>
+              {formattedDate} — <br /> <span className="large-text">{timeOfDay || 'N/A'}</span>
             </p>
             {isMultiDayEvent && (
               <p className={`${css['end-date']} tiny-text uppercase`}>
@@ -234,7 +292,7 @@ const ListCalendarEvent = (props: any) => {
             <p className={`${css['title']} large-text uppercase`}>{props.event.Name}</p>
             {props.event.Content && <p className={`${css['body']} small-text`}>{props.event.Content}</p>}
           </div>
-          <EventMeta />
+          <EventMeta event={props.event} />
         </div>
 
         <div className={`${css['organizers']} ${css['col-3']}`}>
@@ -283,7 +341,7 @@ const ListCalendarEvent = (props: any) => {
         )}
 
         <div className={css['bottom']}>
-          <EventMeta />
+          <EventMeta event={props.event} />
 
           <AddToCalendarIcon className={css['add-to-calendar']} />
         </div>
@@ -293,51 +351,24 @@ const ListCalendarEvent = (props: any) => {
 }
 
 const ListCalendar = (props: any) => {
-  const { min, max } = getEventBoundaries(props.events)
-  const eventDuration = calculateEventDuration(min, max)
-  // Group events by their dates (including spreading out over multiple days if events are multiday)
-  const eventsByDay = React.useMemo(() => {
-    // Turns out reversing the calendar view sorting algorithm yields good results for multi-day events in list view:
-    const sortedEvents = props.events.slice().sort(sortEvents).reverse()
-    const eventsByDayDict = {} as { [key: number]: any[] }
-
-    props.events.forEach((event: any) => {
-      const eventBoundaries = getEventBoundaries([event])
-      const firstDay = eventBoundaries.min ? eventBoundaries.min.diff(min, 'days') : 0
-      const lastDay = eventBoundaries.max ? eventBoundaries.max.diff(min, 'days') + 1 : 1
-
-      for (let i = firstDay; i < lastDay; i++) {
-        const dayIsIndexed = !!eventsByDayDict[i]
-
-        if (dayIsIndexed) {
-          eventsByDayDict[i] = [event, ...eventsByDayDict[i]]
-        } else {
-          eventsByDayDict[i] = [event]
-        }
-      }
-    })
-
-    return eventsByDayDict
-  }, [min, props.events])
+  const { eventDuration, eventsByDay, sortedEvents, events } = props
 
   return (
     <div className={css['calendar-list']}>
       <ListCalendarTableHeader />
       {Array.from(Array(eventDuration)).map((_, index: number) => {
-        const day = moment(props.events[0].Date.startDate).add(index, 'days')
+        const day = moment(events[0].Date.startDate).add(index, 'days')
         const eventsForDay = eventsByDay[index]
 
         // Some days within the event range may not have any events
         if (!eventsForDay) return null
 
         return (
-          <React.Fragment key={index}>
-            <ListCalendarDayHeader date={day}>
-              {eventsForDay.map((event: any, index: number) => {
-                return <ListCalendarEvent event={event} key={index} day={day} />
-              })}
-            </ListCalendarDayHeader>
-          </React.Fragment>
+          <ListCalendarDayHeader key={index} date={day}>
+            {eventsForDay.map((event: any, index: number) => {
+              return <ListCalendarEvent event={event} key={index} day={day} />
+            })}
+          </ListCalendarDayHeader>
         )
       })}
     </div>
@@ -346,44 +377,47 @@ const ListCalendar = (props: any) => {
 
 const Schedule: NextPage = (props: any) => {
   const [scheduleView, setScheduleView] = React.useState('list')
+  const scheduleHelpers = useScheduleData(props.events)
 
   return (
-    <div className={`${css['schedule']} section`}>
-      {/* <Header /> */}
-      <div className="clear-vertical">
-        <div className={css['header-row']}>
-          <h1 className="section-header">Events</h1>
-          <div className={`${css['view']} small-text`}>
-            <div>View:</div>
-            <div className={css['options']}>
-              <button
-                className={`${scheduleView === 'list' && css['selected']} ${css['switch']}`}
-                onClick={() => setScheduleView('list')}
-              >
-                <ListIcon />
-                <p className={css['text']}>List</p>
-              </button>
-              <button
-                className={`${scheduleView === 'calendar' && css['selected']} ${css['switch']}`}
-                onClick={() => setScheduleView('calendar')}
-              >
-                <CalendarIcon />
-                <p className={css['text']}>Timeline</p>
-              </button>
+    <>
+      <div className={`${css['schedule']} section`}>
+        <Header />
+        <div className="clear-vertical">
+          <div className={css['header-row']}>
+            <h1 className="section-header">Events</h1>
+            <div className={`${css['view']} small-text`}>
+              <div>View:</div>
+              <div className={css['options']}>
+                <button
+                  className={`${scheduleView === 'list' && css['selected']} ${css['switch']}`}
+                  onClick={() => setScheduleView('list')}
+                >
+                  <ListIcon />
+                  <p className={css['text']}>List</p>
+                </button>
+                <button
+                  className={`${scheduleView === 'calendar' && css['selected']} ${css['switch']}`}
+                  onClick={() => setScheduleView('calendar')}
+                >
+                  <CalendarIcon />
+                  <p className={css['text']}>Timeline</p>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className={css['top-bar']}>
-          <p className={css['timezone']}>12:30 CET — Central European Time (UTC/GMT +1) </p>
-          {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Swipe for more →</p>}
-        </div>
+          <div className={css['top-bar']}>
+            <p className={css['timezone']}>12:30 CET — Central European Time (UTC/GMT +1) </p>
+            {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Swipe for more →</p>}
+          </div>
 
-        {scheduleView === 'list' && <ListCalendar events={props.events} />}
-        {scheduleView === 'calendar' && <Calendar events={props.events} />}
+          {scheduleView === 'list' && <ListCalendar {...scheduleHelpers} />}
+          {scheduleView === 'calendar' && <Calendar {...scheduleHelpers} />}
+        </div>
       </div>
       <Footer />
-    </div>
+    </>
   )
 }
 
@@ -424,6 +458,7 @@ const notionDatabasePropertyResolver = (property: any) => {
 const formatResult = (result: any) => {
   const properties = {} as { [key: string]: any }
 
+  // Format the raw notion data into something more workable
   Object.entries(result.properties).forEach(([key, value]) => {
     const val = notionDatabasePropertyResolver(value)
 

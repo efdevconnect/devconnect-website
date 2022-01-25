@@ -1,0 +1,90 @@
+@import 'styles/variables.scss';
+
+.cowork-hero {
+  background: linear-gradient(180deg, #fa4e4e 0%, #e5fd86 113.61%);
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .info {
+      margin-top: 24px;
+    }
+
+    .call-to-action {
+      display: flex;
+      flex-direction: column;
+      margin-top: 32px;
+
+      @media (min-width: $screen-md) {
+        flex-direction: row;
+      }
+
+      > a {
+        display: flex;
+        width: 200px;
+        justify-content: space-between;
+        margin-top: 8px;
+
+        &:first-child {
+          margin-right: 16px;
+        }
+
+        > svg {
+          margin-right: 16px;
+        }
+      }
+    }
+  }
+}
+
+.cowork {
+  background: white;
+  color: black;
+
+  .body {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $screen-md) {
+      flex-direction: row;
+    }
+
+    .left,
+    .right {
+      flex-basis: 50%;
+      flex-shrink: 0;
+    }
+
+    .left {
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: space-between;
+      @media (min-width: $screen-md) {
+        padding-right: 36px;
+      }
+    }
+
+    .right {
+      .what-to-expect {
+        > * {
+          margin-top: 16px;
+        }
+      }
+
+      .how-to-attend {
+        .title {
+          margin-bottom: 16px;
+        }
+        padding-top: 16px;
+        margin-top: 16px;
+      }
+    }
+  }
+
+  .gallery {
+    padding: 16px 0px;
+    margin-top: 16px;
+  }
+}
