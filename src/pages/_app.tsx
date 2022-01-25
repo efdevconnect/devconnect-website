@@ -5,7 +5,7 @@ import { SEO } from 'common/components/SEO'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <SEO />
+      {/* <SEO /> */}
       <Component {...pageProps} />
     </>
   )

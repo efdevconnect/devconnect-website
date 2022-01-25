@@ -18,6 +18,7 @@ import HorizontalLooper from 'common/components/horizontal-looper'
 import SunEmoji from 'assets/images/sun-heart-emoji.png'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
+import { SEO } from 'common/components/SEO'
 
 const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
@@ -144,131 +145,133 @@ const Home: NextPage = (props: any) => {
   const [dateHovered, setDateHovered] = React.useState(false)
 
   return (
-    <div className={css.container}>
-      <main id="main" className={css.main}>
-        <Scene className={css['scene-hero']}>
-          <Header />
+    <>
+      <SEO />
+      <div className={css.container}>
+        <main id="main" className={css.main}>
+          <Scene className={css['scene-hero']}>
+            <Header />
 
-          <div className={css['cube-container']}>
-            {/* Cube logic is loaded asynchronously and its scripts need the element to exist at initiation, so we add a div to instantiate on: */}
-            <div className={css['cube']} id="cube" />
-            <Cube />
-          </div>
-
-          <div className="section">
-            <div className={`${css['info']} clear`}>
-              <div
-                className={css['date-container']}
-                onMouseEnter={() => setDateHovered(true)}
-                onMouseLeave={() => setDateHovered(false)}
-              >
-                <p className={`${css['date']} subheader`}>April 2022</p>
-                {dateHovered && <Image src={FingersCrossed} alt="Fingers crossed" />}
-              </div>
-
-              <p className={`${css['place']} subheader`}>Amsterdam, Netherlands</p>
-
-              <p className={css['description']}>
-                <span>
-                  A <b className={css['red-underline']}>collaborative</b>
-                </span>{' '}
-                <b>Ethereum</b> <span>week, built by and for</span> <b>everyone.</b>
-              </p>
+            <div className={css['cube-container']}>
+              {/* Cube logic is loaded asynchronously and its scripts need the element to exist at initiation, so we add a div to instantiate on: */}
+              <div className={css['cube']} id="cube" />
+              <Cube />
             </div>
-          </div>
 
-          <div className={`section ${css['bottom-section']}`}>
-            <div className={`${css['bottom']} clear-vertical`}>
-              <Logo />
+            <div className="section">
+              <div className={`${css['info']} clear`}>
+                <div
+                  className={css['date-container']}
+                  onMouseEnter={() => setDateHovered(true)}
+                  onMouseLeave={() => setDateHovered(false)}
+                >
+                  <p className={`${css['date']} subheader`}>April 2022</p>
+                  {dateHovered && <Image src={FingersCrossed} alt="Fingers crossed" />}
+                </div>
 
-              <div className={css['scroll-for-more']}>
-                <p>Scroll to learn more</p>
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 16 16" width="16" height="16">
-                  <g className="nc-icon-wrapper" fill="#ffffff">
-                    <g className={`${css['nc-loop-mouse-16-icon-f']}`}>
-                      <path
-                        d="M10,0H6A4.012,4.012,0,0,0,2,4v8a4.012,4.012,0,0,0,4,4h4a4.012,4.012,0,0,0,4-4V4A4.012,4.012,0,0,0,10,0Zm2,12a2.006,2.006,0,0,1-2,2H6a2.006,2.006,0,0,1-2-2V4A2.006,2.006,0,0,1,6,2h4a2.006,2.006,0,0,1,2,2Z"
-                        fill="#ffffff"
-                      ></path>
-                      <path
-                        d="M8,4A.945.945,0,0,0,7,5V7A.945.945,0,0,0,8,8,.945.945,0,0,0,9,7V5A.945.945,0,0,0,8,4Z"
-                        fill="#ffffff"
-                        data-color="color-2"
-                      ></path>
+                <p className={`${css['place']} subheader`}>Amsterdam, Netherlands</p>
+
+                <p className={css['description']}>
+                  <span>
+                    A <b className={css['red-underline']}>collaborative</b>
+                  </span>{' '}
+                  <b>Ethereum</b> <span>week, built by and for</span> <b>everyone.</b>
+                </p>
+              </div>
+            </div>
+
+            <div className={`section ${css['bottom-section']}`}>
+              <div className={`${css['bottom']} clear-vertical`}>
+                <Logo />
+
+                <div className={css['scroll-for-more']}>
+                  <p>Scroll to learn more</p>
+                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 16 16" width="16" height="16">
+                    <g className="nc-icon-wrapper" fill="#ffffff">
+                      <g className={`${css['nc-loop-mouse-16-icon-f']}`}>
+                        <path
+                          d="M10,0H6A4.012,4.012,0,0,0,2,4v8a4.012,4.012,0,0,0,4,4h4a4.012,4.012,0,0,0,4-4V4A4.012,4.012,0,0,0,10,0Zm2,12a2.006,2.006,0,0,1-2,2H6a2.006,2.006,0,0,1-2-2V4A2.006,2.006,0,0,1,6,2h4a2.006,2.006,0,0,1,2,2Z"
+                          fill="#ffffff"
+                        ></path>
+                        <path
+                          d="M8,4A.945.945,0,0,0,7,5V7A.945.945,0,0,0,8,8,.945.945,0,0,0,9,7V5A.945.945,0,0,0,8,4Z"
+                          fill="#ffffff"
+                          data-color="color-2"
+                        ></path>
+                      </g>
                     </g>
-                  </g>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </Scene>
-
-        <Scene growVertically id="about" className={`${css['scene-about']}`}>
-          <div className="section">
-            <div className={`${css['scene-about-content']} clear-vertical`}>
-              <h1 className="section-header">About</h1>
-
-              <p className={`massive-header ${css['background-title']} section`}>DEV/CONNECT</p>
-
-              <div className={css['text-container']}>
-                <div className={css['body']}>
-                  <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
-                  <p className="section-header as-text-body">
-                    Devconnect is a week-long and in-person gathering that will feature independent Ethereum events,
-                    each with a unique focus. The goal is to focus on depth-first gatherings rather than size, and to
-                    bring the Ethereum community together in smaller groups to talk (and learn) about, or to make
-                    sincere progress on, specific subjects.
-                  </p>
-
-                  <p className="subheader as-text-body">
-                    Events at and around Devconnect will be hosted and curated by experts in those domains.
-                  </p>
-
-                  <p className="subheader as-text-body">
-                    As for everyone coming to town and wanting to hang out and work together between events, we&apos;ll
-                    maintain a space for collaboration for all who are interested.
-                  </p>
-
-                  <a
-                    href="https://blog.ethereum.org/2021/12/13/announcing-devconnect/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`subheader ${css['read-blog']}`}
-                  >
-                    READ BLOG POST
-                  </a>
-                </div>
-
-                <div className={css['sun-emoji']}>
-                  {/* <DevconnectAmsterdam /> */}
-                  <Image src={SunEmoji} objectFit="contain" alt="Sun emoji" />
+                  </svg>
                 </div>
               </div>
-
-              <div className={css['topics-container']}>
-                <p className="subheader as-text-body">Topics Include</p>
-                <HorizontalLooper slow unpadded>
-                  <p className="section-header">
-                    zkEVM • metaverse • STAKING • CONSENSUS LAYER • Web3 UX • NFTS • solidity • governance • developer
-                    infrastructure • Execution Layer • Web2 ➞ Web3 dev • ETHconomics • Rollups • MEV • Security •
-                    Sustainability • Advocacy • VDFs • Hackathon • Workshops •&nbsp;
-                  </p>
-                </HorizontalLooper>
-              </div>
-
-              <a
-                href="https://forms.gle/m5KWJ3aX5H3kTR7s6"
-                target="_blank"
-                rel="noreferrer"
-                className={`button ${css['get-involved-button']}`}
-              >
-                Get Involved
-              </a>
             </div>
-          </div>
-        </Scene>
+          </Scene>
 
-        {/* <Scene growVertically id="amsterdam" className={`${css['scene-amsterdam']} section`}>
+          <Scene growVertically id="about" className={`${css['scene-about']}`}>
+            <div className="section">
+              <div className={`${css['scene-about-content']} clear-vertical`}>
+                <h1 className="section-header">About</h1>
+
+                <p className={`massive-header ${css['background-title']} section`}>DEV/CONNECT</p>
+
+                <div className={css['text-container']}>
+                  <div className={css['body']}>
+                    <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
+                    <p className="section-header as-text-body">
+                      Devconnect is a week-long and in-person gathering that will feature independent Ethereum events,
+                      each with a unique focus. The goal is to focus on depth-first gatherings rather than size, and to
+                      bring the Ethereum community together in smaller groups to talk (and learn) about, or to make
+                      sincere progress on, specific subjects.
+                    </p>
+
+                    <p className="subheader as-text-body">
+                      Events at and around Devconnect will be hosted and curated by experts in those domains.
+                    </p>
+
+                    <p className="subheader as-text-body">
+                      As for everyone coming to town and wanting to hang out and work together between events,
+                      we&apos;ll maintain a space for collaboration for all who are interested.
+                    </p>
+
+                    <a
+                      href="https://blog.ethereum.org/2021/12/13/announcing-devconnect/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`subheader ${css['read-blog']}`}
+                    >
+                      READ BLOG POST
+                    </a>
+                  </div>
+
+                  <div className={css['sun-emoji']}>
+                    {/* <DevconnectAmsterdam /> */}
+                    <Image src={SunEmoji} objectFit="contain" alt="Sun emoji" />
+                  </div>
+                </div>
+
+                <div className={css['topics-container']}>
+                  <p className="subheader as-text-body">Topics Include</p>
+                  <HorizontalLooper slow unpadded>
+                    <p className="section-header">
+                      zkEVM • metaverse • STAKING • CONSENSUS LAYER • Web3 UX • NFTS • solidity • governance • developer
+                      infrastructure • Execution Layer • Web2 ➞ Web3 dev • ETHconomics • Rollups • MEV • Security •
+                      Sustainability • Advocacy • VDFs • Hackathon • Workshops •&nbsp;
+                    </p>
+                  </HorizontalLooper>
+                </div>
+
+                <a
+                  href="https://forms.gle/m5KWJ3aX5H3kTR7s6"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`button ${css['get-involved-button']}`}
+                >
+                  Get Involved
+                </a>
+              </div>
+            </div>
+          </Scene>
+
+          {/* <Scene growVertically id="amsterdam" className={`${css['scene-amsterdam']} section`}>
           <h1 className="section-header clear-vertical grey">
             Amsterdam <br /> Netherlands
           </h1>
@@ -297,9 +300,10 @@ const Home: NextPage = (props: any) => {
             </div>
           </div>
         </Scene> */}
-      </main>
-      <Footer />
-    </div>
+        </main>
+        <Footer />
+      </div>
+    </>
   )
 }
 

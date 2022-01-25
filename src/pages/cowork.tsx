@@ -6,10 +6,12 @@ import CoworkHero from 'assets/images/cowork-hero.png'
 import css from './cowork.module.scss'
 import PinIcon from 'assets/icons/pin.svg'
 import TicketIcon from 'assets/icons/ticket.svg'
+import { SEO } from 'common/components/SEO'
 
 const Cowork: NextPage = (props: any) => {
   return (
     <>
+      <SEO title="Cowork" description="Coworking at Devconnect" />
       <Hero className={css['cowork-hero']} imageProps={{ src: CoworkHero, alt: 'Some text' }}>
         <div className={css['content']}>
           <div>

@@ -10,6 +10,7 @@ import ChevronDown from 'assets/icons/chevron-down.svg'
 import ChevronUp from 'assets/icons/chevron-up.svg'
 import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
 import SwipeToScroll from 'common/components/swipe-to-scroll'
+import { SEO } from 'common/components/SEO'
 
 // moment.tz.setDefault("America/New_York"); <--- to do, set amsterdam time zone
 
@@ -381,6 +382,7 @@ const Schedule: NextPage = (props: any) => {
 
   return (
     <>
+      <SEO title="Schedule" description="Devconnect schedule" />
       <div className={`${css['schedule']} section`}>
         <Header />
         <div className="clear-vertical">
