@@ -3,6 +3,12 @@ import React from 'react'
 import { Header, Footer } from './index'
 import Hero from 'common/components/hero'
 import CoworkHero from 'assets/images/cowork-hero.png'
+import Cowork1 from 'assets/images/cowork-gallery/cowork-1.png'
+import Cowork2 from 'assets/images/cowork-gallery/cowork-2.png'
+import Cowork3 from 'assets/images/cowork-gallery/cowork-3.png'
+import Cowork4 from 'assets/images/cowork-gallery/cowork-4.png'
+import Cowork5 from 'assets/images/cowork-gallery/cowork-5.png'
+import Image from 'next/image'
 import css from './cowork.module.scss'
 import PinIcon from 'assets/icons/pin.svg'
 import TicketIcon from 'assets/icons/ticket.svg'
@@ -41,20 +47,20 @@ const Cowork: NextPage = (props: any) => {
       </Hero>
 
       <div className={css['cowork']}>
-        <div className={`section`}>
+        <div className={`section fade-in-up`}>
           <div className="clear-vertical">
             <div className={`${css['body']}`}>
               <div className={css['left']}>
-                <p className={`uppercase bold`}>Coworking</p>
-                <p className={`uppercase`}>Devconnect</p>
+                <p className={`uppercase bold large-text ${css['title']}`}>Coworking</p>
+                <p className={`uppercase bold`}>Devconnect</p>
                 <p>
                   As part of our goal to foster <b>collaboration and community</b> throughout Devconnect week, we will
                   be hosting a co-work space for all those coming to Amsterdam to use as a meeting point, a place to
                   work, and a space to relax.
                 </p>
-                <p className={`tiny-text`}>
+                <p className={`small-text`}>
                   While all of the other events happening throughout the week will be independently-organized events,
-                  this co-working space will be officially hosted by the Devconnect team.
+                  this co-working space will be officially hosted by the <b>Devconnect</b> team.
                 </p>
               </div>
 
@@ -78,7 +84,7 @@ const Cowork: NextPage = (props: any) => {
                 </div>
 
                 <div className={`${css['how-to-attend']} border-top padding`}>
-                  <p className={`large-text ${css['title']}`}>How to Attend?</p>
+                  <p className={`large-text bold ${css['title']}`}>How to Attend?</p>
 
                   <p className={`bold`}>
                     Tickets for the co-working space will be sold by our team and will be good for the entire week.
@@ -87,18 +93,53 @@ const Cowork: NextPage = (props: any) => {
                 </div>
               </div>
             </div>
-            <div className={`border-bottom border-top ${css['gallery']}`}>Gallery</div>
+            <div className={`border-top ${css['gallery']}`}>
+              <div className={css['grid-item']}>
+                <div className={css['image-wrapper']}>
+                  <Image src={Cowork1} alt="cowork-space-1" />
+                </div>
+              </div>
+              <div className={css['grid-item']}>
+                <div className={css['image-wrapper']}>
+                  <Image src={Cowork2} alt="cowork-space-2" />
+                </div>
+              </div>
+              <div className={css['grid-item']}>
+                <div className={css['image-wrapper']}>
+                  <Image src={Cowork3} alt="cowork-space-3" />
+                </div>
+              </div>
+              <div className={css['grid-item']}>
+                <div className={css['image-wrapper']}>
+                  <Image src={Cowork4} alt="cowork-space-4" />
+                </div>
+              </div>
+              <div className={css['grid-item']}>
+                <div className={css['image-wrapper']}>
+                  <Image src={Cowork5} alt="cowork-space-5" layout="fill" objectFit="cover" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d77979.65162766135!2d4.833921203027313!3d52.35474979504272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c63fb5949a7755%3A0x6600fd4cb7c0af8d!2sAmsterdam%2C%20Netherlands!5e0!3m2!1sen!2sdk!4v1643121958966!5m2!1sen!2sdk"
-        width="100%"
-        height="450"
-        loading="lazy"
-      ></iframe>
+      <div className={css['map']}>
+        <div className={css['directions']}>
+          <div className={`section`}>
+            <div className="clear-vertical">
+              <p className={`large-text bold uppercase`}>Directions</p>
+            </div>
+          </div>
+        </div>
 
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d77979.65162766135!2d4.833921203027313!3d52.35474979504272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c63fb5949a7755%3A0x6600fd4cb7c0af8d!2sAmsterdam%2C%20Netherlands!5e0!3m2!1sen!2sdk!4v1643121958966!5m2!1sen!2sdk"
+          width="100%"
+          height="100%"
+          loading="lazy"
+        ></iframe>
+      </div>
       <Footer />
     </>
   )

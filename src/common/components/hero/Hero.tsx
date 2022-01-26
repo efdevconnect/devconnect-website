@@ -27,7 +27,9 @@ const Hero = (props: HeroProps) => {
           </div>
         </div>
         <div className={css['image']}>
-          <Image {...props.imageProps} layout="fill" objectFit="cover" />
+          <div className={css['image-inner']}>
+            <Image {...props.imageProps} layout="fill" objectFit="cover" priority />
+          </div>
         </div>
       </div>
     </div>
