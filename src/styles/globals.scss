@@ -301,6 +301,10 @@ a {
 
 .fade-in-up {
   animation: fade-in-up 1s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+
+  &.fast {
+    animation-duration: 0.7s;
+  }
 }
 
 @keyframes fade-in-up {

@@ -19,7 +19,7 @@ const SwipeToScroll = (props: any) => {
   const { observe } = useDimensions({
     onResize: ({ width }) => {
       reset()
-      if (el.current.scrollWidth) {
+      if (el.current && el.current.scrollWidth) {
         setMaxScrolled(el.current.scrollWidth - width)
       }
     },

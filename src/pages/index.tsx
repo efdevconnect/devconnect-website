@@ -2,23 +2,18 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 import css from './index.module.scss'
 import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import React, { useEffect } from 'react'
-import TwitterIcon from 'assets/icons/twitter.svg'
-import ArrowUpIcon from 'assets/icons/arrow-up.svg'
+import React from 'react'
 import HeaderLogo from 'assets/images/header-logo.svg'
 import Logo from 'assets/images/logo.svg'
 import LogoBig from 'assets/images/logo-big.svg'
 import FingersCrossed from 'assets/images/fingers-crossed.png'
-import Amsterdam from 'assets/images/amsterdam.png'
 import DevconnectAmsterdamText from 'assets/images/amsterdam-logo-text.svg'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import RoadToDevcon from 'assets/images/rtd.png'
 import HorizontalLooper from 'common/components/horizontal-looper'
 import SunEmoji from 'assets/images/sun-heart-emoji.png'
-// @ts-ignore
-import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { SEO } from 'common/components/SEO'
+import { Menu, FooterMenu } from 'common/components/layout/Menu'
 
 const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
@@ -32,31 +27,23 @@ export const Header = () => {
           <HeaderLogo />
         </div>
 
-        <div className={css['menu']}>
-          <Link href="/">About</Link>
-
-          <Link href="/schedule">Schedule</Link>
-
-          <Link href="/cowork">Cowork</Link>
-
-          <Link href="/city-guide">Amsterdam</Link>
-
-          <a target="_blank" rel="noreferrer" href="https://forms.gle/m5KWJ3aX5H3kTR7s6">
-            Get Involved
-          </a>
-
-          <a className={css['twitter']} target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
-            <TwitterIcon style={{ fill: 'white' }} />
-          </a>
-        </div>
+        <Menu />
       </header>
     </div>
   )
 }
 
-export const Footer = () => {
+type FooterProps = {
+  inFoldoutMenu?: boolean
+}
+
+export const Footer = ({ inFoldoutMenu }: FooterProps) => {
+  let className = css['footer-container']
+
+  if (inFoldoutMenu) className += ` ${css['in-foldout-menu']}`
+
   return (
-    <div className={css['footer-container']}>
+    <div className={className}>
       <LogoBig className={css['background']} />
 
       <div className="section">
@@ -79,27 +66,7 @@ export const Footer = () => {
               <p className={`${css['email']} medium-text`}>support@devcon.org</p>
             </div>
 
-            <div className={css['menu']}>
-              <AnchorLink href="#__next" className={`${css['back-to-top']} dark-grey`}>
-                Back to top <ArrowUpIcon />
-              </AnchorLink>
-
-              <Link href="/">About</Link>
-
-              <Link href="/schedule">Schedule</Link>
-
-              <Link href="/cowork">Cowork</Link>
-
-              <Link href="/city-guide">Amsterdam</Link>
-
-              <a target="_blank" rel="noreferrer" href="https://forms.gle/m5KWJ3aX5H3kTR7s6">
-                Get Involved
-              </a>
-
-              <a target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
-                <TwitterIcon style={{ fill: 'white' }} />
-              </a>
-            </div>
+            <FooterMenu />
           </div>
 
           <div className={css['bottom']}>

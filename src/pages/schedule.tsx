@@ -181,7 +181,7 @@ const Calendar = (props: any) => {
         </div>
         <div className={css['bottom']}>
           <div className={css['organizers']}>
-            {event['Potential Organizer'] ? event['Potential Organizer'].join(', ') : <p>Organizer</p>}
+            {event['Organizer'] ? event['Organizer'].join(', ') : <p>Organizer</p>}
           </div>
 
           <EventMeta event={event} />
@@ -297,8 +297,8 @@ const ListCalendarEvent = (props: any) => {
         </div>
 
         <div className={`${css['organizers']} ${css['col-3']}`}>
-          {props.event['Potential Organizer'] && (
-            <p className={`uppercase ${css['organizers']}`}>{props.event['Potential Organizer'].join(', ')}</p>
+          {props.event['Organizer'] && (
+            <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer'].join(', ')}</p>
           )}
         </div>
 
@@ -411,7 +411,7 @@ const Schedule: NextPage = (props: any) => {
 
           <div className={css['top-bar']}>
             <p className={css['timezone']}>12:30 CET — Central European Time (UTC/GMT +1) </p>
-            {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Swipe for more →</p>}
+            {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Drag for more →</p>}
           </div>
 
           {scheduleView === 'list' && <ListCalendar {...scheduleHelpers} />}
