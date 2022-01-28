@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import React from 'react'
 import { Header, Footer } from './index'
 import Hero from 'common/components/hero'
-import AmsterdamHero from 'assets/images/amsterdam-hero.png'
+import AmsterdamHero from 'assets/images/amsterdam-hero.jpg'
 import css from './city-guide.module.scss'
 import { SEO } from 'common/components/SEO'
 
