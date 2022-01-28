@@ -23,8 +23,8 @@ const Cowork: NextPage = (props: any) => {
           <div>
             <p className="uppercase extra-large-text bold">CoWork — </p>
 
-            <p className={`${css['info']} uppercase`}>
-              <u>Beurs Van Berlage (BVB) 📍</u>
+            <p className={`${css['info']} uppercase big-text`}>
+              <u>Beurs Van Berlage (BVB)</u> 📍
               <br />
               <span className="large-text">APRIL 18th — 25th</span>
               <br />
@@ -33,12 +33,17 @@ const Cowork: NextPage = (props: any) => {
           </div>
 
           <div className={css['call-to-action']}>
-            <a href="https://forms.gle/m5KWJ3aX5H3kTR7s6" target="_blank" rel="noreferrer" className={`button orange`}>
+            {/* <a href="https://forms.gle/m5KWJ3aX5H3kTR7s6" target="_blank" rel="noreferrer" className={`button orange`}>
               <TicketIcon />
               Get Tickets
-            </a>
+            </a> */}
 
-            <a href="https://forms.gle/m5KWJ3aX5H3kTR7s6" target="_blank" rel="noreferrer" className={`button orange`}>
+            <a
+              href="https://goo.gl/maps/279RVpXu5jpCYtAU9"
+              target="_blank"
+              rel="noreferrer"
+              className={`button orange`}
+            >
               <PinIcon />
               Directions
             </a>
@@ -49,16 +54,16 @@ const Cowork: NextPage = (props: any) => {
       <div className={css['cowork']}>
         <div className={`section fade-in-up`}>
           <div className="clear-vertical">
-            <div className={`${css['body']}`}>
+            <div className={`${css['body']} clear-vertical`}>
               <div className={css['left']}>
                 <p className={`uppercase bold large-text ${css['title']}`}>Coworking</p>
                 <p className={`uppercase bold`}>Devconnect</p>
-                <p>
+                <p className="big-text">
                   As part of our goal to foster <b>collaboration and community</b> throughout Devconnect week, we will
                   be hosting a co-work space for all those coming to Amsterdam to use as a meeting point, a place to
                   work, and a space to relax.
                 </p>
-                <p className={`small-text`}>
+                <p>
                   While all of the other events happening throughout the week will be independently-organized events,
                   this co-working space will be officially hosted by the <b>Devconnect</b> team.
                 </p>
@@ -95,29 +100,19 @@ const Cowork: NextPage = (props: any) => {
             </div>
             <div className={`border-top ${css['gallery']}`}>
               <div className={css['grid-item']}>
-                <div className={css['image-wrapper']}>
-                  <Image src={Cowork1} alt="cowork-space-1" />
-                </div>
+                <Image src={Cowork1} alt="cowork-space-1" />
               </div>
               <div className={css['grid-item']}>
-                <div className={css['image-wrapper']}>
-                  <Image src={Cowork2} alt="cowork-space-2" />
-                </div>
+                <Image src={Cowork2} alt="cowork-space-2" />
               </div>
               <div className={css['grid-item']}>
-                <div className={css['image-wrapper']}>
-                  <Image src={Cowork3} alt="cowork-space-3" />
-                </div>
+                <Image src={Cowork3} alt="cowork-space-3" />
               </div>
               <div className={css['grid-item']}>
-                <div className={css['image-wrapper']}>
-                  <Image src={Cowork4} alt="cowork-space-4" />
-                </div>
+                <Image src={Cowork4} alt="cowork-space-4" />
               </div>
               <div className={css['grid-item']}>
-                <div className={css['image-wrapper']}>
-                  <Image src={Cowork5} alt="cowork-space-5" layout="fill" objectFit="cover" />
-                </div>
+                <Image src={Cowork5} alt="cowork-space-5" />
               </div>
             </div>
           </div>

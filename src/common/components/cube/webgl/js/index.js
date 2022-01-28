@@ -154,8 +154,6 @@ export const init = () => {
   const content = initContent(regl)
   const reflection = initReflection(regl, camera)
 
-  console.log('starting')
-
   const animate = ({ viewportWidth, viewportHeight, tick }) => {
     // stats.begin()
 

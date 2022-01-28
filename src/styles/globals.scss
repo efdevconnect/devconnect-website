@@ -164,6 +164,18 @@ $max-content-width: $content-width + ($side-gap * 2);
   }
 }
 
+.big-text {
+  font-size: 20px;
+
+  @media (max-width: $screen-sm) {
+    font-size: 16px;
+  }
+
+  &-em {
+    font-size: 1.25em;
+  }
+}
+
 .large-text {
   font-size: 24px;
 

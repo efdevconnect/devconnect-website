@@ -28,6 +28,7 @@
     "regl": "^2.1.0",
     "resl": "^1.0.3",
     "sass": "^1.44.0",
+    "sharp": "^0.29.3",
     "stats.js": "^0.17.0"
   },
   "devDependencies": {

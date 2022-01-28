@@ -23,7 +23,7 @@
 
       > a {
         display: flex;
-        width: 200px;
+        // width: 200px;
         justify-content: space-between;
         margin-top: 8px;
 
@@ -46,6 +46,9 @@
   .body {
     display: flex;
     flex-direction: column;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
 
     @media (min-width: $screen-md) {
       flex-direction: row;
@@ -70,7 +73,7 @@
       @media (min-width: $screen-md) {
         padding-bottom: 0px;
         border-bottom: none;
-        padding-right: 36px;
+        padding-right: 100px;
       }
     }
 
@@ -92,36 +95,68 @@
   }
 
   .gallery {
-    padding: 32px 0px;
-    margin-top: 16px;
+    padding-top: 16px;
     justify-content: center;
     width: 100%;
-    padding-left: 5%;
-    padding-right: 5%;
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(130, 1fr);
 
     @media (min-width: $screen-md) {
       border-bottom: 1px solid $standard-border-color;
+      padding: 32px 0px;
     }
 
     .grid-item {
+      grid-row: 1;
       position: relative;
       display: flex;
       align-items: center;
-      width: 150%;
-      left: -25%;
 
-      .image-wrapper {
-        position: relative;
-        width: 100%;
+      &:nth-child(1) {
+        z-index: 1;
+        grid-column: 1 / span 33;
       }
 
-      &:nth-child(odd) {
-        .image-wrapper {
+      &:nth-child(2) {
+        grid-column: 23 / span 42;
+      }
+
+      &:nth-child(3) {
+        z-index: 2;
+        grid-column: 55 / span 30;
+      }
+
+      &:nth-child(4) {
+        grid-column: 72 / span 32;
+      }
+
+      &:nth-child(5) {
+        grid-column: 100 / span 40;
+        z-index: 2;
+      }
+
+      @media (max-width: $screen-md) {
+        &:nth-child(1) {
+          display: none;
+        }
+
+        &:nth-child(2) {
+          grid-column: 1 / 65;
+        }
+
+        &:nth-child(3) {
+          z-index: 3;
+          grid-column: 35 / 95;
+        }
+
+        &:nth-child(4) {
           z-index: 1;
-          width: 120%;
-          // height: 200px;
+          grid-column: 75 / 130;
+        }
+
+        &:nth-child(5) {
+          display: none;
         }
       }
     }
