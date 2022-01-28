@@ -134,7 +134,7 @@ const Cowork: NextPage = (props: any) => {
         </div>
 
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d77979.65162766135!2d4.833921203027313!3d52.35474979504272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c63fb5949a7755%3A0x6600fd4cb7c0af8d!2sAmsterdam%2C%20Netherlands!5e0!3m2!1sen!2sdk!4v1643121958966!5m2!1sen!2sdk"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.7437976717924!2d4.893982616106426!3d52.37506545471201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c609c787f17ca7%3A0xfdc6eede688a772f!2sBeurs%20van%20Berlage!5e0!3m2!1sen!2sdk!4v1643376954216!5m2!1sen!2sdk"
           width="100%"
           height="100%"
           loading="lazy"

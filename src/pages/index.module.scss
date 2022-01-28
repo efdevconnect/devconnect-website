@@ -369,6 +369,10 @@
     }
 
     .left {
+      @media (orientation: landscape) {
+        display: none !important;
+      }
+
       order: 2;
     }
 

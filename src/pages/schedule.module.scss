@@ -86,6 +86,7 @@
 .day-header,
 .top-bar {
   background: #fcfcfc;
+  // background: #2a2a2a;
   padding: 16px;
   color: $monochrome-6;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
@@ -131,6 +132,9 @@
     display: grid;
   }
 
+  // background: #2a2a2a;
+  color: $monochrome-6;
+  // color: white;
   background: $monochrome-4;
   padding: 16px;
 }
@@ -143,8 +147,11 @@
     cursor: pointer;
     justify-content: space-between;
     margin-top: 4px;
-    color: $monochrome-7;
-    background: white;
+    color: $monochrome-2;
+    // background: white;
+
+    background: #2a2a2a;
+    // color: $monochrome-6;
   }
 
   // Styles shared by event and event-in-table
@@ -178,7 +185,7 @@
   // Specific styles/overrides for event in table
   .event-in-table {
     border: 1px solid #a5a5a5;
-    border-left: 4px solid #8f78fb;
+    border-top: 4px solid #8f78fb;
 
     display: none;
 

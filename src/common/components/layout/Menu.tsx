@@ -30,6 +30,14 @@ const MultiLink = (props: any) => {
       <div className={`${css['dropdown']} ${open && css['open']}`}>
         <div className={`${css['dropdown-content']} fade-in-up fast`}>
           {props.to.map((menuItem: any) => {
+            if (menuItem.external) {
+              return (
+                <a key={menuItem.text} href={menuItem.url} target="_blank" rel="noreferrer">
+                  {menuItem.text}
+                </a>
+              )
+            }
+
             return (
               <Link key={menuItem.text} href={menuItem.url}>
                 {menuItem.text}
@@ -64,14 +72,17 @@ const menuItems = [
     children: [
       {
         text: 'Devconnect 2: Electric Boogaloo',
+        external: true,
         url: 'https://forms.gle/m5KWJ3aX5H3kTR7s6',
       },
       {
         text: 'Clickable short',
+        external: true,
         url: 'https://forms.gle/m5KWJ3aX5H3kTR7s6',
       },
       {
         text: 'JPGs are killing the environment',
+        external: true,
         url: 'https://forms.gle/m5KWJ3aX5H3kTR7s6',
       },
     ],

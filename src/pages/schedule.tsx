@@ -12,7 +12,7 @@ import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
 import SwipeToScroll from 'common/components/swipe-to-scroll'
 import { SEO } from 'common/components/SEO'
 
-// moment.tz.setDefault("America/New_York"); <--- to do, set amsterdam time zone
+// moment.tz.setDefault('America/New_York')
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -383,8 +383,8 @@ const Schedule: NextPage = (props: any) => {
   return (
     <>
       <SEO title="Schedule" description="Devconnect schedule" />
+      <Header />
       <div className={`${css['schedule']} section`}>
-        <Header />
         <div className="clear-vertical">
           <div className={css['header-row']}>
             <h1 className="section-header">Events</h1>
@@ -410,7 +410,7 @@ const Schedule: NextPage = (props: any) => {
           </div>
 
           <div className={css['top-bar']}>
-            <p className={css['timezone']}>12:30 CET — Central European Time (UTC/GMT +1) </p>
+            <p className={css['timezone']}>Central European Time (UTC/GMT +1) </p>
             {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Drag for more →</p>}
           </div>
 
