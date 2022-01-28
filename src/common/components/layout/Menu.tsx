@@ -4,9 +4,11 @@ import Link from 'next/link'
 import TwitterIcon from 'assets/icons/twitter.svg'
 import ChevronDown from 'assets/icons/chevron-down.svg'
 import HamburgerIcon from 'assets/icons/menu.svg'
+import IconCross from 'assets/icons/cross.svg'
 import ChevronUp from 'assets/icons/chevron-up.svg'
 import ArrowUpIcon from 'assets/icons/arrow-up.svg'
 import ArrowDropdown from 'assets/icons/arrow-dropdown.svg'
+import DevconnectAmsterdam from 'assets/images/amsterdam-logo-text.svg'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { createPortal } from 'react-dom'
@@ -102,15 +104,16 @@ const Mobile = () => {
 
   return (
     <div className={css['mobile-menu']}>
-      <div className={css['foldout-toggle']} onClick={() => setOpen(!open)}>
-        <HamburgerIcon />
+      <div className={css['foldout-toggle']}>
+        <HamburgerIcon onClick={() => setOpen(true)} />
       </div>
 
       {createPortal(
         <div className={`${open ? css['open'] : ''} ${css['foldout']}`}>
-          <div className={`${css['foldout-toggle']} clear`} onClick={() => setOpen(!open)}>
+          <div className={`${css['foldout-toggle']} clear`}>
             <p className="uppercase bold underline">Devconnect</p>
-            <HamburgerIcon />
+            {/* <DevconnectAmsterdam /> */}
+            <IconCross onClick={() => setOpen(false)} />
           </div>
 
           <Footer inFoldoutMenu />
@@ -123,7 +126,7 @@ const Mobile = () => {
 
 export const FooterMenu = (props: any) => {
   return (
-    <div className={css['footer-menu']}>
+    <div className={css['footer-menu']} id="footer-menu">
       <AnchorLink href="#__next" id="back-to-top" className={`${css['back-to-top']} dark-grey`}>
         Back to top <ArrowUpIcon />
       </AnchorLink>
@@ -181,30 +184,4 @@ export const Menu = (props: any) => {
       </a>
     </div>
   )
-
-  // return (
-  //   <div className={css['menu']}>
-  //     <AnchorLink href="#__next" className={`${css['back-to-top']} dark-grey`}>
-  //       Back to top <ArrowUpIcon />
-  //     </AnchorLink>
-
-  //     <Link href="/">About</Link>
-
-  //     <Link href="/schedule">Schedule</Link>
-
-  //     <Link href="/cowork">Cowork</Link>
-
-  //     <Link href="/city-guide">Amsterdam</Link>
-
-  //     <a target="_blank" rel="noreferrer" href="https://forms.gle/m5KWJ3aX5H3kTR7s6">
-  //       Get Involved
-  //     </a>
-
-  //     <a target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
-  //       <TwitterIcon style={{ fill: 'white' }} />
-  //     </a>
-  //   </div>
-  // )
 }
-
-// export default Menu

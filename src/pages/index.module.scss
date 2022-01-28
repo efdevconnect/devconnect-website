@@ -334,7 +334,16 @@
   // We use a watered down version of the footer as the mobile foldout menu
   &.in-foldout-menu {
     height: 100%;
+    padding-bottom: 16px;
     display: flex;
+
+    :global(.section) {
+      width: 100%;
+    }
+
+    .background {
+      top: 20px;
+    }
 
     .footer {
       height: 100%;
@@ -343,6 +352,12 @@
       justify-content: space-between;
       padding-top: 0px;
       padding-bottom: 0px;
+    }
+
+    :global(#footer-menu) {
+      margin-top: 18px !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+      width: 100% !important;
     }
 
     :global(#back-to-top) {
@@ -354,11 +369,19 @@
     }
 
     .left {
-      display: none !important;
+      order: 2;
     }
 
     .middle {
       margin-top: 0px !important;
+      flex-grow: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+
+      .email {
+        margin: 8px 0px !important;
+      }
     }
   }
 
