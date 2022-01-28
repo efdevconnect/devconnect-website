@@ -99,10 +99,11 @@
     justify-content: center;
     width: 100%;
     position: relative;
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(130, 1fr);
 
     @media (min-width: $screen-md) {
+      display: grid;
       border-bottom: 1px solid $standard-border-color;
       padding: 32px 0px;
     }
@@ -146,11 +147,13 @@
         }
 
         &:nth-child(3) {
+          display: none;
           z-index: 3;
           grid-column: 35 / 95;
         }
 
         &:nth-child(4) {
+          display: none;
           z-index: 1;
           grid-column: 75 / 130;
         }

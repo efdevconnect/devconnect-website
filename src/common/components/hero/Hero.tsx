@@ -22,9 +22,10 @@ const Hero = (props: HeroProps) => {
       <Header />
       <div className={`${css['content']} section`}>
         <div className={`${css['children']} clear-vertical`}>
-          <div className={css['aspect-container']}>
+          {props.children}
+          {/* <div className={css['aspect-container']}>
             <div className="aspect">{props.children}</div>
-          </div>
+          </div> */}
         </div>
         <div className={css['image']}>
           <div className={css['image-inner']}>
