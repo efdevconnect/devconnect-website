@@ -14,6 +14,25 @@ import { SEO } from 'common/components/SEO'
 
 // moment.tz.setDefault('America/New_York')
 
+const useDraggableLink = () => {
+  const dragging = React.useRef(false)
+
+  return {
+    onMouseDown: () => {
+      dragging.current = false
+    },
+    onMouseMove: () => {
+      dragging.current = true
+    },
+    onClick: (e: React.SyntheticEvent) => {
+      if (dragging.current) {
+        e.preventDefault()
+      }
+    },
+    draggable: false,
+  }
+}
+
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
     aEndDay = moment(a.Date.endDate),
@@ -133,6 +152,7 @@ const createPlacementTracker = () => {
 const Calendar = (props: any) => {
   const { min, sortedEvents, events: defaultSortEvents, eventDuration, eventsByDay } = props
   const placementTracker = createPlacementTracker()
+  const linkAttribs = useDraggableLink()
 
   const events = sortedEvents.map((event: any) => {
     const startDay = moment(event.Date.startDate)
@@ -168,16 +188,26 @@ const Calendar = (props: any) => {
     }
 
     return (
-      <div key={event.Name} className={css['event']} style={gridPlacement}>
+      <a
+        href={event.URL}
+        target="_blank"
+        rel="noreferrer"
+        key={event.Name}
+        className={`${css['event']} ${css[event['Difficulty']]}`}
+        style={gridPlacement}
+        {...linkAttribs}
+      >
         <div className={css['top']}>
-          <p className={`large-text-em ${css['title']}`}>{event.Name}</p>
-          <div className={css['when']}>
-            {Array.from(Array(totalDays)).map((_, index: number) => {
-              const time = event['Time of Day'] && event['Time of Day'].split(',')[index]
+          <p className={`large-text-em bold ${css['title']}`}>{event.Name}</p>
+          {event['Time of Day'] && (
+            <div className={css['when']}>
+              {Array.from(Array(totalDays)).map((_, index: number) => {
+                const time = event['Time of Day'] && event['Time of Day'].split(',')[index]
 
-              return <p key={index}>{time || 'xx:xx - xx:xx'}</p>
-            })}
-          </div>
+                return <p key={index}>{time}</p>
+              })}
+            </div>
+          )}
         </div>
         <div className={css['bottom']}>
           <div className={css['organizers']}>
@@ -186,7 +216,7 @@ const Calendar = (props: any) => {
 
           <EventMeta event={event} />
         </div>
-      </div>
+      </a>
     )
   })
 
@@ -218,7 +248,7 @@ const Calendar = (props: any) => {
 const EventMeta = (props: any) => {
   return (
     <div className={css['meta']}>
-      <div className={`tag tiny-text-em`}>Working Group</div>
+      {props.event.Category && <div className={`tag -text-em`}>{props.event.Category}</div>}
       {props.event['Difficulty'] && <div className="tiny-text-em">{props.event.Difficulty}</div>}
     </div>
   )
@@ -244,7 +274,7 @@ const ListCalendarDayHeader = (props: any) => {
     <>
       <div className={css['day-header']} onClick={() => setOpen(!open)}>
         <div className={css['date']}>
-          <p className="section-header">{day}</p>
+          <p className="section-header large-text">{day}</p>
           <p className="section-header small-text">{date}</p>
         </div>
 
@@ -264,7 +294,6 @@ const ListCalendarEvent = (props: any) => {
   const formattedEndDate = endDate.format('MMM DD')
   const duration = calculateEventDuration(startDate, endDate)
   const isMultiDayEvent = duration > 1
-  const areTicketsAvailable = true
   const timeOfDayArray = props.event['Time of Day'] && props.event['Time of Day'].split(',')
   const timeOfDayIndex = currentDate.diff(startDate, 'days')
   const timeOfDay = timeOfDayArray && timeOfDayArray[timeOfDayIndex]
@@ -272,11 +301,16 @@ const ListCalendarEvent = (props: any) => {
   return (
     <>
       {/* List view as table/grid (desktop) */}
-      <div className={`${css['event-in-table']} ${css['calendar-list-grid']}`}>
+      <a
+        href={props.event.URL}
+        target="_blank"
+        rel="noreferrer"
+        className={`${css['event-in-table']} ${css[props.event['Difficulty']]} ${css['calendar-list-grid']}`}
+      >
         <div className={`${css['date']} ${css['col-1']}`}>
           <div>
-            <p className="small-text uppercase">
-              {formattedDate} — <br /> <span className="large-text">{timeOfDay || 'N/A'}</span>
+            <p className="big-text uppercase">
+              {formattedDate} — <br /> <span className="big-text">{timeOfDay}</span>
             </p>
             {isMultiDayEvent && (
               <p className={`${css['end-date']} tiny-text uppercase`}>
@@ -285,13 +319,15 @@ const ListCalendarEvent = (props: any) => {
             )}
           </div>
 
-          {isMultiDayEvent && <div className={`tag purple tiny-text`}>Multi-day Event</div>}
+          {isMultiDayEvent && <div className={`tag purple tiny-text-em`}>Multi-day Event</div>}
         </div>
 
         <div className={`${css['description']} ${css['col-2']}`}>
           <div>
-            <p className={`${css['title']} large-text uppercase`}>{props.event.Name}</p>
-            {props.event.Content && <p className={`${css['body']} small-text`}>{props.event.Content}</p>}
+            <p className={`${css['title']} big-text bold uppercase`}>{props.event.Name}</p>
+            {props.event['Brief Description'] && (
+              <p className={`${css['body']} small-text`}>{props.event['Brief Description']}</p>
+            )}
           </div>
           <EventMeta event={props.event} />
         </div>
@@ -303,23 +339,28 @@ const ListCalendarEvent = (props: any) => {
         </div>
 
         <div className={`${css['attend']} ${css['col-4']}`}>
-          {areTicketsAvailable && (
-            <p className={`${css['ticket-availability']} purple small-text uppercase`}>Tickets Available</p>
+          {props.event['Attend'] && (
+            <p className={`${css['ticket-availability']} purple small-text uppercase`}>{props.event['Attend']}</p>
           )}
         </div>
 
         <div className={`${css['calendar-add']} ${css['col-5']}`}>
           <AddToCalendarIcon />
         </div>
-      </div>
+      </a>
 
       {/* List view (mobile) */}
-      <div className={`${css['event']}`}>
-        <p className="large-text uppercase">{props.event.Name}</p>
+      <a
+        href={props.event.URL}
+        target="_blank"
+        rel="noreferrer"
+        className={`${css['event']} ${css[props.event['Difficulty']]} `}
+      >
+        <p className="large-text uppercase bold">{props.event.Name}</p>
 
         <div className={css['date']}>
           <p className="small-text uppercase">
-            {formattedDate} — <br /> <span className="large-text">08:00 - 16:00</span>
+            {formattedDate} — <br /> <span className="large-text">{timeOfDay}</span>
           </p>
           {isMultiDayEvent && (
             <p className={`${css['end-date']} small-text uppercase`}>
@@ -330,14 +371,16 @@ const ListCalendarEvent = (props: any) => {
 
         {isMultiDayEvent && <div className={`tag purple tiny-text`}>Multi-day Event</div>}
 
-        {props.event.Content && <p className={`${css['description']} small-text`}>{props.event.Content}</p>}
-
-        {props.event['Potential Organizer'] && (
-          <p className={`uppercase ${css['organizers']}`}>{props.event['Potential Organizer'].join(', ')}</p>
+        {props.event['Brief Description'] && (
+          <p className={`${css['description']} small-text`}>{props.event['Brief Description']}</p>
         )}
-        {areTicketsAvailable && (
-          <p className={`${css['ticket-availability']} border-top border-bottom purple small-text uppercase`}>
-            Tickets Available
+
+        {props.event['Organizer'] && (
+          <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer'].join(', ')}</p>
+        )}
+        {props.event['Attend'] && (
+          <p className={`${css['ticket-availability']} bold border-top border-bottom purple small-text uppercase`}>
+            {props.event['Attend']}
           </p>
         )}
 
@@ -346,7 +389,7 @@ const ListCalendarEvent = (props: any) => {
 
           <AddToCalendarIcon className={css['add-to-calendar']} />
         </div>
-      </div>
+      </a>
     </>
   )
 }
@@ -498,10 +541,20 @@ export async function getStaticProps() {
         },
       ],
       filter: {
-        property: 'Date',
-        date: {
-          is_not_empty: true,
-        },
+        and: [
+          {
+            property: 'Date',
+            date: {
+              is_not_empty: true,
+            },
+          },
+          {
+            property: 'Live',
+            checkbox: {
+              equals: true,
+            },
+          },
+        ],
       },
     })
 

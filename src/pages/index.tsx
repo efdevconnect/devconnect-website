@@ -178,7 +178,7 @@ const Home: NextPage = (props: any) => {
               <div className={`${css['scene-about-content']} clear-vertical`}>
                 <h1 className="section-header">About</h1>
 
-                <p className={`massive-header ${css['background-title']} section`}>DEV/CONNECT</p>
+                {/* <p className={`massive-header ${css['background-title']} section`}>DEV/CONNECT</p> */}
 
                 <div className={css['text-container']}>
                   <div className={css['body']}>

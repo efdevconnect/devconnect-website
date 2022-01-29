@@ -1,3 +1,47 @@
-.city-guide {
+@import 'styles/variables.scss';
+
+.city-guide-hero {
   background: linear-gradient(180deg, #0056a6 0%, #88c6ff 113.61%);
+
+  .hero-content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+
+    p {
+      margin-bottom: 1em;
+    }
+  }
+}
+
+.city-guide {
+  background: white;
+  color: black;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  // flex-wrap: wrap;
+
+  .tab {
+    cursor: pointer;
+    margin-right: 48px;
+    flex-shrink: 0;
+    position: inline;
+    white-space: nowrap;
+
+    color: $monochrome-6;
+
+    &.selected {
+      color: $monochrome-10;
+    }
+  }
 }

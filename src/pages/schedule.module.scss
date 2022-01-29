@@ -77,9 +77,27 @@
   }
 }
 
-.event {
+.event,
+.event-in-table {
+  display: block;
   border: 1px solid #e3e3e3;
   border-top: 4px solid #8f78fb;
+  background: #f9f8ff;
+
+  &.Beginner {
+    background: #fffbf8;
+    border-top-color: #fba778;
+  }
+
+  &.Intermediate {
+    background: #f7f7f7;
+    border-top-color: #525252;
+  }
+
+  &.Advanced {
+    background: #fafff8;
+    border-top-color: #85bb81;
+  }
 }
 
 .day,
@@ -102,22 +120,22 @@
   @media (min-width: $screen-lg) {
     display: grid;
     grid-gap: 4px;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(24, 1fr);
 
     .col-1 {
-      grid-column: span 2;
+      grid-column: span 3;
     }
 
     .col-2 {
-      grid-column: span 5;
+      grid-column: span 12;
     }
 
     .col-3 {
-      grid-column: span 2;
+      grid-column: span 5;
     }
 
     .col-4 {
-      grid-column: span 2;
+      grid-column: span 3;
     }
 
     .col-5 {
@@ -147,11 +165,11 @@
     cursor: pointer;
     justify-content: space-between;
     margin-top: 4px;
-    color: $monochrome-2;
-    // background: white;
+    // color: $monochrome-2;
+    background: white;
 
-    background: #2a2a2a;
-    // color: $monochrome-6;
+    // background: #2a2a2a;
+    color: $monochrome-8;
   }
 
   // Styles shared by event and event-in-table
@@ -160,7 +178,6 @@
     padding: 16px;
     padding-bottom: 8px;
     margin-top: 4px;
-    background: #f9f8ff;
 
     .date {
       // margin: 8px 0px;
@@ -184,8 +201,8 @@
 
   // Specific styles/overrides for event in table
   .event-in-table {
-    border: 1px solid #a5a5a5;
-    border-top: 4px solid #8f78fb;
+    // border: 1px solid #a5a5a5;
+    // border-left: 4px solid #8f78fb;
 
     display: none;
 
@@ -237,6 +254,7 @@
     }
 
     .organizers {
+      margin-top: 8px;
       margin-bottom: 8px;
     }
 
@@ -290,15 +308,14 @@
     padding: var(--padding);
     margin-right: var(--margin);
     font-size: 12px;
-    background: #f9f8ff;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
 
-    &:nth-child(odd) {
-      background: #fffbf8;
-      border-top-color: #fba778;
-    }
+    // &:nth-child(odd) {
+    //   background: #fffbf8;
+    //   border-top-color: #fba778;
+    // }
 
     .top {
       margin-bottom: 12px;

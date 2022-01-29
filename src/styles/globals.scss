@@ -279,14 +279,14 @@ a {
 
 .border {
   &-bottom {
-    border-color: $monochrome-5;
-    border-style: solid;
+    border-bottom-color: $monochrome-5;
+    border-bottom-style: solid;
     border-bottom-width: 1px;
   }
 
   &-top {
-    border-color: $monochrome-5;
-    border-style: solid;
+    border-top-color: $monochrome-5;
+    border-top-style: solid;
     border-top-width: 1px;
   }
 }

@@ -71,19 +71,14 @@ const menuItems = [
     text: 'Get Involved',
     children: [
       {
-        text: 'Devconnect 2: Electric Boogaloo',
+        text: 'Host an event',
         external: true,
         url: 'https://forms.gle/m5KWJ3aX5H3kTR7s6',
       },
       {
-        text: 'Clickable short',
+        text: 'Volunteer',
         external: true,
-        url: 'https://forms.gle/m5KWJ3aX5H3kTR7s6',
-      },
-      {
-        text: 'JPGs are killing the environment',
-        external: true,
-        url: 'https://forms.gle/m5KWJ3aX5H3kTR7s6',
+        url: 'https://forms.gle/6eoj7wDjXx6qhNj78',
       },
     ],
   },
