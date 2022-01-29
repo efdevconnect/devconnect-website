@@ -71,7 +71,7 @@ const Cowork: NextPage = (props: any) => {
 
               <div className={`${css['right']}`}>
                 <div className={css['what-to-expect']}>
-                  <p className={`large-text bold`}>What to expect?</p>
+                  <p className={`big-text bold uppercase ${css['title']}`}>What to expect?</p>
                   <p>
                     <b>Work.</b> Tables, wifi, outlets.
                   </p>
@@ -89,7 +89,7 @@ const Cowork: NextPage = (props: any) => {
                 </div>
 
                 <div className={`${css['how-to-attend']} border-top padding`}>
-                  <p className={`large-text bold ${css['title']}`}>How to Attend?</p>
+                  <p className={`big-text bold uppercase ${css['title']}`}>How to Attend?</p>
 
                   <p className={`bold`}>
                     Tickets for the co-working space will be sold by our team and will be good for the entire week.

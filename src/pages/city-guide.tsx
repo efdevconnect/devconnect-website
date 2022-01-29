@@ -6,37 +6,67 @@ import AmsterdamHero from 'assets/images/amsterdam-hero.jpg'
 import css from './city-guide.module.scss'
 import { SEO } from 'common/components/SEO'
 import SwipeToScroll from 'common/components/swipe-to-scroll'
+import ChevronDown from 'assets/icons/chevron-down.svg'
+import ChevronUp from 'assets/icons/chevron-up.svg'
+import Sun from 'assets/icons/sun.svg'
+import Clock from 'assets/icons/clock.svg'
+import Globe from 'assets/icons/globe.svg'
+import Dollar from 'assets/icons/dollar.svg'
+import Water from 'assets/icons/water.svg'
+// @ts-ignore
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 const tabs = [
-  'General info',
-  'Airport transit',
-  'Getting around',
-  'Crypto accepted at',
-  'Areas to stay',
-  'Food and drink',
-  'FAQ',
+  {
+    text: 'General info',
+    value: 'general-info',
+  },
+  {
+    text: 'Airport transit',
+    value: 'airport-transit',
+  },
+  {
+    text: 'Getting around',
+    value: 'getting-around',
+  },
+  {
+    text: 'Crypto accepted at',
+    value: 'crypto-accepted-at',
+  },
+  {
+    text: 'Areas to stay',
+    value: 'areas-to-stay',
+  },
+  {
+    text: 'Food and drink',
+    value: 'food-and-drink',
+  },
+  {
+    text: 'FAQ',
+    value: 'faq',
+  },
 ]
 
-type TabsProps = {
-  selectedTab: string
-  setSelectedTab: (nextTab: string) => void
-}
-
-const Tabs = ({ selectedTab, setSelectedTab }: TabsProps) => {
+const Tabs = (props: any) => {
   return (
     <SwipeToScroll>
       <div className={css['tabs']}>
-        {tabs.map(tab => {
-          let className = css['tab']
+        {tabs.map((tab, index: number) => {
+          let className = `uppercase ${css['tab']}`
 
-          const selected = tab === selectedTab
+          const toggled = index === 0
 
-          if (selected) className += ` ${css['selected']} bold`
+          if (toggled) className += ` ${css['always-toggled']} bold`
 
           return (
-            <p className={className} key={tab} onClick={() => setSelectedTab(tab)}>
-              {tab}
-            </p>
+            <AnchorLink
+              key={tab.value}
+              href={`#${tab.value}`}
+              className={className}
+              onClick={() => props.accordionRefs.current[tab.value] && props.accordionRefs.current[tab.value].open()}
+            >
+              {tab.text}
+            </AnchorLink>
           )
         })}
       </div>
@@ -44,8 +74,77 @@ const Tabs = ({ selectedTab, setSelectedTab }: TabsProps) => {
   )
 }
 
-const CityGuide: NextPage = (props: any) => {
-  const [selectedTab, setSelectedTab] = React.useState('General info')
+const List = () => {
+  return (
+    <div className={css['list']}>
+      <div className={css['row']}>
+        <div className={`${css['left']} small-text uppercase`}>
+          <Clock className={css['icon']} />
+          <p className="bold">Timezone: &nbsp;</p>
+          <p>GMT -5</p>
+        </div>
+        <p className={css['right']}>right</p>
+      </div>
+      <div className={css['row']}>
+        <div className={`${css['left']} small-text uppercase`}>
+          <Dollar className={css['icon']} />
+          <p className="bold">Currency:&nbsp;</p>
+          <p>EURO (€ EUR)</p>
+        </div>
+        <p className={css['right']}>right</p>
+      </div>
+      <div className={css['row']}>
+        <div className={`${css['left']} small-text uppercase`}>
+          <Globe className={css['icon']} />
+          <p className="bold">Official language:&nbsp;</p>
+          <p> DUTCH </p>
+        </div>
+        <p className={css['right']}>right</p>
+      </div>
+      <div className={css['row']}>
+        <div className={`${css['left']} small-text uppercase`}>
+          <Sun className={css['icon']} />
+          <p className="bold">AVG TEMP:&nbsp;</p>
+          <p> AVG TEMP: 8 TO 20 °C / 46.4 to 68.0 °F</p>
+        </div>
+        <p className={css['right']}>right</p>
+      </div>
+      <div className={css['row']}>
+        <div className={`${css['left']} small-text uppercase`}>
+          <Water className={css['icon']} />
+          <p className="bold">WATER: &nbsp;</p>
+          <p>Tap water is safe to drink in Amsterdam.</p>
+        </div>
+        <p className={css['right']}>right</p>
+      </div>
+    </div>
+  )
+}
+
+const Accordion = React.forwardRef((props: any, ref: any) => {
+  const [open, setOpen] = React.useState(false)
+
+  React.useImperativeHandle(ref, () => {
+    return {
+      open: () => setOpen(true),
+    }
+  })
+
+  return (
+    <div className={css['accordion']}>
+      <div id={props.id} className={`uppercase bold ${css['toggle']}`} onClick={() => setOpen(!open)}>
+        <p className={css['big-text']}>{props.title}</p>
+        {open ? <ChevronUp /> : <ChevronDown />}
+      </div>
+      {open && <div className={css['content']}>{props.children}</div>}
+    </div>
+  )
+})
+
+Accordion.displayName = 'Accordion'
+
+const CityGuide: NextPage = () => {
+  const accordionRefs = React.useRef({} as { [key: string]: any })
 
   return (
     <>
@@ -54,12 +153,17 @@ const CityGuide: NextPage = (props: any) => {
         <div className={css['hero-content']}>
           <p className="uppercase extra-large-text bold">Amsterdam —</p>
 
-          <div>
+          <div className={css['items']}>
             {tabs.map(tab => {
               return (
-                <p key={tab} onClick={() => setSelectedTab(tab)} className="uppercase bold">
-                  {tab}
-                </p>
+                <AnchorLink
+                  key={tab.value}
+                  href={`#${tab.value}`}
+                  className={`uppercase bold`}
+                  onClick={() => accordionRefs.current[tab.value] && accordionRefs.current[tab.value].open()}
+                >
+                  {tab.text}
+                </AnchorLink>
               )
             })}
           </div>
@@ -67,24 +171,50 @@ const CityGuide: NextPage = (props: any) => {
       </Hero>
 
       <div className={css['city-guide']}>
-        <div className="section">
-          <div className={`${css['body']} clear-vertical`}>
-            <Tabs setSelectedTab={setSelectedTab} selectedTab={selectedTab} />
+        <div className="section fade-in-up">
+          <div className={`${css['body']} clear-vertical`} id="general-info">
+            <Tabs accordionRefs={accordionRefs} />
 
             <div className={css['general-info']}>
               <div className={css['left']}>
-                <p className="uppercase bold large-text">AMSTERDAM - [ ahm-stuhr-dahYUMMMm ]</p>
+                <p className={`${css['title']} uppercase`}>AMSTERDAM - [ ahm-stuhr-dahYUMMMm ]</p>
 
-                <p>Amsterdam is known as one of the world’s most multicultural cities. </p>
+                <p className={`uppercase bold big-text ${css['details-1']}`}>
+                  Amsterdam is known as one of the world’s most multicultural cities.{' '}
+                </p>
 
-                <p>
+                <p className={`${css['details-2']} bold`}>
                   Like Ethereum, it can mean many things to many different people, and there’s something interesting for
                   everyone. So where better to give a distributed (and passionate) ecosystem a more connected feel than
                   in a city brought together by canals 🛶, bike lanes 🚲, and culture 🏫 throughout?{' '}
                 </p>
               </div>
 
-              <div className={css['right']}></div>
+              <div className={css['right']}>
+                <List />
+              </div>
+            </div>
+
+            <div className={css['accordions']}>
+              {tabs.slice(1).map(tab => {
+                return (
+                  <Accordion
+                    key={tab.value}
+                    title={tab.text}
+                    id={tab.value}
+                    ref={el => (accordionRefs.current[tab.value] = el)}
+                  >
+                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+                    alteration in some form, by injected humour, or randomised words which dont look even slightly
+                    believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt
+                    anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet
+                    tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
+                    It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures,
+                    to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free
+                    from repetition, injected humour, or non-characteristic words etc.
+                  </Accordion>
+                )
+              })}
             </div>
           </div>
         </div>

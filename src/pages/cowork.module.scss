@@ -65,11 +65,12 @@
       padding-bottom: 16px;
 
       > * {
+        &.title {
+          margin-top: 0px;
+        }
         margin-top: 16px;
       }
-      // display: flex;
-      // flex-direction: column;
-      // justify-content: space-between;
+
       @media (min-width: $screen-md) {
         padding-bottom: 0px;
         border-bottom: none;
@@ -80,6 +81,12 @@
     .right {
       .what-to-expect {
         > * {
+          @media (min-width: $screen-md) {
+            &.title {
+              margin-top: 0px;
+            }
+          }
+
           margin-top: 16px;
         }
       }

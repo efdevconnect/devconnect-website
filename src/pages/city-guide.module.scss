@@ -9,8 +9,17 @@
     flex-direction: column;
     justify-content: space-between;
 
-    p {
-      margin-bottom: 1em;
+    .items {
+      padding-top: 40px;
+      a {
+        &:hover {
+          text-decoration: underline;
+        }
+
+        display: block;
+        text-transform: uppercase;
+        margin-bottom: 1em;
+      }
     }
   }
 }
@@ -18,6 +27,107 @@
 .city-guide {
   background: white;
   color: black;
+
+  .general-info {
+    border-top: 1px solid $standard-border-color;
+    margin-top: 16px;
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $screen-md) {
+      flex-direction: row;
+    }
+
+    .left {
+      padding-right: 150px;
+
+      .title {
+        margin-bottom: 16px;
+      }
+
+      .details-1 {
+        margin-bottom: 16px;
+      }
+
+      .details-2 {
+      }
+    }
+
+    .right {
+      flex-shrink: 0;
+      flex-basis: 50%;
+
+      .list {
+        display: flex;
+        flex-direction: column;
+
+        .row {
+          width: 100%;
+          padding: 12px 8px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid black;
+
+          .left {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+
+            > * {
+              white-space: nowrap;
+              &:first-child {
+                margin-right: 12px;
+              }
+            }
+          }
+
+          .right {
+            flex-shrink: 1;
+            display: flex;
+            justify-content: flex-end;
+            // align-self: flex-end;
+          }
+        }
+      }
+    }
+  }
+
+  .accordions {
+    padding-top: 8px;
+    margin-top: 32px;
+    border-top: 1px solid $standard-border-color;
+    display: flex;
+    flex-direction: column;
+
+    .accordion {
+      &:first-child {
+        margin-top: 0px;
+      }
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      background: #fcfcfc;
+
+      border: 1px solid rgba(0, 0, 0, 0.2);
+
+      .toggle {
+        cursor: pointer;
+        padding: 24px 16px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .content {
+        background: white;
+        padding: 24px 16px;
+        border-top: 1px solid $standard-border-color;
+      }
+    }
+  }
 }
 
 .body {
@@ -40,8 +150,14 @@
 
     color: $monochrome-6;
 
-    &.selected {
+    &.always-toggled {
       color: $monochrome-10;
+    }
+
+    &:not(.always-toggled) {
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
