@@ -420,7 +420,7 @@ const ListCalendar = (props: any) => {
 }
 
 const Schedule: NextPage = (props: any) => {
-  const [scheduleView, setScheduleView] = React.useState('list')
+  const [scheduleView, setScheduleView] = React.useState('calendar')
   const scheduleHelpers = useScheduleData(props.events)
 
   return (
@@ -430,7 +430,7 @@ const Schedule: NextPage = (props: any) => {
       <div className={`${css['schedule']} section`}>
         <div className="clear-vertical">
           <div className={css['header-row']}>
-            <h1 className="section-header">Events</h1>
+            <h1 className="extra-large-text uppercase bold">Events</h1>
             <div className={`${css['view']} small-text`}>
               <div>View:</div>
               <div className={css['options']}>
@@ -517,6 +517,11 @@ const formatResult = (result: any) => {
       properties[key] = val
     }
   })
+
+  // This isn't the cleanest way to insert default values for time of day, but time crunch so being pragmatic
+  if (!properties['Time of Day'])
+    properties['Time of Day'] =
+      'Full Day,Full day,Full Day,Full day,Full Day,Full day,Full Day,Full day,Full Day,Full day,Full Day,Full day,Full day'
 
   return properties
 }

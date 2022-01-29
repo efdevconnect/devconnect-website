@@ -80,23 +80,23 @@
 .event,
 .event-in-table {
   display: block;
-  border: 1px solid #e3e3e3;
+  border: 1px solid #8f78fb;
   border-top: 4px solid #8f78fb;
   background: #f9f8ff;
 
   &.Beginner {
     background: #fffbf8;
-    border-top-color: #fba778;
+    border-color: #fba778;
   }
 
   &.Intermediate {
     background: #f7f7f7;
-    border-top-color: #525252;
+    border-color: #525252;
   }
 
   &.Advanced {
     background: #fafff8;
-    border-top-color: #85bb81;
+    border-color: #85bb81;
   }
 }
 
