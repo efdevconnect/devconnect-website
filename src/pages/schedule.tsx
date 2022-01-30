@@ -11,27 +11,9 @@ import ChevronUp from 'assets/icons/chevron-up.svg'
 import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
 import SwipeToScroll from 'common/components/swipe-to-scroll'
 import { SEO } from 'common/components/SEO'
+import { useDraggableLink } from 'common/components/link'
 
 // moment.tz.setDefault('America/New_York')
-
-const useDraggableLink = () => {
-  const dragging = React.useRef(false)
-
-  return {
-    onMouseDown: () => {
-      dragging.current = false
-    },
-    onMouseMove: () => {
-      dragging.current = true
-    },
-    onClick: (e: React.SyntheticEvent) => {
-      if (dragging.current) {
-        e.preventDefault()
-      }
-    },
-    draggable: false,
-  }
-}
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),

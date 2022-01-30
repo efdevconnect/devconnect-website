@@ -18,6 +18,11 @@ $width-right-column: 190px;
     align-items: center;
     align-self: flex-start;
 
+    .hover-to-open,
+    .click-to-open {
+      font-size: 12px;
+    }
+
     .hover-to-open {
       display: none;
 
@@ -111,6 +116,10 @@ $width-right-column: 190px;
     }
   }
 
+  .twitter {
+    font-size: 20px;
+  }
+
   // > a {
   //   &:not(.twitter) {
   //     @media (max-width: $screen-sm) {
@@ -193,6 +202,14 @@ $width-right-column: 190px;
   align-items: center;
   cursor: pointer;
 
+  .icon {
+    display: flex;
+    align-items: center;
+    padding: 4px 20px;
+    position: relative;
+    right: -10px;
+  }
+
   * {
     fill: white;
   }
@@ -208,8 +225,7 @@ $width-right-column: 190px;
   display: flex;
   position: fixed;
   flex-direction: column;
-  padding-top: 16px;
-  // padding-bottom: 16px;
+  padding-top: 24px;
   background: #0d0d0d;
   bottom: 0px;
   z-index: 19;

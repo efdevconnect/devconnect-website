@@ -35,12 +35,14 @@
     display: flex;
     flex-direction: column;
 
-    @media (min-width: $screen-md) {
+    @media (min-width: $screen-lg) {
       flex-direction: row;
     }
 
     .left {
-      padding-right: 150px;
+      @media (min-width: $screen-lg) {
+        padding-right: 120px;
+      }
 
       .title {
         margin-bottom: 16px;
@@ -59,21 +61,31 @@
       flex-basis: 50%;
 
       .list {
+        margin-top: 24px;
         display: flex;
         flex-direction: column;
 
+        @media (min-width: $screen-lg) {
+          margin-top: 0px;
+        }
+
         .row {
           width: 100%;
+          overflow: hidden;
           padding: 12px 8px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          border-bottom: 1px solid black;
+          border-bottom: 1px solid #8f8f8f;
 
           .left {
             display: flex;
             flex-shrink: 0;
             align-items: center;
+
+            .icon {
+              font-size: 1.4em;
+            }
 
             > * {
               white-space: nowrap;
@@ -87,7 +99,6 @@
             flex-shrink: 1;
             display: flex;
             justify-content: flex-end;
-            // align-self: flex-end;
           }
         }
       }

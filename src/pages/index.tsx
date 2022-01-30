@@ -14,6 +14,7 @@ import HorizontalLooper from 'common/components/horizontal-looper'
 import SunEmoji from 'assets/images/sun-heart-emoji.png'
 import { SEO } from 'common/components/SEO'
 import { Menu, FooterMenu } from 'common/components/layout/Menu'
+import Link from 'next/link'
 
 const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
@@ -72,7 +73,9 @@ export const Footer = ({ inFoldoutMenu }: FooterProps) => {
           <div className={css['bottom']}>
             <div className={css['crafted-by']}>
               <p className="small-text">Crafted and curated with passion ♥ ✨ at the Ethereum Foundation.</p>
-              <p className={`${css['copyright']} tiny-text`}>© 2021 — Ethereum Foundation. All Rights Reserved.</p>
+              <p className={`${css['copyright']} tiny-text`}>
+                © {new Date().getFullYear()} — Ethereum Foundation. All Rights Reserved.
+              </p>
             </div>
 
             <div className={css['links']}>
@@ -132,7 +135,7 @@ const Home: NextPage = (props: any) => {
                   onMouseEnter={() => setDateHovered(true)}
                   onMouseLeave={() => setDateHovered(false)}
                 >
-                  <p className={`${css['date']} subheader`}>April 2022</p>
+                  <p className={`${css['date']} subheader`}>April 18-25, 2022</p>
                   {dateHovered && <Image src={FingersCrossed} alt="Fingers crossed" />}
                 </div>
 
@@ -184,19 +187,24 @@ const Home: NextPage = (props: any) => {
                   <div className={css['body']}>
                     <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
                     <p className="section-header as-text-body">
-                      Devconnect is a week-long and in-person gathering that will feature independent Ethereum events,
-                      each with a unique focus. The goal is to focus on depth-first gatherings rather than size, and to
-                      bring the Ethereum community together in smaller groups to talk (and learn) about, or to make
-                      sincere progress on, specific subjects.
+                      Devconnect is a week-long in-person gathering that will feature independent Ethereum events, each
+                      with a unique focus. The goal is to focus on depth-first sessions rather than size, and to bring
+                      the Ethereum community together in smaller groups to talk, learn about, or make serious progress
+                      on specific subjects.
                     </p>
 
                     <p className="subheader as-text-body">
-                      Events at and around Devconnect will be hosted and curated by experts in those domains.
+                      Events at and around Devconnect will be independently hosted and curated by experts in those
+                      domains.
                     </p>
 
                     <p className="subheader as-text-body">
                       As for everyone coming to town and wanting to hang out and work together between events,
-                      we&apos;ll maintain a space for collaboration for all who are interested.
+                      we&apos;ll maintain a{' '}
+                      <Link passHref href="/cowork">
+                        <a className={`bold ${css['cowork-link']}`}>space for collaboration</a>
+                      </Link>{' '}
+                      for all who are interested.
                     </p>
 
                     <a
@@ -232,7 +240,7 @@ const Home: NextPage = (props: any) => {
                   rel="noreferrer"
                   className={`button ${css['get-involved-button']}`}
                 >
-                  Get Involved
+                  Host an Event
                 </a>
               </div>
             </div>

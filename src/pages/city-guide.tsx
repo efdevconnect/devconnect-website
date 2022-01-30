@@ -15,6 +15,7 @@ import Dollar from 'assets/icons/dollar.svg'
 import Water from 'assets/icons/water.svg'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
+import { useDraggableLink } from 'common/components/link'
 
 const tabs = [
   {
@@ -30,8 +31,8 @@ const tabs = [
     value: 'getting-around',
   },
   {
-    text: 'Crypto accepted at',
-    value: 'crypto-accepted-at',
+    text: 'ETH accepted at',
+    value: 'eth-accepted-at',
   },
   {
     text: 'Areas to stay',
@@ -48,6 +49,8 @@ const tabs = [
 ]
 
 const Tabs = (props: any) => {
+  const linkAttributes = useDraggableLink()
+
   return (
     <SwipeToScroll>
       <div className={css['tabs']}>
@@ -63,7 +66,14 @@ const Tabs = (props: any) => {
               key={tab.value}
               href={`#${tab.value}`}
               className={className}
-              onClick={() => props.accordionRefs.current[tab.value] && props.accordionRefs.current[tab.value].open()}
+              {...linkAttributes}
+              onClick={(e: any) => {
+                if (props.accordionRefs.current[tab.value]) {
+                  props.accordionRefs.current[tab.value].open()
+                }
+
+                linkAttributes.onClick(e)
+              }}
             >
               {tab.text}
             </AnchorLink>
@@ -80,8 +90,8 @@ const List = () => {
       <div className={css['row']}>
         <div className={`${css['left']} small-text uppercase`}>
           <Clock className={css['icon']} />
-          <p className="bold">Timezone: &nbsp;</p>
-          <p>GMT -5</p>
+          <p className={`bold`}>Timezone: &nbsp;</p>
+          <p>CET (UTC/GMT +1)</p>
         </div>
         <p className={css['right']}>right</p>
       </div>

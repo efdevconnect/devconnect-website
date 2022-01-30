@@ -64,8 +64,8 @@ const Cowork: NextPage = (props: any) => {
                   work, and a space to relax.
                 </p>
                 <p>
-                  While all of the other events happening throughout the week will be independently-organized events,
-                  this co-working space will be officially hosted by the <b>Devconnect</b> team.
+                  While all of the other events happening throughout the week will be independently-organized, this
+                  co-working space will be officially hosted by the <b>Devconnect</b> team.
                 </p>
               </div>
 
@@ -92,8 +92,9 @@ const Cowork: NextPage = (props: any) => {
                   <p className={`big-text bold uppercase ${css['title']}`}>How to Attend?</p>
 
                   <p className={`bold`}>
-                    Tickets for the co-working space will be sold by our team and will be good for the entire week.
-                    Prices and specific details will be announced soon.
+                    While ticketing for all other events during Devconnect is left up to their respective organizers,
+                    tickets to the co-work are open to all Devconnect attendees looking to work together and hang out
+                    between sessions, so come meet with old and new friends alike. More detail to follow soon
                   </p>
                 </div>
               </div>

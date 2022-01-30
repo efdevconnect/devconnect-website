@@ -229,6 +229,17 @@
         }
       }
 
+      .cowork-link {
+        // &:hover {
+        text-decoration: underline;
+        // }
+
+        * {
+          fill: white;
+          font-size: 12px;
+        }
+      }
+
       .sun-emoji {
         position: relative;
         flex-grow: 1;

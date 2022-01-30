@@ -111,15 +111,19 @@ const Mobile = () => {
   return (
     <div className={css['mobile-menu']}>
       <div className={css['foldout-toggle']}>
-        <HamburgerIcon onClick={() => setOpen(true)} />
+        <div className={css['icon']} onClick={() => setOpen(true)}>
+          <HamburgerIcon className="large-text-em" />
+        </div>
       </div>
 
       {createPortal(
         <div className={`${open ? css['open'] : ''} ${css['foldout']}`}>
           <div className={`${css['foldout-toggle']} clear`}>
-            <p className="uppercase bold underline">Devconnect</p>
-            {/* <DevconnectAmsterdam /> */}
-            <IconCross onClick={() => setOpen(false)} />
+            {/* <p className="uppercase bold underline">Devconnect</p> */}
+            <DevconnectAmsterdam width="100px" height="50px" />
+            <div className={css['icon']} onClick={() => setOpen(false)}>
+              <IconCross />
+            </div>
           </div>
 
           <Footer inFoldoutMenu />
