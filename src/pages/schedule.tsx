@@ -68,7 +68,7 @@ const htmlEscape = (input: string) => {
 const htmlDecode = (content: string) => {
   let e = document.createElement('div')
   e.innerHTML = content
-  return e.childNodes.length === 0 ? '' : e.childNodes[0].nodeValue
+  return e.childNodes.length === 0 ? '' : (e.childNodes[0].nodeValue as any)
 }
 
 const useScheduleData = (events: any) => {
