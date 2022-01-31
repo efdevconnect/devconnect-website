@@ -83,7 +83,7 @@ const WrappedLink = React.forwardRef(
     }
 
     return (
-      <Link href={href} ref={ref} {...linkAttributes}>
+      <Link href={href} {...linkAttributes}>
         {children}
       </Link>
     )
