@@ -62,8 +62,8 @@ const WrappedLink = React.forwardRef(
     }
 
     return (
-      <Link href={href} {...linkAttributes}>
-        {children}
+      <Link href={href}>
+        <a {...linkAttributes}>{children}</a>
       </Link>
     )
   }

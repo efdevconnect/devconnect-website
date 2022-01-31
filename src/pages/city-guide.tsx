@@ -8,7 +8,8 @@ import { SEO } from 'common/components/SEO'
 import SwipeToScroll from 'common/components/swipe-to-scroll'
 import ChevronDown from 'assets/icons/chevron-down.svg'
 import ChevronUp from 'assets/icons/chevron-up.svg'
-import Sun from 'assets/icons/sun.svg'
+// import Sun from 'assets/icons/sun.svg'
+import Visa from 'assets/icons/visa.svg'
 import Clock from 'assets/icons/clock.svg'
 import Globe from 'assets/icons/globe.svg'
 import Dollar from 'assets/icons/dollar.svg'
@@ -84,7 +85,7 @@ const Tabs = (props: any) => {
   )
 }
 
-const List = () => {
+const List = (props: any) => {
   return (
     <div className={css['list']}>
       <div className={css['row']}>
@@ -102,11 +103,27 @@ const List = () => {
       </div>
       <div className={css['row']}>
         <div className={`${css['left']} small-text uppercase`}>
+          <Visa className={css['icon']} />
+          <p className="bold">VISA:&nbsp;</p>
+          <p>SCHENGEN SHORT-STAY</p>
+        </div>
+        <Link
+          href="https://www.government.nl/topics/immigration-to-the-netherlands/question-and-answer/which-visa-do-i-need-to-travel-to-the-netherlands"
+          className={`${css['right']} blue uppercase tiny-text hover-underline`}
+        >
+          REQUIREMENTS
+        </Link>
+      </div>
+      <div className={css['row']}>
+        <div className={`${css['left']} small-text uppercase`}>
           <Dollar className={css['icon']} />
           <p className="bold">Currency:&nbsp;</p>
           <p>EURO (€ EUR)</p>
         </div>
-        <Link href="https://google.com" className={`${css['right']} blue uppercase tiny-text hover-underline`}>
+        <Link
+          href="https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=EUR"
+          className={`${css['right']} blue uppercase tiny-text hover-underline`}
+        >
           Exchange Rate
         </Link>
       </div>
@@ -116,11 +133,14 @@ const List = () => {
           <p className="bold">Official language:&nbsp;</p>
           <p> DUTCH </p>
         </div>
-        <Link href="https://google.com" className={`${css['right']} blue uppercase tiny-text hover-underline`}>
-          Languide Guide
+        <Link
+          href="https://www.iamsterdam.com/en/about-amsterdam/amsterdam-information/history-and-society/language"
+          className={`${css['right']} blue uppercase tiny-text hover-underline`}
+        >
+          Language Guide
         </Link>
       </div>
-      <div className={css['row']}>
+      {/* <div className={css['row']}>
         <div className={`${css['left']} small-text uppercase`}>
           <Sun className={css['icon']} />
           <p className="bold">AVG TEMP:&nbsp;</p>
@@ -129,16 +149,24 @@ const List = () => {
         <Link href="https://google.com" className={`${css['right']} blue uppercase tiny-text hover-underline`}>
           Packing tips
         </Link>
-      </div>
+      </div> */}
       <div className={css['row']}>
         <div className={`${css['left']} small-text uppercase`}>
           <Water className={css['icon']} />
           <p className="bold">WATER: &nbsp;</p>
           <p>Tap water is safe to drink in Amsterdam.</p>
         </div>
-        <Link href="https://google.com" className={`${css['right']} blue uppercase tiny-text hover-underline`}>
-          FAQS
-        </Link>
+        <AnchorLink
+          href={`#faq`}
+          className={`${css['right']} blue uppercase tiny-text hover-underline generic`}
+          onClick={(e: any) => {
+            if (props.accordionRefs.current.faq) {
+              props.accordionRefs.current.faq.open()
+            }
+          }}
+        >
+          FAQ
+        </AnchorLink>
       </div>
     </div>
   )
@@ -216,7 +244,7 @@ const CityGuide: NextPage = () => {
               </div>
 
               <div className={css['right']}>
-                <List />
+                <List accordionRefs={accordionRefs} />
               </div>
             </div>
 

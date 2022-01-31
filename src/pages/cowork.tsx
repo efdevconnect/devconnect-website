@@ -77,10 +77,10 @@ const Cowork: NextPage = (props: any) => {
                   </p>
 
                   <p>
-                    <b>Relax.</b> Comfy areas to relax alone or in a small group
+                    <b>Relax.</b> Comfy areas to relax alone or in a small group.
                   </p>
                   <p>
-                    <b>Collaborate.</b> Several meeting rooms available for informal meetings (first come first serve)
+                    <b>Collaborate.</b> Several meeting rooms available for informal meetings (first come first serve).
                   </p>
 
                   <p>

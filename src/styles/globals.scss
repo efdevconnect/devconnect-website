@@ -84,6 +84,10 @@ $max-content-width: $content-width + ($side-gap * 2);
   font-weight: 700;
   text-transform: uppercase;
 
+  &.thin {
+    font-weight: 400;
+  }
+
   &.as-text-body {
     text-transform: none;
     font-family: 'Roboto', sans-serif;

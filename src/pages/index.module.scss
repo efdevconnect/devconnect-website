@@ -50,6 +50,10 @@
     height: auto;
     max-height: none;
   }
+
+  &.grow-naturally {
+    min-height: auto;
+  }
 }
 
 .scene-hero {
@@ -258,9 +262,22 @@
       margin-bottom: 24px;
     }
 
-    .get-involved-button {
-      @media (max-width: $screen-tiny) {
-        width: 100%;
+    .buttons {
+      > * {
+        display: inline-flex;
+
+        &:last-child {
+          margin-left: 24px;
+
+          @media (max-width: $screen-sm) {
+            margin-top: 24px;
+            margin-left: 0px;
+          }
+        }
+
+        @media (max-width: $screen-sm) {
+          width: 100%;
+        }
       }
     }
   }
@@ -380,11 +397,12 @@
     }
 
     .left {
-      @media (orientation: landscape) {
-        display: none !important;
-      }
+      display: none !important;
+      // @media (orientation: landscape) {
+      //   display: none !important;
+      // }
 
-      order: 2;
+      // order: 2;
     }
 
     .middle {

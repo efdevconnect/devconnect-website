@@ -14,7 +14,7 @@ import HorizontalLooper from 'common/components/horizontal-looper'
 import SunEmoji from 'assets/images/sun-heart-emoji.png'
 import { SEO } from 'common/components/SEO'
 import { Menu, FooterMenu } from 'common/components/layout/Menu'
-import Link from 'next/link'
+import Link from 'common/components/link/Link'
 
 const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
@@ -24,9 +24,9 @@ export const Header = () => {
   return (
     <div className="section">
       <header className={`${css['header']} clear-vertical`}>
-        <div className={css['logo']}>
+        <Link href="/" className={css['logo']}>
           <HeaderLogo />
-        </div>
+        </Link>
 
         <Menu />
       </header>
@@ -101,6 +101,7 @@ const Scene = (props: any) => {
 
   if (props.className) className += ` ${props.className}`
   if (props.growVertically) className += ` ${css['grow-vertically']}`
+  if (props.growNaturally) className += ` ${css['grow-naturally']}`
 
   return (
     <>
@@ -176,7 +177,7 @@ const Home: NextPage = (props: any) => {
             </div>
           </Scene>
 
-          <Scene growVertically id="about" className={`${css['scene-about']}`}>
+          <Scene growVertically growNaturally id="about" className={`${css['scene-about']}`}>
             <div className="section">
               <div className={`${css['scene-about-content']} clear-vertical`}>
                 <h1 className="section-header">About</h1>
@@ -201,8 +202,8 @@ const Home: NextPage = (props: any) => {
                     <p className="subheader as-text-body">
                       As for everyone coming to town and wanting to hang out and work together between events,
                       we&apos;ll maintain a{' '}
-                      <Link passHref href="/cowork">
-                        <a className={`bold ${css['cowork-link']}`}>space for collaboration</a>
+                      <Link href="/cowork" className={`bold ${css['cowork-link']}`}>
+                        space for collaboration
                       </Link>{' '}
                       for all who are interested.
                     </p>
@@ -234,14 +235,20 @@ const Home: NextPage = (props: any) => {
                   </HorizontalLooper>
                 </div>
 
-                <a
-                  href="https://forms.gle/m5KWJ3aX5H3kTR7s6"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`button ${css['get-involved-button']}`}
-                >
-                  Host an Event
-                </a>
+                <div className={css['buttons']}>
+                  <Link href="/schedule" className={`button ${css['view-schedule']}`}>
+                    View Schedule
+                  </Link>
+
+                  <a
+                    href="https://forms.gle/m5KWJ3aX5H3kTR7s6"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`button ${css['get-involved-button']}`}
+                  >
+                    Host an Event
+                  </a>
+                </div>
               </div>
             </div>
           </Scene>

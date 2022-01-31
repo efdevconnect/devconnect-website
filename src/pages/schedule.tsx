@@ -148,7 +148,6 @@ const createPlacementTracker = () => {
 const Calendar = (props: any) => {
   const { min, sortedEvents, events: defaultSortEvents, eventDuration, eventsByDay } = props
   const placementTracker = createPlacementTracker()
-  const linkAttribs = useDraggableLink()
 
   const events = sortedEvents.map((event: any) => {
     const startDay = moment(event.Date.startDate)
@@ -184,12 +183,7 @@ const Calendar = (props: any) => {
     }
 
     return (
-      <div
-        key={event.Name}
-        className={`${css['event']} ${css[event['Difficulty']]}`}
-        style={gridPlacement}
-        {...linkAttribs}
-      >
+      <div key={event.Name} className={`${css['event']} ${css[event['Difficulty']]}`} style={gridPlacement}>
         <div className={css['top']}>
           {event.URL ? (
             <Link href={event.URL} indicateExternal className={`large-text-em bold ${css['title']}`}>
@@ -227,7 +221,7 @@ const Calendar = (props: any) => {
         {Array.from(Array(eventDuration)).map((_, index: number) => {
           const day = moment(defaultSortEvents[0].Date.startDate).add(index, 'days') // .format('MMM DD')
           const weekday = day.format('ddd')
-          const date = day.format('DD')
+          const date = day.format('MMM DD')
           const noEventsForDay = !eventsByDay[index]
 
           if (noEventsForDay) return null
@@ -247,7 +241,15 @@ const Calendar = (props: any) => {
 const EventMeta = (props: any) => {
   return (
     <div className={css['meta']}>
-      {props.event.Category && <div className={`tag -text-em`}>{props.event.Category}</div>}
+      {props.event.Category &&
+        props.event.Category.length > 0 &&
+        props.event.Category.map((category: any) => {
+          return (
+            <div key={category} className={`tag tiny-text-em`}>
+              {category}
+            </div>
+          )
+        })}
       {props.event['Difficulty'] && <div className="tiny-text-em">{props.event.Difficulty}</div>}
     </div>
   )
@@ -255,7 +257,7 @@ const EventMeta = (props: any) => {
 
 const ListCalendarTableHeader = (props: any) => {
   return (
-    <div className={`uppercase bold ${css['calendar-list-table-header']} ${css['calendar-list-grid']}`}>
+    <div className={`uppercase ${css['calendar-list-table-header']} ${css['calendar-list-grid']}`}>
       <div className={css['col-1']}>Date & Time</div>
       <div className={css['col-2']}>Event</div>
       <div className={css['col-3']}>Organizers</div>
@@ -273,8 +275,8 @@ const ListCalendarDayHeader = (props: any) => {
     <>
       <div className={css['day-header']} onClick={() => setOpen(!open)}>
         <div className={css['date']}>
-          <p className="section-header large-text">{day}</p>
-          <p className="section-header small-text">{date}</p>
+          <p className="section-header thin large-text">{day}</p>
+          <p className="section-header thin small-text">{date}</p>
         </div>
 
         <div className={css['toggle-open']}>{open ? <ChevronUp /> : <ChevronDown />}</div>
@@ -347,9 +349,7 @@ const ListCalendarEvent = (props: any) => {
           )}
         </div>
 
-        <div className={`${css['calendar-add']} ${css['col-5']}`}>
-          <AddToCalendarIcon />
-        </div>
+        <div className={`${css['calendar-add']} ${css['col-5']}`}>{/* <AddToCalendarIcon /> */}</div>
       </div>
 
       {/* List view (mobile) */}
@@ -394,7 +394,7 @@ const ListCalendarEvent = (props: any) => {
         <div className={css['bottom']}>
           <EventMeta event={props.event} />
 
-          <AddToCalendarIcon className={css['add-to-calendar']} />
+          {/* <AddToCalendarIcon className={css['add-to-calendar']} /> */}
         </div>
       </div>
     </>
