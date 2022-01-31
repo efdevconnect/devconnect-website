@@ -30,7 +30,7 @@
 
   .general-info {
     border-top: 1px solid $standard-border-color;
-    margin-top: 16px;
+    // margin-top: 16px;
     padding-top: 16px;
     display: flex;
     flex-direction: column;
@@ -84,7 +84,12 @@
             align-items: center;
 
             .icon {
+              display: none;
               font-size: 1.4em;
+
+              @media (min-width: 400px) {
+                display: block !important;
+              }
             }
 
             > * {
@@ -96,9 +101,13 @@
           }
 
           .right {
+            display: none;
             flex-shrink: 1;
-            display: flex;
             justify-content: flex-end;
+
+            @media (min-width: $screen-sm) {
+              display: flex !important;
+            }
           }
         }
       }
@@ -144,19 +153,21 @@
 .body {
   display: flex;
   flex-direction: column;
+  padding-top: 0px;
 }
 
 .tabs {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  padding-top: 20px;
+  padding-bottom: 20px;
   // flex-wrap: wrap;
 
   .tab {
     cursor: pointer;
     margin-right: 48px;
     flex-shrink: 0;
-    position: inline;
     white-space: nowrap;
 
     color: $monochrome-6;

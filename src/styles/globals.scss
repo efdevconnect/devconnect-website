@@ -254,7 +254,18 @@ a {
 
   &.generic {
     font-weight: bold;
-    text-decoration: underline;
+  }
+
+  &.blue {
+    color: $color-link;
+  }
+
+  &.hover-underline {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 

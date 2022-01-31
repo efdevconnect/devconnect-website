@@ -73,18 +73,18 @@ const Cowork: NextPage = (props: any) => {
                 <div className={css['what-to-expect']}>
                   <p className={`big-text bold uppercase ${css['title']}`}>What to expect?</p>
                   <p>
-                    <b>Work.</b> Tables, wifi, outlets.
+                    <b>Work.</b> Tables, wifi, and outlets.
                   </p>
 
                   <p>
-                    <b>Relax.</b> Comfy areas to relax alone or in small groups.
+                    <b>Relax.</b> Comfy areas to relax alone or in a small group
                   </p>
                   <p>
-                    <b>Collab.</b> Several meeting rooms available for informal meetings.
+                    <b>Collaborate.</b> Several meeting rooms available for informal meetings (first come first serve)
                   </p>
 
                   <p>
-                    <i>Light snacks and drinks will be offered throughout.</i>
+                    <b>Energize.</b> Light snacks and drinks will be offered throughout.
                   </p>
                 </div>
 
@@ -94,7 +94,7 @@ const Cowork: NextPage = (props: any) => {
                   <p className={`bold`}>
                     While ticketing for all other events during Devconnect is left up to their respective organizers,
                     tickets to the co-work are open to all Devconnect attendees looking to work together and hang out
-                    between sessions, so come meet with old and new friends alike. More detail to follow soon
+                    between sessions, so come meet with old and new friends alike. More detail to follow soon.
                   </p>
                 </div>
               </div>

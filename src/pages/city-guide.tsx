@@ -15,7 +15,7 @@ import Dollar from 'assets/icons/dollar.svg'
 import Water from 'assets/icons/water.svg'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
-import { useDraggableLink } from 'common/components/link'
+import Link, { useDraggableLink } from 'common/components/link'
 
 const tabs = [
   {
@@ -93,7 +93,12 @@ const List = () => {
           <p className={`bold`}>Timezone: &nbsp;</p>
           <p>CET (UTC/GMT +1)</p>
         </div>
-        <p className={css['right']}>right</p>
+        <Link
+          href="https://www.timeanddate.com/worldclock/netherlands/amsterdam"
+          className={`${css['right']} blue uppercase tiny-text hover-underline`}
+        >
+          Current time
+        </Link>
       </div>
       <div className={css['row']}>
         <div className={`${css['left']} small-text uppercase`}>
@@ -101,7 +106,9 @@ const List = () => {
           <p className="bold">Currency:&nbsp;</p>
           <p>EURO (€ EUR)</p>
         </div>
-        <p className={css['right']}>right</p>
+        <Link href="https://google.com" className={`${css['right']} blue uppercase tiny-text hover-underline`}>
+          Exchange Rate
+        </Link>
       </div>
       <div className={css['row']}>
         <div className={`${css['left']} small-text uppercase`}>
@@ -109,7 +116,9 @@ const List = () => {
           <p className="bold">Official language:&nbsp;</p>
           <p> DUTCH </p>
         </div>
-        <p className={css['right']}>right</p>
+        <Link href="https://google.com" className={`${css['right']} blue uppercase tiny-text hover-underline`}>
+          Languide Guide
+        </Link>
       </div>
       <div className={css['row']}>
         <div className={`${css['left']} small-text uppercase`}>
@@ -117,7 +126,9 @@ const List = () => {
           <p className="bold">AVG TEMP:&nbsp;</p>
           <p> AVG TEMP: 8 TO 20 °C / 46.4 to 68.0 °F</p>
         </div>
-        <p className={css['right']}>right</p>
+        <Link href="https://google.com" className={`${css['right']} blue uppercase tiny-text hover-underline`}>
+          Packing tips
+        </Link>
       </div>
       <div className={css['row']}>
         <div className={`${css['left']} small-text uppercase`}>
@@ -125,7 +136,9 @@ const List = () => {
           <p className="bold">WATER: &nbsp;</p>
           <p>Tap water is safe to drink in Amsterdam.</p>
         </div>
-        <p className={css['right']}>right</p>
+        <Link href="https://google.com" className={`${css['right']} blue uppercase tiny-text hover-underline`}>
+          FAQS
+        </Link>
       </div>
     </div>
   )
@@ -187,7 +200,9 @@ const CityGuide: NextPage = () => {
 
             <div className={css['general-info']}>
               <div className={css['left']}>
-                <p className={`${css['title']} uppercase`}>AMSTERDAM - [ ahm-stuhr-dahYUMMMm ]</p>
+                <p className={`${css['title']} uppercase`}>
+                  AMSTERDAM - <span className="bold">[ ahm-stuhr-dahYUMMMm ]</span>
+                </p>
 
                 <p className={`uppercase bold big-text ${css['details-1']}`}>
                   Amsterdam is known as one of the world’s most multicultural cities.{' '}

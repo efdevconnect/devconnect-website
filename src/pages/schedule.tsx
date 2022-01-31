@@ -430,8 +430,6 @@ const Schedule: NextPage = (props: any) => {
   const [scheduleView, setScheduleView] = React.useState('calendar')
   const scheduleHelpers = useScheduleData(props.events)
 
-  console.log(props.raw, 'raw')
-
   return (
     <>
       <SEO title="Schedule" description="Devconnect schedule" />
