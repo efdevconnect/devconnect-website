@@ -251,6 +251,11 @@ $max-content-width: $content-width + ($side-gap * 2);
 a {
   color: inherit;
   text-decoration: inherit;
+
+  &.generic {
+    font-weight: bold;
+    text-decoration: underline;
+  }
 }
 
 .text-spacing {

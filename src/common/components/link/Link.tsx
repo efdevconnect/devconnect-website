@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import Link from 'next/link'
+import LinkIndicator from 'assets/icons/link-indicator.svg'
 
 type LinkProps = {
   children: ReactNode
@@ -33,32 +34,9 @@ const WrappedLink = React.forwardRef(
     const isMailTo = href.startsWith('mailto:')
     const linkAttributes = {
       ...rest,
+      className: rest.className ? `${rest.className} generic` : 'generic',
       ...useDraggableLink(),
     }
-    // const dragging = React.useRef(false)
-
-    // const linkAttributes = {
-    //   ...rest,
-    // }
-
-    // // Links can exist within a draggable context; we don't want drag events to be mistaken for clicks, so we preventDefault if the mouse is moving
-    // if (allowDrag) {
-    //   linkAttributes.onMouseDown = () => {
-    //     dragging.current = false
-    //   }
-
-    //   linkAttributes.onMouseMove = () => {
-    //     dragging.current = true
-    //   }
-
-    //   linkAttributes.onClick = (e: React.SyntheticEvent) => {
-    //     if (dragging.current) {
-    //       e.preventDefault()
-    //     }
-    //   }
-
-    //   linkAttributes.draggable = false
-    // }
 
     if (isMailTo) {
       return (
@@ -77,7 +55,8 @@ const WrappedLink = React.forwardRef(
     if (isExternal) {
       return (
         <a href={href} ref={ref} {...linkAttributes} target="_blank" rel="noopener noreferrer">
-          {children}
+          {children}{' '}
+          {indicateExternal && <LinkIndicator style={{ fontSize: '0.6em', position: 'relative', top: '-3px' }} />}
         </a>
       )
     }

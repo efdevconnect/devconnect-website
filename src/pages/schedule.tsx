@@ -12,7 +12,8 @@ import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
 import SwipeToScroll from 'common/components/swipe-to-scroll'
 import { SEO } from 'common/components/SEO'
 import { useDraggableLink } from 'common/components/link'
-
+import Link from 'common/components/link'
+// import LinkIndicator from 'assets/icons/link-indicator.svg'
 // moment.tz.setDefault('America/New_York')
 
 const sortEvents = (a: any, b: any) => {
@@ -55,6 +56,19 @@ const calculateEventDuration = (min: moment.Moment | undefined, max: moment.Mome
   }
 
   return 0
+}
+
+const htmlEscape = (input: string) => {
+  input = input.replace(/&/g, '&amp;')
+  input = input.replace(/</g, '&lt;')
+  input = input.replace(/>/g, '&gt;')
+  return input
+}
+
+const htmlDecode = (content: string) => {
+  let e = document.createElement('div')
+  e.innerHTML = content
+  return e.childNodes.length === 0 ? '' : e.childNodes[0].nodeValue
 }
 
 const useScheduleData = (events: any) => {
@@ -170,17 +184,20 @@ const Calendar = (props: any) => {
     }
 
     return (
-      <a
-        href={event.URL}
-        target="_blank"
-        rel="noreferrer"
+      <div
         key={event.Name}
         className={`${css['event']} ${css[event['Difficulty']]}`}
         style={gridPlacement}
         {...linkAttribs}
       >
         <div className={css['top']}>
-          <p className={`large-text-em bold ${css['title']}`}>{event.Name}</p>
+          {event.URL ? (
+            <Link href={event.URL} indicateExternal className={`large-text-em bold ${css['title']}`}>
+              {event.Name}
+            </Link>
+          ) : (
+            <p className={`large-text-em bold ${css['title']}`}>{event.Name}</p>
+          )}
           {event['Time of Day'] && (
             <div className={css['when']}>
               {Array.from(Array(totalDays)).map((_, index: number) => {
@@ -198,7 +215,7 @@ const Calendar = (props: any) => {
 
           <EventMeta event={event} />
         </div>
-      </a>
+      </div>
     )
   })
 
@@ -283,12 +300,7 @@ const ListCalendarEvent = (props: any) => {
   return (
     <>
       {/* List view as table/grid (desktop) */}
-      <a
-        href={props.event.URL}
-        target="_blank"
-        rel="noreferrer"
-        className={`${css['event-in-table']} ${css[props.event['Difficulty']]} ${css['calendar-list-grid']}`}
-      >
+      <div className={`${css['event-in-table']} ${css[props.event['Difficulty']]} ${css['calendar-list-grid']}`}>
         <div className={`${css['date']} ${css['col-1']}`}>
           <div>
             <p className="big-text uppercase">
@@ -306,9 +318,18 @@ const ListCalendarEvent = (props: any) => {
 
         <div className={`${css['description']} ${css['col-2']}`}>
           <div>
-            <p className={`${css['title']} big-text bold uppercase`}>{props.event.Name}</p>
+            {props.event.URL ? (
+              <Link href={props.event.URL} indicateExternal className={`${css['title']} big-text bold uppercase`}>
+                {props.event.Name}
+              </Link>
+            ) : (
+              <p className={`${css['title']} big-text bold uppercase`}>{props.event.Name}</p>
+            )}
             {props.event['Brief Description'] && (
-              <p className={`${css['body']} small-text`}>{props.event['Brief Description']}</p>
+              <p
+                className={`${css['body']} small-text`}
+                dangerouslySetInnerHTML={{ __html: htmlDecode(htmlEscape(props.event['Brief Description'])) }}
+              />
             )}
           </div>
           <EventMeta event={props.event} />
@@ -329,16 +350,17 @@ const ListCalendarEvent = (props: any) => {
         <div className={`${css['calendar-add']} ${css['col-5']}`}>
           <AddToCalendarIcon />
         </div>
-      </a>
+      </div>
 
       {/* List view (mobile) */}
-      <a
-        href={props.event.URL}
-        target="_blank"
-        rel="noreferrer"
-        className={`${css['event']} ${css[props.event['Difficulty']]} `}
-      >
-        <p className="large-text uppercase bold">{props.event.Name}</p>
+      <div className={`${css['event']} ${css[props.event['Difficulty']]} `}>
+        {props.event.URL ? (
+          <Link href={props.event.URL} indicateExternal className={`${css['title']} large-text uppercase bold`}>
+            {props.event.Name}
+          </Link>
+        ) : (
+          <p className={`${css['title']} large-text uppercase bold`}>{props.event.Name}</p>
+        )}
 
         <div className={css['date']}>
           <p className="small-text uppercase">
@@ -354,7 +376,10 @@ const ListCalendarEvent = (props: any) => {
         {isMultiDayEvent && <div className={`tag purple tiny-text`}>Multi-day Event</div>}
 
         {props.event['Brief Description'] && (
-          <p className={`${css['description']} small-text`}>{props.event['Brief Description']}</p>
+          <p
+            className={`${css['description']} small-text`}
+            dangerouslySetInnerHTML={{ __html: htmlDecode(htmlEscape(props.event['Brief Description'])) }}
+          />
         )}
 
         {props.event['Organizer'] && (
@@ -371,7 +396,7 @@ const ListCalendarEvent = (props: any) => {
 
           <AddToCalendarIcon className={css['add-to-calendar']} />
         </div>
-      </a>
+      </div>
     </>
   )
 }
@@ -404,6 +429,8 @@ const ListCalendar = (props: any) => {
 const Schedule: NextPage = (props: any) => {
   const [scheduleView, setScheduleView] = React.useState('calendar')
   const scheduleHelpers = useScheduleData(props.events)
+
+  console.log(props.raw, 'raw')
 
   return (
     <>
@@ -451,12 +478,24 @@ const Schedule: NextPage = (props: any) => {
 export default Schedule
 
 // Notion fetch/format below
-const notionDatabasePropertyResolver = (property: any) => {
+const notionDatabasePropertyResolver = (property: any, key: any) => {
   switch (property.type) {
     case 'text':
     case 'rich_text':
     case 'title':
-      return property[property.type]?.[0]?.plain_text || null
+      const dechunked = property[property.type]
+        ? property[property.type].reduce((acc: string, chunk: any) => {
+            if (chunk.href && property.type === 'rich_text' && key !== 'URL') {
+              acc += `<a href=${chunk.href} target="_blank" class="generic" rel="noopener noreferrer">${chunk.plain_text}</a>`
+            } else {
+              acc += chunk.plain_text
+            }
+
+            return acc
+          }, '')
+        : null
+
+      return `${dechunked}`
 
     case 'date':
       if (property.date) {
@@ -487,7 +526,7 @@ const formatResult = (result: any) => {
 
   // Format the raw notion data into something more workable
   Object.entries(result.properties).forEach(([key, value]) => {
-    const val = notionDatabasePropertyResolver(value)
+    const val = notionDatabasePropertyResolver(value, key)
 
     if (Array.isArray(val)) {
       properties[key] = val
@@ -516,6 +555,7 @@ export async function getStaticProps() {
   const databaseID = '8b177855e75b4964bb9f3622437f04f5'
 
   let data = {}
+  // let raw = {}
 
   try {
     // Notion returns up to 100 results per request. We won't have that many events, but if we ever get close, add support for pagination at this step.
@@ -546,6 +586,7 @@ export async function getStaticProps() {
     })
 
     data = response.results.map(formatResult)
+    // raw = response.results
   } catch (error) {
     if (false) {
       // Handle error codes here if necessary
@@ -558,6 +599,7 @@ export async function getStaticProps() {
   return {
     props: {
       events: data,
+      // raw,
     },
     revalidate: 1 * 60 * 30, // 30 minutes, in seconds
   }

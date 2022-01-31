@@ -179,6 +179,10 @@
     padding-bottom: 8px;
     margin-top: 4px;
 
+    .title {
+      display: block;
+    }
+
     .date {
       // margin: 8px 0px;
       display: flex;
@@ -322,6 +326,7 @@
 
       .title {
         margin-bottom: 8px;
+        display: block;
       }
 
       .when {
