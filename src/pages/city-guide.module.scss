@@ -159,7 +159,7 @@
 
       .content {
         background: white;
-        padding: 24px 16px;
+        padding: 20px 16px;
         border-top: 1px solid $standard-border-color;
       }
     }
@@ -208,9 +208,17 @@
 
   .section {
     margin-bottom: 1em;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
   }
 
   p {
     margin-bottom: 1em;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
   }
 }
