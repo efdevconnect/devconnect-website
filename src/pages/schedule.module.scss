@@ -122,6 +122,13 @@
   }
 }
 
+.calendar-list-table-header,
+.top-bar {
+  // background: yellow !important;
+  background: rgb(10, 10, 10);
+  color: $monochrome-5;
+}
+
 .meta {
   display: flex;
   align-items: center;
