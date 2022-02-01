@@ -224,6 +224,10 @@ $max-content-width: $content-width + ($side-gap * 2);
   font-family: 'Roboto Condensed';
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 .button {
   display: flex;
   justify-content: center;

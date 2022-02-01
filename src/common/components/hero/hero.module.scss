@@ -31,8 +31,12 @@
     background-image: url('../../../assets/images/tile.png');
     background-repeat: repeat-x;
     mix-blend-mode: overlay;
-    background-size: var(--tile-size, 100px);
+    background-size: var(--tile-size, 60px);
     background-position: bottom;
+
+    @media (min-width: $screen-lg) {
+      background-size: var(--tile-size, 100px);
+    }
   }
 
   .content {

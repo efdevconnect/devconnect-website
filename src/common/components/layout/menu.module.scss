@@ -61,7 +61,7 @@ $width-right-column: 190px;
       position: absolute;
       z-index: 1;
       top: 100%;
-      right: 0px;
+      left: 0px;
       white-space: nowrap;
       display: none;
 
@@ -178,7 +178,7 @@ $width-right-column: 190px;
   > a,
   .multi-link {
     align-self: flex-start;
-    margin-top: 20px;
+    margin-top: 28px;
   }
 
   .multi-link {

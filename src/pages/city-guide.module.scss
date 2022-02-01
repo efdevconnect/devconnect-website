@@ -151,6 +151,10 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+
+        svg {
+          font-size: 0.6em;
+        }
       }
 
       .content {
@@ -193,5 +197,20 @@
         text-decoration: underline;
       }
     }
+  }
+}
+
+.tab-content {
+  .header {
+    text-decoration: underline;
+    font-size: 1.2em;
+  }
+
+  .section {
+    margin-bottom: 1em;
+  }
+
+  p {
+    margin-bottom: 1em;
   }
 }

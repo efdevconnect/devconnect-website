@@ -26,26 +26,203 @@ const tabs = [
   {
     text: 'Airport transit',
     value: 'airport-transit',
+    content: () => {
+      return (
+        <div className={`${css['tab-content']} small-text ${css['airport-transit']}`}>
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>Ride Sharing</p>
+            <p className="small-text">
+              You can easily Uber or Bolt into Amsterdam or to the Airport. Schiphol Airport is not too far from the
+              City Center.
+            </p>
+          </div>
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>Metro</p>
+            <Link href="https://www.amsterdam.info/transport/metro/" className="small-text hover-underline">
+              <p>View Metro Routes</p>
+            </Link>
+            <p className="small-text">
+              The Metro will likely have a stop close to your accommodation. <br />
+              There is a direct metro to Centraal (main station) which also then has access to many more metro and tram
+              stops.After midnight, trains from Schiphol Airport to Centraal Station run hourly rather than every 10-15
+              minutes, a taxi, Uber, or Bolt will be your best option.
+            </p>
+          </div>
+        </div>
+      )
+    },
   },
   {
     text: 'Getting around',
     value: 'getting-around',
+    content: () => {
+      return (
+        <div className={`${css['tab-content']} small-text ${css['getting-around']}`}>
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>Public Transport</p>
+            <p className="small-text">
+              Amsterdam is easy to bike and harder to drive. Cyclists can make use of the many bike-friendly streets
+              while parking is expensive in Center.
+            </p>
+            <p className="small-text">There is a great public transport system: Train, Tram, Metro, &amp; Bus.</p>
+            <p className="small-text underline">Transport System</p>
+
+            <p className="small-text">
+              Amsterdam&apos;s public transport network runs on a ticketing system called <i>GVB</i>.
+            </p>
+            <p className="small-text">
+              Downloading the{' '}
+              <Link
+                href="https://en.gvb.nl/klantenservice/reizen-met-de-gvb-reisapp-0"
+                className="small-text hover-underline"
+              >
+                GVB public transport app
+              </Link>{' '}
+              should come in handy.
+              <br />
+              Or download the{' '}
+              <Link
+                href="https://www.iamsterdam.com/media/pdf/visiting-uit/getting-around/artt-map-nz-lijn-2020.pdf?la=en"
+                className="small-text hover-underline"
+              >
+                map
+              </Link>{' '}
+              in advance.
+            </p>
+
+            <p className="small-text underline">Travel passes</p>
+            <p className="small-text">
+              Buy an{' '}
+              <Link
+                href="https://www.ov-chipkaart.nl/purchase-an-ov-chipkaart.htm"
+                className="small-text hover-underline"
+              >
+                OV-chipkaart
+              </Link>{' '}
+              for travel around the city
+            </p>
+            <p className="small-text">Top this up at any public transport station, or buy day passes, etc.</p>
+          </div>
+
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>Bike Rentals</p>
+            <p className="small-text">A lot of bike rentals can be found around the Centraal Station.</p>
+
+            <Link href="https://www.macbike.nl/" className="small-text hover-underline">
+              <p>MAC Bike — Popular for tourists.</p>
+            </Link>
+            <Link href="https://www.yellowbike.nl/en/" className="small-text hover-underline">
+              <p>Yellow Bike</p>
+            </Link>
+            <Link href="https://www.rentabike.nl/" className="small-text hover-underline">
+              <p>Rentabike</p>
+            </Link>
+          </div>
+        </div>
+      )
+    },
   },
   // {
   //   text: 'ETH accepted at',
   //   value: 'eth-accepted-at',
   // },
-  {
-    text: 'Areas to stay',
-    value: 'areas-to-stay',
-  },
-  {
-    text: 'Food and drink',
-    value: 'food-and-drink',
-  },
+  // {
+  //   text: 'Areas to stay',
+  //   value: 'areas-to-stay',
+  //   content: () => {
+  //     return <div className={`${css['tab-content']} ${css['areas-to-stay']}`}>areas to stay</div>
+  //   },
+  // },
+  // {
+  //   text: 'Food and drink',
+  //   value: 'food-and-drink',
+  //   content: () => {
+  //     return (
+  //       <div className={`${css['tab-content']} ${css['food-and-drink']}`}>
+  //         <ul>
+  //           <li>
+  //             There are so many options for eating and drinking in Amsterdam, especially in the City Center — it’s hard
+  //             to name just a few!
+  //           </li>
+  //         </ul>
+  //         There are so many options for eating and drinking in Amsterdam, especially in the City Center — it’s hard to
+  //         name just a few! Best Apple pie in Amsterdam Winkel43 Brown Bars and wine bars are in abundance Eating Borrel
+  //         is super popular at these bars Bitterballen Kroket Friet (fries) Also popular to eat Poffertjes Stroopwafel
+  //         Kibbeling Dutch Cheeses Pannekoeken Amsterdam based breweries are Brouwerij 't IJ, Oedipus or Troost
+  //       </div>
+  //     )
+  //   },
+  // },
   {
     text: 'FAQ',
     value: 'faq',
+    content: () => {
+      return (
+        <div className={`${css['tab-content']} small-text  ${css['faq']}`}>
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>How do I sponsor?</p>
+            <p>
+              While Devconnect will be sponsor-free, independent events happening throughout Devconnect may be looking
+              for sponsorship. If you’re interested in sponsoring, check out relevant events to see if they are
+              accepting sponsorships.
+            </p>
+          </div>
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>
+              From my understanding, Devconnect will just be separate events hosted by individual
+              projects/teams/individuals, correct?
+            </p>
+            <p>This is correct!</p>
+          </div>
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>
+              Will there be a central venue where these events will be held, or is each host responsible for locating a
+              venue for their event?
+            </p>
+            <p>
+              Each host is responsible for their own venue. There will be many events in many different venues
+              throughout Amsterdam during the week. Attendees will need to pick and choose based on their interest.
+            </p>
+          </div>
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>
+              Will there be any &quot;main events&quot; hosted directly by Devconnect?
+            </p>
+            <p>
+              There will be an open Co-Working space throughout the week with tickets available to all. This will be in
+              Beurs van Berlage. Other than that, all events will be independently hosted.
+            </p>
+          </div>
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>Approximately how many people will fit at each event?</p>
+            <p>
+              Sizes will vary, and range from a 25-person zkEVM workshop for example, to a 300-person event on staking
+              by ETHStaker, to a 800-person EthGlobal hackathon. Some are private, some free, some will be based on
+              applications, and others may be ticketed with paid tickets.
+            </p>
+          </div>
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>
+              What is the primary audience you are hoping to attract for Devconnect?
+            </p>
+            <p>
+              While this does vary by event, the focus in general are those who are involved/interested in the ecosystem
+              in one particular area and want to dive deeper!
+            </p>
+          </div>
+
+          <div className={css['section']}>
+            <p className={`${css['header']} small-text bold`}>
+              How many people do you estimate will attend Devconnect?
+            </p>
+            <p>
+              Given the many events taking place and shifting COVID measures, it is hard to estimate, but we’re
+              estimating that ~1.5-2k attendees may join.{' '}
+            </p>
+          </div>
+        </div>
+      )
+    },
   },
 ]
 
@@ -183,7 +360,7 @@ const Accordion = React.forwardRef((props: any, ref: any) => {
 
   return (
     <div className={css['accordion']}>
-      <div id={props.id} className={`uppercase bold ${css['toggle']}`} onClick={() => setOpen(!open)}>
+      <div id={props.id} className={`uppercase bold big-text ${css['toggle']}`} onClick={() => setOpen(!open)}>
         <p className={css['big-text']}>{props.title}</p>
         {open ? <ChevronUp /> : <ChevronDown />}
       </div>
@@ -203,7 +380,7 @@ const CityGuide: NextPage = () => {
       <Hero
         className={css['city-guide-hero']}
         backgroundClassName={css['background']}
-        imageProps={{ src: AmsterdamHero, alt: 'Some text' }}
+        imageProps={{ src: AmsterdamHero, alt: 'Amsterdam' }}
       >
         <div className={css['hero-content']}>
           <p className="uppercase extra-large-text bold secondary title">Amsterdam —</p>
@@ -253,7 +430,9 @@ const CityGuide: NextPage = () => {
             </div>
 
             <div className={css['accordions']}>
-              {tabs.slice(1).map(tab => {
+              {tabs.slice(1).map((tab, index) => {
+                const tabContent = tabs[index + 1]
+
                 return (
                   <Accordion
                     key={tab.value}
@@ -261,14 +440,7 @@ const CityGuide: NextPage = () => {
                     id={tab.value}
                     ref={el => (accordionRefs.current[tab.value] = el)}
                   >
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                    alteration in some form, by injected humour, or randomised words which dont look even slightly
-                    believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt
-                    anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet
-                    tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                    It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures,
-                    to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free
-                    from repetition, injected humour, or non-characteristic words etc.
+                    {tabContent.content && tabContent.content()}
                   </Accordion>
                 )
               })}

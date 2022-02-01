@@ -19,7 +19,7 @@ const Cowork: NextPage = (props: any) => {
   return (
     <>
       <SEO title="Cowork" description="Coworking at Devconnect" />
-      <Hero className={css['cowork-hero']} imageProps={{ src: CoworkHero, alt: 'Some text' }}>
+      <Hero className={css['cowork-hero']} imageProps={{ src: CoworkHero, alt: 'Coworking space' }}>
         <div className={css['content']}>
           <div>
             <p className="uppercase extra-large-text bold secondary title">CoWork —</p>

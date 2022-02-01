@@ -1,30 +1,7 @@
 @import 'styles/variables.scss';
 
 .hero {
-  // background-image: url('../assets/images/gradient-1.svg');
   --tile-size: 60px;
-
-  // &:before {
-  //   content: '';
-  //   z-index: -1;
-  //   position: absolute;
-  //   left: 0px;
-  //   right: 0px;
-  //   height: 100%;
-  //   width: 100%;
-  //   background-image: url('../assets/images/tile.png');
-  //   background-repeat: repeat-x;
-  //   background-size: 150px;
-  //   background-position: bottom;
-  // }
-
-  // .gradient {
-  //   position: absolute;
-  //   top: 0px;
-  //   right: 0px;
-  //   left: 0px;
-  //   bottom: 0px;
-  // }
 }
 
 .schedule {
@@ -40,25 +17,24 @@
     color: $monochrome-6;
 
     .view {
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: space-between;
       text-transform: uppercase;
       color: $monochrome-6;
+      background: #f8f8f8;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+      border-radius: 44px;
+      padding: 0px 20px;
 
       // @media (max-width: $screen-tiny) {
       //   width: 100%;
       //   margin-top: 16px;
       // }
 
-      @media (max-width: $screen-md) {
-        display: none;
+      @media (min-width: $screen-md) {
+        display: flex;
       }
-
-      background: #f8f8f8;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-      border-radius: 44px;
-      padding: 0px 20px;
 
       .options {
         display: flex;

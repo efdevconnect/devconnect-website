@@ -81,7 +81,7 @@ const menuItems = [
         url: 'https://forms.gle/6eoj7wDjXx6qhNj78',
       },
       {
-        text: 'Press',
+        text: 'Press Inquiry',
         external: true,
         url: 'https://forms.gle/wV9hKjFdmhw38gbF8',
       },
