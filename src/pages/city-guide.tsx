@@ -212,7 +212,7 @@ const tabs = [
             </p>
           </div>
 
-          <div className={css['section']}>
+          {/* <div className={css['section']}>
             <p className={`${css['header']} small-text bold`}>
               How many people do you estimate will attend Devconnect?
             </p>
@@ -220,7 +220,7 @@ const tabs = [
               Given the many events taking place and shifting COVID measures, it is hard to estimate, but we’re
               estimating that ~1.5-2k attendees may join.{' '}
             </p>
-          </div>
+          </div> */}
         </div>
       )
     },
