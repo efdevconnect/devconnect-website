@@ -41,6 +41,7 @@ const tabs = [
             <Link href="https://www.amsterdam.info/transport/metro/" className="small-text hover-underline">
               <p>View Metro Routes</p>
             </Link>
+            <br />
             <p className="small-text">
               The Metro will likely have a stop close to your accommodation. <br />
               There is a direct metro to Centraal (main station) which also then has access to many more metro and tram
