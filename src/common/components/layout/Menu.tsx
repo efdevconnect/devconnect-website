@@ -80,6 +80,11 @@ const menuItems = [
         external: true,
         url: 'https://forms.gle/6eoj7wDjXx6qhNj78',
       },
+      {
+        text: 'Press',
+        external: true,
+        url: 'https://forms.gle/wV9hKjFdmhw38gbF8',
+      },
     ],
   },
 ]

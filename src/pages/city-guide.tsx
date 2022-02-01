@@ -31,10 +31,10 @@ const tabs = [
     text: 'Getting around',
     value: 'getting-around',
   },
-  {
-    text: 'ETH accepted at',
-    value: 'eth-accepted-at',
-  },
+  // {
+  //   text: 'ETH accepted at',
+  //   value: 'eth-accepted-at',
+  // },
   {
     text: 'Areas to stay',
     value: 'areas-to-stay',
@@ -200,9 +200,13 @@ const CityGuide: NextPage = () => {
   return (
     <>
       <SEO title="City Guide" description="Devconnect city guide" />
-      <Hero className={css['city-guide-hero']} imageProps={{ src: AmsterdamHero, alt: 'Some text' }}>
+      <Hero
+        className={css['city-guide-hero']}
+        backgroundClassName={css['background']}
+        imageProps={{ src: AmsterdamHero, alt: 'Some text' }}
+      >
         <div className={css['hero-content']}>
-          <p className="uppercase extra-large-text bold">Amsterdam —</p>
+          <p className="uppercase extra-large-text bold secondary title">Amsterdam —</p>
 
           <div className={css['items']}>
             {tabs.map(tab => {

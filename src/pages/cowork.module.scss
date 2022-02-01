@@ -1,7 +1,23 @@
 @import 'styles/variables.scss';
 
 .cowork-hero {
-  background: linear-gradient(180deg, #fa4e4e 0%, #e5fd86 113.61%);
+  // background: linear-gradient(180deg, #fa4e4e 0%, #e5fd86 113.61%);
+
+  // &:before {
+  //   content: '';
+  //   // z-index: -1;
+  //   position: absolute;
+  //   left: 0px;
+  //   right: 0px;
+  //   height: 100%;
+  //   width: 100%;
+  //   background-image: url('../assets/images/tile.png');
+  //   background-color: linear-gradient(180deg, #fa4e4e 0%, #e5fd86 113.61%);
+  //   background-repeat: repeat-x;
+  //   mix-blend-mode: overlay;
+  //   background-size: 150px;
+  //   background-position: bottom;
+  // }
 
   .content {
     display: flex;

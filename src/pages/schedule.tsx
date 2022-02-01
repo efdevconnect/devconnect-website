@@ -8,11 +8,12 @@ import ListIcon from 'assets/icons/list.svg'
 import CalendarIcon from 'assets/icons/calendar.svg'
 import ChevronDown from 'assets/icons/chevron-down.svg'
 import ChevronUp from 'assets/icons/chevron-up.svg'
-import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
+// import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
 import SwipeToScroll from 'common/components/swipe-to-scroll'
 import { SEO } from 'common/components/SEO'
-import { useDraggableLink } from 'common/components/link'
+import Hero from 'common/components/hero'
 import Link from 'common/components/link'
+// import Gradient from 'assets/images/gradient-1.svg'
 // import LinkIndicator from 'assets/icons/link-indicator.svg'
 // moment.tz.setDefault('America/New_York')
 
@@ -427,17 +428,26 @@ const ListCalendar = (props: any) => {
 }
 
 const Schedule: NextPage = (props: any) => {
-  const [scheduleView, setScheduleView] = React.useState('calendar')
+  const [scheduleView, setScheduleView] = React.useState('list')
   const scheduleHelpers = useScheduleData(props.events)
 
   return (
     <>
       <SEO title="Schedule" description="Devconnect schedule" />
-      <Header />
+      <Hero className={`${css['hero']}`} autoHeight>
+        <p className="uppercase extra-large-text bold secondary title">schedule</p>
+        {/* <Gradient className={css['gradient']} /> */}
+        {/* <div className={css['hero-content']}>
+          <p className="uppercase extra-large-text bold">Schedule </p>
+
+          <div className={css['items']}></div>
+        </div> */}
+      </Hero>
+      {/* <Header /> */}
       <div className={`${css['schedule']} section`}>
-        <div className="clear-vertical">
+        <div className="clear-vertical  fade-in-up">
           <div className={css['header-row']}>
-            <h1 className="extra-large-text uppercase bold">Events</h1>
+            <h1 className="extra-large-text uppercase bold">Devconnect week</h1>
             <div className={`${css['view']} small-text`}>
               <div>View:</div>
               <div className={css['options']}>

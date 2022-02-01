@@ -1,5 +1,31 @@
 @import 'styles/variables.scss';
 
+.hero {
+  // background-image: url('../assets/images/gradient-1.svg');
+
+  // &:before {
+  //   content: '';
+  //   z-index: -1;
+  //   position: absolute;
+  //   left: 0px;
+  //   right: 0px;
+  //   height: 100%;
+  //   width: 100%;
+  //   background-image: url('../assets/images/tile.png');
+  //   background-repeat: repeat-x;
+  //   background-size: 150px;
+  //   background-position: bottom;
+  // }
+
+  // .gradient {
+  //   position: absolute;
+  //   top: 0px;
+  //   right: 0px;
+  //   left: 0px;
+  //   bottom: 0px;
+  // }
+}
+
 .schedule {
   background: white;
   color: black;
@@ -19,9 +45,13 @@
       text-transform: uppercase;
       color: $monochrome-6;
 
-      @media (max-width: $screen-tiny) {
-        width: 100%;
-        margin-top: 16px;
+      // @media (max-width: $screen-tiny) {
+      //   width: 100%;
+      //   margin-top: 16px;
+      // }
+
+      @media (max-width: $screen-md) {
+        display: none;
       }
 
       background: #f8f8f8;
@@ -118,6 +148,7 @@
 .meta {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   text-transform: uppercase;
 }
 

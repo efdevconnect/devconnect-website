@@ -216,6 +216,14 @@ $max-content-width: $content-width + ($side-gap * 2);
   text-transform: uppercase;
 }
 
+.primary {
+  font-family: 'Roboto';
+}
+
+.secondary {
+  font-family: 'Roboto Condensed';
+}
+
 .button {
   display: flex;
   justify-content: center;

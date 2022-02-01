@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import React from 'react'
 import { Header, Footer } from './index'
 import Hero from 'common/components/hero'
-import CoworkHero from 'assets/images/cowork-hero.jpg'
+import CoworkHero from 'assets/images/cowork-hero.png'
 import Cowork1 from 'assets/images/cowork-gallery/cowork-1.png'
 import Cowork2 from 'assets/images/cowork-gallery/cowork-2.png'
 import Cowork3 from 'assets/images/cowork-gallery/cowork-3.png'
@@ -13,6 +13,7 @@ import css from './cowork.module.scss'
 import PinIcon from 'assets/icons/pin.svg'
 import TicketIcon from 'assets/icons/ticket.svg'
 import { SEO } from 'common/components/SEO'
+import Link from 'common/components/link/Link'
 
 const Cowork: NextPage = (props: any) => {
   return (
@@ -21,10 +22,13 @@ const Cowork: NextPage = (props: any) => {
       <Hero className={css['cowork-hero']} imageProps={{ src: CoworkHero, alt: 'Some text' }}>
         <div className={css['content']}>
           <div>
-            <p className="uppercase extra-large-text bold">CoWork — </p>
+            <p className="uppercase extra-large-text bold secondary title">CoWork —</p>
 
             <p className={`${css['info']} uppercase big-text`}>
-              <u>Beurs Van Berlage (BVB)</u> 📍
+              <Link href="https://www.google.com/maps?ll=52.375062,4.896171&z=16&t=m&hl=en&gl=DK&mapclient=embed&cid=18286565975988533039">
+                <u>Beurs Van Berlage (BVB)</u>
+              </Link>{' '}
+              📍
               <br />
               <span className="large-text">APRIL 18th — 25th</span>
               <br />

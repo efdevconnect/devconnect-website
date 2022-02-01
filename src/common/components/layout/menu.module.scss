@@ -35,7 +35,7 @@ $width-right-column: 190px;
       display: none;
 
       svg {
-        transform: scale(0.8);
+        font-size: 0.8em;
       }
 
       @media (hover: none) {
@@ -68,10 +68,14 @@ $width-right-column: 190px;
       .dropdown-content {
         display: flex;
         flex-direction: column;
-        padding: 16px;
+        padding: 12px 16px;
         color: $monochrome-10;
         background-color: $monochrome-1;
         box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.1);
+
+        a {
+          padding: 4px 0px;
+        }
       }
 
       // On mobile we allow tap to open (because we can't hover)

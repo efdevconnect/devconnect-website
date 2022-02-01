@@ -4,12 +4,14 @@ import css from './hero.module.scss'
 import { Header } from 'pages/index'
 
 type HeroProps = {
-  imageProps: {
+  imageProps?: {
     src: any
     alt: string
   }
+  autoHeight?: boolean
   children: React.ReactChild | React.ReactChild[]
   className?: string
+  backgroundClassName?: string
 }
 
 const Hero = (props: HeroProps) => {
@@ -20,18 +22,18 @@ const Hero = (props: HeroProps) => {
   return (
     <div className={className}>
       <Header />
+      <div className={props.backgroundClassName || css['background']} />
       <div className={`${css['content']} section`}>
-        <div className={`${css['children']} clear-vertical`}>
+        <div className={`${css['children']} ${props.autoHeight ? css['auto-height'] : ' '} clear-vertical`}>
           {props.children}
-          {/* <div className={css['aspect-container']}>
-            <div className="aspect">{props.children}</div>
-          </div> */}
         </div>
-        <div className={css['image']}>
-          <div className={css['image-inner']}>
-            <Image {...props.imageProps} layout="fill" objectFit="cover" priority />
+        {props.imageProps && (
+          <div className={css['image']}>
+            <div className={css['image-inner']}>
+              <Image {...props.imageProps} layout="fill" objectFit="cover" priority />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

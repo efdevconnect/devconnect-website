@@ -1,8 +1,20 @@
 @import 'styles/variables.scss';
 
-.city-guide-hero {
-  background: linear-gradient(180deg, #0056a6 0%, #88c6ff 113.61%);
+.background {
+  z-index: -2;
+  position: absolute;
+  object-fit: cover;
+  left: 0px;
+  right: 0px;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(555deg, hsla(43, 88%, 52%, 1) 0%, hsla(43, 80%, 52%, 0) 70%),
+    linear-gradient(315deg, hsla(297, 83%, 60%, 1) 10%, hsla(297, 83%, 60%, 0) 80%),
+    linear-gradient(135deg, hsla(171, 100%, 52%, 1) 10%, hsla(171, 100%, 52%, 0) 80%),
+    linear-gradient(225deg, hsla(240, 86%, 50%, 1) 100%, hsla(240, 86%, 47%, 0) 70%);
+}
 
+.city-guide-hero {
   .hero-content {
     display: flex;
     height: 100%;
