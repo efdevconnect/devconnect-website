@@ -2,9 +2,9 @@ import { NextPage } from 'next'
 import React from 'react'
 import { Header, Footer } from './index'
 import Hero from 'common/components/hero'
-import CoworkHero from 'assets/images/cowork-hero.jpg'
+import CoworkHero from 'assets/images/cowork-hero-low-footprint.jpg'
 import Cowork1 from 'assets/images/cowork-gallery/cowork-1.png'
-import Cowork2 from 'assets/images/cowork-gallery/cowork-2.png'
+import Cowork2 from 'assets/images/cowork-gallery/cowork-2-low-footprint.jpg'
 import Cowork3 from 'assets/images/cowork-gallery/cowork-3.png'
 import Cowork4 from 'assets/images/cowork-gallery/cowork-4.png'
 import Cowork5 from 'assets/images/cowork-gallery/cowork-5.png'
@@ -105,19 +105,19 @@ const Cowork: NextPage = (props: any) => {
             </div>
             <div className={`border-top ${css['gallery']}`}>
               <div className={css['grid-item']}>
-                <Image src={Cowork1} alt="cowork-space-1" />
+                <Image src={Cowork1} alt="Cowork space example" />
               </div>
               <div className={css['grid-item']}>
-                <Image src={Cowork2} alt="cowork-space-2" />
+                <Image src={Cowork2} alt="Cowork space example" />
               </div>
               <div className={css['grid-item']}>
-                <Image src={Cowork3} alt="cowork-space-3" />
+                <Image src={Cowork3} alt="Cowork space example" />
               </div>
               <div className={css['grid-item']}>
-                <Image src={Cowork4} alt="cowork-space-4" />
+                <Image src={Cowork4} alt="Cowork space example" />
               </div>
               <div className={css['grid-item']}>
-                <Image src={Cowork5} alt="cowork-space-5" />
+                <Image src={Cowork5} alt="Cowork space example" />
               </div>
             </div>
           </div>
