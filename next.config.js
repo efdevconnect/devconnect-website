@@ -1,3 +1,5 @@
+// const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
+
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
@@ -5,6 +7,9 @@ module.exports = {
     return {
       ...config,
       plugins: [
+        // new MomentTimezoneDataPlugin({
+        //   matchZones: /^America/,
+        // }),
         new webpack.DefinePlugin({
           devMode: process.env.NODE_ENV !== 'production',
         }),
@@ -15,7 +20,50 @@ module.exports = {
         rules: [
           {
             test: /\.svg$/,
-            use: ['@svgr/webpack'],
+            exclude: /icons/,
+            use: [
+              {
+                loader: '@svgr/webpack',
+                options: {
+                  svgoConfig: {
+                    plugins: [
+                      {
+                        name: 'preset-default',
+                        params: {
+                          overrides: {
+                            removeViewBox: false,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
+          },
+          {
+            test: /\.svg$/,
+            include: /icons/,
+            use: [
+              {
+                loader: '@svgr/webpack',
+                options: {
+                  icon: true,
+                  svgoConfig: {
+                    plugins: [
+                      {
+                        name: 'preset-default',
+                        params: {
+                          overrides: {
+                            removeViewBox: false,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
           },
           {
             test: /\.(glsl|vs|fs|vert|frag)$/,

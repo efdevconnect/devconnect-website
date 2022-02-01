@@ -10,6 +10,7 @@
 .header {
   display: flex;
   width: 100%;
+  flex-shrink: 0;
   justify-content: space-between;
   z-index: 1;
 
@@ -48,6 +49,10 @@
     min-height: $height;
     height: auto;
     max-height: none;
+  }
+
+  &.grow-naturally {
+    min-height: auto;
   }
 }
 
@@ -228,6 +233,17 @@
         }
       }
 
+      .cowork-link {
+        // &:hover {
+        text-decoration: underline;
+        // }
+
+        * {
+          fill: white;
+          font-size: 12px;
+        }
+      }
+
       .sun-emoji {
         position: relative;
         flex-grow: 1;
@@ -246,9 +262,22 @@
       margin-bottom: 24px;
     }
 
-    .get-involved-button {
-      @media (max-width: $screen-tiny) {
-        width: 100%;
+    .buttons {
+      > * {
+        display: inline-flex;
+
+        &:last-child {
+          margin-left: 24px;
+
+          @media (max-width: $screen-sm) {
+            margin-top: 24px;
+            margin-left: 0px;
+          }
+        }
+
+        @media (max-width: $screen-sm) {
+          width: 100%;
+        }
       }
     }
   }
@@ -328,6 +357,66 @@
   position: relative;
   overflow: hidden;
   background: #0d0d0d;
+  color: white;
+
+  // We use a watered down version of the footer as the mobile foldout menu
+  &.in-foldout-menu {
+    height: 100%;
+    padding-bottom: 16px;
+    display: flex;
+
+    :global(.section) {
+      width: 100%;
+    }
+
+    .background {
+      top: 20px;
+    }
+
+    .footer {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+
+    :global(#footer-menu) {
+      margin-top: 18px !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+      width: 100% !important;
+    }
+
+    :global(#back-to-top) {
+      display: none !important;
+    }
+
+    .top {
+      display: none !important;
+    }
+
+    .left {
+      display: none !important;
+      // @media (orientation: landscape) {
+      //   display: none !important;
+      // }
+
+      // order: 2;
+    }
+
+    .middle {
+      margin-top: 0px !important;
+      flex-grow: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+
+      .email {
+        margin: 8px 0px !important;
+      }
+    }
+  }
 
   .background {
     position: absolute;

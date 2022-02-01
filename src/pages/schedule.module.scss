@@ -1,0 +1,383 @@
+@import 'styles/variables.scss';
+
+.hero {
+  --tile-size: 60px;
+}
+
+.schedule {
+  background: white;
+  color: black;
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+    color: $monochrome-6;
+
+    .view {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      text-transform: uppercase;
+      color: $monochrome-6;
+      background: #f8f8f8;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+      border-radius: 44px;
+      padding: 0px 20px;
+
+      // @media (max-width: $screen-tiny) {
+      //   width: 100%;
+      //   margin-top: 16px;
+      // }
+
+      @media (min-width: $screen-md) {
+        display: flex;
+      }
+
+      .options {
+        display: flex;
+        align-items: center;
+        margin-left: 16px;
+
+        .switch {
+          all: unset;
+          height: 100%;
+          padding: 20px 0px;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+
+          &:not(:first-child) {
+            margin-left: 16px;
+          }
+
+          .text {
+            margin-left: 8px;
+          }
+
+          &.selected {
+            color: black;
+            font-weight: bold;
+            // border-bottom: 4px solid black;
+
+            * {
+              fill: black;
+            }
+          }
+
+          * {
+            fill: #666666;
+          }
+        }
+      }
+    }
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+}
+
+.event,
+.event-in-table {
+  display: block;
+  border: 1px solid #8f78fb;
+  border-top: 4px solid #8f78fb;
+  background: #f9f8ff;
+
+  &.Beginner {
+    background: #f8fcff;
+    border-color: #0085ff;
+  }
+
+  &.Intermediate {
+    background: #fffaf8;
+    border-color: #ff9b00;
+  }
+
+  &.Advanced {
+    background: #fff8f8;
+    border-color: #ff2a00;
+  }
+}
+
+.day,
+.day-header,
+.calendar-list-table-header,
+.top-bar {
+  // background: #fcfcfc;
+  background: #2b2b2b;
+  padding: 16px;
+  color: $monochrome-2;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+
+  * {
+    fill: $monochrome-2;
+  }
+}
+
+.calendar-list-table-header,
+.top-bar {
+  // background: yellow !important;
+  background: rgb(10, 10, 10);
+  color: $monochrome-5;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  text-transform: uppercase;
+}
+
+.calendar-list-grid {
+  @media (min-width: $screen-lg) {
+    display: grid;
+    grid-gap: 4px;
+    grid-template-columns: repeat(24, 1fr);
+
+    .col-1 {
+      grid-column: span 3;
+    }
+
+    .col-2 {
+      grid-column: span 12;
+    }
+
+    .col-3 {
+      grid-column: span 5;
+    }
+
+    .col-4 {
+      grid-column: span 3;
+    }
+
+    .col-5 {
+      grid-column: span 1;
+    }
+  }
+}
+
+.calendar-list-table-header {
+  display: none;
+  @media (min-width: $screen-lg) {
+    display: grid;
+  }
+
+  // background: #2a2a2a;
+  // color: $monochrome-6;
+  // color: white;
+  // background: $monochrome-4;
+  padding: 16px;
+}
+
+.calendar-list {
+  .day-header {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    margin-top: 4px;
+    // color: $monochrome-2;
+    // background: white;
+
+    // background: #2a2a2a;
+    // color: $monochrome-8;
+  }
+
+  // Styles shared by event and event-in-table
+  .event,
+  .event-in-table {
+    padding: 16px;
+    padding-bottom: 8px;
+    margin-top: 4px;
+
+    .title {
+      display: inline-block;
+    }
+
+    .date {
+      // margin: 8px 0px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      span {
+        color: $monochrome-6;
+      }
+
+      .end-date {
+        color: $monochrome-6;
+      }
+    }
+
+    .organizers {
+      color: $monochrome-6;
+    }
+  }
+
+  // Specific styles/overrides for event in table
+  .event-in-table {
+    // border: 1px solid #a5a5a5;
+    // border-left: 4px solid #8f78fb;
+
+    display: none;
+
+    @media (min-width: $screen-lg) {
+      display: grid;
+    }
+
+    .date {
+      justify-content: space-between;
+      flex-direction: column;
+
+      .end-date {
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+    }
+
+    .description {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+
+      .title {
+        margin-bottom: 8px;
+      }
+
+      .body {
+        margin-bottom: 32px;
+      }
+    }
+
+    .attend {
+    }
+
+    .calendar-add {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  // Specific styles/overrides for event in regular list view
+  .event {
+    @media (min-width: $screen-lg) {
+      display: none;
+    }
+
+    .date {
+      margin: 8px 0px;
+    }
+
+    .organizers {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      margin: 8px 0px;
+    }
+
+    .ticket-availability {
+      padding: 12px 0px;
+      margin-bottom: 8px;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .add-to-calendar {
+        fill: $monochrome-6;
+      }
+    }
+  }
+}
+
+// Calendar/timeline view
+.calendar {
+  display: grid;
+  background: white;
+  grid-gap: 4px;
+  text-transform: uppercase;
+
+  .day {
+    width: 240px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-row: 1;
+    grid-column: span 1;
+
+    // sticky would be pretty nice but doesn't work because of overflow on a higher level - may be worth looking into a fix
+    // position: sticky;
+    // top: 0px;
+
+    > p:last-child {
+      // color: black;
+    }
+  }
+
+  .event {
+    --padding: 12px;
+    --margin: 12px;
+    padding: var(--padding);
+    margin-right: var(--margin);
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    // &:nth-child(odd) {
+    //   background: #fffbf8;
+    //   border-top-color: #fba778;
+    // }
+
+    .top {
+      margin-bottom: 12px;
+
+      .title {
+        margin-bottom: 8px;
+        display: inline-block;
+      }
+
+      .when {
+        display: grid;
+        grid-gap: 4px;
+        grid-template-columns: repeat(1fr, var(--eventLength));
+        // width: calc(100% + calc(var(--padding) * 2));
+        // left: -var(--padding);
+
+        > * {
+          grid-column: span 1;
+          grid-row: 1;
+          // margin-right: calc(24px / var(--eventLength));
+
+          // &:first-child {
+          //   padding-left: 0px;
+          // }
+        }
+      }
+    }
+
+    .bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .organizers {
+        margin-bottom: 8px;
+        color: $monochrome-9;
+      }
+    }
+  }
+}

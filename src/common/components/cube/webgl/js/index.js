@@ -5,13 +5,88 @@ import { mat4 } from 'gl-matrix'
 // import stats from './helpers/stats'
 // import gui from './helpers/gui'
 import Texture from './helpers/Texture'
-import { regl, play } from './renderer'
-import camera from './camera'
-import cube, { Types as CubeTypes, Faces as CubeFaces, Masks as CubeMasks } from './components/cube'
-import content, { Types as ContentTypes } from './components/content'
-import reflection from './components/reflection'
+// import { regl, play } from './renderer'
+// import camera from './camera'
+import initCube, { Types as CubeTypes, Faces as CubeFaces, Masks as CubeMasks } from './components/cube'
+import initContent, { Types as ContentTypes } from './components/content'
+import initReflection from './components/reflection'
+import Regl from 'regl'
 
 export const init = () => {
+  /* REGL */
+  const regl = Regl({
+    container: document.getElementById('cube'),
+    attributes: {
+      antialias: true,
+      alpha: false,
+    },
+  })
+
+  let tick
+
+  const play = action => {
+    if (!tick) {
+      tick = regl.frame(action)
+    }
+  }
+
+  const stop = () => {
+    if (tick) {
+      tick.cancel()
+      tick = null
+    }
+  }
+  /* REGL END */
+
+  /* CAMERA */
+  const CONFIG_CAMERA = {
+    fov: 45,
+    near: 0.01,
+    far: 1000,
+  }
+
+  const cameraConfig = {
+    eye: [0, 0, 6],
+    target: [0, 0, 0],
+    up: [0, 1, 0],
+  }
+
+  const camera = regl({
+    context: {
+      projection: ({ viewportWidth, viewportHeight }) => {
+        const { fov, near, far } = CONFIG_CAMERA
+        const fovy = (fov * Math.PI) / 180
+        const aspect = viewportWidth / viewportHeight
+
+        return mat4.perspective([], fovy, aspect, near, far)
+      },
+
+      view: (context, props) => {
+        const config = Object.assign({}, cameraConfig, props)
+
+        const { eye, target, up } = config
+
+        return mat4.lookAt([], eye, target, up)
+      },
+
+      fov: () => {
+        const { fov } = CONFIG
+
+        return fov
+      },
+    },
+
+    uniforms: {
+      u_projection: regl.context('projection'),
+      u_view: regl.context('view'),
+      u_cameraPosition: regl.context('eye'),
+      u_resolution: ({ viewportWidth, viewportHeight }) => {
+        return [viewportWidth, viewportHeight]
+      },
+    },
+  })
+  /* CAMERA END */
+
   const CONFIG = {
     cameraX: 0,
     cameraY: 0,
@@ -74,6 +149,10 @@ export const init = () => {
       maskId: CubeMasks.M5,
     },
   ]
+
+  const cube = initCube(regl)
+  const content = initContent(regl)
+  const reflection = initReflection(regl, camera)
 
   const animate = ({ viewportWidth, viewportHeight, tick }) => {
     // stats.begin()
@@ -179,6 +258,8 @@ export const init = () => {
   }
 
   play(animate)
+
+  return () => regl.destroy()
 }
 
-init()
+// init()

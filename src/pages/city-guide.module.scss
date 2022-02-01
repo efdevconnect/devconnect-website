@@ -1,0 +1,224 @@
+@import 'styles/variables.scss';
+
+.background {
+  z-index: -2;
+  position: absolute;
+  object-fit: cover;
+  left: 0px;
+  right: 0px;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(555deg, hsla(43, 88%, 52%, 1) 0%, hsla(43, 80%, 52%, 0) 70%),
+    linear-gradient(315deg, hsla(297, 83%, 60%, 1) 10%, hsla(297, 83%, 60%, 0) 80%),
+    linear-gradient(135deg, hsla(171, 100%, 52%, 1) 10%, hsla(171, 100%, 52%, 0) 80%),
+    linear-gradient(225deg, hsla(240, 86%, 50%, 1) 100%, hsla(240, 86%, 47%, 0) 70%);
+}
+
+.city-guide-hero {
+  .hero-content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .items {
+      padding-top: 40px;
+      a {
+        &:hover {
+          text-decoration: underline;
+        }
+
+        display: block;
+        text-transform: uppercase;
+        margin-bottom: 1em;
+      }
+    }
+  }
+}
+
+.city-guide {
+  background: white;
+  color: black;
+
+  .general-info {
+    border-top: 1px solid $standard-border-color;
+    // margin-top: 16px;
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $screen-lg) {
+      flex-direction: row;
+    }
+
+    .left {
+      @media (min-width: $screen-lg) {
+        padding-right: 120px;
+      }
+
+      .title {
+        margin-bottom: 16px;
+      }
+
+      .details-1 {
+        margin-bottom: 16px;
+      }
+
+      .details-2 {
+      }
+    }
+
+    .right {
+      flex-shrink: 0;
+      flex-basis: 50%;
+
+      .list {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+
+        @media (min-width: $screen-lg) {
+          margin-top: 0px;
+        }
+
+        .row {
+          width: 100%;
+          overflow: hidden;
+          padding: 12px 8px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid #8f8f8f;
+
+          .left {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+
+            .icon {
+              display: none;
+              font-size: 1.4em;
+
+              @media (min-width: 400px) {
+                display: block !important;
+              }
+            }
+
+            > * {
+              white-space: nowrap;
+              &:first-child {
+                margin-right: 12px;
+              }
+            }
+          }
+
+          .right {
+            display: none;
+            flex-shrink: 1;
+            justify-content: flex-end;
+
+            @media (min-width: $screen-sm) {
+              display: flex !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .accordions {
+    padding-top: 8px;
+    margin-top: 32px;
+    border-top: 1px solid $standard-border-color;
+    display: flex;
+    flex-direction: column;
+
+    .accordion {
+      &:first-child {
+        margin-top: 0px;
+      }
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      background: #fcfcfc;
+
+      border: 1px solid rgba(0, 0, 0, 0.2);
+
+      .toggle {
+        cursor: pointer;
+        padding: 24px 16px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        svg {
+          font-size: 0.6em;
+        }
+      }
+
+      .content {
+        background: white;
+        padding: 20px 16px;
+        border-top: 1px solid $standard-border-color;
+      }
+    }
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0px;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  // flex-wrap: wrap;
+
+  .tab {
+    cursor: pointer;
+    margin-right: 48px;
+    flex-shrink: 0;
+    white-space: nowrap;
+
+    color: $monochrome-6;
+
+    &.always-toggled {
+      color: $monochrome-10;
+    }
+
+    &:not(.always-toggled) {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.tab-content {
+  .header {
+    text-decoration: underline;
+    font-size: 1.2em;
+  }
+
+  .section {
+    margin-bottom: 1em;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  p {
+    margin-bottom: 1em;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+}
