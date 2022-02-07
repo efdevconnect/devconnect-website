@@ -311,6 +311,23 @@
   grid-gap: 4px;
   text-transform: uppercase;
 
+  @media (hover: none) {
+    overflow-x: auto;
+    position: relative;
+    left: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 100vw;
+    right: -16px;
+  }
+
+  @media (hover: none) and (min-width: $screen-md) {
+    left: -64px;
+    right: -64px;
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+
   .day {
     width: 240px;
     display: flex;
@@ -319,12 +336,11 @@
     grid-row: 1;
     grid-column: span 1;
 
-    // sticky would be pretty nice but doesn't work because of overflow on a higher level - may be worth looking into a fix
-    // position: sticky;
-    // top: 0px;
-
-    > p:last-child {
-      // color: black;
+    // Position sticky doesn't work when overflow property is set on a parent (which is the case for touch devices since we want to use native scroll in that scenario)
+    // For now the sticky positioning only works on non-touch devices, hence the media query:
+    @media (hover: hover) {
+      position: sticky;
+      top: 4px;
     }
   }
 
@@ -332,53 +348,57 @@
     --padding: 12px;
     --margin: 12px;
     padding: var(--padding);
-    margin-right: var(--margin);
+    // margin-right: var(--margin);
     font-size: 12px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+
+    .content {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      .top {
+        margin-bottom: 12px;
+
+        .title {
+          margin-bottom: 8px;
+          display: inline-block;
+          position: sticky;
+          left: 0px;
+        }
+
+        .when {
+          display: grid;
+          grid-gap: 4px;
+          grid-template-columns: repeat(1fr, var(--eventLength));
+          // width: calc(100% + calc(var(--padding) * 2));
+          // left: -var(--padding);
+
+          > * {
+            grid-column: span 1;
+            grid-row: 1;
+            // margin-right: calc(24px / var(--eventLength));
+
+            // &:first-child {
+            //   padding-left: 0px;
+            // }
+          }
+        }
+      }
+
+      .bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .organizers {
+          margin-bottom: 8px;
+          color: $monochrome-9;
+        }
+      }
+    }
 
     // &:nth-child(odd) {
     //   background: #fffbf8;
     //   border-top-color: #fba778;
     // }
-
-    .top {
-      margin-bottom: 12px;
-
-      .title {
-        margin-bottom: 8px;
-        display: inline-block;
-      }
-
-      .when {
-        display: grid;
-        grid-gap: 4px;
-        grid-template-columns: repeat(1fr, var(--eventLength));
-        // width: calc(100% + calc(var(--padding) * 2));
-        // left: -var(--padding);
-
-        > * {
-          grid-column: span 1;
-          grid-row: 1;
-          // margin-right: calc(24px / var(--eventLength));
-
-          // &:first-child {
-          //   padding-left: 0px;
-          // }
-        }
-      }
-    }
-
-    .bottom {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-
-      .organizers {
-        margin-bottom: 8px;
-        color: $monochrome-9;
-      }
-    }
   }
 }

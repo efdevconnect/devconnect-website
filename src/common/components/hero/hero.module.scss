@@ -44,6 +44,26 @@
     flex-grow: 1;
     display: flex;
 
+    .background-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 60px;
+      position: absolute;
+      left: 0px;
+      top: -36px;
+      opacity: 0.2;
+      // top: 0px;
+      // bottom: 0px;
+      font-weight: 700;
+      font-size: min(220px, 23vw);
+      line-height: 1em;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: rgb(255, 255, 255);
+      -webkit-text-fill-color: rgb(0, 0, 0, 0); /* Will override color (regardless of order) */
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: rgb(255, 255, 255);
+    }
+
     .children {
       flex-grow: 1;
       display: flex;

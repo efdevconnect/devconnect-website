@@ -15,10 +15,91 @@ import SunEmoji from 'assets/images/sun-heart-emoji.png'
 import { SEO } from 'common/components/SEO'
 import { Menu, FooterMenu } from 'common/components/layout/Menu'
 import Link from 'common/components/link/Link'
+import Accordion, { AccordionItem } from 'common/components/accordion'
 
 const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
 })
+
+/*
+
+             
+              
+
+    
+*/
+
+const FAQ = [
+  {
+    text: 'How do I sponsor?',
+    value: 'tickets refundable',
+    content: () => {
+      return (
+        <p>
+          While Devconnect will be sponsor-free, independent events happening throughout Devconnect may be looking for
+          sponsorship. If you&apos;re interested in sponsoring, check out relevant events to see if they are accepting
+          sponsorships.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'From my understanding, Devconnect will just be separate events hosted by individual projects/teams/individuals, correct?',
+    value: 'tickets refundable',
+    content: () => {
+      return <p>This is correct!</p>
+    },
+  },
+  {
+    text: 'Will there be a central venue where these events will be held, or is each host responsible for locating avenue for their event?',
+    value: 'tickets refundable',
+    content: () => {
+      return (
+        <p>
+          Each host is responsible for their own venue. There will be many events in many different venues throughout
+          Amsterdam during the week. Attendees will need to pick and choose based on their interest.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Will there be any "main events" hosted directly by Devconnect?',
+    value: 'tickets refundable',
+    content: () => {
+      return (
+        <p>
+          There will be an open Co-Working space throughout the week with tickets available to all. This will be in
+          Beurs van Berlage. Other than that, all events will be independently hosted.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Approximately how many people will fit at each event?',
+    value: 'tickets refundable',
+    content: () => {
+      return (
+        <p>
+          Sizes will vary, and range from a 25-person zkEVM workshop for example, to a 300-person event on staking by
+          ETHStaker, to a 800-person EthGlobal hackathon. Some are private, some free, some will be based on
+          applications, and others may be ticketed with paid tickets.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'What is the primary audience you are hoping to attract for Devconnect?',
+    value: 'tickets refundable',
+    content: () => {
+      return (
+        <p>
+          While this does vary by event, the focus in general are those who are involved/interested in the ecosystem in
+          one particular area and want to dive deeper!
+        </p>
+      )
+    },
+  },
+]
 
 export const Header = () => {
   return (
@@ -182,10 +263,9 @@ const Home: NextPage = (props: any) => {
               <div className={`${css['scene-about-content']} clear-vertical`}>
                 <h1 className="section-header">About</h1>
 
-                {/* <p className={`massive-header ${css['background-title']} section`}>DEV/CONNECT</p> */}
-
                 <div className={css['text-container']}>
                   <div className={css['body']}>
+                    <p className={`background-title`}>DEV/CONNECT</p>
                     <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
                     <p className="section-header as-text-body">
                       Devconnect is a week-long in-person gathering that will feature independent Ethereum events, each
@@ -249,6 +329,24 @@ const Home: NextPage = (props: any) => {
                     Host an Event
                   </a>
                 </div>
+              </div>
+            </div>
+          </Scene>
+
+          <Scene growVertically growNaturally id="faq" className={`${css['scene-faq']} section`}>
+            <div className={`clear-vertical`}>
+              <h1 className="section-header grey">FAQ</h1>
+
+              <div className={`${css['accordion']}`}>
+                <Accordion>
+                  {FAQ.map(faq => {
+                    return (
+                      <AccordionItem key={faq.text} title={faq.text} id={faq.value}>
+                        {faq.content && faq.content()}
+                      </AccordionItem>
+                    )
+                  })}
+                </Accordion>
               </div>
             </div>
           </Scene>

@@ -17,6 +17,7 @@ import Water from 'assets/icons/water.svg'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import Link, { useDraggableLink } from 'common/components/link'
+import Accordion, { AccordionItem } from 'common/components/accordion'
 
 const tabs = [
   {
@@ -154,77 +155,77 @@ const tabs = [
   //     )
   //   },
   // },
-  {
-    text: 'FAQ',
-    value: 'faq',
-    content: () => {
-      return (
-        <div className={`${css['tab-content']} small-text  ${css['faq']}`}>
-          <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>How do I sponsor?</p>
-            <p>
-              While Devconnect will be sponsor-free, independent events happening throughout Devconnect may be looking
-              for sponsorship. If you’re interested in sponsoring, check out relevant events to see if they are
-              accepting sponsorships.
-            </p>
-          </div>
-          <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>
-              From my understanding, Devconnect will just be separate events hosted by individual
-              projects/teams/individuals, correct?
-            </p>
-            <p>This is correct!</p>
-          </div>
-          <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>
-              Will there be a central venue where these events will be held, or is each host responsible for locating a
-              venue for their event?
-            </p>
-            <p>
-              Each host is responsible for their own venue. There will be many events in many different venues
-              throughout Amsterdam during the week. Attendees will need to pick and choose based on their interest.
-            </p>
-          </div>
-          <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>
-              Will there be any &quot;main events&quot; hosted directly by Devconnect?
-            </p>
-            <p>
-              There will be an open Co-Working space throughout the week with tickets available to all. This will be in
-              Beurs van Berlage. Other than that, all events will be independently hosted.
-            </p>
-          </div>
-          <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>Approximately how many people will fit at each event?</p>
-            <p>
-              Sizes will vary, and range from a 25-person zkEVM workshop for example, to a 300-person event on staking
-              by ETHStaker, to a 800-person EthGlobal hackathon. Some are private, some free, some will be based on
-              applications, and others may be ticketed with paid tickets.
-            </p>
-          </div>
-          <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>
-              What is the primary audience you are hoping to attract for Devconnect?
-            </p>
-            <p>
-              While this does vary by event, the focus in general are those who are involved/interested in the ecosystem
-              in one particular area and want to dive deeper!
-            </p>
-          </div>
+  // {
+  //   text: 'FAQ',
+  //   value: 'faq',
+  //   content: () => {
+  //     return (
+  //       <div className={`${css['tab-content']} small-text  ${css['faq']}`}>
+  //         <div className={css['section']}>
+  //           <p className={`${css['header']} small-text bold`}>How do I sponsor?</p>
+  //           <p>
+  //             While Devconnect will be sponsor-free, independent events happening throughout Devconnect may be looking
+  //             for sponsorship. If you’re interested in sponsoring, check out relevant events to see if they are
+  //             accepting sponsorships.
+  //           </p>
+  //         </div>
+  //         <div className={css['section']}>
+  //           <p className={`${css['header']} small-text bold`}>
+  //             From my understanding, Devconnect will just be separate events hosted by individual
+  //             projects/teams/individuals, correct?
+  //           </p>
+  //           <p>This is correct!</p>
+  //         </div>
+  //         <div className={css['section']}>
+  //           <p className={`${css['header']} small-text bold`}>
+  //             Will there be a central venue where these events will be held, or is each host responsible for locating a
+  //             venue for their event?
+  //           </p>
+  //           <p>
+  //             Each host is responsible for their own venue. There will be many events in many different venues
+  //             throughout Amsterdam during the week. Attendees will need to pick and choose based on their interest.
+  //           </p>
+  //         </div>
+  //         <div className={css['section']}>
+  //           <p className={`${css['header']} small-text bold`}>
+  //             Will there be any &quot;main events&quot; hosted directly by Devconnect?
+  //           </p>
+  //           <p>
+  //             There will be an open Co-Working space throughout the week with tickets available to all. This will be in
+  //             Beurs van Berlage. Other than that, all events will be independently hosted.
+  //           </p>
+  //         </div>
+  //         <div className={css['section']}>
+  //           <p className={`${css['header']} small-text bold`}>Approximately how many people will fit at each event?</p>
+  //           <p>
+  //             Sizes will vary, and range from a 25-person zkEVM workshop for example, to a 300-person event on staking
+  //             by ETHStaker, to a 800-person EthGlobal hackathon. Some are private, some free, some will be based on
+  //             applications, and others may be ticketed with paid tickets.
+  //           </p>
+  //         </div>
+  //         <div className={css['section']}>
+  //           <p className={`${css['header']} small-text bold`}>
+  //             What is the primary audience you are hoping to attract for Devconnect?
+  //           </p>
+  //           <p>
+  //             While this does vary by event, the focus in general are those who are involved/interested in the ecosystem
+  //             in one particular area and want to dive deeper!
+  //           </p>
+  //         </div>
 
-          {/* <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>
-              How many people do you estimate will attend Devconnect?
-            </p>
-            <p>
-              Given the many events taking place and shifting COVID measures, it is hard to estimate, but we’re
-              estimating that ~1.5-2k attendees may join.{' '}
-            </p>
-          </div> */}
-        </div>
-      )
-    },
-  },
+  //         {/* <div className={css['section']}>
+  //           <p className={`${css['header']} small-text bold`}>
+  //             How many people do you estimate will attend Devconnect?
+  //           </p>
+  //           <p>
+  //             Given the many events taking place and shifting COVID measures, it is hard to estimate, but we’re
+  //             estimating that ~1.5-2k attendees may join.{' '}
+  //           </p>
+  //         </div> */}
+  //       </div>
+  //     )
+  //   },
+  // },
 ]
 
 const Tabs = (props: any) => {
@@ -350,28 +351,6 @@ const List = (props: any) => {
   )
 }
 
-const Accordion = React.forwardRef((props: any, ref: any) => {
-  const [open, setOpen] = React.useState(false)
-
-  React.useImperativeHandle(ref, () => {
-    return {
-      open: () => setOpen(true),
-    }
-  })
-
-  return (
-    <div className={css['accordion']}>
-      <div id={props.id} className={`uppercase bold big-text ${css['toggle']}`} onClick={() => setOpen(!open)}>
-        <p className={css['big-text']}>{props.title}</p>
-        {open ? <ChevronUp /> : <ChevronDown />}
-      </div>
-      {open && <div className={css['content']}>{props.children}</div>}
-    </div>
-  )
-})
-
-Accordion.displayName = 'Accordion'
-
 const CityGuide: NextPage = () => {
   const accordionRefs = React.useRef({} as { [key: string]: any })
 
@@ -381,6 +360,7 @@ const CityGuide: NextPage = () => {
       <Hero
         className={css['city-guide-hero']}
         backgroundClassName={css['background']}
+        backgroundTitle="Amsterdam"
         imageProps={{ src: AmsterdamHero, alt: 'Amsterdam' }}
       >
         <div className={css['hero-content']}>
@@ -430,22 +410,22 @@ const CityGuide: NextPage = () => {
               </div>
             </div>
 
-            <div className={css['accordions']}>
+            <Accordion>
               {tabs.slice(1).map((tab, index) => {
                 const tabContent = tabs[index + 1]
 
                 return (
-                  <Accordion
+                  <AccordionItem
                     key={tab.value}
                     title={tab.text}
                     id={tab.value}
                     ref={el => (accordionRefs.current[tab.value] = el)}
                   >
                     {tabContent.content && tabContent.content()}
-                  </Accordion>
+                  </AccordionItem>
                 )
               })}
-            </div>
+            </Accordion>
           </div>
         </div>
       </div>

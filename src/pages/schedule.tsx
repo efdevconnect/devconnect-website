@@ -185,37 +185,42 @@ const Calendar = (props: any) => {
 
     return (
       <div key={event.Name} className={`${css['event']} ${css[event['Difficulty']]}`} style={gridPlacement}>
-        <div className={css['top']}>
-          {event.URL ? (
-            <Link href={event.URL} indicateExternal className={`large-text-em bold ${css['title']}`}>
-              {event.Name}
-            </Link>
-          ) : (
-            <p className={`large-text-em bold ${css['title']}`}>{event.Name}</p>
-          )}
-          {event['Time of Day'] && (
-            <div className={css['when']}>
-              {Array.from(Array(totalDays)).map((_, index: number) => {
-                const time = event['Time of Day'] && event['Time of Day'].split(',')[index]
+        <div className={css['content']}>
+          <div className={css['top']}>
+            {event.URL ? (
+              <Link href={event.URL} indicateExternal className={`large-text-em bold ${css['title']}`}>
+                {event.Name}
+              </Link>
+            ) : (
+              <p className={`large-text-em bold ${css['title']}`}>{event.Name}</p>
+            )}
+            {event['Time of Day'] && (
+              <div className={css['when']}>
+                {Array.from(Array(totalDays)).map((_, index: number) => {
+                  const time = event['Time of Day'] && event['Time of Day'].split(',')[index]
 
-                return <p key={index}>{time}</p>
-              })}
-            </div>
-          )}
-        </div>
-        <div className={css['bottom']}>
-          <div className={css['organizers']}>
-            {event['Organizer'] ? event['Organizer'].join(', ') : <p>Organizer</p>}
+                  return <p key={index}>{time}</p>
+                })}
+              </div>
+            )}
           </div>
+          <div className={css['bottom']}>
+            <div className={css['organizers']}>
+              {event['Organizer'] ? event['Organizer'].join(', ') : <p>Organizer</p>}
+            </div>
 
-          <EventMeta event={event} />
+            <EventMeta event={event} />
+          </div>
         </div>
       </div>
     )
   })
 
   return (
-    <SwipeToScroll>
+    <SwipeToScroll noBounds>
+      {/* <div className={css['calendar']}>
+      
+      </div> */}
       <div className={css['calendar']}>
         {events}
 
@@ -434,7 +439,7 @@ const Schedule: NextPage = (props: any) => {
   return (
     <>
       <SEO title="Schedule" description="Devconnect schedule" />
-      <Hero className={`${css['hero']}`} autoHeight>
+      <Hero className={`${css['hero']}`} autoHeight backgroundTitle="Schedule">
         <p className="uppercase extra-large-text bold secondary title">schedule</p>
         {/* <Gradient className={css['gradient']} /> */}
         {/* <div className={css['hero-content']}>
@@ -444,9 +449,9 @@ const Schedule: NextPage = (props: any) => {
         </div> */}
       </Hero>
       {/* <Header /> */}
-      <div className={`${css['schedule']} section`}>
-        <div className="clear-vertical  fade-in-up">
-          <div className={css['header-row']}>
+      <div className={`${css['schedule']} clear-vertical`}>
+        <div className="fade-in-up section">
+          <div className={`${css['header-row']}`}>
             <h1 className="extra-large-text uppercase bold">Devconnect week</h1>
             <div className={`${css['view']} small-text`}>
               <div>View:</div>
@@ -469,10 +474,12 @@ const Schedule: NextPage = (props: any) => {
             </div>
           </div>
 
-          <div className={css['top-bar']}>
+          {/* <div className="clear"> */}
+          <div className={`${css['top-bar']}`}>
             <p className={css['timezone']}>Central European Time (UTC/GMT +1) </p>
             {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Drag for more →</p>}
           </div>
+          {/* </div> */}
 
           {scheduleView === 'list' && <ListCalendar {...scheduleHelpers} />}
           {scheduleView === 'calendar' && <Calendar {...scheduleHelpers} />}

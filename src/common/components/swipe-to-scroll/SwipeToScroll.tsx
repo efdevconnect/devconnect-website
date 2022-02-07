@@ -3,7 +3,12 @@ import css from './sts.module.scss'
 import { useDrag } from 'react-use-gesture'
 import useDimensions from 'react-cool-dimensions'
 
-const SwipeToScroll = (props: any) => {
+type SwipeToScrollProps = {
+  noBounds?: boolean
+  children: React.ReactChild | React.ReactChild[]
+}
+
+const SwipeToScroll = (props: SwipeToScrollProps) => {
   const el = React.useRef<any>()
   const [maxScrolled, setMaxScrolled] = React.useState(0)
   const lastX = React.useRef(0)
@@ -47,8 +52,14 @@ const SwipeToScroll = (props: any) => {
     }
   })
 
+  let className = css['container']
+
+  if (props.noBounds) {
+    className += ` ${css['no-bounds']}`
+  }
+
   return (
-    <div {...bind()} className={css['container']} data-type="swipe-to-scroll-container">
+    <div {...bind()} className={className} data-type="swipe-to-scroll-container">
       <div
         ref={element => {
           el.current = element

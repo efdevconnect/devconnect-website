@@ -125,45 +125,6 @@
       }
     }
   }
-
-  .accordions {
-    padding-top: 8px;
-    margin-top: 32px;
-    border-top: 1px solid $standard-border-color;
-    display: flex;
-    flex-direction: column;
-
-    .accordion {
-      &:first-child {
-        margin-top: 0px;
-      }
-      margin-top: 8px;
-      display: flex;
-      flex-direction: column;
-      background: #fcfcfc;
-
-      border: 1px solid rgba(0, 0, 0, 0.2);
-
-      .toggle {
-        cursor: pointer;
-        padding: 24px 16px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-
-        svg {
-          font-size: 0.6em;
-        }
-      }
-
-      .content {
-        background: white;
-        padding: 20px 16px;
-        border-top: 1px solid $standard-border-color;
-      }
-    }
-  }
 }
 
 .body {

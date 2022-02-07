@@ -12,6 +12,7 @@ type HeroProps = {
   children: React.ReactChild | React.ReactChild[]
   className?: string
   backgroundClassName?: string
+  backgroundTitle?: string
 }
 
 const Hero = (props: HeroProps) => {
@@ -24,6 +25,7 @@ const Hero = (props: HeroProps) => {
       <Header />
       <div className={props.backgroundClassName || css['background']} />
       <div className={`${css['content']} section`}>
+        {props.backgroundTitle && <p className={`background-title clear-vertical`}>{props.backgroundTitle}</p>}
         <div className={`${css['children']} ${props.autoHeight ? css['auto-height'] : ' '} clear-vertical`}>
           {props.children}
         </div>

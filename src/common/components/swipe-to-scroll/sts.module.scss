@@ -3,6 +3,10 @@
 .container {
   overflow: hidden;
 
+  &.no-bounds {
+    overflow: visible;
+  }
+
   @media (hover: none) {
     overflow-x: auto;
   }

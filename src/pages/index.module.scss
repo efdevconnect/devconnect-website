@@ -283,7 +283,7 @@
   }
 }
 
-.scene-amsterdam {
+.scene-faq {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -292,66 +292,80 @@
   background: white;
   color: black;
 
-  .content {
-    display: flex;
-    flex-grow: 1;
-
-    @media (max-width: $screen-lg) {
-      flex-direction: column;
-    }
-
-    .text-container {
-      position: relative;
-      display: flex;
-      justify-content: flex-end;
-      flex-direction: column;
-      flex-basis: 55%;
-      padding-right: 90px;
-      flex-shrink: 0;
-
-      @media (max-width: $screen-lg) {
-        order: 2;
-        flex-direction: column;
-        padding-right: 0px;
-        flex-basis: auto;
-      }
-
-      .background-header {
-        position: absolute;
-        width: 100%;
-        margin-top: 0px;
-        top: 0px;
-
-        @media (max-width: $screen-lg) {
-          display: none;
-        }
-      }
-
-      > * {
-        margin-top: 28px;
-
-        @media (max-width: $screen-lg) {
-          margin-top: 16px;
-        }
-      }
-    }
-
-    .image {
-      display: flex;
-      justify-content: flex-end;
-      flex-grow: 1;
-      position: relative;
-      width: 100%;
-
-      @media (max-width: $screen-lg) {
-        height: 50vh;
-        margin-top: 20px;
-        order: 1;
-        justify-content: center;
-      }
-    }
+  .accordion {
+    padding-bottom: 32px;
   }
 }
+
+// .scene-amsterdam {
+//   position: relative;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+
+//   background: white;
+//   color: black;
+
+//   .content {
+//     display: flex;
+//     flex-grow: 1;
+
+//     @media (max-width: $screen-lg) {
+//       flex-direction: column;
+//     }
+
+//     .text-container {
+//       position: relative;
+//       display: flex;
+//       justify-content: flex-end;
+//       flex-direction: column;
+//       flex-basis: 55%;
+//       padding-right: 90px;
+//       flex-shrink: 0;
+
+//       @media (max-width: $screen-lg) {
+//         order: 2;
+//         flex-direction: column;
+//         padding-right: 0px;
+//         flex-basis: auto;
+//       }
+
+//       .background-header {
+//         position: absolute;
+//         width: 100%;
+//         margin-top: 0px;
+//         top: 0px;
+
+//         @media (max-width: $screen-lg) {
+//           display: none;
+//         }
+//       }
+
+//       > * {
+//         margin-top: 28px;
+
+//         @media (max-width: $screen-lg) {
+//           margin-top: 16px;
+//         }
+//       }
+//     }
+
+//     .image {
+//       display: flex;
+//       justify-content: flex-end;
+//       flex-grow: 1;
+//       position: relative;
+//       width: 100%;
+
+//       @media (max-width: $screen-lg) {
+//         height: 50vh;
+//         margin-top: 20px;
+//         order: 1;
+//         justify-content: center;
+//       }
+//     }
+//   }
+// }
 
 .footer-container {
   position: relative;
