@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import LinkIndicator from 'assets/icons/link-indicator.svg'
+import css from './link.module.scss'
 
 type LinkProps = {
   children: ReactNode
@@ -21,6 +22,8 @@ export const useDraggableLink = () => {
       dragging.current = true
     },
     onClick: (e: React.SyntheticEvent) => {
+      e.stopPropagation()
+
       if (dragging.current) {
         e.preventDefault()
       }
@@ -34,7 +37,7 @@ const WrappedLink = React.forwardRef(
     const isMailTo = href.startsWith('mailto:')
     const linkAttributes = {
       ...rest,
-      className: rest.className ? `${rest.className} generic` : 'generic',
+      className: rest.className ? `${rest.className} ${css['link']} generic` : `${css['link']} generic`,
       ...useDraggableLink(),
     }
 
@@ -55,15 +58,26 @@ const WrappedLink = React.forwardRef(
     if (isExternal) {
       return (
         <a href={href} ref={ref} {...linkAttributes} target="_blank" rel="noopener noreferrer">
-          {children}{' '}
-          {indicateExternal && <LinkIndicator style={{ fontSize: '0.6em', position: 'relative', top: '-3px' }} />}
+          <span className={css['link']} data-type="link-text">
+            {children}
+          </span>
+          {indicateExternal && (
+            <span className={css['external-indicator']} data-type="external-indicator">
+              &nbsp;
+              <LinkIndicator className={css['icon']} />
+            </span>
+          )}
         </a>
       )
     }
 
     return (
       <Link href={href}>
-        <a {...linkAttributes}>{children}</a>
+        <a {...linkAttributes}>
+          <span className={css['link']} data-type="link-text">
+            {children}
+          </span>
+        </a>
       </Link>
     )
   }

@@ -4,9 +4,6 @@
   height: 100%;
 }
 
-.main {
-}
-
 .header {
   display: flex;
   width: 100%;
@@ -229,18 +226,16 @@
 
         .read-blog {
           display: inline-block;
-          text-decoration: underline;
-        }
-      }
 
-      .cowork-link {
-        // &:hover {
-        text-decoration: underline;
-        // }
+          [data-type='link-text'] {
+            text-decoration: underline;
+          }
 
-        * {
-          fill: white;
-          font-size: 12px;
+          svg {
+            * {
+              fill: white;
+            }
+          }
         }
       }
 

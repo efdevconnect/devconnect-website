@@ -288,14 +288,15 @@ const Home: NextPage = (props: any) => {
                       for all who are interested.
                     </p>
 
-                    <a
+                    <Link
                       href="https://blog.ethereum.org/2021/12/13/announcing-devconnect/"
                       target="_blank"
                       rel="noreferrer"
                       className={`subheader ${css['read-blog']}`}
+                      indicateExternal
                     >
                       READ BLOG POST
-                    </a>
+                    </Link>
                   </div>
 
                   <div className={css['sun-emoji']}>
@@ -320,14 +321,15 @@ const Home: NextPage = (props: any) => {
                     View Schedule
                   </Link>
 
-                  <a
+                  <Link
                     href="https://forms.gle/m5KWJ3aX5H3kTR7s6"
                     target="_blank"
                     rel="noreferrer"
                     className={`button ${css['get-involved-button']}`}
+                    indicateExternal
                   >
                     Host an Event
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

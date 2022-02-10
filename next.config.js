@@ -1,4 +1,4 @@
-// const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
+const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
 
 /** @type {import('next').NextConfig} */
 module.exports = {
@@ -7,9 +7,9 @@ module.exports = {
     return {
       ...config,
       plugins: [
-        // new MomentTimezoneDataPlugin({
-        //   matchZones: /^America/,
-        // }),
+        new MomentTimezoneDataPlugin({
+          matchZones: /^Europe\/Amsterdam/,
+        }),
         new webpack.DefinePlugin({
           devMode: process.env.NODE_ENV !== 'production',
         }),

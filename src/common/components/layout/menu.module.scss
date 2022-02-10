@@ -6,7 +6,9 @@ $width-right-column: 190px;
 .footer-menu {
   a {
     &:hover {
-      text-decoration: underline;
+      [data-type='link-text'] {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -72,6 +74,14 @@ $width-right-column: 190px;
         color: $monochrome-10;
         background-color: $monochrome-1;
         box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.1);
+
+        svg {
+          margin-left: 0px;
+
+          * {
+            fill: $monochrome-10;
+          }
+        }
 
         a {
           padding: 4px 0px;

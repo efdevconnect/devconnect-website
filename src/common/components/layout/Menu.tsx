@@ -1,6 +1,6 @@
 import React from 'react'
 import css from './menu.module.scss'
-import Link from 'next/link'
+import Link from '../link/Link'
 import TwitterIcon from 'assets/icons/twitter.svg'
 import ChevronDown from 'assets/icons/chevron-down.svg'
 import HamburgerIcon from 'assets/icons/menu.svg'
@@ -32,9 +32,9 @@ const MultiLink = (props: any) => {
           {props.to.map((menuItem: any) => {
             if (menuItem.external) {
               return (
-                <a key={menuItem.text} href={menuItem.url} target="_blank" rel="noreferrer">
+                <Link key={menuItem.text} href={menuItem.url} target="_blank" rel="noreferrer" indicateExternal>
                   {menuItem.text}
-                </a>
+                </Link>
               )
             }
 

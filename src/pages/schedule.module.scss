@@ -17,7 +17,6 @@
     color: $monochrome-6;
 
     .view {
-      // display: none;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -27,44 +26,50 @@
       box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
       border-radius: 44px;
       padding: 0px 20px;
-
-      // @media (max-width: $screen-tiny) {
-      //   width: 100%;
-      //   margin-top: 16px;
-      // }
+      width: 100%;
+      margin-top: 16px;
 
       @media (min-width: $screen-md) {
-        display: flex;
+        width: auto;
+        margin-top: 0px;
       }
 
       .options {
         display: flex;
+        flex-grow: 1;
+        justify-content: space-evenly;
         align-items: center;
-        margin-left: 16px;
+        // margin-left: 16px;
 
         .switch {
           all: unset;
           height: 100%;
-          padding: 20px 0px;
+          margin: 15px 0px;
+          padding: 6px 15px;
           display: flex;
           align-items: center;
+          text-align: center;
           cursor: pointer;
 
-          &:not(:first-child) {
-            margin-left: 16px;
-          }
+          // &:not(:first-child) {
+          //   margin-left: 16px;
+          // }
 
           .text {
             margin-left: 8px;
           }
 
+          svg {
+            font-size: 1.4em;
+          }
+
           &.selected {
-            color: black;
-            font-weight: bold;
-            // border-bottom: 4px solid black;
+            color: white;
+            border-radius: 14px;
+            background: #6664d3;
 
             * {
-              fill: black;
+              fill: white;
             }
           }
 
@@ -85,26 +90,108 @@
   }
 }
 
+.event {
+  border-top-width: 4px !important;
+  border-width: 1px;
+}
+
+.event-in-table {
+  border-top-width: 4px !important;
+
+  @media (min-width: $screen-lg) {
+    border-top-width: 0px !important;
+    border-left-width: 4px !important;
+  }
+}
+
 .event,
 .event-in-table {
-  display: block;
-  border: 1px solid #8f78fb;
-  border-top: 4px solid #8f78fb;
-  background: #f9f8ff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+
+  &:not(.Beginner, .Intermediate, .Advanced) {
+    background: #f9f8ff;
+    border-color: #8f78fb;
+    --difficulty-color: #8f78fb;
+    --difficulty-color-bg: #edeaff;
+  }
 
   &.Beginner {
     background: #f8fcff;
     border-color: #0085ff;
+    --difficulty-color: #0085ff;
+    --difficulty-color-bg: #e3f3ff;
   }
 
   &.Intermediate {
     background: #fffaf8;
     border-color: #ff9b00;
+    --difficulty-color: #ff9b00;
+    --difficulty-color-bg: #ffece4;
   }
 
   &.Advanced {
     background: #fff8f8;
     border-color: #ff2a00;
+    --difficulty-color: #ff2a00;
+    --difficulty-color-bg: #ffebeb;
+  }
+
+  .multi-day-indicator {
+    align-self: flex-start;
+  }
+}
+
+.learn-more-modal {
+  color: black;
+  // background:
+
+  .event {
+    padding: 32px 24px !important;
+    display: flex !important;
+    // border: none !important;
+    margin-top: 0px !important;
+
+    .title {
+      margin-right: 36px;
+    }
+
+    .time-of-day {
+      display: none !important;
+    }
+  }
+}
+
+.event {
+  @media (hover: hover) {
+    &:hover {
+      .call-to-action {
+        background: var(--difficulty-color);
+        color: white;
+        pointer-events: all;
+      }
+    }
+  }
+}
+
+.call-to-action {
+  cursor: pointer;
+  padding: 4px 8px;
+  color: white;
+  background: var(--difficulty-color);
+  display: none;
+
+  // Desktop + cursor devices (not touch)
+  @media (min-width: $screen-lg) and (hover: hover) {
+    background: var(--difficulty-color-bg);
+    color: var(--difficulty-color);
+    display: block;
+    left: 0px;
+    right: 0px;
+    bottom: 0%;
+    pointer-events: none;
   }
 }
 
@@ -112,11 +199,14 @@
 .day-header,
 .calendar-list-table-header,
 .top-bar {
-  // background: #fcfcfc;
   background: #2b2b2b;
   padding: 16px;
   color: $monochrome-2;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+
+  &.open {
+    background: black;
+  }
 
   * {
     fill: $monochrome-2;
@@ -125,7 +215,6 @@
 
 .calendar-list-table-header,
 .top-bar {
-  // background: yellow !important;
   background: rgb(10, 10, 10);
   color: $monochrome-5;
 }
@@ -135,6 +224,13 @@
   align-items: center;
   flex-wrap: wrap;
   text-transform: uppercase;
+  margin-top: -4px;
+  font-weight: bold;
+  position: relative;
+
+  > * {
+    margin-top: 4px;
+  }
 }
 
 .calendar-list-grid {
@@ -171,14 +267,11 @@
     display: grid;
   }
 
-  // background: #2a2a2a;
-  // color: $monochrome-6;
-  // color: white;
-  // background: $monochrome-4;
   padding: 16px;
 }
 
-.calendar-list {
+.calendar-list,
+.learn-more-modal {
   .day-header {
     width: 100%;
     align-items: center;
@@ -186,11 +279,6 @@
     cursor: pointer;
     justify-content: space-between;
     margin-top: 4px;
-    // color: $monochrome-2;
-    // background: white;
-
-    // background: #2a2a2a;
-    // color: $monochrome-8;
   }
 
   // Styles shared by event and event-in-table
@@ -200,12 +288,15 @@
     padding-bottom: 8px;
     margin-top: 4px;
 
+    .info {
+      display: none;
+    }
+
     .title {
       display: inline-block;
     }
 
     .date {
-      // margin: 8px 0px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -226,9 +317,6 @@
 
   // Specific styles/overrides for event in table
   .event-in-table {
-    // border: 1px solid #a5a5a5;
-    // border-left: 4px solid #8f78fb;
-
     display: none;
 
     @media (min-width: $screen-lg) {
@@ -260,6 +348,7 @@
     }
 
     .attend {
+      font-weight: bold;
     }
 
     .calendar-add {
@@ -330,11 +419,18 @@
 
   .day {
     width: 240px;
+    padding: 10px;
+    font-size: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     grid-row: 1;
     grid-column: span 1;
+
+    @media (min-width: $screen-md) {
+      padding: 16px;
+      font-size: 16px;
+    }
 
     // Position sticky doesn't work when overflow property is set on a parent (which is the case for touch devices since we want to use native scroll in that scenario)
     // For now the sticky positioning only works on non-touch devices, hence the media query:
@@ -345,49 +441,85 @@
   }
 
   .event {
-    --padding: 12px;
-    --margin: 12px;
-    padding: var(--padding);
-    // margin-right: var(--margin);
-    font-size: 12px;
+    cursor: pointer;
+    --padding: 4px 8px 4px 8px;
+    --margin: 8px;
+    margin-right: var(--margin);
+    font-size: 10px;
+    -webkit-text-size-adjust: none;
+
+    @media (min-width: $screen-lg) {
+      font-size: 12px;
+      --padding: 12px;
+    }
 
     .content {
+      padding: var(--padding);
       display: flex;
       justify-content: space-between;
       flex-direction: column;
+      flex-grow: 1;
+
       .top {
-        margin-bottom: 12px;
+        @media (min-width: $screen-lg) {
+          margin-bottom: 12px;
+        }
+        font-size: 10px;
 
         .title {
-          margin-bottom: 8px;
+          // margin-bottom: 8px;
           display: inline-block;
           position: sticky;
           left: 0px;
+          max-width: 100%;
+
+          // @media (min-width: $screen-lg) {
+          //   margin-bottom: 8px;
+          // }
+
+          &.single-day {
+            position: relative;
+          }
+
+          // @media (max-width: $screen-lg + 1) {
+          //   white-space: nowrap;
+          //   text-overflow: ellipsis;
+          //   overflow: hidden;
+          // }
         }
 
         .when {
+          // display: none;
+
+          // @media (min-width: $screen-lg) {
+          //   display: grid;
+          // }
+          // display: inline-block;
+          // position: sticky;
+          // left: 0px;
           display: grid;
           grid-gap: 4px;
           grid-template-columns: repeat(1fr, var(--eventLength));
-          // width: calc(100% + calc(var(--padding) * 2));
-          // left: -var(--padding);
 
           > * {
             grid-column: span 1;
             grid-row: 1;
-            // margin-right: calc(24px / var(--eventLength));
+          }
 
-            // &:first-child {
-            //   padding-left: 0px;
-            // }
+          .which-day {
+            color: $monochrome-6;
           }
         }
       }
 
       .bottom {
-        display: flex;
+        display: none;
         flex-direction: column;
         align-items: flex-start;
+
+        @media (min-width: $screen-lg) {
+          display: flex;
+        }
 
         .organizers {
           margin-bottom: 8px;
@@ -395,10 +527,5 @@
         }
       }
     }
-
-    // &:nth-child(odd) {
-    //   background: #fffbf8;
-    //   border-top-color: #fba778;
-    // }
   }
 }

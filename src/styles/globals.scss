@@ -249,6 +249,10 @@ $max-content-width: $content-width + ($side-gap * 2);
   &:hover {
     background: rgb(0, 0, 0);
     color: rgb(209, 209, 209);
+
+    * {
+      fill: rgb(209, 209, 209);
+    }
   }
 
   &.blue {

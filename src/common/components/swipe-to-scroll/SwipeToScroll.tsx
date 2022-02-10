@@ -5,6 +5,7 @@ import useDimensions from 'react-cool-dimensions'
 
 type SwipeToScrollProps = {
   noBounds?: boolean
+  stopped?: boolean
   children: React.ReactChild | React.ReactChild[]
 }
 
@@ -39,9 +40,11 @@ const SwipeToScroll = (props: SwipeToScrollProps) => {
     return () => {
       window.removeEventListener('resize', resizeListener)
     }
-  }, [])
+  }, [props.stopped])
 
   const bind = useDrag(({ down, delta }) => {
+    if (props.stopped) return
+
     lastX.current = Math.min(Math.max(0, lastX.current - delta[0]), maxScrolled)
     el.current.style.transform = `translateX(-${lastX.current}px)`
 
