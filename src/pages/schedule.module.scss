@@ -396,7 +396,6 @@
 // Calendar/timeline view
 .calendar {
   display: grid;
-  background: white;
   grid-gap: 4px;
   text-transform: uppercase;
 
@@ -527,5 +526,20 @@
         }
       }
     }
+  }
+}
+
+.calendar-background {
+  position: absolute;
+  pointer-events: none;
+  bottom: 0px;
+  right: 0px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  z-index: -1;
+
+  svg {
+    height: 50%;
   }
 }

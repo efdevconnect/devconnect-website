@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import React from 'react'
 import { Client } from '@notionhq/client'
 import css from './schedule.module.scss'
-import { Header, Footer } from './index'
+import { Footer } from './index'
 import moment from 'moment'
 import ListIcon from 'assets/icons/list.svg'
 import CalendarIcon from 'assets/icons/calendar.svg'
@@ -15,9 +15,8 @@ import Hero from 'common/components/hero'
 import Link, { useDraggableLink } from 'common/components/link'
 import Modal from 'common/components/modal'
 import momentTZ from 'moment-timezone'
+import ScheduleBackground from 'assets/images/schedule-bg.svg'
 // import Gradient from 'assets/images/gradient-1.svg'
-// import LinkIndicator from 'assets/icons/link-indicator.svg'
-// moment.tz.setDefault('America/New_York')
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -287,27 +286,32 @@ const Calendar = (props: any) => {
   })
 
   return (
-    <SwipeToScroll noBounds stopped={eventModalOpen !== ''}>
-      <div className={css['calendar']}>
-        {events}
-
-        {Array.from(Array(eventDuration)).map((_, index: number) => {
-          const day = moment(defaultSortEvents[0].Date.startDate).add(index, 'days')
-          const weekday = day.format('ddd')
-          const date = day.format('MMM DD')
-          const noEventsForDay = !eventsByDay[index]
-
-          if (noEventsForDay) return null
-
-          return (
-            <div className={css['day']} key={index}>
-              <p>{weekday}</p>
-              <p>{date}</p>
-            </div>
-          )
-        })}
+    <>
+      <div className={css['calendar-background']}>
+        <ScheduleBackground />
       </div>
-    </SwipeToScroll>
+      <SwipeToScroll noBounds stopped={eventModalOpen !== ''}>
+        <div className={css['calendar']}>
+          {events}
+
+          {Array.from(Array(eventDuration)).map((_, index: number) => {
+            const day = moment(defaultSortEvents[0].Date.startDate).add(index, 'days')
+            const weekday = day.format('ddd')
+            const date = day.format('MMM DD')
+            const noEventsForDay = !eventsByDay[index]
+
+            if (noEventsForDay) return null
+
+            return (
+              <div className={css['day']} key={index}>
+                <p>{weekday}</p>
+                <p>{date}</p>
+              </div>
+            )
+          })}
+        </div>
+      </SwipeToScroll>
+    </>
   )
 }
 
