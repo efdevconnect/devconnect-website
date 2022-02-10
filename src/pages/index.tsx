@@ -81,7 +81,7 @@ const FAQ = [
       return (
         <p>
           Sizes will vary, and range from a 25-person zkEVM workshop for example, to a 300-person event on staking by
-          ETHStaker, to a 800-person EthGlobal hackathon. Some are private, some free, some will be based on
+          ETHStaker, to a 800-person ETHGlobal hackathon. Some are private, some free, some will be based on
           applications, and others may be ticketed with paid tickets.
         </p>
       )
