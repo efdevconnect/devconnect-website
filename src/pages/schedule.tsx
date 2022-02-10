@@ -548,7 +548,7 @@ const ListCalendar = (props: any) => {
 }
 
 const Schedule: NextPage = (props: any) => {
-  const [scheduleView, setScheduleView] = React.useState('list')
+  const [scheduleView, setScheduleView] = React.useState('calendar')
   const scheduleHelpers = useScheduleData(props.events)
 
   return (
@@ -590,7 +590,7 @@ const Schedule: NextPage = (props: any) => {
 
           {/* <div className="clear"> */}
           <div className={`${css['top-bar']}`}>
-            <p className={css['timezone']}>{momentTZ.tz('Europe/Amsterdam').format('HH:mm A')} (UTC/GMT +1) </p>
+            <p className={css['timezone']}>{momentTZ.tz('Europe/Amsterdam').format('HH:mm')} (UTC/GMT +1) </p>
             {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Drag for more →</p>}
           </div>
           {/* </div> */}
