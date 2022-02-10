@@ -287,7 +287,7 @@ const Calendar = (props: any) => {
 
   return (
     <>
-      <div className={css['calendar-background']}>
+      <div className={`${css['calendar-background']} clear-vertical`}>
         <ScheduleBackground />
       </div>
       <SwipeToScroll noBounds stopped={eventModalOpen !== ''}>
@@ -568,8 +568,8 @@ const Schedule: NextPage = (props: any) => {
         </div> */}
       </Hero>
       {/* <Header /> */}
-      <div className={`${css['schedule']} clear-vertical`}>
-        <div className="fade-in-up section">
+      <div className={`${css['schedule']} section`}>
+        <div className="fade-in-up clear-vertical">
           <div className={`${css['header-row']}`}>
             <h1 className="extra-large-text uppercase bold">Devconnect week</h1>
             <div className={`${css['view']} small-text`}>

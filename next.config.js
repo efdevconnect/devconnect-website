@@ -7,6 +7,7 @@ module.exports = {
     return {
       ...config,
       plugins: [
+        // Only include tz data for the zone we use
         new MomentTimezoneDataPlugin({
           matchZones: /^Europe\/Amsterdam/,
         }),
