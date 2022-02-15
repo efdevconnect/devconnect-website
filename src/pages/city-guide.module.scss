@@ -164,7 +164,19 @@
 .tab-content {
   .header {
     text-decoration: underline;
-    font-size: 1.2em;
+
+    font-weight: normal !important;
+    font-size: 1.4em;
+  }
+
+  .columns-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media (min-width: $screen-md) {
+      flex-direction: row;
+    }
   }
 
   .section {
@@ -175,11 +187,63 @@
     }
   }
 
+  .divider {
+    height: 1px;
+    background: $standard-border-color;
+    margin: 1em 0px;
+  }
+
   p {
     margin-bottom: 1em;
 
-    &:last-child {
+    &:last-child,
+    &.no-clearance {
       margin-bottom: 0px;
+    }
+  }
+
+  a {
+    color: #488def;
+  }
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+
+    &.indent {
+      margin-left: 2em;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+
+      ul {
+        width: 100%;
+        margin-left: 2em;
+      }
+
+      &:before {
+        content: '•';
+        font-size: 1.5em;
+        line-height: 0.5em;
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.areas-to-stay {
+  .image {
+    margin-top: 1em;
+    position: relative;
+    width: 164px;
+    height: 164px;
+
+    @media (min-width: $screen-md) {
+      margin-top: 0px;
     }
   }
 }

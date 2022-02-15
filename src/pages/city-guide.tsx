@@ -1,14 +1,16 @@
 import { NextPage } from 'next'
 import React from 'react'
-import { Header, Footer } from './index'
+import { Footer } from './index'
 import Hero from 'common/components/hero'
 import AmsterdamHero from 'assets/images/amsterdam-hero.jpg'
+import AreasToStayCityCenter from 'assets/images/city-guide/city-center.png'
+import AreasToStayEast from 'assets/images/city-guide/east.png'
+import AreasToStaySouth from 'assets/images/city-guide/south.png'
+import AreasToStayWest from 'assets/images/city-guide/west.png'
+import Image from 'next/image'
 import css from './city-guide.module.scss'
 import { SEO } from 'common/components/SEO'
 import SwipeToScroll from 'common/components/swipe-to-scroll'
-import ChevronDown from 'assets/icons/chevron-down.svg'
-import ChevronUp from 'assets/icons/chevron-up.svg'
-// import Sun from 'assets/icons/sun.svg'
 import Visa from 'assets/icons/visa.svg'
 import Clock from 'assets/icons/clock.svg'
 import Globe from 'assets/icons/globe.svg'
@@ -67,7 +69,7 @@ const tabs = [
               while parking is expensive in Center.
             </p>
             <p className="small-text">There is a great public transport system: Train, Tram, Metro, &amp; Bus.</p>
-            <p className="small-text underline">Transport System</p>
+            <p className="medium-text underline">Transport System</p>
 
             <p className="small-text">
               Amsterdam&apos;s public transport network runs on a ticketing system called <i>GVB</i>.
@@ -92,7 +94,7 @@ const tabs = [
               in advance.
             </p>
 
-            <p className="small-text underline">Travel passes</p>
+            <p className="medium-text underline">Travel passes</p>
             <p className="small-text">
               Buy an{' '}
               <Link
@@ -128,28 +130,279 @@ const tabs = [
     text: 'Areas to stay',
     value: 'areas-to-stay',
     content: () => {
-      return <p>Hello</p>
+      return (
+        <div className={`${css['tab-content']} small-text ${css['areas-to-stay']}`}>
+          <div className={css['columns-2']}>
+            <div>
+              <p className={`${css['header']} small-text`}>City Center</p>
+              <p className="bold">Areas: Old Center, Canal rings, Red light district (can be noisy)</p>
+
+              <ul className={css['list']}>
+                <li>Very lively and has the “Amsterdam energy”</li>
+                <li>Beautiful old buildings and history</li>
+                <li>Accessible to popular and event-related areas</li>
+                <li>Walkable to almost everything you&apos;d like to experience</li>
+              </ul>
+            </div>
+            <div className={css['image']}>
+              <Image src={AreasToStayCityCenter} alt="City center" layout="fill" objectFit="cover" priority />
+            </div>
+          </div>
+          <div className={css['divider']}></div>
+          <div className={css['columns-2']}>
+            <div>
+              <p className={`${css['header']} small-text`}>East</p>
+              <p className="bold">Areas: Eastern Docklands, Plantage</p>
+
+              <ul className={css['list']}>
+                <li>Maritime heritage, with fantastic views over the water</li>
+                <li>Lots of green, botanical gardens and historical buildings</li>
+                <li>
+                  Most ethnically diverse, traditional Turkish bakeries, Surinamese supermarkets and Middle Eastern
+                  lunchrooms
+                </li>
+              </ul>
+            </div>
+            <div className={css['image']}>
+              <Image src={AreasToStayEast} alt="East area" layout="fill" objectFit="cover" priority />
+            </div>
+          </div>
+          <div className={css['divider']}></div>
+          <div className={css['columns-2']}>
+            <div>
+              <p className={`${css['header']} small-text bold`}>South</p>
+              <p className="bold">Areas: De Pijp, Oud Zuid</p>
+
+              <ul className={css['list']}>
+                <li>Lively area, with a hip and younger international crowd</li>
+                <li>Lots of restaurants and bars and places to hang out</li>
+                <li>Oud Zuid is more elegant and close to the museum district</li>
+              </ul>
+            </div>
+            <div className={css['image']}>
+              <Image src={AreasToStaySouth} alt="South area" layout="fill" objectFit="cover" priority />
+            </div>
+          </div>
+          <div className={css['divider']}></div>
+          <div className={css['columns-2']}>
+            <div>
+              <p className={`${css['header']} small-text bold`}>West</p>
+              <p className="bold">Areas: Oud West, Westerpark</p>
+
+              <ul className={css['list']}>
+                <li>
+                  Close to the biggest parks Vondel Park and Westerpark, which combines expansive greenery with
+                  industrial venues (Food Hallen, Westergas)
+                </li>
+                <li>
+                  Cool spot to eat and drink&nbsp;(
+                  <Link href="https://foodhallen.nl/" className="small-text hover-underline">
+                    Food Hallen
+                  </Link>
+                  )
+                </li>
+                <li>Explore the varied mix of local hotspots in the Westerpark</li>
+              </ul>
+            </div>
+            <div className={css['image']}>
+              <Image src={AreasToStayWest} alt="West area" layout="fill" objectFit="cover" priority />
+            </div>
+          </div>
+        </div>
+      )
     },
   },
   {
     text: 'Food and Drink',
     value: 'food-and-drink',
     content: () => {
-      return <p>Hello</p>
+      return (
+        <div className={`${css['tab-content']} small-text ${css['food-and-drink']}`}>
+          <p className={`${css['header']} small-text bold`}>General food and drink</p>
+          <p className="bold">
+            There are so many options for eating and drinking in Amsterdam, especially in the City Center — it&apos;s
+            hard to name just a few!
+          </p>
+          <p className="medium-text underline">Best apple pie</p>
+          <ul>
+            <li className="bold">Winkel34</li>
+          </ul>
+          <div className={css['divider']}></div>
+          <p className={`${css['header']} small-text bold`}>Popular items to eat</p>
+          <ul>
+            <li>Poffertjes</li>
+            <li>Stroopwafel</li>
+            <li>Kibbeling</li>
+            <li>Dutch Cheeses</li>
+            <li>Pannekoeken</li>
+          </ul>
+          <div className={css['divider']}></div>
+          <p className="bold">Brown Bars and Wine Bars are in abundance.</p>
+          <p>Eating Borrel is super popular at these bars</p>
+          <ul>
+            <li>Bitterballen</li>
+            <li>Kroket</li>
+            <li>Friet (fries)</li>
+          </ul>
+
+          <div className={css['divider']}></div>
+          <p className="bold">Amsterdam based breweries</p>
+          <ul>
+            <li>
+              <Link href="https://goo.gl/maps/HZJQwV47YgXdSTt3A">Brouwerij t IJ</Link>
+            </li>
+            <li>Oedipus</li>
+            <li>Troost</li>
+          </ul>
+        </div>
+      )
     },
   },
   {
     text: 'Things to try',
     value: 'things-to-try',
     content: () => {
-      return <p>Hello</p>
+      return (
+        <div className={`${css['tab-content']} small-text ${css['food-and-drink']}`}>
+          <p className={`${css['header']} small-text bold`}>Activities</p>
+          <ul>
+            <li className="bold">Take a Canal Cruise</li>
+            <li>
+              <span className="bold">Biking</span>
+              <ul>
+                <li>
+                  Whether in the city limits or a long bike ride outside the city, Amsterdam has great and safe
+                  infrastructure for cyclists.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span className="bold">Visit the Dutch Cheese Shops</span>
+              <ul>
+                <li>There are TONS in Centraal</li>
+              </ul>
+            </li>
+            <li className="bold">Coffee Shops (Not Cafes): DYOR 🙃</li>
+            <li className="bold">Red Light District is an interesting and historical part of Amsterdamt</li>
+          </ul>
+
+          <div className={css['divider']}></div>
+          <p className={`${css['header']} small-text bold`}>Museums</p>
+          <p>A lot of museums are located near each other at Museum square</p>
+          <ul>
+            <li>Rijksmuseum</li>
+            <li>Van Gogh museum</li>
+            <li>Stedelijk museum </li>
+            <li>MOCO museum</li>
+            <li>Heineken Experience</li>
+            <li>Anne Frank Museum</li>
+            <li>Straat museum (street art)</li>
+            <li>Nxt museum</li>
+          </ul>
+          <div className={css['divider']}></div>
+          <p className={`${css['header']} small-text bold`}>Parks</p>
+          <p>Main shopping districts is at the Kalverstraat and Leidsestraat</p>
+          <ul>
+            <li>Vondel Park (most popular and accessible)</li>
+            <li>Westerpark </li>
+            <li>Oosterpark</li>
+            <li>Rembrandt Park</li>
+            <li>Sarphatipark, a nice smaller park in De Pijp</li>
+          </ul>
+          <div className={css['divider']}></div>
+          <p className={`${css['header']} small-text bold`}>Markets</p>
+          <ul>
+            <li>
+              <Link href="https://albertcuyp-markt.amsterdam/?lang=en">Albert Cuyp Market</Link>
+            </li>
+            <li>Waterloopplein</li>
+            <li>
+              <Link href="https://noordermarkt-amsterdam.nl/">Noordermarkt</Link>
+            </li>
+            <li>Ten Kate market</li>
+          </ul>
+          <div className={css['divider']}></div>
+          <p className={`${css['header']} small-text bold`}>Shopping</p>
+          <p>Main shopping districts is at the Kalverstraat and Leidsestraat</p>
+          <ul>
+            <li>Located between Leidsestraat and the canals you can find the nine streets (negen straatjes)</li>
+            <li>The big, well known department stores are the Bijenkort and Magna Plaza</li>
+            <li>PC Hooftstraat is Amsterdam&apos;s most exclusive shopping street </li>
+          </ul>
+          <div className={css['divider']}></div>
+          <p className={`${css['header']} small-text bold`}>Explore Amsterdam North</p>
+          <p>Take a free ferry ride across the river (IJ). Ferries leave from behind Central Station </p>
+          <ul>
+            <li>
+              Go to Buiksloterweg to visit the A&apos;DAM tower, EYE movie museum, swing over the edge of the rooftop
+              bar or chill at the garden of Tolhuistuin.
+              <ul>
+                <li>
+                  Places to visit in the area: Nxt museum, Cafe de Ceuvel, Oedipus Brewery, Skatecafe, FC Hyena, Hangar
+                </li>
+                <li> Walk or bike along the river and take the ferry back from NDSM </li>
+              </ul>
+            </li>
+            <li>
+              Go to NDSM to visit the old shipwharf, one of the most artistic areas of Amsterdam
+              <ul>
+                <li>
+                  Places to visit in the area: STRAAT museum (street art), Anne Frank mural painting, NDSM (wharf /
+                  warehouse), Nxt museum, Ijver, Noorderlight or relax at the mini-beach of Pllek
+                </li>
+                <li> Walk or bike along the river and take the ferry back from Buiksloterweg</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      )
     },
   },
   {
     text: 'General tips',
     value: 'general-tips',
     content: () => {
-      return <p>Hello</p>
+      return (
+        <div className={`${css['tab-content']} small-text ${css['general-tips']}`}>
+          <p className={`${css['header']} small-text bold`}>General</p>
+          <p className="bold underline">Places do not open very early in the mornings in Amsterdam</p>
+          <div className={css['divider']}></div>
+          <p className={`${css['header']} small-text bold`}>Attractions</p>
+          <p className={`${css['no-clearance']} bold`}>
+            Pre-purchase tickets where possible for museums and popular places to visit
+          </p>
+          <ul className={css['indent']}>
+            <li>This is to avoid long queues – especially building into the high season (June to August)</li>
+          </ul>
+          <div className={css['divider']}></div>
+          <p className={`${css['header']} small-text bold`}>Restaurants</p>
+          <p className={`${css['no-clearance']} bold`}> Book restaurants in advance</p>
+          <ul className={css['indent']}>
+            <li>They get booked up and packed very quickly, so it&apos;s best to book to avoid disappointment</li>
+          </ul>
+
+          <div className={css['divider']}></div>
+          <p className={`${css['header']} small-text bold`}>Biking / Cyclists</p>
+          <p className={`${css['no-clearance']}`}>Bike Rentals</p>
+          <p className={`${css['no-clearance']} bold`}>
+            If you are renting a bike, please be very mindful of locking it securely (bikes do get stolen)
+          </p>
+          <ul className={css['indent']}>
+            <li>Also be VERY MINDFUL of where you park your bike</li>
+            <li>
+              You can&apos;t just park it anywhere on the street, it will be removed by the Gemeente (Amsterdam
+              municipality) if placed incorrectly.
+            </li>
+          </ul>
+          <br />
+          <p className={`${css['no-clearance']}`}>Cyclists</p>
+          <p className={`${css['no-clearance']} bold`}>Mind the cyclists – and cycling lanes</p>
+          <ul className={css['indent']}>
+            <li>You will annoy cyclists if you are in the lanes</li>
+            <li>And will probably just get knocked over by the incoming bikes.</li>
+          </ul>
+        </div>
+      )
     },
   },
   // {
@@ -171,11 +424,11 @@ const tabs = [
   //       <div className={`${css['tab-content']} ${css['food-and-drink']}`}>
   //         <ul>
   //           <li>
-  //             There are so many options for eating and drinking in Amsterdam, especially in the City Center — it’s hard
+  //             There are so many options for eating and drinking in Amsterdam, especially in the City Center — it&apos;s hard
   //             to name just a few!
   //           </li>
   //         </ul>
-  //         There are so many options for eating and drinking in Amsterdam, especially in the City Center — it’s hard to
+  //         There are so many options for eating and drinking in Amsterdam, especially in the City Center — it&apos;s hard to
   //         name just a few! Best Apple pie in Amsterdam Winkel43 Brown Bars and wine bars are in abundance Eating Borrel
   //         is super popular at these bars Bitterballen Kroket Friet (fries) Also popular to eat Poffertjes Stroopwafel
   //         Kibbeling Dutch Cheeses Pannekoeken Amsterdam based breweries are Brouwerij 't IJ, Oedipus or Troost
@@ -193,7 +446,7 @@ const tabs = [
   //           <p className={`${css['header']} small-text bold`}>How do I sponsor?</p>
   //           <p>
   //             While Devconnect will be sponsor-free, independent events happening throughout Devconnect may be looking
-  //             for sponsorship. If you’re interested in sponsoring, check out relevant events to see if they are
+  //             for sponsorship. If you&apos;re interested in sponsoring, check out relevant events to see if they are
   //             accepting sponsorships.
   //           </p>
   //         </div>
@@ -246,7 +499,7 @@ const tabs = [
   //             How many people do you estimate will attend Devconnect?
   //           </p>
   //           <p>
-  //             Given the many events taking place and shifting COVID measures, it is hard to estimate, but we’re
+  //             Given the many events taking place and shifting COVID measures, it is hard to estimate, but we&apos;re
   //             estimating that ~1.5-2k attendees may join.{' '}
   //           </p>
   //         </div> */}
@@ -423,13 +676,13 @@ const CityGuide: NextPage = () => {
                 </p>
 
                 <p className={`uppercase bold big-text ${css['details-1']}`}>
-                  Amsterdam is known as one of the world’s most multicultural cities.{' '}
+                  Amsterdam is known as one of the world&apos;s most multicultural cities.{' '}
                 </p>
 
                 <p className={`${css['details-2']} bold`}>
-                  Like Ethereum, it can mean many things to many different people, and there’s something interesting for
-                  everyone. So where better to give a distributed (and passionate) ecosystem a more connected feel than
-                  in a city brought together by canals 🛶, bike lanes 🚲, and culture 🏫 throughout?{' '}
+                  Like Ethereum, it can mean many things to many different people, and there&apos;s something
+                  interesting for everyone. So where better to give a distributed (and passionate) ecosystem a more
+                  connected feel than in a city brought together by canals 🛶, bike lanes 🚲, and culture 🏫 throughout?{' '}
                 </p>
               </div>
 
