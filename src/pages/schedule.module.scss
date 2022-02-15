@@ -2,9 +2,11 @@
 
 .hero {
   --tile-size: 60px;
+  z-index: 1;
 }
 
 .schedule {
+  overflow: hidden;
   background: white;
   color: black;
 
@@ -13,20 +15,24 @@
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
     color: $monochrome-6;
+
+    @media (min-width: $screen-md) {
+      margin-bottom: 20px;
+    }
 
     .view {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      text-transform: uppercase;
+      // text-transform: uppercase;
       color: $monochrome-6;
       background: #f8f8f8;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
       border-radius: 44px;
       padding: 0px 20px;
-      width: 100%;
+      // width: 100%;
       margin-top: 16px;
 
       @media (min-width: $screen-md) {
@@ -60,7 +66,7 @@
           }
 
           svg {
-            font-size: 1.4em;
+            font-size: 1.2em;
           }
 
           &.selected {
@@ -82,11 +88,28 @@
   }
 
   .top-bar {
+    max-width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    // flex-wrap: wrap;
+    margin-top: -16px;
     margin-bottom: 4px;
-    text-transform: uppercase;
+    padding: 16px 0px;
+
+    > * {
+      // flex-shrink: 0;
+      margin-top: 16px;
+    }
+
+    .swipe {
+      display: none;
+      color: $monochrome-7;
+
+      @media (min-width: $screen-lg) {
+        display: inline-block;
+      }
+    }
   }
 }
 
@@ -96,10 +119,11 @@
 }
 
 .event-in-table {
+  border-width: 1px;
   border-top-width: 4px !important;
 
   @media (min-width: $screen-lg) {
-    border-top-width: 0px !important;
+    border-top-width: 1px !important;
     border-left-width: 4px !important;
   }
 }
@@ -110,6 +134,30 @@
   display: flex;
   flex-direction: column;
   border-style: solid;
+  // border-width: 1px !important;
+
+  &.Cowork {
+    background: none !important;
+    --difficulty-color-bg: none !important;
+
+    &:before {
+      content: '';
+      z-index: -1;
+      position: absolute;
+      pointer-events: none;
+      background-color: #f9f8ff;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      height: 100%;
+      width: 100%;
+      background-image: url('../assets/images/tile.png');
+      background-repeat: repeat-x;
+      mix-blend-mode: overlay;
+      background-size: var(--tile-size, 35px);
+      background-position: bottom;
+    }
+  }
 
   &:not(.Beginner, .Intermediate, .Advanced) {
     background: #f9f8ff;
@@ -197,8 +245,7 @@
 
 .day,
 .day-header,
-.calendar-list-table-header,
-.top-bar {
+.calendar-list-table-header {
   background: #2b2b2b;
   padding: 16px;
   color: $monochrome-2;
@@ -213,8 +260,7 @@
   }
 }
 
-.calendar-list-table-header,
-.top-bar {
+.calendar-list-table-header {
   background: rgb(10, 10, 10);
   color: $monochrome-5;
 }
@@ -331,6 +377,14 @@
         margin-top: 8px;
         margin-bottom: 8px;
       }
+
+      .cowork-image {
+        margin-top: 8px;
+
+        > * {
+          width: 80px;
+        }
+      }
     }
 
     .description {
@@ -417,7 +471,7 @@
   }
 
   .day {
-    width: 240px;
+    min-width: 240px;
     padding: 10px;
     font-size: 12px;
     display: flex;
@@ -455,74 +509,92 @@
     .content {
       padding: var(--padding);
       display: flex;
-      justify-content: space-between;
-      flex-direction: column;
+
+      flex-direction: row;
       flex-grow: 1;
 
-      .top {
-        @media (min-width: $screen-lg) {
-          margin-bottom: 12px;
-        }
-        font-size: 10px;
+      .image {
+        margin-right: 16px;
 
-        .title {
-          // margin-bottom: 8px;
-          display: inline-block;
-          position: sticky;
-          left: 0px;
-          max-width: 100%;
-
-          // @media (min-width: $screen-lg) {
-          //   margin-bottom: 8px;
-          // }
-
-          &.single-day {
-            position: relative;
-          }
-
-          // @media (max-width: $screen-lg + 1) {
-          //   white-space: nowrap;
-          //   text-overflow: ellipsis;
-          //   overflow: hidden;
-          // }
-        }
-
-        .when {
-          // display: none;
-
-          // @media (min-width: $screen-lg) {
-          //   display: grid;
-          // }
-          // display: inline-block;
-          // position: sticky;
-          // left: 0px;
-          display: grid;
-          grid-gap: 4px;
-          grid-template-columns: repeat(1fr, var(--eventLength));
-
-          > * {
-            grid-column: span 1;
-            grid-row: 1;
-          }
-
-          .which-day {
-            color: $monochrome-6;
-          }
+        > * {
+          height: 50px;
         }
       }
 
-      .bottom {
-        display: none;
+      .content-inner {
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        justify-content: space-between;
 
-        @media (min-width: $screen-lg) {
-          display: flex;
+        flex-grow: 1;
+
+        .top {
+          @media (min-width: $screen-lg) {
+            margin-bottom: 12px;
+          }
+          font-size: 10px;
+
+          .title {
+            // margin-bottom: 8px;
+            display: inline-block;
+            position: sticky;
+            left: 0px;
+            max-width: 100%;
+            transform: translateZ(0);
+
+            // @media (min-width: $screen-lg) {
+            //   margin-bottom: 8px;
+            // }
+
+            // No need for sticky positioning when the event is only one day long:
+            &.single-day {
+              position: relative;
+            }
+
+            // @media (max-width: $screen-lg + 1) {
+            //   white-space: nowrap;
+            //   text-overflow: ellipsis;
+            //   overflow: hidden;
+            // }
+          }
+
+          .when {
+            // display: none;
+
+            // @media (min-width: $screen-lg) {
+            //   display: grid;
+            // }
+            // display: inline-block;
+            // position: sticky;
+            // left: 0px;
+            display: grid;
+            grid-gap: 4px;
+            grid-template-columns: repeat(1fr, var(--eventLength));
+
+            > * {
+              grid-column: span 1;
+              grid-row: 1;
+            }
+
+            .which-day {
+              color: $monochrome-6;
+            }
+          }
         }
 
-        .organizers {
-          margin-bottom: 8px;
-          color: $monochrome-9;
+        .bottom {
+          display: none;
+          flex-direction: column;
+          align-items: flex-start;
+
+          @media (min-width: $screen-lg) {
+            display: flex;
+          }
+
+          .organizers {
+            margin-bottom: 8px;
+            color: $monochrome-9;
+          }
         }
       }
     }
@@ -540,7 +612,89 @@
   z-index: -1;
 
   svg {
-    width: 100%;
+    width: min(300px, 100%);
     height: 50%;
+  }
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  > * {
+    margin-right: 8px;
+  }
+
+  > div {
+    [role='button'] {
+      width: 100px;
+
+      p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      @media (min-width: $screen-sm) {
+        width: auto;
+      }
+    }
+  }
+}
+
+.no-results {
+  display: flex;
+  height: 200px;
+}
+
+.expand-list {
+  background: white;
+  border: 1px solid $monochrome-6;
+  color: $monochrome-8;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 2px;
+  // display: none;
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Roboto';
+
+  @media (min-width: $screen-lg) {
+    display: inline-flex;
+  }
+
+  &:first-child {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    background: $monochrome-3;
+  }
+
+  * {
+    fill: $monochrome-6;
+  }
+
+  span {
+    display: flex;
+    flex-direction: column;
+
+    > * {
+      font-size: 0.6em;
+
+      &:first-child {
+        // margin-bottom: 2px;
+      }
+    }
+  }
+
+  p {
+    display: none;
+    margin-left: 8px;
+
+    @media (min-width: $screen-lg) {
+      display: inline-block;
+    }
   }
 }

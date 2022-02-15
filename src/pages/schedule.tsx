@@ -1,5 +1,5 @@
-import { NextPage } from 'next'
-import React from 'react'
+import next, { NextPage } from 'next'
+import React, { useEffect } from 'react'
 import { Client } from '@notionhq/client'
 import css from './schedule.module.scss'
 import { Footer } from './index'
@@ -16,7 +16,8 @@ import Link, { useDraggableLink } from 'common/components/link'
 import Modal from 'common/components/modal'
 import momentTZ from 'moment-timezone'
 import ScheduleBackground from 'assets/images/schedule-bg.svg'
-// import Gradient from 'assets/images/gradient-1.svg'
+import Dropdown from 'common/components/dropdown'
+import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -73,7 +74,7 @@ const htmlDecode = (content: string) => {
   return e.childNodes.length === 0 ? '' : (e.childNodes[0].nodeValue as any)
 }
 
-// Individual events have a bunch of date formatting going on, heres a utility hook to generate them:
+// Events have a bunch of date formatting going on, heres a utility to generate them:
 const getFormattedEventData = (event: any, day: any) => {
   const currentDate = day
   const startDate = moment(event.Date.startDate)
@@ -219,7 +220,7 @@ const Calendar = (props: any) => {
     return (
       <div
         key={event.Name}
-        className={`${css['event']} ${css[event['Difficulty']]}`}
+        className={`${css['event']} ${css[event['Stable ID']]} ${css[event['Difficulty']]}`}
         style={gridPlacement}
         {...draggableAttributes}
         onClick={e => {
@@ -231,52 +232,60 @@ const Calendar = (props: any) => {
         }}
       >
         <div className={css['content']}>
-          <div className={css['top']}>
-            {
-              /*event.URL*/ false ? (
-                <Link
-                  href={event.URL}
-                  indicateExternal
-                  className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}
-                >
-                  {event.Name}
-                </Link>
-              ) : (
-                <p className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}>
-                  {event.Name}
-                </p>
-              )
-            }
-            {event['Time of Day'] && (
-              <div className={css['when']}>
-                {Array.from(Array(totalDays)).map((_, index: number) => {
-                  const timeOfDayArray = event['Time of Day'] && event['Time of Day'].split(',')
-                  const time = timeOfDayArray[index]
-                  const useDayIndicator = !!timeOfDayArray[1] && totalDays > 1
+          {event['Stable ID'] === 'Cowork' && (
+            <div className={css['image']}>
+              <DevconnectAmsterdam style={{ width: '50px' }} />
+            </div>
+          )}
+          <div className={css['content-inner']}>
+            <div className={css['top']}>
+              {
+                /*event.URL*/ false ? (
+                  <Link
+                    href={event.URL}
+                    indicateExternal
+                    className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}
+                  >
+                    {event.Name}
+                  </Link>
+                ) : (
+                  <p className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}>
+                    {event.Name}
+                  </p>
+                )
+              }
+              {event['Time of Day'] && (
+                <div className={css['when']}>
+                  {Array.from(Array(totalDays)).map((_, index: number) => {
+                    const timeOfDayArray = event['Time of Day'] && event['Time of Day'].split(',')
+                    const time = timeOfDayArray[index]
+                    const useDayIndicator = !!timeOfDayArray[1] && totalDays > 1
 
-                  if (!time) return null
+                    if (!time) return null
 
-                  return (
-                    <p className="bold" key={index}>
-                      <span className={css['time']}>{time}</span>
-                      {useDayIndicator && (
-                        <>
-                          <br />
-                          <span className={`${css['which-day']} small-text-em`}>Day {index + 1}</span>
-                        </>
-                      )}
-                    </p>
-                  )
-                })}
-              </div>
-            )}
-          </div>
-          <div className={css['bottom']}>
-            <div className={`${css['organizers']} bold`}>
-              {event['Organizer'] ? event['Organizer'].join(', ') : <p>Organizer</p>}
+                    return (
+                      <p className="bold" key={index}>
+                        <span className={css['time']}>{time}</span>
+                        {useDayIndicator && (
+                          <>
+                            <br />
+                            <span className={`${css['which-day']} small-text-em`}>Day {index + 1}</span>
+                          </>
+                        )}
+                      </p>
+                    )
+                  })}
+                </div>
+              )}
             </div>
 
-            <EventMeta event={event} />
+            <div className={css['bottom']}>
+              <div className={`${css['organizers']} bold`}>
+                {event['Organizer'] ? event['Organizer'].join(', ') : <p>Organizer</p>}
+              </div>
+
+              <EventMeta event={event} />
+            </div>
           </div>
         </div>
 
@@ -362,13 +371,20 @@ const ListCalendarTableHeader = (props: any) => {
   )
 }
 
-const ListCalendarDayHeader = (props: any) => {
-  const [open, setOpen] = React.useState(false)
+const ListCalendarDayHeader = React.forwardRef((props: any, ref: any) => {
+  const [open, setOpen] = React.useState(true)
   const day = props.date.format('dddd')
   const date = props.date.format('MMM DD')
   let className = css['day-header']
 
   if (open) className += ` ${css['open']}`
+
+  React.useImperativeHandle(ref, () => {
+    return {
+      open: () => setOpen(true),
+      close: () => setOpen(false),
+    }
+  })
 
   return (
     <>
@@ -383,13 +399,19 @@ const ListCalendarDayHeader = (props: any) => {
       {open && props.children}
     </>
   )
-}
+})
+
+ListCalendarDayHeader.displayName = 'ListCalendarDayHeader'
 
 const ListCalendarEventDesktop = (props: any) => {
   const { formattedDate, timeOfDay, isMultiDayEvent, formattedStartDate, formattedEndDate } = props
 
   return (
-    <div className={`${css['event-in-table']} ${css[props.event['Difficulty']]} ${css['calendar-list-grid']}`}>
+    <div
+      className={`${css['event-in-table']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} ${
+        css['calendar-list-grid']
+      }`}
+    >
       <div className={`${css['date']} ${css['col-1']}`}>
         <div>
           <p className="big-text uppercase">
@@ -404,6 +426,11 @@ const ListCalendarEventDesktop = (props: any) => {
 
         {isMultiDayEvent && (
           <div className={`tag purple tiny-text-em ${css['multi-day-indicator']}`}>Multi-day Event</div>
+        )}
+        {props.event['Stable ID'] === 'Cowork' && (
+          <div className={css['cowork-image']}>
+            <DevconnectAmsterdam />
+          </div>
         )}
       </div>
 
@@ -456,7 +483,7 @@ const ListCalendarEventMobile = (props: any) => {
   const { formattedDate, timeOfDay, isMultiDayEvent, formattedStartDate, formattedEndDate } = props
 
   return (
-    <div className={`${css['event']} ${css[props.event['Difficulty']]} `}>
+    <div className={`${css['event']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} `}>
       {props.event.URL ? (
         <Link href={props.event.URL} indicateExternal className={`${css['title']} large-text uppercase bold`}>
           {props.event.Name}
@@ -477,6 +504,8 @@ const ListCalendarEventMobile = (props: any) => {
       </div>
 
       {isMultiDayEvent && <div className={`tag purple tiny-text ${css['multi-day-indicator']}`}>Multi-day Event</div>}
+
+      {props.event['Stable ID'] === 'Cowork' && <DevconnectAmsterdam style={{ width: '50px' }} />}
 
       {props.event['Brief Description'] && (
         <p
@@ -540,7 +569,7 @@ const ListCalendar = (props: any) => {
         if (!eventsForDay) return null
 
         return (
-          <ListCalendarDayHeader key={index} date={day}>
+          <ListCalendarDayHeader key={index} date={day} ref={el => (props.accordionRefs.current[day.valueOf()] = el)}>
             {eventsForDay.map((event: any, index: number) => {
               return <ListCalendarEvent event={event} key={index} day={day} />
             })}
@@ -551,23 +580,140 @@ const ListCalendar = (props: any) => {
   )
 }
 
+const useFilter = (events: any) => {
+  const keysToFilterOn = ['Category', 'Difficulty']
+  const [filters, setFilters] = React.useState({} as { [key: string]: any })
+  const filterableValues = {} as { [key: string]: Set<string> }
+
+  // Run through events collecting all the possible values to filter on for the specified keys above - looks a bit messy but w/e
+  // Could hardcode the filter values too but this is future proof if someone changes the range of possible values for any of the above fields
+  events.forEach((event: any) => {
+    keysToFilterOn.forEach((key: any) => {
+      const value = event[key]
+      if (value) {
+        if (!filterableValues[key]) filterableValues[key] = new Set()
+
+        if (Array.isArray(value)) {
+          value.forEach((val: any) => {
+            if (!filterableValues[key].has(val)) filterableValues[key].add(val)
+          })
+        } else {
+          if (!filterableValues[key].has(value)) filterableValues[key].add(event[key])
+        }
+      }
+    })
+  })
+
+  const activeFilters = Object.keys(filters)
+
+  const filteredEvents =
+    activeFilters.length === 0
+      ? events
+      : events.filter((event: any) => {
+          return activeFilters.every(key => {
+            const activeFilter = filters[key]
+
+            if (Array.isArray(event[key])) return event[key].includes(activeFilter)
+
+            return activeFilter === event[key]
+          })
+        })
+
+  return {
+    events: filteredEvents,
+    keysToFilterOn,
+    filterableValues,
+    filters,
+    onChange: (key: string, value: string) => {
+      const nextFilter = {
+        ...filters,
+        [key]: value,
+      } as { [key: string]: string }
+
+      if (!value) delete nextFilter[key]
+
+      setFilters(nextFilter)
+    },
+  }
+}
+
+const Filter = (props: any) => {
+  return (
+    <div className={`${css['filter']} small-text`}>
+      <p className="bold">Filter:</p>
+      {props.keysToFilterOn.map((key: string) => {
+        const valuesToFilterBy = props.filterableValues[key]
+
+        if (!valuesToFilterBy) return null
+
+        return (
+          <div key={key}>
+            {/* {key} */}
+            <Dropdown
+              placeholder={key}
+              value={props.filters[key]}
+              onChange={val => props.onChange(key, val)}
+              options={Array.from(props.filterableValues[key]).map(filterValue => {
+                return {
+                  text: filterValue,
+                  value: filterValue,
+                }
+              })}
+            />
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+const Expand = (props: any) => {
+  if (props.scheduleView !== 'list') return null
+
+  return (
+    <div>
+      <button
+        className={`${css['expand-list']} small-text`}
+        onClick={() => Object.values(props.accordionRefs.current).forEach(acc => acc && acc.open && acc.open())}
+      >
+        <span>
+          <ChevronUp />
+          <ChevronDown />
+        </span>
+        <p className="small-text bold">Expand</p>
+      </button>
+      <button
+        className={`${css['expand-list']} small-text`}
+        onClick={() => Object.values(props.accordionRefs.current).forEach(acc => acc && acc.close && acc.close())}
+      >
+        <span>
+          <ChevronDown />
+          <ChevronUp />
+        </span>
+        <p className="small-text bold">Collapse</p>
+      </button>
+    </div>
+  )
+}
+
 const Schedule: NextPage = (props: any) => {
   const [scheduleView, setScheduleView] = React.useState('calendar')
-  const scheduleHelpers = useScheduleData(props.events)
+  const { events, ...filterAttributes } = useFilter(props.events)
+  const scheduleHelpers = useScheduleData(events)
+  const accordionRefs = React.useRef({} as { [key: string]: any })
+
+  React.useEffect(() => {
+    if (filterAttributes.filters) {
+      Object.values(accordionRefs.current).forEach(acc => acc && acc.open && acc.open())
+    }
+  }, [filterAttributes.filters])
 
   return (
     <>
       <SEO title="Schedule" description="Devconnect schedule" />
       <Hero className={`${css['hero']}`} autoHeight backgroundTitle="Schedule">
         <p className="uppercase extra-large-text bold secondary title">schedule</p>
-        {/* <Gradient className={css['gradient']} /> */}
-        {/* <div className={css['hero-content']}>
-          <p className="uppercase extra-large-text bold">Schedule </p>
-
-          <div className={css['items']}></div>
-        </div> */}
       </Hero>
-      {/* <Header /> */}
       <div className={`${css['schedule']} section`}>
         <div className="fade-in-up clear-vertical">
           <div className={`${css['header-row']}`}>
@@ -592,15 +738,56 @@ const Schedule: NextPage = (props: any) => {
             </div>
           </div>
 
-          {/* <div className="clear"> */}
           <div className={`${css['top-bar']}`}>
-            <p className={css['timezone']}>{momentTZ.tz('Europe/Amsterdam').format('HH:mm')} (UTC/GMT +1) </p>
-            {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Drag for more →</p>}
-          </div>
-          {/* </div> */}
+            {/* <SwipeToScroll> */}
+            <Filter events={events} {...filterAttributes} />
+            <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
+            {/* </SwipeToScroll> */}
 
-          {scheduleView === 'list' && <ListCalendar {...scheduleHelpers} />}
-          {scheduleView === 'calendar' && <Calendar {...scheduleHelpers} />}
+            {/* {scheduleView === 'list' && (
+              <div>
+                <button
+                  className={`${css['expand-list']} small-text`}
+                  onClick={() => Object.values(accordionRefs.current).forEach(acc => acc && acc.open && acc.open())}
+                >
+                  <span>
+                    <ChevronUp />
+                    <ChevronDown />
+                  </span>
+                  <p className="small-text bold">Expand</p>
+                </button>
+                <button
+                  className={`${css['expand-list']} small-text`}
+                  onClick={() => Object.values(accordionRefs.current).forEach(acc => acc && acc.close && acc.close())}
+                >
+                  <span>
+                    <ChevronDown />
+                    <ChevronUp />
+                  </span>
+                  <p className="small-text bold">Collapse</p>
+                </button>
+              </div>
+            )} */}
+            {scheduleView === 'calendar' && <p className={`small-text uppercase ${css['swipe']}`}>Drag for more →</p>}
+          </div>
+
+          {events.length === 0 ? (
+            <div className={css['no-results']}>
+              <p>No matches for this filter</p>
+            </div>
+          ) : (
+            <>
+              {/* <div className={`${css['top-bar']}`}>
+                <p className={`${css['timezone']} small-text`}>
+                  {momentTZ.tz('Europe/Amsterdam').format('HH:mm')} (UTC/GMT +1)
+                </p>
+                {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Drag for more →</p>}
+              </div> */}
+
+              {scheduleView === 'list' && <ListCalendar {...scheduleHelpers} accordionRefs={accordionRefs} />}
+              {scheduleView === 'calendar' && <Calendar {...scheduleHelpers} />}
+            </>
+          )}
         </div>
       </div>
       <Footer />
@@ -698,6 +885,10 @@ export async function getStaticProps() {
         {
           property: 'Date',
           direction: 'ascending',
+        },
+        {
+          property: 'Priority (sort)',
+          direction: 'descending',
         },
       ],
       filter: {

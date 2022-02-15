@@ -124,6 +124,34 @@ const tabs = [
       )
     },
   },
+  {
+    text: 'Areas to stay',
+    value: 'areas-to-stay',
+    content: () => {
+      return <p>Hello</p>
+    },
+  },
+  {
+    text: 'Food and Drink',
+    value: 'food-and-drink',
+    content: () => {
+      return <p>Hello</p>
+    },
+  },
+  {
+    text: 'Things to try',
+    value: 'things-to-try',
+    content: () => {
+      return <p>Hello</p>
+    },
+  },
+  {
+    text: 'General tips',
+    value: 'general-tips',
+    content: () => {
+      return <p>Hello</p>
+    },
+  },
   // {
   //   text: 'ETH accepted at',
   //   value: 'eth-accepted-at',
