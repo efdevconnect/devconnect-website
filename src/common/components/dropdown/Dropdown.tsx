@@ -1,8 +1,7 @@
-import React, { createRef, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import css from './dropdown.module.scss'
 import ChevronDown from 'assets/icons/chevron-down.svg'
 import ChevronUp from 'assets/icons/chevron-up.svg'
-import IconClose from 'assets/icons/cross.svg'
 
 export interface DropdownProps {
   value: any
@@ -18,8 +17,8 @@ export interface DropdownProps {
 
 const Dropdown = React.forwardRef((props: DropdownProps, externalRef: any) => {
   const [open, setOpen] = useState(false)
-  const ref = createRef<HTMLDivElement>()
-  const foldoutRef = createRef<HTMLUListElement>()
+  const ref = React.useRef<HTMLDivElement | null>(null)
+  const foldoutRef = React.useRef<HTMLUListElement | null>(null)
   const currentSelection = props.options.find(option => option.value === props.value)
 
   useEffect(() => {
@@ -48,18 +47,6 @@ const Dropdown = React.forwardRef((props: DropdownProps, externalRef: any) => {
   const Icon = (() => {
     // Used by e.g. Filter
     if (props.customIcon) return props.customIcon
-
-    // if (props.value) {
-    //   return () => (
-    //     <IconClose
-    //       onClick={e => {
-    //         e.stopPropagation()
-
-    //         props.onChange(undefined)
-    //       }}
-    //     />
-    //   )
-    // }
 
     if (open) {
       return ChevronUp
