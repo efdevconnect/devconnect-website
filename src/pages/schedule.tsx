@@ -674,7 +674,7 @@ const Expand = (props: any) => {
     <div>
       <button
         className={`${css['expand-list']} small-text`}
-        onClick={() => Object.values(props.accordionRefs.current).forEach(acc => acc && acc.open && acc.open())}
+        onClick={() => Object.values(props.accordionRefs.current).forEach((acc: any) => acc && acc.open && acc.open())}
       >
         <span>
           <ChevronUp />
@@ -684,7 +684,9 @@ const Expand = (props: any) => {
       </button>
       <button
         className={`${css['expand-list']} small-text`}
-        onClick={() => Object.values(props.accordionRefs.current).forEach(acc => acc && acc.close && acc.close())}
+        onClick={() =>
+          Object.values(props.accordionRefs.current).forEach((acc: any) => acc && acc.close && acc.close())
+        }
       >
         <span>
           <ChevronDown />
@@ -744,30 +746,6 @@ const Schedule: NextPage = (props: any) => {
             <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
             {/* </SwipeToScroll> */}
 
-            {/* {scheduleView === 'list' && (
-              <div>
-                <button
-                  className={`${css['expand-list']} small-text`}
-                  onClick={() => Object.values(accordionRefs.current).forEach(acc => acc && acc.open && acc.open())}
-                >
-                  <span>
-                    <ChevronUp />
-                    <ChevronDown />
-                  </span>
-                  <p className="small-text bold">Expand</p>
-                </button>
-                <button
-                  className={`${css['expand-list']} small-text`}
-                  onClick={() => Object.values(accordionRefs.current).forEach(acc => acc && acc.close && acc.close())}
-                >
-                  <span>
-                    <ChevronDown />
-                    <ChevronUp />
-                  </span>
-                  <p className="small-text bold">Collapse</p>
-                </button>
-              </div>
-            )} */}
             {scheduleView === 'calendar' && <p className={`small-text uppercase ${css['swipe']}`}>Drag for more →</p>}
           </div>
 
