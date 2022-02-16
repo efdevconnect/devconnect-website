@@ -283,7 +283,7 @@ const tabs = [
               </ul>
             </li>
             <li className="bold">Coffee Shops (Not Cafes): DYOR 🙃</li>
-            <li className="bold">Red Light District is an interesting and historical part of Amsterdamt</li>
+            <li className="bold">Red Light District is an interesting and historical part of Amsterdam</li>
           </ul>
 
           <div className={css['divider']}></div>
