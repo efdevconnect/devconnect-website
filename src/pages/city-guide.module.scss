@@ -216,20 +216,21 @@
     }
 
     li {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
+      // display: flex;
+      position: relative;
+      // flex-wrap: wrap;
 
       ul {
-        width: 100%;
         margin-left: 2em;
       }
 
       &:before {
         content: '•';
         font-size: 1.5em;
+        position: relative;
+        top: 3px;
         line-height: 0.5em;
-        margin-right: 8px;
+        margin-right: 4px;
       }
     }
   }
