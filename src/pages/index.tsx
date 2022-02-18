@@ -21,14 +21,6 @@ const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
 })
 
-/*
-
-             
-              
-
-    
-*/
-
 const FAQ = [
   {
     text: 'How do I sponsor?',
@@ -322,7 +314,7 @@ const Home: NextPage = (props: any) => {
                   </Link>
 
                   <Link
-                    href="https://forms.gle/m5KWJ3aX5H3kTR7s6"
+                    href="https://ef-events.notion.site/Host-an-event-at-Devconnect-8d1c95ea7f4f41d9a4239eb87ed1fb03"
                     target="_blank"
                     rel="noreferrer"
                     className={`button ${css['get-involved-button']}`}

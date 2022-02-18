@@ -73,7 +73,7 @@ const menuItems = [
       {
         text: 'Host an event',
         external: true,
-        url: 'https://forms.gle/m5KWJ3aX5H3kTR7s6',
+        url: 'https://ef-events.notion.site/Host-an-event-at-Devconnect-8d1c95ea7f4f41d9a4239eb87ed1fb03',
       },
       {
         text: 'Volunteer',

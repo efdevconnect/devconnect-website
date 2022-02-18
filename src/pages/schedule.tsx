@@ -581,7 +581,7 @@ const ListCalendar = (props: any) => {
 }
 
 const useFilter = (events: any) => {
-  const keysToFilterOn = ['Category', 'Difficulty']
+  const keysToFilterOn = ['Category', 'Difficulty', 'Attend']
   const [filters, setFilters] = React.useState({} as { [key: string]: any })
   const filterableValues = {} as { [key: string]: Set<string> }
 
@@ -671,7 +671,7 @@ const Expand = (props: any) => {
   if (props.scheduleView !== 'list') return null
 
   return (
-    <div>
+    <div className={css['expand-container']}>
       <button
         className={`${css['expand-list']} small-text`}
         onClick={() => Object.values(props.accordionRefs.current).forEach((acc: any) => acc && acc.open && acc.open())}
