@@ -342,14 +342,11 @@ const EventMeta = (props: any) => {
 }
 
 const LearnMore = (props: { open: boolean; close: () => void; event: any }) => {
-  // const [modalOpen, setModalOpen] = React.useState(false)
   let className = css['call-to-action']
 
   return (
     <>
-      {/* <Link href="https://google.com" className={className}> */}
       <div className={`${className} tiny-text-em bold`}>Learn More →</div>
-      {/* </Link> */}
 
       <Modal open={props.open} close={props.close}>
         <div className={css['learn-more-modal']}>

@@ -9,7 +9,7 @@ $color-grey: #cccccc;
 $color-dark-grey: #666666;
 $color-blue: #0085ff;
 $color-orange: #ed8000;
-$color-link: #2f80ed;
+$color-link: #488def;
 
 $color-background: #111111;
 
@@ -35,6 +35,19 @@ $font-tertiary: 'Space Mono', monospace;
 $size-1: 0.125rem; // 2px (assuming root font-size is 16px)
 
 $gap-1: 4px;
+
+// Font-sizes
+@mixin small-text {
+  font-size: 14px;
+
+  @media (max-width: $screen-sm) {
+    font-size: 12px;
+  }
+
+  &-em {
+    font-size: 0.88em;
+  }
+}
 
 // Screens
 $screen-tiny: 410px;

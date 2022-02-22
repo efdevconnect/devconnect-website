@@ -566,23 +566,51 @@
       }
 
       .links {
-        @media (max-width: $screen-md) {
+        @media (max-width: $screen-lg) {
           order: 1;
         }
 
         display: flex;
+        flex-wrap: wrap;
         text-transform: uppercase;
         font-weight: 700;
 
         > * {
-          margin-left: 25px;
+          margin-top: 12px;
+          transform: translateY(-12px);
+          margin-right: 25px;
 
-          &:first-child {
-            margin-left: 0px;
+          &:hover {
+            cursor: pointer;
+          }
+
+          &:last-child {
+            margin-right: 0px;
           }
         }
       }
     }
+  }
+}
+
+.modal-overrides {
+  [data-type='modal-content'] {
+    width: min(800px, 80vw) !important;
+  }
+}
+
+.code-of-conduct {
+  padding: 32px;
+  color: black;
+  overflow: auto;
+
+  > :not(:global(.big-text)) {
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+  }
+
+  li {
+    margin-left: 1em;
   }
 }
 

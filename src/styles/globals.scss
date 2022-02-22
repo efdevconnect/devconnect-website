@@ -146,15 +146,7 @@ $max-content-width: $content-width + ($side-gap * 2);
 }
 
 .small-text {
-  font-size: 14px;
-
-  @media (max-width: $screen-sm) {
-    font-size: 12px;
-  }
-
-  &-em {
-    font-size: 0.88em;
-  }
+  @include small-text;
 }
 
 .medium-text {
@@ -229,6 +221,9 @@ $max-content-width: $content-width + ($side-gap * 2);
   text-decoration: underline;
 }
 
+button {
+}
+
 .button {
   display: flex;
   justify-content: center;
@@ -265,6 +260,10 @@ $max-content-width: $content-width + ($side-gap * 2);
 
     &:hover {
       background: rgb(238, 238, 238);
+
+      * {
+        fill: $color-orange;
+      }
     }
   }
 }

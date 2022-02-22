@@ -405,117 +405,15 @@ const tabs = [
       )
     },
   },
-  // {
-  //   text: 'ETH accepted at',
-  //   value: 'eth-accepted-at',
-  // },
-  // {
-  //   text: 'Areas to stay',
-  //   value: 'areas-to-stay',
-  //   content: () => {
-  //     return <div className={`${css['tab-content']} ${css['areas-to-stay']}`}>areas to stay</div>
-  //   },
-  // },
-  // {
-  //   text: 'Food and drink',
-  //   value: 'food-and-drink',
-  //   content: () => {
-  //     return (
-  //       <div className={`${css['tab-content']} ${css['food-and-drink']}`}>
-  //         <ul>
-  //           <li>
-  //             There are so many options for eating and drinking in Amsterdam, especially in the City Center — it&apos;s hard
-  //             to name just a few!
-  //           </li>
-  //         </ul>
-  //         There are so many options for eating and drinking in Amsterdam, especially in the City Center — it&apos;s hard to
-  //         name just a few! Best Apple pie in Amsterdam Winkel43 Brown Bars and wine bars are in abundance Eating Borrel
-  //         is super popular at these bars Bitterballen Kroket Friet (fries) Also popular to eat Poffertjes Stroopwafel
-  //         Kibbeling Dutch Cheeses Pannekoeken Amsterdam based breweries are Brouwerij 't IJ, Oedipus or Troost
-  //       </div>
-  //     )
-  //   },
-  // },
-  // {
-  //   text: 'FAQ',
-  //   value: 'faq',
-  //   content: () => {
-  //     return (
-  //       <div className={`${css['tab-content']} small-text  ${css['faq']}`}>
-  //         <div className={css['section']}>
-  //           <p className={`${css['header']} small-text bold`}>How do I sponsor?</p>
-  //           <p>
-  //             While Devconnect will be sponsor-free, independent events happening throughout Devconnect may be looking
-  //             for sponsorship. If you&apos;re interested in sponsoring, check out relevant events to see if they are
-  //             accepting sponsorships.
-  //           </p>
-  //         </div>
-  //         <div className={css['section']}>
-  //           <p className={`${css['header']} small-text bold`}>
-  //             From my understanding, Devconnect will just be separate events hosted by individual
-  //             projects/teams/individuals, correct?
-  //           </p>
-  //           <p>This is correct!</p>
-  //         </div>
-  //         <div className={css['section']}>
-  //           <p className={`${css['header']} small-text bold`}>
-  //             Will there be a central venue where these events will be held, or is each host responsible for locating a
-  //             venue for their event?
-  //           </p>
-  //           <p>
-  //             Each host is responsible for their own venue. There will be many events in many different venues
-  //             throughout Amsterdam during the week. Attendees will need to pick and choose based on their interest.
-  //           </p>
-  //         </div>
-  //         <div className={css['section']}>
-  //           <p className={`${css['header']} small-text bold`}>
-  //             Will there be any &quot;main events&quot; hosted directly by Devconnect?
-  //           </p>
-  //           <p>
-  //             There will be an open Co-Working space throughout the week with tickets available to all. This will be in
-  //             Beurs van Berlage. Other than that, all events will be independently hosted.
-  //           </p>
-  //         </div>
-  //         <div className={css['section']}>
-  //           <p className={`${css['header']} small-text bold`}>Approximately how many people will fit at each event?</p>
-  //           <p>
-  //             Sizes will vary, and range from a 25-person zkEVM workshop for example, to a 300-person event on staking
-  //             by ETHStaker, to a 800-person EthGlobal hackathon. Some are private, some free, some will be based on
-  //             applications, and others may be ticketed with paid tickets.
-  //           </p>
-  //         </div>
-  //         <div className={css['section']}>
-  //           <p className={`${css['header']} small-text bold`}>
-  //             What is the primary audience you are hoping to attract for Devconnect?
-  //           </p>
-  //           <p>
-  //             While this does vary by event, the focus in general are those who are involved/interested in the ecosystem
-  //             in one particular area and want to dive deeper!
-  //           </p>
-  //         </div>
-
-  //         {/* <div className={css['section']}>
-  //           <p className={`${css['header']} small-text bold`}>
-  //             How many people do you estimate will attend Devconnect?
-  //           </p>
-  //           <p>
-  //             Given the many events taking place and shifting COVID measures, it is hard to estimate, but we&apos;re
-  //             estimating that ~1.5-2k attendees may join.{' '}
-  //           </p>
-  //         </div> */}
-  //       </div>
-  //     )
-  //   },
-  // },
 ]
 
-const Tabs = (props: any) => {
+export const Tabs = (props: any) => {
   const linkAttributes = useDraggableLink()
 
   return (
     <SwipeToScroll>
       <div className={css['tabs']}>
-        {tabs.map((tab, index: number) => {
+        {props.tabs.map((tab: any, index: number) => {
           let className = `uppercase ${css['tab']}`
 
           const toggled = index === 0
@@ -529,7 +427,7 @@ const Tabs = (props: any) => {
               className={className}
               {...linkAttributes}
               onClick={(e: any) => {
-                if (props.accordionRefs.current[tab.value]) {
+                if (props.accordionRefs && props.accordionRefs.current[tab.value]) {
                   props.accordionRefs.current[tab.value].open()
                 }
 
@@ -600,16 +498,6 @@ const List = (props: any) => {
           Language Guide
         </Link>
       </div>
-      {/* <div className={css['row']}>
-        <div className={`${css['left']} small-text uppercase`}>
-          <Sun className={css['icon']} />
-          <p className="bold">AVG TEMP:&nbsp;</p>
-          <p> AVG TEMP: 8 TO 20 °C / 46.4 to 68.0 °F</p>
-        </div>
-        <Link href="https://google.com" className={`${css['right']} blue uppercase tiny-text hover-underline`}>
-          Packing tips
-        </Link>
-      </div> */}
       <div className={css['row']}>
         <div className={`${css['left']} small-text uppercase`}>
           <Water className={css['icon']} />
@@ -667,7 +555,7 @@ const CityGuide: NextPage = () => {
       <div className={css['city-guide']}>
         <div className="section fade-in-up">
           <div className={`${css['body']} clear-vertical`} id="general-info">
-            <Tabs accordionRefs={accordionRefs} />
+            <Tabs tabs={tabs} accordionRefs={accordionRefs} />
 
             <div className={css['general-info']}>
               <div className={css['left']}>

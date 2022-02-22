@@ -78,13 +78,13 @@
 
     .left {
       border-bottom: 1px solid $standard-border-color;
-      padding-bottom: 16px;
+      padding-bottom: 1em;
 
       > * {
         &.title {
           margin-top: 0px;
         }
-        margin-top: 16px;
+        margin-top: 1em;
       }
 
       @media (min-width: $screen-md) {
@@ -103,16 +103,30 @@
             }
           }
 
-          margin-top: 16px;
+          margin-top: 1em;
         }
       }
 
       .how-to-attend {
         .title {
-          margin-bottom: 16px;
+          margin-bottom: 1em;
         }
-        padding-top: 16px;
-        margin-top: 16px;
+        padding-top: 1em;
+        margin-top: 1em;
+      }
+    }
+  }
+
+  .ticketing {
+    padding-top: 0px;
+
+    a {
+      color: $color-link;
+    }
+
+    p {
+      &:not(.title) {
+        margin-top: 1em;
       }
     }
   }

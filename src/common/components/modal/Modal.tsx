@@ -10,6 +10,7 @@ type ModalProps = {
   className?: string
   close: () => void
   children: React.ReactNode
+  noBodyScroll?: boolean
   [key: string]: any
 }
 
@@ -57,7 +58,6 @@ const ModalContent = (props: ModalProps) => {
   const childrenAsArray = React.Children.toArray(props.children)
   const currentSlide: any = childrenAsArray[currentSlideIndex]
 
-  // TO-DO: This fails on hot reload?
   const isSlider =
     childrenAsArray.length > 0 &&
     childrenAsArray.every((element: any) => {
@@ -70,13 +70,15 @@ const ModalContent = (props: ModalProps) => {
   // const image = activeProps.image || props.image
 
   // Prevent page scroll when modal is open
-  // React.useEffect(() => {
-  //   document.body.style.overflow = 'hidden'
+  React.useEffect(() => {
+    if (props.noBodyScroll) {
+      document.body.style.overflow = 'hidden'
 
-  //   return () => {
-  //     document.body.style.overflow = ''
-  //   }
-  // }, [])
+      return () => {
+        document.body.style.overflow = ''
+      }
+    }
+  }, [props.noBodyScroll])
 
   return (
     <div
@@ -102,7 +104,7 @@ const ModalContent = (props: ModalProps) => {
           </div>
         )}
 
-        <div className={css['content']}>
+        <div className={css['content']} data-type="modal-content">
           {isSlider ? (
             <div className={css['slides']}>
               {React.Children.map(props.children, (child, index) => {
@@ -143,9 +145,13 @@ export { ModalSlide }
 const Modal = (props: ModalProps) => {
   if (!props.open) return null
 
+  let className = css['modal']
+
+  if (props.className) className += ` ${props.className}`
+
   return createPortal(
     <div
-      className={css['modal']}
+      className={className}
       data-type="modal-portal"
       onClick={e => {
         e.stopPropagation()
@@ -159,15 +165,3 @@ const Modal = (props: ModalProps) => {
 }
 
 export default Modal
-
-/*
-  <Modal image="" title="">
-    <ModalSlide image="" title="">
-      Some content goes here
-    </ModalSlide>
-    <ModalSlide>
-
-    </ModalSlide>
-  </Modal>
-
-*/
