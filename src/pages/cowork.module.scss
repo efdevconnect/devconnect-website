@@ -123,13 +123,12 @@
   }
 
   .ticketing {
-    // padding-top: 32px;
-
-    a &:not(:global(.button)) {
-      color: $color-link;
-    }
-
     p {
+      a {
+        color: $color-link;
+        --icon-color: #{$color-link};
+      }
+
       &:not(.title) {
         margin-top: 1em;
       }

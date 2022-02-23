@@ -247,13 +247,14 @@ const Cowork: NextPage = (props: any) => {
                 <p className={`uppercase bold big-text`}>How can I buy a ticket?</p>
                 <p>
                   Tickets will be on sale in waves, to be communicated via our{' '}
-                  <Link href="https://twitter.com/efdevconnect">twitter</Link>.
+                  <Link indicateExternal href="https://twitter.com/efdevconnect">
+                    twitter
+                  </Link>
                 </p>
                 <p>
                   We will accept fiat payments via Stripe and ETH &amp; DAI payments via two L2s: Optimism and Arbitrum.
                   To keep costs low for everyone, we will only be accepting payments on L2s.{' '}
                 </p>
-                {/* <p>Head on over to ticketh.xyz/devconnect/cowork to secure your ticket!</p> */}
                 <br />
                 <Link indicateExternal href="https://ticketh.xyz/devconnect/cowork/" className="button sm orange-fill">
                   Get tickets
