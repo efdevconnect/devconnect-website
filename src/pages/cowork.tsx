@@ -123,7 +123,7 @@ const Cowork: NextPage = (props: any) => {
                     <b>Relax.</b> Comfy areas to relax alone or in a small group.
                   </p>
                   <p>
-                    <b>Collaborate.</b> Several meeting rooms available for informal meetings (first come first serve).
+                    <b>Collaborate.</b> Several meeting rooms available for informal meetings (first-come first-serve).
                   </p>
 
                   <p>
@@ -192,14 +192,16 @@ const Cowork: NextPage = (props: any) => {
                   The Co-work Space will be open from: <b>April 18-25th, 2022 09:00 - 23:00.</b>
                 </p>
                 <p>
-                  In an effort to ensure maximum availability of the co-work space to the Ethereum community, we will be
+                  In an effort to ensure maximum availability of the Co-work Space to the Ethereum community, we will be
                   over-distributing tickets. In other words, the total number of tickets we distribute will exceed the
-                  max capacity of the co-work space at one time.
-                  <br />
-                  Therefore, entry to the co-work space will be granted on a first-come first-serve basis. In the event
+                  max capacity of the Co-work Space at one time.
+                </p>
+                <p>
+                  Therefore, entry to the Co-work Space will be granted on a first-come first-serve basis. In the event
                   that the venue is at full-capacity, even those with a wristband may be denied entry until space
-                  becomes available
-                  <br />
+                  becomes available.
+                </p>
+                <p>
                   From April 22-24th, ETHGlobal will be hosting a Hackathon within the Beurs van Berlage venue, and
                   therefore we will have more limited capacity on these days.
                 </p>
