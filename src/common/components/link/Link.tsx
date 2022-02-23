@@ -64,7 +64,7 @@ const WrappedLink = React.forwardRef(
           {indicateExternal && (
             <span className={css['external-indicator']} data-type="external-indicator">
               &nbsp;
-              <LinkIndicator className={css['icon']} />
+              <LinkIndicator className={`${css['icon']} icon`} />
             </span>
           )}
         </a>

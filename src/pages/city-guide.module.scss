@@ -207,30 +207,16 @@
   }
 
   ul {
-    list-style-type: none;
     display: flex;
     flex-direction: column;
-
-    &.indent {
-      margin-left: 2em;
-    }
+    margin-left: 1em;
 
     li {
-      // display: flex;
       position: relative;
-      // flex-wrap: wrap;
+      margin-left: 1em;
 
       ul {
-        margin-left: 2em;
-      }
-
-      &:before {
-        content: '•';
-        font-size: 1.5em;
-        position: relative;
-        top: 3px;
-        line-height: 0.5em;
-        margin-right: 4px;
+        margin-left: 1em;
       }
     }
   }

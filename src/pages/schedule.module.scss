@@ -14,11 +14,12 @@
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     color: $monochrome-6;
 
     @media (min-width: $screen-md) {
       margin-bottom: 20px;
+      margin-bottom: 8px;
     }
 
     .view {

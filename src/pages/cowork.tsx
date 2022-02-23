@@ -15,8 +15,14 @@ import TicketIcon from 'assets/icons/ticket.svg'
 import { SEO } from 'common/components/SEO'
 import Link from 'common/components/link/Link'
 import { Tabs } from './city-guide'
+import Alert from 'common/components/alert'
+// @ts-ignore
+import AnchorLink from 'react-anchor-link-smooth-scroll'
+// import Accordion, { AccordionItem } from 'common/components/accordion'
 
 const Cowork: NextPage = (props: any) => {
+  // const accordionRefs = React.useRef({} as { [key: string]: any })
+
   return (
     <>
       <SEO title="Cowork" description="Coworking at Devconnect" />
@@ -42,10 +48,10 @@ const Cowork: NextPage = (props: any) => {
           </div>
 
           <div className={css['call-to-action']}>
-            <a href="https://forms.gle/m5KWJ3aX5H3kTR7s6" target="_blank" rel="noreferrer" className={`button orange`}>
+            <AnchorLink href="#ticketing" offset="32" className={`button orange`}>
               <TicketIcon />
-              Get Tickets
-            </a>
+              Tickets
+            </AnchorLink>
 
             <a
               href="https://goo.gl/maps/279RVpXu5jpCYtAU9"
@@ -78,8 +84,20 @@ const Cowork: NextPage = (props: any) => {
               />
             </div>
           </div>
+
+          <div className={`${css['ticketing-alert']} clear-vertical`}>
+            <Alert title="Ticket Information" color="orange">
+              <b>
+                Coworking tickets will only grant you access to the EF-hosted Cowork Space at the Beurs van Berlage
+                venue in Amsterdam.
+              </b>
+              <br />
+              These tickets will NOT grant access to any other events taking place during Devconnect.
+            </Alert>
+          </div>
+
           <div className="clear-vertical">
-            <div className={`${css['body']} clear-vertical`}>
+            <div className={`${css['body']}`}>
               <div className={css['left']}>
                 <p className={`uppercase bold large-text ${css['title']}`}>Coworking</p>
                 <p className={`uppercase bold`}>Devconnect</p>
@@ -90,7 +108,7 @@ const Cowork: NextPage = (props: any) => {
                 </p>
                 <p>
                   While all of the other events happening throughout the week will be independently-organized, this
-                  co-working space will be officially hosted by the <b>Devconnect</b> team.
+                  co-work space will be officially hosted by the <b>Devconnect</b> team.
                 </p>
               </div>
 
@@ -121,10 +139,19 @@ const Cowork: NextPage = (props: any) => {
                     tickets to the co-work are open to all Devconnect attendees looking to work together and hang out
                     between sessions, so come meet with old and new friends alike. More details below.
                   </p>
+
+                  <br />
+
+                  <AnchorLink href="#ticketing" offset="32" className="button sm orange-fill">
+                    Ticket information
+                  </AnchorLink>
                 </div>
               </div>
             </div>
-            <div className={`border-top ${css['gallery']}`}>
+          </div>
+
+          <div className={`clear`}>
+            <div className={`${css['gallery']}`}>
               <div className={css['grid-item']}>
                 <Image src={Cowork1} alt="Cowork space example" />
               </div>
@@ -142,93 +169,195 @@ const Cowork: NextPage = (props: any) => {
               </div>
             </div>
           </div>
-          <div className={`${css['ticketing']} clear-vertical`} id="ticketing">
-            <p className={`uppercase bold large-text ${css['title']}`}>Ticketing information</p>
 
-            <div className={css['disclaimer']}>
-              <p>
-                These tickets will{' '}
-                <b>only grant you access to the EF-hosted Coworking Space at the Beurs van Berlage venue</b> in
-                Amsterdam.
-              </p>
-              <p>
-                These tickets will <b>NOT</b> grant access to <b>ANY</b> other events taking place during Devconnect.
-              </p>
-              <p>
-                All events during Devconnect are independently hosted and it is their choice how they do ticketing: open
-                ticket sales, applications, pre-defined list of attendees, etc.
-              </p>
-              <p>
-                For information on attending the independently-hosted events during the week of Devconnect, see
-                our&nbsp;
-                <Link href="schedule">schedule</Link> and find the event you are interested in attending.
-              </p>
-            </div>
+          <div className="clear-vertical">
+            <div className={`${css['ticketing']}`} id="ticketing">
+              <p className={`uppercase bold large-text ${css['title']}`}>Ticketing information</p>
 
-            <div className={css['hours-open']}>
-              <p className={`uppercase bold big-text`}>Hours open</p>
-              <p>
-                The Co-working Space will be open from: <b>April 18-25th, 2022 09:00 - 23:00.</b>
-              </p>
-              <p>
-                <b>
-                  Entry to the co-working space will be first-come first-serve. You may be denied entry if the space is
-                  full, even if you have a ticket.
-                </b>
-              </p>
-              <p>
-                Beurs van Berlage does have limited capacity. In cases of limited capacity, entry will be granted on a
-                first-come first-serve basis, even if you have already checked in &amp; have a wristband.
-              </p>
-              <p>
-                From April 22-24th, ETHGlobal will be hosting a Hackathon within the Beurs van Berlage venue, and
-                therefore we will have more limited capacity on these days.{' '}
-              </p>
-            </div>
+              <div className={css['disclaimer']}>
+                <p>
+                  All events during Devconnect are independently hosted and it is their choice how they do ticketing:
+                  open ticket sales, applications, pre-defined list of attendees, etc.
+                </p>
+                <p>
+                  For information on attending the independently-hosted events during the week of Devconnect, see
+                  our&nbsp;
+                  <Link href="schedule">schedule</Link> and find the event you are interested in attending.
+                </p>
+              </div>
 
-            <div className={css['covid-policy']}>
-              <p className={`uppercase bold big-text`}>Covid-19 Policy</p>
-              <p>
-                COVID-19 regulations are constantly changing around the world. We will be following the COVID-19 policy
-                of the Netherlands and the Beurs van Berlage venue during the week of Devconnect.
-              </p>
-              <p>
-                <b>
-                  This may include verifying IDs to match any required proof of negative test or COVID-19 Vaccination,
-                  if they are required to enter the venue at the time of the event.
-                </b>
-              </p>
-            </div>
+              <div className={css['hours-open']}>
+                <p className={`uppercase bold big-text`}>Venue</p>
+                <p>
+                  The Co-work Space will be open from: <b>April 18-25th, 2022 09:00 - 23:00.</b>
+                </p>
+                <p>
+                  In an effort to ensure maximum availability of the co-work space to the Ethereum community, we will be
+                  over-distributing tickets. In other words, the total number of tickets we distribute will exceed the
+                  max capacity of the co-work space at one time.
+                  <br />
+                  Therefore, entry to the co-work space will be granted on a first-come first-serve basis. In the event
+                  that the venue is at full-capacity, even those with a wristband may be denied entry until space
+                  becomes available
+                  <br />
+                  From April 22-24th, ETHGlobal will be hosting a Hackathon within the Beurs van Berlage venue, and
+                  therefore we will have more limited capacity on these days.
+                </p>
+              </div>
 
-            <div className={css['registration']}>
-              <p className={`uppercase bold big-text`}>Registration</p>
-              <p>If you purchase a ticket, a QR-code will be emailed to you and you may use that to check-in.</p>
-              <p>
-                Depending on the Netherlands’ COVID measures at the time of the event, you may be required to show proof
-                of COVID-19 vaccination or a negative test from 48-72 hours prior to check-in. This will also need to be
-                cross-checked with a matching ID, so please bring matching ID in the event we have to screen for
-                COVID-19 measures.
-              </p>
-              <p>
-                When your ticket is scanned &amp; approved, you will be given a wristband. This wristband is how you
-                will access the Co-working Space for the full week, so we advise that you wear it immediately upon
-                receipt &amp; do not lose or remove the wristband unless you no longer plan on attending the Co-working
-                Space.
-              </p>
-              <p>If you lose your wristband, you will not be granted re-entry to the venue.</p>
-              <p>Once you’re checked in, head over to our Swag Desk to pick up the Swag you have ordered!</p>
-            </div>
+              <div className={css['covid-policy']}>
+                <p className={`uppercase bold big-text`}>Covid-19 Policy</p>
+                <p>
+                  COVID-19 regulations are constantly changing around the world. We will be following the COVID-19
+                  policy of the Netherlands and the Beurs van Berlage venue during the week of Devconnect.
+                </p>
+                <p>
+                  <b>
+                    This may include verifying IDs to match any required proof of negative test or COVID-19 Vaccination,
+                    if they are required to enter the venue at the time of the event.
+                  </b>
+                </p>
+              </div>
 
-            <div className={css['how-to-buy']}>
-              <p className={`uppercase bold big-text`}>How can I buy a ticket?</p>
-              <p>Tickets will go on sale at 17:00 CET on Feb. x, 2022.</p>
-              <p>
-                We will accept fiat payments via Stripe and ETH &amp; DAI payments via two L2s: Optimism and Arbitrum.
-                To keep costs low for everyone, we will only be accepting payments on L2s.{' '}
-              </p>
-              <p>Head on over to ticketh.xyz/devconnect/cowork to secure your ticket!</p>
+              <div className={css['registration']}>
+                <p className={`uppercase bold big-text`}>Registration</p>
+                <p>
+                  If you purchase a ticket, a QR-code will be emailed to you 3 days before the event, and you may use
+                  that to check-in.
+                </p>
+                <p>
+                  Depending on the Netherlands&apos; COVID measures at the time of the event, you may be required to
+                  show proof of COVID-19 vaccination or a negative test from 48-72 hours prior to check-in. This will
+                  also need to be cross-checked with a matching ID, so please bring matching ID in the event we have to
+                  screen for COVID-19 measures.
+                </p>
+                <p>
+                  When your ticket is scanned &amp; approved, you will be given a wristband. This wristband is how you
+                  will access the Co-work Space for the full week, so we advise that you wear it immediately upon
+                  receipt &amp; do not lose or remove the wristband unless you no longer plan on attending the Co-work
+                  Space.
+                </p>
+                <p>If you lose your wristband, you will not be granted re-entry to the venue.</p>
+                <p>
+                  <b>Once you&apos;re checked in, head over to our Swag Desk to snag some sweet Devconnectswag!</b>
+                </p>
+              </div>
+
+              <div className={css['how-to-buy']}>
+                <p className={`uppercase bold big-text`}>How can I buy a ticket?</p>
+                <p>
+                  Tickets will be on sale in waves, to be communicated via our{' '}
+                  <Link href="https://twitter.com/efdevconnect">twitter</Link>.
+                </p>
+                <p>
+                  We will accept fiat payments via Stripe and ETH &amp; DAI payments via two L2s: Optimism and Arbitrum.
+                  To keep costs low for everyone, we will only be accepting payments on L2s.{' '}
+                </p>
+                {/* <p>Head on over to ticketh.xyz/devconnect/cowork to secure your ticket!</p> */}
+                <br />
+                <Link indicateExternal href="https://ticketh.xyz/devconnect/cowork/" className="button sm orange-fill">
+                  Get tickets
+                </Link>
+              </div>
             </div>
           </div>
+
+          {/* <div className={`${css['ticketing']} clear`} id="ticketing">
+            <Accordion>
+              <AccordionItem
+                title="Ticketing information"
+                id="ticketing"
+                ref={el => (accordionRefs.current['ticketing'] = el)}
+              >
+                <div className={css['disclaimer']}>
+                  <p>
+                    These tickets will{' '}
+                    <b>only grant you access to the EF-hosted Coworking Space at the Beurs van Berlage venue</b> in
+                    Amsterdam.
+                  </p>
+                  <p>
+                    These tickets will <b>NOT</b> grant access to <b>ANY</b> other events taking place during
+                    Devconnect.
+                  </p>
+                  <p>
+                    All events during Devconnect are independently hosted and it is their choice how they do ticketing:
+                    open ticket sales, applications, pre-defined list of attendees, etc.
+                  </p>
+                  <p>
+                    For information on attending the independently-hosted events during the week of Devconnect, see
+                    our&nbsp;
+                    <Link href="schedule">schedule</Link> and find the event you are interested in attending.
+                  </p>
+                </div>
+
+                <div className={css['hours-open']}>
+                  <p className={`uppercase bold big-text`}>Hours open</p>
+                  <p>
+                    The Co-working Space will be open from: <b>April 18-25th, 2022 09:00 - 23:00.</b>
+                  </p>
+                  <p>
+                    <b>
+                      Entry to the co-working space will be first-come first-serve. You may be denied entry if the space
+                      is full, even if you have a ticket.
+                    </b>
+                  </p>
+                  <p>
+                    Beurs van Berlage does have limited capacity. In cases of limited capacity, entry will be granted on
+                    a first-come first-serve basis, even if you have already checked in &amp; have a wristband.
+                  </p>
+                  <p>
+                    From April 22-24th, ETHGlobal will be hosting a Hackathon within the Beurs van Berlage venue, and
+                    therefore we will have more limited capacity on these days.{' '}
+                  </p>
+                </div>
+
+                <div className={css['covid-policy']}>
+                  <p className={`uppercase bold big-text`}>Covid-19 Policy</p>
+                  <p>
+                    COVID-19 regulations are constantly changing around the world. We will be following the COVID-19
+                    policy of the Netherlands and the Beurs van Berlage venue during the week of Devconnect.
+                  </p>
+                  <p>
+                    <b>
+                      This may include verifying IDs to match any required proof of negative test or COVID-19
+                      Vaccination, if they are required to enter the venue at the time of the event.
+                    </b>
+                  </p>
+                </div>
+
+                <div className={css['registration']}>
+                  <p className={`uppercase bold big-text`}>Registration</p>
+                  <p>If you purchase a ticket, a QR-code will be emailed to you and you may use that to check-in.</p>
+                  <p>
+                    Depending on the Netherlands’ COVID measures at the time of the event, you may be required to show
+                    proof of COVID-19 vaccination or a negative test from 48-72 hours prior to check-in. This will also
+                    need to be cross-checked with a matching ID, so please bring matching ID in the event we have to
+                    screen for COVID-19 measures.
+                  </p>
+                  <p>
+                    When your ticket is scanned &amp; approved, you will be given a wristband. This wristband is how you
+                    will access the Co-working Space for the full week, so we advise that you wear it immediately upon
+                    receipt &amp; do not lose or remove the wristband unless you no longer plan on attending the
+                    Co-working Space.
+                  </p>
+                  <p>If you lose your wristband, you will not be granted re-entry to the venue.</p>
+                  <p>Once you’re checked in, head over to our Swag Desk to pick up the Swag you have ordered!</p>
+                </div>
+
+                <div className={css['how-to-buy']}>
+                  <p className={`uppercase bold big-text`}>How can I buy a ticket?</p>
+                  <p>Tickets will go on sale at 17:00 CET on Feb. x, 2022.</p>
+                  <p>
+                    We will accept fiat payments via Stripe and ETH &amp; DAI payments via two L2s: Optimism and
+                    Arbitrum. To keep costs low for everyone, we will only be accepting payments on L2s.{' '}
+                  </p>
+                  <p>Head on over to ticketh.xyz/devconnect/cowork to secure your ticket!</p>
+                  <br />
+                  <button className="button sm orange-fill">Get tickets</button>
+                </div>
+              </AccordionItem>
+            </Accordion>
+          </div> */}
         </div>
       </div>
 

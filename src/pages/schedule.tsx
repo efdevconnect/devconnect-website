@@ -14,10 +14,10 @@ import { SEO } from 'common/components/SEO'
 import Hero from 'common/components/hero'
 import Link, { useDraggableLink } from 'common/components/link'
 import Modal from 'common/components/modal'
-import momentTZ from 'moment-timezone'
 import ScheduleBackground from 'assets/images/schedule-bg.svg'
 import Dropdown from 'common/components/dropdown'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
+import Alert from 'common/components/alert'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -736,6 +736,15 @@ const Schedule: NextPage = (props: any) => {
               </div>
             </div>
           </div>
+
+          <Alert title="Ticket Information">
+            <b>
+              EACH event in devconnect is independently hosted and you will require tickets for each event you wish to
+              attend.
+            </b>
+            &nbsp;For information on acquiring tickets to the independently-hosted events during the week of Devconnect
+            please visit their respective websites.
+          </Alert>
 
           <div className={`${css['top-bar']}`}>
             {/* <SwipeToScroll> */}

@@ -134,15 +134,7 @@ $max-content-width: $content-width + ($side-gap * 2);
 }
 
 .tiny-text {
-  font-size: 12px;
-
-  @media (max-width: $screen-sm) {
-    font-size: 10px;
-  }
-
-  &-em {
-    font-size: 0.66em;
-  }
+  @include tiny-text;
 }
 
 .small-text {
@@ -150,55 +142,19 @@ $max-content-width: $content-width + ($side-gap * 2);
 }
 
 .medium-text {
-  font-size: 16px;
-
-  @media (max-width: $screen-sm) {
-    font-size: 14px;
-  }
-
-  &-em {
-    font-size: 1em;
-  }
+  @include medium-text;
 }
 
 .big-text {
-  font-size: 20px;
-
-  @media (max-width: $screen-sm) {
-    font-size: 16px;
-  }
-
-  &-em {
-    font-size: 1.25em;
-  }
+  @include big-text;
 }
 
 .large-text {
-  font-size: 24px;
-
-  @media (max-width: $screen-sm) {
-    font-size: 18px;
-  }
-
-  &-em {
-    font-size: 1.5em;
-  }
+  @include large-text;
 }
 
 .extra-large-text {
-  font-size: 36px;
-
-  @media (max-width: $screen-sm) {
-    font-size: 24px;
-  }
-
-  &.title {
-    letter-spacing: 0.05em;
-  }
-
-  &-em {
-    font-size: 2em;
-  }
+  @include extra-large-text;
 }
 
 .bold {
@@ -221,11 +177,8 @@ $max-content-width: $content-width + ($side-gap * 2);
   text-decoration: underline;
 }
 
-button {
-}
-
 .button {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   border-radius: 44px;
@@ -245,9 +198,15 @@ button {
     background: rgb(0, 0, 0);
     color: rgb(209, 209, 209);
 
-    * {
-      fill: rgb(209, 209, 209);
-    }
+    // * {
+    //   fill: rgb(209, 209, 209);
+    // }
+  }
+
+  &.sm {
+    height: 48px;
+    @include medium-text;
+    padding: 0 16px;
   }
 
   &.blue {
@@ -257,12 +216,29 @@ button {
   &.orange {
     background: white;
     color: $color-orange;
+    --icon-color: #{$color-orange};
 
     &:hover {
       background: rgb(238, 238, 238);
+      color: rgb(128, 128, 128);
 
       * {
-        fill: $color-orange;
+        --icon-color: rgb(128, 128, 128);
+      }
+    }
+  }
+
+  &.orange-fill {
+    background: $color-orange;
+    color: white;
+    --icon-color: white;
+
+    &:hover {
+      background: rgb(238, 238, 238);
+      color: rgb(128, 128, 128);
+
+      * {
+        --icon-color: rgb(128, 128, 128);
       }
     }
   }
@@ -383,4 +359,10 @@ a {
   -webkit-text-fill-color: rgb(0, 0, 0, 0); /* Will override color (regardless of order) */
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: rgb(255, 255, 255);
+}
+
+.icon {
+  * {
+    fill: var(--icon-color);
+  }
 }

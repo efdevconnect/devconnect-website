@@ -45,11 +45,15 @@ module.exports = {
           {
             test: /\.svg$/,
             include: /icons/,
+            issuer: { not: /\.(css|scss|sass)$/ },
             use: [
               {
                 loader: '@svgr/webpack',
                 options: {
                   icon: true,
+                  svgProps: {
+                    className: 'icon',
+                  },
                   svgoConfig: {
                     plugins: [
                       {
