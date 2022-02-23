@@ -60,7 +60,7 @@ const menuItems = [
     url: '/schedule',
   },
   {
-    text: 'Cowork',
+    text: 'Co-work',
     url: '/cowork',
   },
   {

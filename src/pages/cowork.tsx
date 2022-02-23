@@ -33,7 +33,7 @@ const Cowork: NextPage = (props: any) => {
       >
         <div className={css['content']}>
           <div>
-            <p className="uppercase extra-large-text bold secondary title">CoWork —</p>
+            <p className="uppercase extra-large-text bold secondary title">Co-Work —</p>
 
             <p className={`${css['info']} uppercase big-text`}>
               <Link href="https://www.google.com/maps?ll=52.375062,4.896171&z=16&t=m&hl=en&gl=DK&mapclient=embed&cid=18286565975988533039">
@@ -88,7 +88,7 @@ const Cowork: NextPage = (props: any) => {
           <div className={`${css['ticketing-alert']} clear-vertical`}>
             <Alert title="Ticket Information" color="orange">
               <b>
-                Coworking tickets will only grant you access to the Cowork Space at the Beurs van Berlage venue in
+                Co-work tickets will only grant you access to the Co-work Space at the Beurs van Berlage venue in
                 Amsterdam.
               </b>
               <br />
@@ -99,7 +99,7 @@ const Cowork: NextPage = (props: any) => {
           <div className="clear-vertical">
             <div className={`${css['body']}`}>
               <div className={css['left']}>
-                <p className={`uppercase bold large-text ${css['title']}`}>Coworking</p>
+                <p className={`uppercase bold large-text ${css['title']}`}>Co-work</p>
                 <p className={`uppercase bold`}>Devconnect</p>
                 <p className="big-text">
                   As part of our goal to foster <b>collaboration and community</b> throughout Devconnect week, we will
