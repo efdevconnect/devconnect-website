@@ -88,8 +88,8 @@ const Cowork: NextPage = (props: any) => {
           <div className={`${css['ticketing-alert']} clear-vertical`}>
             <Alert title="Ticket Information" color="orange">
               <b>
-                Coworking tickets will only grant you access to the EF-hosted Cowork Space at the Beurs van Berlage
-                venue in Amsterdam.
+                Coworking tickets will only grant you access to the Cowork Space at the Beurs van Berlage venue in
+                Amsterdam.
               </b>
               <br />
               These tickets will NOT grant access to any other events taking place during Devconnect.
@@ -239,7 +239,7 @@ const Cowork: NextPage = (props: any) => {
                 </p>
                 <p>If you lose your wristband, you will not be granted re-entry to the venue.</p>
                 <p>
-                  <b>Once you&apos;re checked in, head over to our Swag Desk to snag some sweet Devconnectswag!</b>
+                  <b>Once you&apos;re checked in, head over to our Swag Desk to snag some sweet Devconnect swag!</b>
                 </p>
               </div>
 
