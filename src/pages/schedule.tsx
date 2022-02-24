@@ -350,7 +350,7 @@ const LearnMore = (props: { open: boolean; close: () => void; event: any }) => {
 
       <Modal open={props.open} close={props.close}>
         <div className={css['learn-more-modal']}>
-          <ListCalendarEventMobile {...getFormattedEventData(props.event, moment())} event={props.event} />
+          <ListCalendarEventMobile {...getFormattedEventData(props.event, moment())} event={props.event} timeline />
         </div>
       </Modal>
     </>
@@ -488,7 +488,6 @@ const ListCalendarEventMobile = (props: any) => {
       ) : (
         <p className={`${css['title']} large-text uppercase bold`}>{props.event.Name}</p>
       )}
-
       <div className={css['date']}>
         <p className={`small-text uppercase ${css['time-of-day']}`}>
           {formattedDate} — <br /> <span className="large-text">{timeOfDay}</span>
@@ -499,11 +498,8 @@ const ListCalendarEventMobile = (props: any) => {
           </p>
         )}
       </div>
-
       {isMultiDayEvent && <div className={`tag purple tiny-text ${css['multi-day-indicator']}`}>Multi-day Event</div>}
-
       {props.event['Stable ID'] === 'Cowork' && <DevconnectAmsterdam style={{ width: '50px' }} />}
-
       {props.event['Brief Description'] && (
         <p
           className={`${css['description']} small-text`}
@@ -511,10 +507,13 @@ const ListCalendarEventMobile = (props: any) => {
         />
       )}
 
+      {props.event['Stable ID'] === 'Easter' && props.timeline && (
+        <img src="https://c.tenor.com/thDFJno0zuAAAAAd/happy-easter-easter-bunny.gif" alt="Easter egg" width="100%" />
+      )}
+
       {props.event['Organizer'] && (
         <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer'].join(', ')}</p>
       )}
-
       {props.event['Attend'] &&
         (props.event['URL'] ? (
           <Link
@@ -529,7 +528,6 @@ const ListCalendarEventMobile = (props: any) => {
             {props.event['Attend']}
           </p>
         ))}
-
       <div className={css['bottom']}>
         <EventMeta event={props.event} />
 
