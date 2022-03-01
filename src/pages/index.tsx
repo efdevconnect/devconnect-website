@@ -24,6 +24,28 @@ const Cube = dynamic(() => import('common/components/cube'), {
 
 const FAQ = [
   {
+    text: 'What are the COVID policies?',
+    value: 'covid policies',
+    content: () => {
+      return (
+        <p>
+          While each event during Devconnect is independently-hosted and it is up to their discretion for what COVID
+          policies they adhere to (see their respective websites), the Co-work Space will be hosted by the Devconnect
+          team, and we will be implementing whatever COVID requirements are mandated by the government of The
+          Netherlands at the start of the event.
+          <br /> <br />
+          Though we expect the requirements to change again before Devconnect,&nbsp;
+          <b>
+            Amsterdam has steadily reduced their COVID requirements, to the point that as of Feb 25th, everything is
+            open like normal, no mask requirements except public transport, and for anything under a 500pp event
+            vaccine/test/proof-of-recovery is not needed.
+          </b>
+          &nbsp;These policies will be revisited again March 15th. Stay tuned
+        </p>
+      )
+    },
+  },
+  {
     text: 'How do I sponsor?',
     value: 'tickets refundable',
     content: () => {

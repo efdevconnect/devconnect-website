@@ -191,12 +191,12 @@ const Cowork: NextPage = (props: any) => {
                 <p>
                   The Co-work Space will be open from: <b>April 18-25th, 2022 09:00 - 23:00.</b>
                 </p>
-                <p>
+                <p className="bold">
                   In an effort to ensure maximum availability of the Co-work Space to the Ethereum community, we will be
                   over-distributing tickets. In other words, the total number of tickets we distribute will exceed the
                   max capacity of the Co-work Space at one time.
                 </p>
-                <p>
+                <p className="bold">
                   Therefore, entry to the Co-work Space will be granted on a first-come first-serve basis. In the event
                   that the venue is at full-capacity, even those with a wristband may be denied entry until space
                   becomes available.

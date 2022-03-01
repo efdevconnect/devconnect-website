@@ -3,6 +3,15 @@ const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
+  redirects: () => {
+    return [
+      {
+        source: '/host',
+        destination: 'https://ef-events.notion.site/Host-an-event-at-Devconnect-8d1c95ea7f4f41d9a4239eb87ed1fb03',
+        permanent: false,
+      },
+    ]
+  },
   webpack: (config, { webpack }) => {
     return {
       ...config,
