@@ -4,7 +4,11 @@ import ChevronDown from 'assets/icons/chevron-down.svg'
 import ChevronUp from 'assets/icons/chevron-up.svg'
 
 export const AccordionItem = React.forwardRef((props: any, ref: any) => {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(props.alwaysOpen || false)
+  let className = css['accordion']
+
+  if (props.className) className += ` ${props.className}`
+  if (props.alwaysOpen) className += ` ${css['always-open']}`
 
   React.useImperativeHandle(ref, () => {
     return {
@@ -13,9 +17,13 @@ export const AccordionItem = React.forwardRef((props: any, ref: any) => {
   })
 
   return (
-    <div className={css['accordion']}>
-      <div id={props.id} className={`bold big-text ${css['toggle']}`} onClick={() => setOpen(!open)}>
-        <p>{props.title}</p>
+    <div className={className}>
+      <div
+        id={props.id}
+        className={`bold big-text ${css['toggle']}`}
+        onClick={() => setOpen(props.alwaysOpen || !open)}
+      >
+        {props.title}
         {open ? <ChevronUp /> : <ChevronDown />}
       </div>
       {open && <div className={css['content']}>{props.children}</div>}
@@ -26,7 +34,11 @@ export const AccordionItem = React.forwardRef((props: any, ref: any) => {
 AccordionItem.displayName = 'AccordionItem'
 
 const Accordion = (props: any) => {
-  return <div className={css['accordions']}>{props.children}</div>
+  let className = css['accordions']
+
+  if (props.className) className += ` ${props.className}`
+
+  return <div className={className}>{props.children}</div>
 }
 
 export default Accordion

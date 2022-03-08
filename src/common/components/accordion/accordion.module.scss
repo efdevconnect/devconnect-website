@@ -8,9 +8,19 @@
   flex-direction: column;
 
   .accordion {
+    &.always-open {
+      .toggle {
+        cursor: auto;
+        svg {
+          display: none;
+        }
+      }
+    }
+
     &:first-child {
       margin-top: 0px;
     }
+
     margin-top: 8px;
     display: flex;
     flex-direction: column;

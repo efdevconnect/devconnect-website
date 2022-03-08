@@ -31,16 +31,16 @@ const tabs = [
     value: 'airport-transit',
     content: () => {
       return (
-        <div className={`${css['tab-content']} small-text ${css['airport-transit']}`}>
-          <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>Ride Sharing</p>
+        <div className={`tab-content small-text ${css['airport-transit']}`}>
+          <div className={`section`}>
+            <p className={`header small-text bold`}>Ride Sharing</p>
             <p className="small-text">
               You can easily Uber or Bolt into Amsterdam or to the Airport. Schiphol Airport is not too far from the
               City Center.
             </p>
           </div>
-          <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>Metro</p>
+          <div className={`section`}>
+            <p className={`header small-text bold`}>Metro</p>
             <Link href="https://www.amsterdam.info/transport/metro/" className="small-text hover-underline">
               <p>View Metro Routes</p>
             </Link>
@@ -48,7 +48,7 @@ const tabs = [
             <p className="small-text">
               The Metro will likely have a stop close to your accommodation. <br />
               There is a direct metro to Centraal (main station) which also then has access to many more metro and tram
-              stops.After midnight, trains from Schiphol Airport to Centraal Station run hourly rather than every 10-15
+              stops. After midnight, trains from Schiphol Airport to Centraal Station run hourly rather than every 10-15
               minutes, a taxi, Uber, or Bolt will be your best option.
             </p>
           </div>
@@ -61,9 +61,9 @@ const tabs = [
     value: 'getting-around',
     content: () => {
       return (
-        <div className={`${css['tab-content']} small-text ${css['getting-around']}`}>
-          <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>Public Transport</p>
+        <div className={`tab-content small-text ${css['getting-around']}`}>
+          <div className={`section`}>
+            <p className={`header small-text bold`}>Public Transport</p>
             <p className="small-text">
               Amsterdam is easy to bike and harder to drive. Cyclists can make use of the many bike-friendly streets
               while parking is expensive in Center.
@@ -79,6 +79,7 @@ const tabs = [
               <Link
                 href="https://en.gvb.nl/klantenservice/reizen-met-de-gvb-reisapp-0"
                 className="small-text hover-underline"
+                indicateExternal
               >
                 GVB public transport app
               </Link>{' '}
@@ -88,6 +89,7 @@ const tabs = [
               <Link
                 href="https://www.iamsterdam.com/media/pdf/visiting-uit/getting-around/artt-map-nz-lijn-2020.pdf?la=en"
                 className="small-text hover-underline"
+                indicateExternal
               >
                 map
               </Link>{' '}
@@ -108,17 +110,18 @@ const tabs = [
             <p className="small-text">Top this up at any public transport station, or buy day passes, etc.</p>
           </div>
 
-          <div className={css['section']}>
-            <p className={`${css['header']} small-text bold`}>Bike Rentals</p>
+          <div className={`section`}>
+            <p className={`header small-text bold`}>Bike Rentals</p>
             <p className="small-text">A lot of bike rentals can be found around the Centraal Station.</p>
 
-            <Link href="https://www.macbike.nl/" className="small-text hover-underline">
+            <Link href="https://www.macbike.nl/" indicateExternal className="small-text hover-underline">
               <p>MAC Bike — Popular for tourists.</p>
             </Link>
-            <Link href="https://www.yellowbike.nl/en/" className="small-text hover-underline">
+
+            <Link href="https://www.yellowbike.nl/en/" indicateExternal className="small-text hover-underline">
               <p>Yellow Bike</p>
             </Link>
-            <Link href="https://www.rentabike.nl/" className="small-text hover-underline">
+            <Link href="https://www.rentabike.nl/" indicateExternal className="small-text hover-underline">
               <p>Rentabike</p>
             </Link>
           </div>
@@ -131,10 +134,10 @@ const tabs = [
     value: 'areas-to-stay',
     content: () => {
       return (
-        <div className={`${css['tab-content']} small-text ${css['areas-to-stay']}`}>
-          <div className={css['columns-2']}>
+        <div className={`tab-content small-text ${css['areas-to-stay']}`}>
+          <div className={`columns-2`}>
             <div>
-              <p className={`${css['header']} small-text`}>City Center</p>
+              <p className={`header small-text`}>City Center</p>
               <p className="bold">Areas: Old Center, Canal rings, Red light district (can be noisy)</p>
 
               <ul className={css['list']}>
@@ -148,10 +151,10 @@ const tabs = [
               <Image src={AreasToStayCityCenter} alt="City center" layout="fill" objectFit="cover" priority />
             </div>
           </div>
-          <div className={css['divider']}></div>
-          <div className={css['columns-2']}>
+          <div className={`divider`}></div>
+          <div className={`columns-2`}>
             <div>
-              <p className={`${css['header']} small-text`}>East</p>
+              <p className={`header small-text`}>East</p>
               <p className="bold">Areas: Eastern Docklands, Plantage</p>
 
               <ul className={css['list']}>
@@ -167,10 +170,10 @@ const tabs = [
               <Image src={AreasToStayEast} alt="East area" layout="fill" objectFit="cover" priority />
             </div>
           </div>
-          <div className={css['divider']}></div>
-          <div className={css['columns-2']}>
+          <div className={`divider`}></div>
+          <div className={`columns-2`}>
             <div>
-              <p className={`${css['header']} small-text bold`}>South</p>
+              <p className={`header small-text bold`}>South</p>
               <p className="bold">Areas: De Pijp, Oud Zuid</p>
 
               <ul className={css['list']}>
@@ -183,10 +186,10 @@ const tabs = [
               <Image src={AreasToStaySouth} alt="South area" layout="fill" objectFit="cover" priority />
             </div>
           </div>
-          <div className={css['divider']}></div>
-          <div className={css['columns-2']}>
+          <div className={`divider`}></div>
+          <div className={`columns-2`}>
             <div>
-              <p className={`${css['header']} small-text bold`}>West</p>
+              <p className={`header small-text bold`}>West</p>
               <p className="bold">Areas: Oud West, Westerpark</p>
 
               <ul className={css['list']}>
@@ -196,7 +199,7 @@ const tabs = [
                 </li>
                 <li>
                   Cool spot to eat and drink&nbsp;(
-                  <Link href="https://foodhallen.nl/" className="small-text hover-underline">
+                  <Link href="https://foodhallen.nl/" indicateExternal className="small-text hover-underline">
                     Food Hallen
                   </Link>
                   )
@@ -217,8 +220,8 @@ const tabs = [
     value: 'food-and-drink',
     content: () => {
       return (
-        <div className={`${css['tab-content']} small-text ${css['food-and-drink']}`}>
-          <p className={`${css['header']} small-text bold`}>General food and drink</p>
+        <div className={`tab-content small-text ${css['food-and-drink']}`}>
+          <p className={`header small-text bold`}>General food and drink</p>
           <p className="bold">
             There are so many options for eating and drinking in Amsterdam, especially in the City Center — it&apos;s
             hard to name just a few!
@@ -227,8 +230,8 @@ const tabs = [
           <ul>
             <li className="bold">Winkel34</li>
           </ul>
-          <div className={css['divider']}></div>
-          <p className={`${css['header']} small-text bold`}>Popular items to eat</p>
+          <div className={`divider`}></div>
+          <p className={`header small-text bold`}>Popular items to eat</p>
           <ul>
             <li>Poffertjes</li>
             <li>Stroopwafel</li>
@@ -236,7 +239,7 @@ const tabs = [
             <li>Dutch Cheeses</li>
             <li>Pannekoeken</li>
           </ul>
-          <div className={css['divider']}></div>
+          <div className={`divider`}></div>
           <p className="bold">Brown Bars and Wine Bars are in abundance.</p>
           <p>Eating Borrel is super popular at these bars</p>
           <ul>
@@ -245,11 +248,13 @@ const tabs = [
             <li>Friet (fries)</li>
           </ul>
 
-          <div className={css['divider']}></div>
+          <div className={`divider`}></div>
           <p className="bold">Amsterdam based breweries</p>
           <ul>
             <li>
-              <Link href="https://goo.gl/maps/HZJQwV47YgXdSTt3A">Brouwerij t IJ</Link>
+              <Link href="https://goo.gl/maps/HZJQwV47YgXdSTt3A" indicateExternal>
+                Brouwerij t IJ
+              </Link>
             </li>
             <li>Oedipus</li>
             <li>Troost</li>
@@ -263,8 +268,8 @@ const tabs = [
     value: 'things-to-try',
     content: () => {
       return (
-        <div className={`${css['tab-content']} small-text ${css['food-and-drink']}`}>
-          <p className={`${css['header']} small-text bold`}>Activities</p>
+        <div className={`tab-content small-text ${css['food-and-drink']}`}>
+          <p className={`header small-text bold`}>Activities</p>
           <ul>
             <li className="bold">Take a Canal Cruise</li>
             <li>
@@ -286,8 +291,8 @@ const tabs = [
             <li className="bold">Red Light District is an interesting and historical part of Amsterdam</li>
           </ul>
 
-          <div className={css['divider']}></div>
-          <p className={`${css['header']} small-text bold`}>Museums</p>
+          <div className={`divider`}></div>
+          <p className={`header small-text bold`}>Museums</p>
           <p>A lot of museums are located near each other at Museum square</p>
           <ul>
             <li>Rijksmuseum</li>
@@ -299,8 +304,8 @@ const tabs = [
             <li>Straat museum (street art)</li>
             <li>Nxt museum</li>
           </ul>
-          <div className={css['divider']}></div>
-          <p className={`${css['header']} small-text bold`}>Parks</p>
+          <div className={`divider`}></div>
+          <p className={`header small-text bold`}>Parks</p>
           <p>Main shopping districts is at the Kalverstraat and Leidsestraat</p>
           <ul>
             <li>Vondel Park (most popular and accessible)</li>
@@ -309,28 +314,32 @@ const tabs = [
             <li>Rembrandt Park</li>
             <li>Sarphatipark, a nice smaller park in De Pijp</li>
           </ul>
-          <div className={css['divider']}></div>
-          <p className={`${css['header']} small-text bold`}>Markets</p>
+          <div className={`divider`}></div>
+          <p className={`header small-text bold`}>Markets</p>
           <ul>
             <li>
-              <Link href="https://albertcuyp-markt.amsterdam/?lang=en">Albert Cuyp Market</Link>
+              <Link href="https://albertcuyp-markt.amsterdam/?lang=en" indicateExternal>
+                Albert Cuyp Market
+              </Link>
             </li>
             <li>Waterloopplein</li>
             <li>
-              <Link href="https://noordermarkt-amsterdam.nl/">Noordermarkt</Link>
+              <Link href="https://noordermarkt-amsterdam.nl/" indicateExternal>
+                Noordermarkt
+              </Link>
             </li>
             <li>Ten Kate market</li>
           </ul>
-          <div className={css['divider']}></div>
-          <p className={`${css['header']} small-text bold`}>Shopping</p>
+          <div className={`divider`}></div>
+          <p className={`header small-text bold`}>Shopping</p>
           <p>Main shopping districts is at the Kalverstraat and Leidsestraat</p>
           <ul>
             <li>Located between Leidsestraat and the canals you can find the nine streets (negen straatjes)</li>
             <li>The big, well known department stores are the Bijenkort and Magna Plaza</li>
             <li>PC Hooftstraat is Amsterdam&apos;s most exclusive shopping street </li>
           </ul>
-          <div className={css['divider']}></div>
-          <p className={`${css['header']} small-text bold`}>Explore Amsterdam North</p>
+          <div className={`divider`}></div>
+          <p className={`header small-text bold`}>Explore Amsterdam North</p>
           <p>Take a free ferry ride across the river (IJ). Ferries leave from behind Central Station </p>
           <ul>
             <li>
@@ -363,26 +372,26 @@ const tabs = [
     value: 'general-tips',
     content: () => {
       return (
-        <div className={`${css['tab-content']} small-text ${css['general-tips']}`}>
-          <p className={`${css['header']} small-text bold`}>General</p>
+        <div className={`tab-content small-text ${css['general-tips']}`}>
+          <p className={`header small-text bold`}>General</p>
           <p className="bold underline">Places do not open very early in the mornings in Amsterdam</p>
-          <div className={css['divider']}></div>
-          <p className={`${css['header']} small-text bold`}>Attractions</p>
+          <div className={`divider`}></div>
+          <p className={`header small-text bold`}>Attractions</p>
           <p className={`${css['no-clearance']} bold`}>
             Pre-purchase tickets where possible for museums and popular places to visit
           </p>
           <ul className={css['indent']}>
             <li>This is to avoid long queues – especially building into the high season (June to August)</li>
           </ul>
-          <div className={css['divider']}></div>
-          <p className={`${css['header']} small-text bold`}>Restaurants</p>
+          <div className={`divider`}></div>
+          <p className={`header small-text bold`}>Restaurants</p>
           <p className={`${css['no-clearance']} bold`}> Book restaurants in advance</p>
           <ul className={css['indent']}>
             <li>They get booked up and packed very quickly, so it&apos;s best to book to avoid disappointment</li>
           </ul>
 
-          <div className={css['divider']}></div>
-          <p className={`${css['header']} small-text bold`}>Biking / Cyclists</p>
+          <div className={`divider`}></div>
+          <p className={`header small-text bold`}>Biking / Cyclists</p>
           <p className={`${css['no-clearance']}`}>Bike Rentals</p>
           <p className={`${css['no-clearance']} bold`}>
             If you are renting a bike, please be very mindful of locking it securely (bikes do get stolen)

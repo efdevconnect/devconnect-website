@@ -1,4 +1,8 @@
 .link {
+  &:not(:global(.button)) {
+    display: inline-block;
+  }
+
   &:hover {
     [data-type='link-text'] {
       text-decoration: underline;

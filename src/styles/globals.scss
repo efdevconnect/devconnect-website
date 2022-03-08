@@ -1,5 +1,6 @@
 @import './reset.scss';
 @import './variables.scss';
+@import './accordion.scss';
 
 html,
 body,
@@ -192,15 +193,13 @@ $max-content-width: $content-width + ($side-gap * 2);
   font-weight: 700;
   padding: 0px 24px;
   color: black;
+  --icon-color: black;
   cursor: pointer;
 
   &:hover {
     background: rgb(0, 0, 0);
     color: rgb(209, 209, 209);
-
-    // * {
-    //   fill: rgb(209, 209, 209);
-    // }
+    --icon-color: rgb(209, 209, 209);
   }
 
   &.sm {
@@ -211,6 +210,33 @@ $max-content-width: $content-width + ($side-gap * 2);
 
   &.blue {
     color: $color-blue;
+  }
+
+  &.blue {
+    background: white;
+    color: $color-blue;
+    --icon-color: #{$color-blue};
+
+    &:hover {
+      background: rgb(238, 238, 238);
+      color: rgb(128, 128, 128);
+
+      * {
+        --icon-color: rgb(128, 128, 128);
+      }
+    }
+  }
+
+  &.blue-fill {
+    background: $color-blue;
+    color: white;
+    --icon-color: white;
+
+    &:hover {
+      background: rgb(238, 238, 238);
+      color: rgb(128, 128, 128);
+      --icon-color: rgb(128, 128, 128);
+    }
   }
 
   &.orange {
@@ -236,10 +262,7 @@ $max-content-width: $content-width + ($side-gap * 2);
     &:hover {
       background: rgb(238, 238, 238);
       color: rgb(128, 128, 128);
-
-      * {
-        --icon-color: rgb(128, 128, 128);
-      }
+      --icon-color: rgb(128, 128, 128);
     }
   }
 }
@@ -254,6 +277,7 @@ a {
 
   &.blue {
     color: $color-link;
+    --icon-color: #{$color-link};
   }
 
   &.hover-underline {
@@ -286,6 +310,18 @@ a {
 
   &.purple {
     background: #e7e3ff;
+  }
+
+  &.red {
+    background: #fffafa;
+    color: #cb2e44;
+    border-color: #cb2e44;
+  }
+
+  &.blue {
+    color: white;
+    background: #6478d3;
+    border-color: #002eff;
   }
 }
 
