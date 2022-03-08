@@ -8,6 +8,7 @@
 .schedule {
   background: white;
   color: black;
+  --icon-color: black;
 
   .header-row {
     display: flex;
@@ -130,8 +131,8 @@
   border-top-width: 4px !important;
 
   @media (min-width: $screen-lg) {
-    border-top-width: 1px !important;
-    border-left-width: 4px !important;
+    // border-top-width: 1px !important;
+    // border-left-width: 4px !important;
   }
 }
 
@@ -141,7 +142,13 @@
   display: flex;
   flex-direction: column;
   border-style: solid;
-  // border-width: 1px !important;
+
+  &.KingsDay,
+  &.Easter {
+    .event-links {
+      display: none !important;
+    }
+  }
 
   &.Cowork {
     background: none !important;
@@ -170,7 +177,7 @@
     background: #f9f8ff;
     border-color: #8f78fb;
     --difficulty-color: #8f78fb;
-    --difficulty-color-bg: #edeaff;
+    --difficulty-color-bg: #e3f3ff;
   }
 
   &.Beginner {
@@ -199,22 +206,39 @@
   }
 }
 
-.learn-more-modal {
+.learn-more-modal-content,
+.event {
+  .event-links {
+    background: var(--difficulty-color);
+    color: white;
+    --icon-color: white;
+    pointer-events: all;
+  }
+}
+
+.learn-more-modal-content {
   color: black;
-  // background:
+  --icon-color: black;
 
   .event {
-    padding: 32px 24px !important;
     display: flex !important;
-    // border: none !important;
     margin-top: 0px !important;
 
-    .title {
-      margin-right: 36px;
+    .event-links {
+      padding-left: 24px;
     }
 
-    .time-of-day {
-      display: none !important;
+    .content {
+      padding: 24px 24px !important;
+      padding-bottom: 8px !important;
+
+      .title {
+        margin-right: 36px;
+      }
+
+      .time-of-day {
+        display: none !important;
+      }
     }
   }
 }
@@ -222,7 +246,7 @@
 .event {
   @media (hover: hover) {
     &:hover {
-      .call-to-action {
+      .learn-more {
         background: var(--difficulty-color);
         color: white;
         pointer-events: all;
@@ -231,7 +255,40 @@
   }
 }
 
-.call-to-action {
+.list {
+  .event-links {
+    padding-left: 16px !important;
+  }
+}
+
+.event-links {
+  display: flex;
+  align-items: center;
+  padding: 8px 8px;
+  color: var(--difficulty-color);
+  --icon-color: var(--difficulty-color);
+  background: var(--difficulty-color-bg);
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--difficulty-color);
+    color: white;
+    --icon-color: white;
+  }
+
+  > * {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+}
+
+.learn-more {
   cursor: pointer;
   padding: 4px 8px;
   color: white;
@@ -252,7 +309,7 @@
 
 .day,
 .day-header,
-.calendar-list-table-header {
+.list-table-header {
   background: #2b2b2b;
   padding: 16px;
   color: $monochrome-2;
@@ -267,7 +324,7 @@
   }
 }
 
-.calendar-list-table-header {
+.list-table-header {
   background: rgb(10, 10, 10);
   color: $monochrome-5;
 }
@@ -286,7 +343,7 @@
   }
 }
 
-.calendar-list-grid {
+.list-grid {
   @media (min-width: $screen-lg) {
     display: grid;
     grid-gap: 4px;
@@ -314,7 +371,7 @@
   }
 }
 
-.calendar-list-table-header {
+.list-table-header {
   display: none;
   @media (min-width: $screen-lg) {
     display: grid;
@@ -323,8 +380,8 @@
   padding: 16px;
 }
 
-.calendar-list,
-.learn-more-modal {
+.list,
+.learn-more-modal-content {
   .day-header {
     width: 100%;
     align-items: center;
@@ -337,34 +394,43 @@
   // Styles shared by event and event-in-table
   .event,
   .event-in-table {
-    padding: 16px;
-    padding-bottom: 8px;
     margin-top: 4px;
 
-    .info {
-      display: none;
-    }
+    .content {
+      padding: 16px;
+      padding-bottom: 8px;
+      margin-top: 4px;
 
-    .title {
-      display: inline-block;
-    }
+      .info {
+        display: none;
+      }
 
-    .date {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      .title {
+        display: inline-block;
+      }
 
-      span {
+      .location {
+        margin-bottom: 8px;
         color: $monochrome-6;
       }
 
-      .end-date {
+      .date {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        span {
+          color: $monochrome-6;
+        }
+
+        .end-date {
+          color: $monochrome-6;
+        }
+      }
+
+      .organizers {
         color: $monochrome-6;
       }
-    }
-
-    .organizers {
-      color: $monochrome-6;
     }
   }
 
@@ -404,7 +470,7 @@
       }
 
       .body {
-        margin-bottom: 32px;
+        margin-bottom: 16px;
       }
     }
 
@@ -416,6 +482,14 @@
       display: flex;
       justify-content: flex-end;
     }
+
+    // &.Cowork {
+    //   .event-links {
+    //       color: white;
+    //       --icon-color: white;
+    //       background: var(--difficulty-color) !important;
+    //   }
+    // }
   }
 
   // Specific styles/overrides for event in regular list view
@@ -424,38 +498,41 @@
       display: none;
     }
 
-    .date {
-      margin: 8px 0px;
-    }
+    .content {
+      .date {
+        margin: 8px 0px;
+      }
 
-    .organizers {
-      margin-top: 8px;
-      margin-bottom: 8px;
-    }
+      .organizers {
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
 
-    .description {
-      margin: 8px 0px;
-    }
+      .description {
+        margin: 8px 0px;
+      }
 
-    .ticket-availability {
-      padding: 12px 0px;
-      margin-bottom: 8px;
-    }
+      .ticket-availability {
+        display: block;
+        padding: 12px 0px;
+        margin-bottom: 8px;
+      }
 
-    .bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      .bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-      .add-to-calendar {
-        fill: $monochrome-6;
+        .add-to-calendar {
+          fill: $monochrome-6;
+        }
       }
     }
   }
 }
 
-// Calendar/timeline view
-.calendar {
+// Timeline view
+.timeline {
   display: grid;
   grid-gap: 4px;
   text-transform: uppercase;
@@ -608,7 +685,7 @@
   }
 }
 
-.calendar-background {
+.timeline-background {
   position: absolute;
   pointer-events: none;
   bottom: 0px;
@@ -666,10 +743,6 @@
   display: inline-flex;
   align-items: center;
   font-family: 'Roboto';
-
-  @media (min-width: $screen-lg) {
-    display: inline-flex;
-  }
 
   &:first-child {
     margin-right: 8px;

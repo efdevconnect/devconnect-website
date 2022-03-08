@@ -8,7 +8,7 @@ import ListIcon from 'assets/icons/list.svg'
 import CalendarIcon from 'assets/icons/calendar.svg'
 import ChevronDown from 'assets/icons/chevron-down.svg'
 import ChevronUp from 'assets/icons/chevron-up.svg'
-// import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
+import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
 import SwipeToScroll from 'common/components/swipe-to-scroll'
 import { SEO } from 'common/components/SEO'
 import Hero from 'common/components/hero'
@@ -177,8 +177,8 @@ const createPlacementTracker = () => {
   }
 }
 
-// Calendar view (as opposed to list view)
-const Calendar = (props: any) => {
+// Timeline view (as opposed to list view)
+const Timeline = (props: any) => {
   const { min, sortedEvents, events: defaultSortEvents, eventDuration, eventsByDay } = props
   const placementTracker = createPlacementTracker()
   const [eventModalOpen, setEventModalOpen] = React.useState('')
@@ -190,9 +190,9 @@ const Calendar = (props: any) => {
     const totalDays = endDay.diff(startDay, 'days') + 1
     const offsetFromFirstDay = startDay.diff(min, 'days') + 1
 
-    // We don't render empty days, so we have to account for that when placing items into our grid - we subtract the empty days prior to the current event, treating them as if they don't exist in the grid
     const offsetFromFirstEventInSchedule = startDay.diff(moment(sortedEvents[0].Date.startDate), 'days')
     let subtractDays = 0
+    // We don't render empty days, so we have to account for that when placing items into our grid - we subtract the empty days prior to the current event, treating them as if they don't exist in the grid
     Array.from(Array(offsetFromFirstEventInSchedule)).forEach((_, index: number) => {
       const emptyDay = !eventsByDay[index]
 
@@ -296,11 +296,11 @@ const Calendar = (props: any) => {
 
   return (
     <>
-      <div className={`${css['calendar-background']} clear-vertical`}>
+      <div className={`${css['timeline-background']} clear-vertical`}>
         <ScheduleBackground />
       </div>
       <SwipeToScroll noBounds stopped={eventModalOpen !== ''}>
-        <div className={css['calendar']}>
+        <div className={css['timeline']}>
           {events}
 
           {Array.from(Array(eventDuration)).map((_, index: number) => {
@@ -341,25 +341,95 @@ const EventMeta = (props: any) => {
   )
 }
 
+const EventLinks = (props: any) => {
+  const { startDate, timeOfDayArray, endDate, duration, event } = props
+  // const start = startDate.utc().format('YYYYMMDD')
+  // const end = endDate.utc().format('YYYYMMDD')
+
+  // http://icalgen.yc.sg/ <--- use this for sanity checks
+  // console.log(timeOfDayArray, 't of day')
+
+  // const start = startDate
+  // const end = endDate
+  // const firstDay = '10:00-17:00' //timeOfDayArray[0]
+  // const lastDay = '09:00-18:00' //timeOfDayArray[timeOfDayArray.length - 1]
+  // const startOfFirstDay = moment.duration(firstDay.split('-')[0])
+  // const endOfLastDay = moment.duration(lastDay.split('-')[1])
+  // const formatIsValid = startOfFirstDay.isValid() && endOfLastDay.isValid()
+
+  // if (formatIsValid) {
+  //   start.add(startOfFirstDay.asMilliseconds(), 'milliseconds')
+  //   end.add(endOfLastDay.asMilliseconds(), 'milliseconds')
+  //   console.log(firstDay, lastDay, startOfFirstDay.asMilliseconds(), endOfLastDay.asMilliseconds())
+  // }
+
+  // console.log(start.format('YYYYMMDD'), end.format('YYYYMMDD'), 'start end')
+
+  // let ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
+
+  // ics.push(
+  //   `BEGIN:VEVENT`,
+  //   `UID:${event.Name}`,
+  //   `DTSTAMP:${moment().format('YYYYMMDDTHHmmss')}Z`,
+  //   `DTSTART:${start.utc().format('YYYYMMDDTHHmmss')}Z`,
+  //   `DTEND:${end.utc().format('YYYYMMDDTHHmmss')}Z`,
+  //   `SUMMARY:${event.Name}`,
+  //   `DESCRIPTION:${event.Name}`,
+  //   event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
+  //   event.Location.url && `LOCATION:${event.Location.text}`,
+  //   `END:VEVENT`
+  // )
+
+  // ics.push(`END:VCALENDAR`)
+
+  // ics = ics.filter((row: string) => !!row).join('\n')
+
+  // console.log(ics, 'ics')
+
+  // const file = new Blob([ics], { type: 'text/calendar' })
+  // const icsAttributes = {
+  //   href: URL.createObjectURL(file),
+  //   download: `${event.Name}.ics`,
+  // }
+
+  return (
+    <div className={`${css['event-links']} tiny-text uppercase`}>
+      <Link href={event.URL} indicateExternal>
+        Website
+      </Link>
+
+      {event.Location && event.Location.url && (
+        <Link href={event.Location.url} indicateExternal>
+          Location
+        </Link>
+      )}
+
+      {/* <a {...icsAttributes} className="hover-underline">
+        Add to Calendar
+      </a> */}
+    </div>
+  )
+}
+
 const LearnMore = (props: { open: boolean; close: () => void; event: any }) => {
-  let className = css['call-to-action']
+  let className = css['learn-more']
 
   return (
     <>
       <div className={`${className} tiny-text-em bold`}>Learn More →</div>
 
-      <Modal open={props.open} close={props.close}>
-        <div className={css['learn-more-modal']}>
-          <ListCalendarEventMobile {...getFormattedEventData(props.event, moment())} event={props.event} timeline />
+      <Modal open={props.open} close={props.close} className={css['learn-more-modal']}>
+        <div className={css['learn-more-modal-content']}>
+          <ListEventMobile {...getFormattedEventData(props.event, moment())} event={props.event} timeline />
         </div>
       </Modal>
     </>
   )
 }
 
-const ListCalendarTableHeader = (props: any) => {
+const ListTableHeader = () => {
   return (
-    <div className={`uppercase ${css['calendar-list-table-header']} ${css['calendar-list-grid']}`}>
+    <div className={`uppercase ${css['list-table-header']} ${css['list-grid']}`}>
       <div className={css['col-1']}>Date & Time</div>
       <div className={css['col-2']}>Event</div>
       <div className={css['col-3']}>Organizers</div>
@@ -368,7 +438,7 @@ const ListCalendarTableHeader = (props: any) => {
   )
 }
 
-const ListCalendarDayHeader = React.forwardRef((props: any, ref: any) => {
+const ListDayHeader = React.forwardRef((props: any, ref: any) => {
   const [open, setOpen] = React.useState(true)
   const day = props.date.format('dddd')
   const date = props.date.format('MMM DD')
@@ -398,164 +468,176 @@ const ListCalendarDayHeader = React.forwardRef((props: any, ref: any) => {
   )
 })
 
-ListCalendarDayHeader.displayName = 'ListCalendarDayHeader'
+ListDayHeader.displayName = 'ListDayHeader'
 
-const ListCalendarEventDesktop = (props: any) => {
+const ListEventDesktop = (props: any) => {
   const { formattedDate, timeOfDay, isMultiDayEvent, formattedStartDate, formattedEndDate } = props
 
   return (
-    <div
-      className={`${css['event-in-table']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} ${
-        css['calendar-list-grid']
-      }`}
-    >
-      <div className={`${css['date']} ${css['col-1']}`}>
-        <div>
-          <p className="big-text uppercase">
-            {formattedDate} — <br /> <span className="big-text">{timeOfDay}</span>
+    <div className={`${css['event-in-table']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]}`}>
+      <div className={`${css['list-grid']} ${css['content']} `}>
+        <div className={`${css['date']} ${css['col-1']}`}>
+          <div>
+            <p className="big-text uppercase">
+              {formattedDate} — <br /> <span className="big-text">{timeOfDay}</span>
+            </p>
+            {isMultiDayEvent && (
+              <p className={`${css['end-date']} tiny-text uppercase`}>
+                {formattedStartDate} — {formattedEndDate}
+              </p>
+            )}
+          </div>
+
+          {isMultiDayEvent && (
+            <div className={`tag purple tiny-text-em ${css['multi-day-indicator']}`}>Multi-day Event</div>
+          )}
+          {props.event['Stable ID'] === 'Cowork' && (
+            <div className={css['cowork-image']}>
+              <DevconnectAmsterdam />
+            </div>
+          )}
+        </div>
+
+        <div className={`${css['description']} ${css['col-2']}`}>
+          <div>
+            {props.event.URL ? (
+              <Link href={props.event.URL} indicateExternal className={`${css['title']} big-text bold uppercase`}>
+                {props.event.Name}
+              </Link>
+            ) : (
+              <p className={`${css['title']} big-text bold uppercase`}>{props.event.Name}</p>
+            )}
+
+            {props.event.Location && props.event.Location.text && (
+              <p className={`${css['location']} big-text-bold uppercase`}>@ {props.event.Location.text}</p>
+            )}
+
+            {props.event['Brief Description'] && (
+              <p
+                className={`${css['body']} small-text`}
+                dangerouslySetInnerHTML={{ __html: htmlDecode(htmlEscape(props.event['Brief Description'])) }}
+              />
+            )}
+          </div>
+          <EventMeta event={props.event} />
+        </div>
+
+        <div className={`${css['organizers']} ${css['col-3']}`}>
+          {props.event['Organizer'] && (
+            <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer'].join(', ')}</p>
+          )}
+        </div>
+
+        <div className={`${css['attend']} ${css['col-4']}`}>
+          {props.event['Attend'] &&
+            (props.event['URL'] ? (
+              <Link
+                href={props.event.URL}
+                indicateExternal
+                className={`${css['ticket-availability']} purple small-text uppercase`}
+              >
+                {props.event['Attend']}
+              </Link>
+            ) : (
+              <p className={`${css['ticket-availability']} purple small-text uppercase`}>{props.event['Attend']}</p>
+            ))}
+        </div>
+
+        {/* <div className={`${css['calendar-add']} ${css['col-5']}`}><AddToCalendarIcon /></div> */}
+      </div>
+      <EventLinks {...props} />
+    </div>
+  )
+}
+
+const ListEventMobile = (props: any) => {
+  const { formattedDate, timeOfDay, isMultiDayEvent, formattedStartDate, formattedEndDate } = props
+
+  return (
+    <div className={`${css['event']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} `}>
+      <div className={css['content']}>
+        {props.event.URL ? (
+          <Link href={props.event.URL} indicateExternal className={`${css['title']} large-text uppercase bold`}>
+            {props.event.Name}
+          </Link>
+        ) : (
+          <p className={`${css['title']} large-text uppercase bold`}>{props.event.Name}</p>
+        )}
+
+        {props.event.Location && props.event.Location.text && (
+          <p className={`${css['location']} large-text-bold uppercase`}>@ {props.event.Location.text}</p>
+        )}
+
+        <div className={css['date']}>
+          <p className={`small-text uppercase ${css['time-of-day']}`}>
+            {formattedDate} — <br /> <span className="large-text">{timeOfDay}</span>
           </p>
           {isMultiDayEvent && (
-            <p className={`${css['end-date']} tiny-text uppercase`}>
+            <p className={`${css['end-date']} small-text uppercase`}>
               {formattedStartDate} — {formattedEndDate}
             </p>
           )}
         </div>
-
-        {isMultiDayEvent && (
-          <div className={`tag purple tiny-text-em ${css['multi-day-indicator']}`}>Multi-day Event</div>
+        {isMultiDayEvent && <div className={`tag purple tiny-text ${css['multi-day-indicator']}`}>Multi-day Event</div>}
+        {props.event['Stable ID'] === 'Cowork' && <DevconnectAmsterdam style={{ width: '50px', display: 'block' }} />}
+        {props.event['Brief Description'] && (
+          <p
+            className={`${css['description']} small-text`}
+            dangerouslySetInnerHTML={{ __html: htmlDecode(htmlEscape(props.event['Brief Description'])) }}
+          />
         )}
-        {props.event['Stable ID'] === 'Cowork' && (
-          <div className={css['cowork-image']}>
-            <DevconnectAmsterdam />
-          </div>
+
+        {props.event['Stable ID'] === 'Easter' && props.timeline && (
+          <img src="https://c.tenor.com/thDFJno0zuAAAAAd/happy-easter-easter-bunny.gif" alt="Easter egg" width="100%" />
         )}
-      </div>
 
-      <div className={`${css['description']} ${css['col-2']}`}>
-        <div>
-          {props.event.URL ? (
-            <Link href={props.event.URL} indicateExternal className={`${css['title']} big-text bold uppercase`}>
-              {props.event.Name}
-            </Link>
-          ) : (
-            <p className={`${css['title']} big-text bold uppercase`}>{props.event.Name}</p>
-          )}
-          {props.event['Brief Description'] && (
-            <p
-              className={`${css['body']} small-text`}
-              dangerouslySetInnerHTML={{ __html: htmlDecode(htmlEscape(props.event['Brief Description'])) }}
-            />
-          )}
-        </div>
-        <EventMeta event={props.event} />
-      </div>
-
-      <div className={`${css['organizers']} ${css['col-3']}`}>
         {props.event['Organizer'] && (
           <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer'].join(', ')}</p>
         )}
-      </div>
-
-      <div className={`${css['attend']} ${css['col-4']}`}>
         {props.event['Attend'] &&
           (props.event['URL'] ? (
             <Link
               href={props.event.URL}
               indicateExternal
-              className={`${css['ticket-availability']} purple small-text uppercase`}
+              className={`${css['ticket-availability']} bold border-top border-bottom purple small-text uppercase`}
             >
               {props.event['Attend']}
             </Link>
           ) : (
-            <p className={`${css['ticket-availability']} purple small-text uppercase`}>{props.event['Attend']}</p>
+            <p className={`${css['ticket-availability']} bold border-top border-bottom purple small-text uppercase`}>
+              {props.event['Attend']}
+            </p>
           ))}
-      </div>
+        <div className={css['bottom']}>
+          <EventMeta event={props.event} />
 
-      <div className={`${css['calendar-add']} ${css['col-5']}`}>{/* <AddToCalendarIcon /> */}</div>
+          {/* <AddToCalendarIcon className={css['add-to-calendar']} /> */}
+        </div>
+      </div>
+      <EventLinks {...props} />
     </div>
   )
 }
 
-const ListCalendarEventMobile = (props: any) => {
-  const { formattedDate, timeOfDay, isMultiDayEvent, formattedStartDate, formattedEndDate } = props
-
-  return (
-    <div className={`${css['event']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} `}>
-      {props.event.URL ? (
-        <Link href={props.event.URL} indicateExternal className={`${css['title']} large-text uppercase bold`}>
-          {props.event.Name}
-        </Link>
-      ) : (
-        <p className={`${css['title']} large-text uppercase bold`}>{props.event.Name}</p>
-      )}
-      <div className={css['date']}>
-        <p className={`small-text uppercase ${css['time-of-day']}`}>
-          {formattedDate} — <br /> <span className="large-text">{timeOfDay}</span>
-        </p>
-        {isMultiDayEvent && (
-          <p className={`${css['end-date']} small-text uppercase`}>
-            {formattedStartDate} — {formattedEndDate}
-          </p>
-        )}
-      </div>
-      {isMultiDayEvent && <div className={`tag purple tiny-text ${css['multi-day-indicator']}`}>Multi-day Event</div>}
-      {props.event['Stable ID'] === 'Cowork' && <DevconnectAmsterdam style={{ width: '50px' }} />}
-      {props.event['Brief Description'] && (
-        <p
-          className={`${css['description']} small-text`}
-          dangerouslySetInnerHTML={{ __html: htmlDecode(htmlEscape(props.event['Brief Description'])) }}
-        />
-      )}
-
-      {props.event['Stable ID'] === 'Easter' && props.timeline && (
-        <img src="https://c.tenor.com/thDFJno0zuAAAAAd/happy-easter-easter-bunny.gif" alt="Easter egg" width="100%" />
-      )}
-
-      {props.event['Organizer'] && (
-        <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer'].join(', ')}</p>
-      )}
-      {props.event['Attend'] &&
-        (props.event['URL'] ? (
-          <Link
-            href={props.event.URL}
-            indicateExternal
-            className={`${css['ticket-availability']} bold border-top border-bottom purple small-text uppercase`}
-          >
-            {props.event['Attend']}
-          </Link>
-        ) : (
-          <p className={`${css['ticket-availability']} bold border-top border-bottom purple small-text uppercase`}>
-            {props.event['Attend']}
-          </p>
-        ))}
-      <div className={css['bottom']}>
-        <EventMeta event={props.event} />
-
-        {/* <AddToCalendarIcon className={css['add-to-calendar']} /> */}
-      </div>
-    </div>
-  )
-}
-
-const ListCalendarEvent = (props: any) => {
+const ListEvent = (props: any) => {
   const formattedEventData = getFormattedEventData(props.event, props.day)
 
   return (
     <>
-      {/* List view as table/grid (desktop) */}
-      <ListCalendarEventDesktop {...formattedEventData} event={props.event} />
+      {/* List view as table (desktop) */}
+      <ListEventDesktop {...formattedEventData} event={props.event} />
       {/* List view (mobile) */}
-      <ListCalendarEventMobile {...formattedEventData} event={props.event} />
+      <ListEventMobile {...formattedEventData} event={props.event} />
     </>
   )
 }
 
-const ListCalendar = (props: any) => {
+const List = (props: any) => {
   const { eventDuration, eventsByDay, sortedEvents, events } = props
 
   return (
-    <div className={css['calendar-list']}>
-      <ListCalendarTableHeader />
+    <div className={css['list']}>
+      <ListTableHeader />
       {Array.from(Array(eventDuration)).map((_, index: number) => {
         const day = moment(events[0].Date.startDate).add(index, 'days')
         const eventsForDay = eventsByDay[index]
@@ -564,11 +646,11 @@ const ListCalendar = (props: any) => {
         if (!eventsForDay) return null
 
         return (
-          <ListCalendarDayHeader key={index} date={day} ref={el => (props.accordionRefs.current[day.valueOf()] = el)}>
+          <ListDayHeader key={index} date={day} ref={el => (props.accordionRefs.current[day.valueOf()] = el)}>
             {eventsForDay.map((event: any, index: number) => {
-              return <ListCalendarEvent event={event} key={index} day={day} />
+              return <ListEvent event={event} key={index} day={day} />
             })}
-          </ListCalendarDayHeader>
+          </ListDayHeader>
         )
       })}
     </div>
@@ -643,7 +725,6 @@ const Filter = (props: any) => {
 
         return (
           <div key={key}>
-            {/* {key} */}
             <Dropdown
               placeholder={key}
               value={props.filters[key]}
@@ -745,10 +826,8 @@ const Schedule: NextPage = (props: any) => {
           </Alert>
 
           <div className={`${css['top-bar']}`}>
-            {/* <SwipeToScroll> */}
             <Filter events={events} {...filterAttributes} />
             <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
-            {/* </SwipeToScroll> */}
 
             {scheduleView === 'calendar' && <p className={`small-text uppercase ${css['swipe']}`}>Drag for more →</p>}
           </div>
@@ -766,8 +845,8 @@ const Schedule: NextPage = (props: any) => {
                 {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Drag for more →</p>}
               </div> */}
 
-              {scheduleView === 'list' && <ListCalendar {...scheduleHelpers} accordionRefs={accordionRefs} />}
-              {scheduleView === 'calendar' && <Calendar {...scheduleHelpers} />}
+              {scheduleView === 'list' && <List {...scheduleHelpers} accordionRefs={accordionRefs} />}
+              {scheduleView === 'calendar' && <Timeline {...scheduleHelpers} />}
             </>
           )}
         </div>
@@ -785,6 +864,20 @@ const notionDatabasePropertyResolver = (property: any, key: any) => {
     case 'text':
     case 'rich_text':
     case 'title':
+      // Extract url and url text from the Location column
+      if (key === 'Location' && property[property.type]) {
+        let locationInfo = {} as any
+
+        property[property.type].forEach((chunk: any) => {
+          if (chunk.href) {
+            locationInfo.url = chunk.href
+            locationInfo.text = chunk.plain_text
+          }
+        })
+
+        return locationInfo
+      }
+
       const dechunked = property[property.type]
         ? property[property.type].reduce((acc: string, chunk: any) => {
             if (chunk.href && property.type === 'rich_text' && key !== 'URL') {
@@ -857,7 +950,6 @@ export async function getStaticProps() {
   const databaseID = '8b177855e75b4964bb9f3622437f04f5'
 
   let data = {}
-  // let raw = {}
 
   try {
     // Notion returns up to 100 results per request. We won't have that many events, but if we ever get close, add support for pagination at this step.
@@ -892,7 +984,6 @@ export async function getStaticProps() {
     })
 
     data = response.results.map(formatResult)
-    // raw = response.results
   } catch (error) {
     if (false) {
       // Handle error codes here if necessary
@@ -905,7 +996,6 @@ export async function getStaticProps() {
   return {
     props: {
       events: data,
-      // raw,
     },
     revalidate: 1 * 60 * 30, // 30 minutes, in seconds
   }
