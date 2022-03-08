@@ -30,13 +30,13 @@ const waves = [
     status: 'on sale now',
   },
   {
-    status: '03/15',
+    status: 'March 15th',
   },
   {
-    status: '03/22',
+    status: 'March 22nd',
   },
   {
-    status: '03/29',
+    status: 'March 29th',
   },
 ]
 
@@ -156,11 +156,18 @@ const Cowork: NextPage = (props: any) => {
                     <b>Energize.</b> Light snacks and drinks will be offered throughout.
                   </p>
                 </div>
-
+                {/* 
                 <div className={`${css['waves-info']} border-top`}>
                   <div className={css['current-wave']}>
                     <p className={`big-text bold uppercase ${css['title']}`}>Co-work Tickets</p>
-                    <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 02/05</p>
+                    <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 2 of 5</p>
+                  </div>
+                </div> */}
+
+                {/* <div className={`${css['waves-info']}`}>
+                  <div className={css['current-wave']}>
+                    <p className={`big-text bold uppercase ${css['title']}`}>Co-work Tickets</p>
+                    <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 2 of 5</p>
                   </div>
 
                   <div className={css['waves']}>
@@ -174,7 +181,7 @@ const Cowork: NextPage = (props: any) => {
                       }
 
                       if (status === 'on sale now') {
-                        classNameTag += ` blue`
+                        classNameTag += ` green`
                         className += ` ${css['wave-on-sale']}`
                       }
 
@@ -208,10 +215,10 @@ const Cowork: NextPage = (props: any) => {
                   </div>
 
                   <AnchorLink href={'#waves'} offset="32" className={`bold ${css['learn-more-ticket-waves']}`}>
-                    Learn more —
-                  </AnchorLink>
+                    Learn More —
+                  </AnchorLink> */}
 
-                  {/* <p className="bold">
+                {/* <p className="bold">
                     Tickets to the Co-work Space are sold in multiple large batches. We will communicate via our&nbsp;
                     <Link indicateExternal href="https://twitter.com/efdevconnect" className="generic blue">
                       twitter
@@ -219,18 +226,18 @@ const Cowork: NextPage = (props: any) => {
                     &nbsp;when tickets go on sale, and also when tickets have sold out in each batch.
                   </p> */}
 
-                  {/* <br /> */}
+                {/* <br /> */}
 
-                  {/* <p className={`bold`}>
+                {/* <p className={`bold`}>
                     While ticketing for all other events during Devconnect is left up to their respective organizers,
                     tickets to the co-work are open to all Devconnect attendees looking to work together and hang out
                     between sessions, so come meet with old and new friends alike. More details below.
                   </p> */}
 
-                  {/* <br /> */}
+                {/* <br /> */}
 
-                  {/* Sold out sticker will be used once all the waves are over */}
-                  {/* {soldOut ? (
+                {/* Sold out sticker will be used once all the waves are over */}
+                {/* {soldOut ? (
                     <div className={css['sold-out']}>
                       <AnchorLink href={'#waves'} offset="32" className="button sm blue-fill">
                         New wave coming soon
@@ -247,7 +254,7 @@ const Cowork: NextPage = (props: any) => {
                       Get your tickets now!
                     </Link>
                   )} */}
-                </div>
+                {/* </div> */}
               </div>
             </div>
           </div>
@@ -264,16 +271,74 @@ const Cowork: NextPage = (props: any) => {
                     <p>
                       For information on attending the independently-hosted events during the week of Devconnect, see
                       our&nbsp;
-                      <Link href="schedule">schedule</Link> and find the event you are interested in attending.
+                      <Link href="/schedule">schedule</Link> and find the event you are interested in attending.
                     </p>
 
-                    <p className={`header small-text bold`} id="waves">
-                      Ticketing Waves
-                    </p>
+                    <div className="divider"></div>
+
+                    <div className={css['current-wave']}>
+                      <p className={`header small-text bold no-clearance`} id="waves">
+                        Ticketing Waves
+                      </p>
+                    </div>
+
+                    <br />
+
+                    <div className={css['current-wave']}>
+                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 2 of 5</p>
+                    </div>
+
+                    <div className={`${css['waves-info']}`}>
+                      <div className={css['waves']}>
+                        {waves.map(({ status }, index) => {
+                          let classNameTag = 'tag'
+                          let className = css['wave']
+
+                          if (status === 'sold out') {
+                            classNameTag += ` red`
+                            className += ` ${css['wave-sold-out']}`
+                          }
+
+                          if (status === 'on sale now') {
+                            classNameTag += ` blue`
+                            className += ` ${css['wave-on-sale']}`
+                          }
+
+                          const waveIsOnSale = status === 'on sale now'
+
+                          const body = (
+                            <>
+                              <div className="medium-text">Ticket Wave 0{index + 1}</div>
+                              <div className={`${classNameTag} tiny-text bold`}>{status}</div>
+                            </>
+                          )
+
+                          if (waveIsOnSale) {
+                            return (
+                              <Link
+                                href="https://ticketh.xyz/devconnect/cowork"
+                                key={index}
+                                className={`${className} small-text-fixed bold`}
+                              >
+                                {body}
+                              </Link>
+                            )
+                          } else {
+                            return (
+                              <div key={index} className={`${className} small-text-fixed bold`}>
+                                {body}
+                              </div>
+                            )
+                          }
+                        })}
+                      </div>
+                    </div>
+
                     <p>
-                      Tickets to the Co-work Space will be sold in waves every Tuesday, on February 24, March 8, March
-                      15, March 22, and March 29, at 16:00 UTC. We will announce on&nbsp;
-                      <Link indicateExternal href="https://twitter.com/efdevconnect" className="generic blue">
+                      Tickets to the Co-work Space will be sold in waves every Tuesday, on{' '}
+                      <b>February 24, March 8, March 15, March 22, and March 29</b>, at 16:00 UTC. We will announce
+                      on&nbsp;
+                      <Link indicateExternal href="https://twitter.com/efdevconnect">
                         twitter
                       </Link>
                       &nbsp;when each wave has sold out. <b>The last ticket wave will be March 29th.</b>
@@ -295,12 +360,14 @@ const Cowork: NextPage = (props: any) => {
                     )}
 
                     <br />
-                    <br />
 
-                    <p className={`header small-text bold`}>Venue</p>
+                    <div className="divider"></div>
+
+                    <p className={`header small-text bold`}>First Come First Serve</p>
                     <p>
                       The Co-work Space will be open from: <b>April 18-25th, 2022 09:00 - 23:00.</b>
                     </p>
+                    <p>Buying a ticket to the co-work space grants you admission to the venue for the full week.</p>
                     <p className="bold">
                       In an effort to ensure maximum availability of the Co-work Space to the Ethereum community, we
                       will be over-distributing tickets. In other words, the total number of tickets we distribute will

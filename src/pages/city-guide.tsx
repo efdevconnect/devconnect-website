@@ -114,14 +114,29 @@ const tabs = [
             <p className={`header small-text bold`}>Bike Rentals</p>
             <p className="small-text">A lot of bike rentals can be found around the Centraal Station.</p>
 
-            <Link href="https://www.macbike.nl/" indicateExternal className="small-text hover-underline">
+            <Link
+              href="https://www.macbike.nl/"
+              indicateExternal
+              className="small-text hover-underline"
+              style={{ display: 'inline-flex' }}
+            >
               <p>MAC Bike — Popular for tourists.</p>
             </Link>
 
-            <Link href="https://www.yellowbike.nl/en/" indicateExternal className="small-text hover-underline">
+            <Link
+              href="https://www.yellowbike.nl/en/"
+              indicateExternal
+              className="small-text hover-underline"
+              style={{ display: 'inline-flex' }}
+            >
               <p>Yellow Bike</p>
             </Link>
-            <Link href="https://www.rentabike.nl/" indicateExternal className="small-text hover-underline">
+            <Link
+              href="https://www.rentabike.nl/"
+              indicateExternal
+              className="small-text hover-underline"
+              style={{ display: 'inline-flex' }}
+            >
               <p>Rentabike</p>
             </Link>
           </div>
