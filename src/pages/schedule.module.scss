@@ -537,7 +537,8 @@
   grid-gap: 4px;
   text-transform: uppercase;
 
-  @media (hover: none) {
+  // hover:none and pointer:coarse targets mobile/touch devices
+  @media (hover: none), (pointer: coarse) {
     overflow-x: auto;
     position: relative;
     left: -16px;
@@ -547,7 +548,7 @@
     right: -16px;
   }
 
-  @media (hover: none) and (min-width: $screen-md) {
+  @media (min-width: $screen-md) and (hover: none), (min-width: $screen-md) and (pointer: coarse) {
     left: -64px;
     right: -64px;
     padding-left: 64px;
