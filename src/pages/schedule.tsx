@@ -379,70 +379,70 @@ const EventLinks = (props: any) => {
 
   // https://calendar.google.com/calendar/u/0/r/eventedit?text&dates=20220310T230000Z/20220315T110000Z&details=Date+and+Time:+Mar+10,+2022+11:00+PM+-+Mar+15,+2022+11:00+AM%0D%0AVenue:+olufsvej+10%0D%0A&location=olufsvej+10&trp=true&sf=true&output=xml#f
 
-  // const start = startDate
-  // const end = endDate
-  // const firstDay = timeOfDayArray[0]
-  // const lastDay = timeOfDayArray[timeOfDayArray.length - 1]
-  // const startOfFirstDay = sanitizeEventTime(firstDay.split('-')[0])
-  // const endOfLastDay = sanitizeEventTime(lastDay.split('-')[1])
+  const start = startDate
+  const end = endDate
+  const firstDay = timeOfDayArray[0]
+  const lastDay = timeOfDayArray[timeOfDayArray.length - 1]
+  const startOfFirstDay = sanitizeEventTime(firstDay.split('-')[0])
+  const endOfLastDay = sanitizeEventTime(lastDay.split('-')[1])
 
-  // const ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
+  const ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
 
-  // const isMultiDayEvent = eventDuration > 1
+  const isMultiDayEvent = eventDuration > 1
 
-  // const googleCalUrl = new URL(`https://calendar.google.com/calendar/u/0/r/eventedit?text`)
+  const googleCalUrl = new URL(`https://calendar.google.com/calendar/u/0/r/eventedit`)
 
-  // // googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
-  // googleCalUrl.searchParams.append('text', `${event.Name}`)
-  // googleCalUrl.searchParams.append('details', `${event.Name} - ${event['Time of Day']}`)
-  // if (event.Location.url) googleCalUrl.searchParams.append('location', `${event.Location.text}`)
+  // googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
+  googleCalUrl.searchParams.append('text', `${event.Name}`)
+  googleCalUrl.searchParams.append('details', `${event.Name} - ${event['Time of Day']}`)
+  if (event.Location.url) googleCalUrl.searchParams.append('location', `${event.Location.text}`)
 
-  // if (isMultiDayEvent) {
-  //   googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
+  if (isMultiDayEvent) {
+    googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
 
-  //   ics.push(
-  //     `BEGIN:VEVENT`,
-  //     `UID:${event.Name}`,
-  //     `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
-  //     `DTSTART:${start.format('YYYYMMDD')}`,
-  //     `DTEND:${end.format('YYYYMMDD')}`,
-  //     `SUMMARY:${event.Name} - ${event['Time of Day']}`,
-  //     `DESCRIPTION:${event.Name}`,
-  //     event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
-  //     event.Location.url && `LOCATION:${event.Location.text}`,
-  //     `END:VEVENT`
-  //   )
-  // } else {
-  //   googleCalUrl.searchParams.append(
-  //     'dates',
-  //     `${start.format('YYYYMMDD')}T${startOfFirstDay}/${end.format('YYYYMMDD')}T${endOfLastDay}`
-  //   )
+    ics.push(
+      `BEGIN:VEVENT`,
+      `UID:${event.Name}`,
+      `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
+      `DTSTART:${start.format('YYYYMMDD')}`,
+      `DTEND:${end.format('YYYYMMDD')}`,
+      `SUMMARY:${event.Name} - ${event['Time of Day']}`,
+      `DESCRIPTION:${event.Name}`,
+      event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
+      event.Location.url && `LOCATION:${event.Location.text}`,
+      `END:VEVENT`
+    )
+  } else {
+    googleCalUrl.searchParams.append(
+      'dates',
+      `${start.format('YYYYMMDD')}T${startOfFirstDay}/${end.format('YYYYMMDD')}T${endOfLastDay}`
+    )
 
-  //   ics.push(
-  //     `BEGIN:VEVENT`,
-  //     `UID:${event.Name}`,
-  //     `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
-  //     `DTSTART:${start.format('YYYYMMDD')}T${startOfFirstDay}`,
-  //     `DTEND:${end.format('YYYYMMDD')}T${endOfLastDay}`,
-  //     `SUMMARY:${event.Name}`,
-  //     `DESCRIPTION:${event.Name} - ${event['Time of Day']}`,
-  //     event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
-  //     event.Location.url && `LOCATION:${event.Location.text}`,
-  //     `END:VEVENT`
-  //   )
-  // }
+    ics.push(
+      `BEGIN:VEVENT`,
+      `UID:${event.Name}`,
+      `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
+      `DTSTART:${start.format('YYYYMMDD')}T${startOfFirstDay}`,
+      `DTEND:${end.format('YYYYMMDD')}T${endOfLastDay}`,
+      `SUMMARY:${event.Name}`,
+      `DESCRIPTION:${event.Name} - ${event['Time of Day']}`,
+      event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
+      event.Location.url && `LOCATION:${event.Location.text}`,
+      `END:VEVENT`
+    )
+  }
 
-  // // console.log(googleCalUrl, 'google add')
+  // console.log(googleCalUrl, 'google add')
 
-  // ics.push(`END:VCALENDAR`)
+  ics.push(`END:VCALENDAR`)
 
-  // // console.log(ics.filter((row: string) => !!row).join('\n'), 'ics')
+  console.log(ics.filter((row: string) => !!row).join('\n'), 'ics')
 
-  // const file = new Blob([ics.filter((row: string) => !!row).join('\n')], { type: 'text/calendar' })
-  // const icsAttributes = {
-  //   href: URL.createObjectURL(file),
-  //   download: `${event.Name}.ics`,
-  // }
+  const file = new Blob([ics.filter((row: string) => !!row).join('\n')], { type: 'text/calendar' })
+  const icsAttributes = {
+    href: URL.createObjectURL(file),
+    download: `${event.Name}.ics`,
+  }
 
   return (
     <div className={`${css['event-links']} small-text uppercase`}>

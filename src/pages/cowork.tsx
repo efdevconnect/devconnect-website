@@ -27,7 +27,7 @@ const waves = [
     status: 'sold out',
   },
   {
-    status: 'on sale now',
+    status: 'sold out',
   },
   {
     status: 'March 15th',
@@ -41,7 +41,7 @@ const waves = [
 ]
 
 const Cowork: NextPage = (props: any) => {
-  const [soldOut, setSoldout] = React.useState(false)
+  const [soldOut, setSoldout] = React.useState(true)
 
   return (
     <>
@@ -350,16 +350,17 @@ const Cowork: NextPage = (props: any) => {
                     </p>
 
                     {!soldOut && (
-                      <Link
-                        indicateExternal
-                        href="https://ticketh.xyz/devconnect/cowork/"
-                        className="button sm orange-fill"
-                      >
-                        Get your tickets now!
-                      </Link>
+                      <>
+                        <Link
+                          indicateExternal
+                          href="https://ticketh.xyz/devconnect/cowork/"
+                          className="button sm orange-fill"
+                        >
+                          Get your tickets now!
+                        </Link>
+                        <br />
+                      </>
                     )}
-
-                    <br />
 
                     <div className="divider"></div>
 
