@@ -623,6 +623,22 @@ const CityGuide: NextPage = () => {
         </div>
       </div>
 
+      <div className={css['map']}>
+        <div className={css['directions']}>
+          <div className={`section`}>
+            <div className="clear-vertical">
+              <p className={`large-text bold uppercase`}>Notable Locations</p>
+            </div>
+          </div>
+        </div>
+
+        <iframe
+          src="https://www.google.com/maps/d/embed?mid=143AuN51prJpx6M62b9xMTAwdXNm-dstJ&hl=en&ehbc=2E312F"
+          width="100%"
+          height="100%"
+        ></iframe>
+      </div>
+
       <Footer />
     </>
   )

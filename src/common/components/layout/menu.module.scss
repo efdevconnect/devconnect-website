@@ -123,15 +123,16 @@ $width-right-column: 190px;
   .multi-link,
   > a {
     padding: 8px 0px;
+  }
+
+  .multi-link,
+  .social-media,
+  > a {
     display: none;
 
     @media (min-width: $screen-lg) {
       display: flex;
     }
-  }
-
-  .twitter {
-    font-size: 20px;
   }
 
   // > a {
@@ -186,9 +187,16 @@ $width-right-column: 190px;
   }
 
   > a,
+  .social-media,
   .multi-link {
     align-self: flex-start;
     margin-top: 28px;
+  }
+
+  .social-media {
+    > * {
+      margin-right: 4px;
+    }
   }
 
   .multi-link {
@@ -255,5 +263,17 @@ $width-right-column: 190px;
 
   &.open {
     transform: translateY(0px); //translateY(calc(0px + var(--headerHeight)));
+  }
+}
+
+.social-media {
+  display: flex;
+  justify-content: center;
+  transform: translateX(-8px);
+  font-size: 20px;
+
+  > * {
+    padding: 8px;
+    margin-right: 4px;
   }
 }

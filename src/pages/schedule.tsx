@@ -74,11 +74,39 @@ const htmlDecode = (content: string) => {
   return e.childNodes.length === 0 ? '' : (e.childNodes[0].nodeValue as any)
 }
 
+const leftPadNumber = (number: number) => {
+  if (number < 10) {
+    return `0${number}`
+  }
+
+  return number
+}
+
+// Confirm time format is consistent e.g. 09:30 or 17:30
+const sanitizeEventTime = (eventTime: string) => {
+  const fallback = '0000000'
+
+  if (!eventTime) return fallback
+
+  const normalizedEventTime = eventTime.trim()
+  const isCorrectFormat = normalizedEventTime.match(/\d{2}:\d{2}/) !== null
+
+  if (isCorrectFormat) {
+    const asMoment = moment.duration(normalizedEventTime)
+
+    return `${leftPadNumber(asMoment.get('hours'))}${leftPadNumber(asMoment.get('minutes'))}${leftPadNumber(
+      asMoment.get('seconds')
+    )}`
+  }
+
+  return fallback
+}
+
 // Events have a bunch of date formatting going on, heres a utility to generate them:
 const getFormattedEventData = (event: any, day: any) => {
   const currentDate = day
-  const startDate = moment(event.Date.startDate)
-  const endDate = moment(event.Date.endDate)
+  const startDate = moment.utc(event.Date.startDate)
+  const endDate = moment.utc(event.Date.endDate)
   const formattedDate = currentDate.format('MMM DD')
   const formattedStartDate = startDate.format('MMM DD')
   const formattedEndDate = endDate.format('MMM DD')
@@ -342,60 +370,84 @@ const EventMeta = (props: any) => {
 }
 
 const EventLinks = (props: any) => {
-  const { startDate, timeOfDayArray, endDate, duration, event } = props
+  const { startDate, timeOfDayArray, endDate, duration: eventDuration, event } = props
   // const start = startDate.utc().format('YYYYMMDD')
   // const end = endDate.utc().format('YYYYMMDD')
 
-  // http://icalgen.yc.sg/ <--- use this for sanity checks
-  // console.log(timeOfDayArray, 't of day')
+  //icalgen.yc.sg/ <--- use this for sanity checks
+  // http: console.log(timeOfDayArray, 't of day')
+
+  // https://calendar.google.com/calendar/u/0/r/eventedit?text&dates=20220310T230000Z/20220315T110000Z&details=Date+and+Time:+Mar+10,+2022+11:00+PM+-+Mar+15,+2022+11:00+AM%0D%0AVenue:+olufsvej+10%0D%0A&location=olufsvej+10&trp=true&sf=true&output=xml#f
 
   // const start = startDate
   // const end = endDate
-  // const firstDay = '10:00-17:00' //timeOfDayArray[0]
-  // const lastDay = '09:00-18:00' //timeOfDayArray[timeOfDayArray.length - 1]
-  // const startOfFirstDay = moment.duration(firstDay.split('-')[0])
-  // const endOfLastDay = moment.duration(lastDay.split('-')[1])
-  // const formatIsValid = startOfFirstDay.isValid() && endOfLastDay.isValid()
+  // const firstDay = timeOfDayArray[0]
+  // const lastDay = timeOfDayArray[timeOfDayArray.length - 1]
+  // const startOfFirstDay = sanitizeEventTime(firstDay.split('-')[0])
+  // const endOfLastDay = sanitizeEventTime(lastDay.split('-')[1])
 
-  // if (formatIsValid) {
-  //   start.add(startOfFirstDay.asMilliseconds(), 'milliseconds')
-  //   end.add(endOfLastDay.asMilliseconds(), 'milliseconds')
-  //   console.log(firstDay, lastDay, startOfFirstDay.asMilliseconds(), endOfLastDay.asMilliseconds())
+  // const ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
+
+  // const isMultiDayEvent = eventDuration > 1
+
+  // const googleCalUrl = new URL(`https://calendar.google.com/calendar/u/0/r/eventedit?text`)
+
+  // // googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
+  // googleCalUrl.searchParams.append('text', `${event.Name}`)
+  // googleCalUrl.searchParams.append('details', `${event.Name} - ${event['Time of Day']}`)
+  // if (event.Location.url) googleCalUrl.searchParams.append('location', `${event.Location.text}`)
+
+  // if (isMultiDayEvent) {
+  //   googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
+
+  //   ics.push(
+  //     `BEGIN:VEVENT`,
+  //     `UID:${event.Name}`,
+  //     `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
+  //     `DTSTART:${start.format('YYYYMMDD')}`,
+  //     `DTEND:${end.format('YYYYMMDD')}`,
+  //     `SUMMARY:${event.Name} - ${event['Time of Day']}`,
+  //     `DESCRIPTION:${event.Name}`,
+  //     event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
+  //     event.Location.url && `LOCATION:${event.Location.text}`,
+  //     `END:VEVENT`
+  //   )
+  // } else {
+  //   googleCalUrl.searchParams.append(
+  //     'dates',
+  //     `${start.format('YYYYMMDD')}T${startOfFirstDay}/${end.format('YYYYMMDD')}T${endOfLastDay}`
+  //   )
+
+  //   ics.push(
+  //     `BEGIN:VEVENT`,
+  //     `UID:${event.Name}`,
+  //     `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
+  //     `DTSTART:${start.format('YYYYMMDD')}T${startOfFirstDay}`,
+  //     `DTEND:${end.format('YYYYMMDD')}T${endOfLastDay}`,
+  //     `SUMMARY:${event.Name}`,
+  //     `DESCRIPTION:${event.Name} - ${event['Time of Day']}`,
+  //     event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
+  //     event.Location.url && `LOCATION:${event.Location.text}`,
+  //     `END:VEVENT`
+  //   )
   // }
 
-  // console.log(start.format('YYYYMMDD'), end.format('YYYYMMDD'), 'start end')
-
-  // let ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
-
-  // ics.push(
-  //   `BEGIN:VEVENT`,
-  //   `UID:${event.Name}`,
-  //   `DTSTAMP:${moment().format('YYYYMMDDTHHmmss')}Z`,
-  //   `DTSTART:${start.utc().format('YYYYMMDDTHHmmss')}Z`,
-  //   `DTEND:${end.utc().format('YYYYMMDDTHHmmss')}Z`,
-  //   `SUMMARY:${event.Name}`,
-  //   `DESCRIPTION:${event.Name}`,
-  //   event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
-  //   event.Location.url && `LOCATION:${event.Location.text}`,
-  //   `END:VEVENT`
-  // )
+  // // console.log(googleCalUrl, 'google add')
 
   // ics.push(`END:VCALENDAR`)
 
-  // ics = ics.filter((row: string) => !!row).join('\n')
+  // // console.log(ics.filter((row: string) => !!row).join('\n'), 'ics')
 
-  // console.log(ics, 'ics')
-
-  // const file = new Blob([ics], { type: 'text/calendar' })
+  // const file = new Blob([ics.filter((row: string) => !!row).join('\n')], { type: 'text/calendar' })
   // const icsAttributes = {
   //   href: URL.createObjectURL(file),
   //   download: `${event.Name}.ics`,
   // }
 
   return (
-    <div className={`${css['event-links']} tiny-text uppercase`}>
+    <div className={`${css['event-links']} small-text uppercase`}>
       <Link href={event.URL} indicateExternal>
-        Website
+        Visit website
       </Link>
 
       {event.Location && event.Location.url && (
@@ -405,6 +457,10 @@ const EventLinks = (props: any) => {
       )}
 
       {/* <a {...icsAttributes} className="hover-underline">
+        Add to Calendar
+      </a>
+
+      <a href={googleCalUrl.href} className="hover-underline">
         Add to Calendar
       </a> */}
     </div>
@@ -454,7 +510,7 @@ const ListDayHeader = React.forwardRef((props: any, ref: any) => {
   })
 
   return (
-    <>
+    <div>
       <div className={className} onClick={() => setOpen(!open)}>
         <div className={css['date']}>
           <p className="section-header thin large-text">{day}</p>
@@ -464,7 +520,7 @@ const ListDayHeader = React.forwardRef((props: any, ref: any) => {
         <div className={css['toggle-open']}>{open ? <ChevronUp /> : <ChevronDown />}</div>
       </div>
       {open && props.children}
-    </>
+    </div>
   )
 })
 
@@ -508,8 +564,14 @@ const ListEventDesktop = (props: any) => {
               <p className={`${css['title']} big-text bold uppercase`}>{props.event.Name}</p>
             )}
 
-            {props.event.Location && props.event.Location.text && (
-              <p className={`${css['location']} big-text-bold uppercase`}>@ {props.event.Location.text}</p>
+            {props.event.Location && props.event.Location.url && (
+              <Link
+                href={props.event.Location.url}
+                indicateExternal
+                className={`${css['location']} big-text-bold uppercase`}
+              >
+                {props.event.Location.text}
+              </Link>
             )}
 
             {props.event['Brief Description'] && (
@@ -542,8 +604,6 @@ const ListEventDesktop = (props: any) => {
               <p className={`${css['ticket-availability']} purple small-text uppercase`}>{props.event['Attend']}</p>
             ))}
         </div>
-
-        {/* <div className={`${css['calendar-add']} ${css['col-5']}`}><AddToCalendarIcon /></div> */}
       </div>
       <EventLinks {...props} />
     </div>
@@ -564,8 +624,14 @@ const ListEventMobile = (props: any) => {
           <p className={`${css['title']} large-text uppercase bold`}>{props.event.Name}</p>
         )}
 
-        {props.event.Location && props.event.Location.text && (
-          <p className={`${css['location']} large-text-bold uppercase`}>@ {props.event.Location.text}</p>
+        {props.event.Location && props.event.Location.url && (
+          <Link
+            href={props.event.Location.url}
+            indicateExternal
+            className={`${css['location']} big-text-bold uppercase`}
+          >
+            {props.event.Location.text}
+          </Link>
         )}
 
         <div className={css['date']}>

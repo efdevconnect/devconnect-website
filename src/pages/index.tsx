@@ -467,9 +467,15 @@ const Home: NextPage = (props: any) => {
                   </Link>
 
                   <Link
+                    href="https://discord.gg/FhmA3KeF3B"
+                    className={`button ${css['get-involved-button']}`}
+                    indicateExternal
+                  >
+                    Discord
+                  </Link>
+
+                  <Link
                     href="https://ef-events.notion.site/Host-an-event-at-Devconnect-8d1c95ea7f4f41d9a4239eb87ed1fb03"
-                    target="_blank"
-                    rel="noreferrer"
                     className={`button ${css['get-involved-button']}`}
                     indicateExternal
                   >

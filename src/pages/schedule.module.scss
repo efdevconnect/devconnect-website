@@ -264,7 +264,7 @@
 .event-links {
   display: flex;
   align-items: center;
-  padding: 8px 8px;
+  padding: 10px 8px;
   color: var(--difficulty-color);
   --icon-color: var(--difficulty-color);
   background: var(--difficulty-color-bg);
@@ -305,6 +305,12 @@
     bottom: 0%;
     pointer-events: none;
   }
+}
+
+.day-header {
+  position: sticky;
+  top: 0px;
+  z-index: 1;
 }
 
 .day,
@@ -410,8 +416,11 @@
       }
 
       .location {
+        display: flex;
+        font-weight: normal;
         margin-bottom: 8px;
         color: $monochrome-6;
+        --icon-color: #{$monochrome-6};
       }
 
       .date {
@@ -501,6 +510,10 @@
     .content {
       .date {
         margin: 8px 0px;
+      }
+
+      .location {
+        margin-top: 4px;
       }
 
       .organizers {

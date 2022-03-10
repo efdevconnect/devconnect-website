@@ -260,14 +260,15 @@
     .buttons {
       > * {
         display: inline-flex;
+        margin-left: 24px;
 
-        &:last-child {
-          margin-left: 24px;
+        &:first-child {
+          margin-left: 0px;
+        }
 
-          @media (max-width: $screen-sm) {
-            margin-top: 24px;
-            margin-left: 0px;
-          }
+        @media (max-width: $screen-sm) {
+          margin-top: 24px;
+          margin-left: 0px;
         }
 
         @media (max-width: $screen-sm) {

@@ -2,6 +2,8 @@ import React from 'react'
 import css from './menu.module.scss'
 import Link from '../link/Link'
 import TwitterIcon from 'assets/icons/twitter.svg'
+import DiscordIcon from 'assets/icons/discord.svg'
+import TelegramIcon from 'assets/icons/telegram.svg'
 import ChevronDown from 'assets/icons/chevron-down.svg'
 import HamburgerIcon from 'assets/icons/menu.svg'
 import IconCross from 'assets/icons/cross.svg'
@@ -164,9 +166,19 @@ export const FooterMenu = (props: any) => {
         )
       })}
 
-      <a className={css['twitter']} target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
-        <TwitterIcon style={{ fill: 'white' }} />
-      </a>
+      <div className={css['social-media']}>
+        <a target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
+          <TwitterIcon style={{ fill: 'white' }} />
+        </a>
+
+        <a target="_blank" rel="noreferrer" href="https://discord.gg/FhmA3KeF3B">
+          <DiscordIcon style={{ fill: 'white' }} />
+        </a>
+
+        <a target="_blank" rel="noreferrer" href="https://t.me/efdevconnect">
+          <TelegramIcon style={{ fill: 'white' }} />
+        </a>
+      </div>
     </div>
   )
 }
@@ -194,9 +206,19 @@ export const Menu = (props: any) => {
         )
       })}
 
-      <a className={css['twitter']} target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
-        <TwitterIcon style={{ fill: 'white' }} />
-      </a>
+      <div className={css['social-media']}>
+        <a target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
+          <TwitterIcon style={{ fill: 'white' }} />
+        </a>
+
+        <a target="_blank" rel="noreferrer" href="https://discord.gg/FhmA3KeF3B">
+          <DiscordIcon style={{ fill: 'white' }} />
+        </a>
+
+        <a target="_blank" rel="noreferrer" href="https://t.me/efdevconnect">
+          <TelegramIcon style={{ fill: 'white' }} />
+        </a>
+      </div>
     </div>
   )
 }

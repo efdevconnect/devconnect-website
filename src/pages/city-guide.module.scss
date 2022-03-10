@@ -161,6 +161,23 @@
   }
 }
 
+.map {
+  position: relative;
+  height: min(80vh, 550px);
+
+  .directions {
+    color: black;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    bottom: 0px;
+
+    p {
+      text-align: right;
+    }
+  }
+}
+
 .areas-to-stay {
   .image {
     margin-top: 1em;
