@@ -165,7 +165,8 @@
   position: relative;
   height: min(80vh, 550px);
 
-  .directions {
+  .title {
+    pointer-events: none;
     color: black;
     position: absolute;
     z-index: 1;

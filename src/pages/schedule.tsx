@@ -84,9 +84,7 @@ const leftPadNumber = (number: number) => {
 
 // Confirm time format is consistent e.g. 09:30 or 17:30
 const sanitizeEventTime = (eventTime: string) => {
-  const fallback = '0000000'
-
-  if (!eventTime) return fallback
+  if (!eventTime) return null
 
   const normalizedEventTime = eventTime.trim()
   const isCorrectFormat = normalizedEventTime.match(/\d{2}:\d{2}/) !== null
@@ -99,22 +97,24 @@ const sanitizeEventTime = (eventTime: string) => {
     )}`
   }
 
-  return fallback
+  return null
 }
 
 // Events have a bunch of date formatting going on, heres a utility to generate them:
-const getFormattedEventData = (event: any, day: any) => {
+const getFormattedEventData = (event: any, day?: any) => {
   const currentDate = day
   const startDate = moment.utc(event.Date.startDate)
   const endDate = moment.utc(event.Date.endDate)
-  const formattedDate = currentDate.format('MMM DD')
+  const formattedDate = currentDate && currentDate.format('MMM DD')
   const formattedStartDate = startDate.format('MMM DD')
   const formattedEndDate = endDate.format('MMM DD')
   const duration = calculateEventDuration(startDate, endDate)
   const isMultiDayEvent = duration > 1
+  // If a time has * at the end, we treat it as repeating for the whole week
   const timeOfDayArray = event['Time of Day'] && event['Time of Day'].split(',')
-  const timeOfDayIndex = currentDate.diff(startDate, 'days')
-  const timeOfDay = timeOfDayArray && timeOfDayArray[timeOfDayIndex]
+  const shouldRepeatTimeOfDay = isMultiDayEvent && timeOfDayArray.length === 1
+  const timeOfDayIndex = currentDate ? currentDate.diff(startDate, 'days') : 0
+  const timeOfDay = timeOfDayArray && timeOfDayArray[shouldRepeatTimeOfDay ? 0 : timeOfDayIndex]
 
   return {
     currentDate,
@@ -125,6 +125,7 @@ const getFormattedEventData = (event: any, day: any) => {
     formattedEndDate,
     duration,
     isMultiDayEvent,
+    shouldRepeatTimeOfDay,
     timeOfDayArray,
     timeOfDayIndex,
     timeOfDay,
@@ -135,7 +136,7 @@ const getFormattedEventData = (event: any, day: any) => {
 const useScheduleData = (events: any) => {
   const scheduleHelpers = React.useMemo(() => {
     const { min, max } = getEventBoundaries(events)
-    const eventDuration = calculateEventDuration(min, max)
+    const scheduleDuration = calculateEventDuration(min, max)
     const sortedEvents = events.slice().sort(sortEvents)
     const eventsByDay = {} as { [key: number]: any[] }
 
@@ -160,14 +161,11 @@ const useScheduleData = (events: any) => {
         }
       })
 
-    // const nEmptyDays = eventDuration - Object.keys(eventsByDay).length
-
     return {
       sortedEvents,
       events,
       eventsByDay,
-      eventDuration,
-      // nEmptyDays,
+      scheduleDuration,
       min,
       max,
     }
@@ -207,17 +205,20 @@ const createPlacementTracker = () => {
 
 // Timeline view (as opposed to list view)
 const Timeline = (props: any) => {
-  const { min, sortedEvents, events: defaultSortEvents, eventDuration, eventsByDay } = props
+  const { min, sortedEvents, events: defaultSortEvents, scheduleDuration, eventsByDay } = props
   const placementTracker = createPlacementTracker()
   const [eventModalOpen, setEventModalOpen] = React.useState('')
   const draggableAttributes = useDraggableLink()
 
   const events = sortedEvents.map((event: any) => {
-    const startDay = moment(event.Date.startDate)
-    const endDay = moment(event.Date.endDate)
-    const totalDays = endDay.diff(startDay, 'days') + 1
+    const {
+      startDate: startDay,
+      isMultiDayEvent,
+      duration: totalDays,
+      timeOfDayArray,
+      shouldRepeatTimeOfDay,
+    } = getFormattedEventData(event)
     const offsetFromFirstDay = startDay.diff(min, 'days') + 1
-
     const offsetFromFirstEventInSchedule = startDay.diff(moment(sortedEvents[0].Date.startDate), 'days')
     let subtractDays = 0
     // We don't render empty days, so we have to account for that when placing items into our grid - we subtract the empty days prior to the current event, treating them as if they don't exist in the grid
@@ -267,29 +268,18 @@ const Timeline = (props: any) => {
           )}
           <div className={css['content-inner']}>
             <div className={css['top']}>
-              {
-                /*event.URL*/ false ? (
-                  <Link
-                    href={event.URL}
-                    indicateExternal
-                    className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}
-                  >
-                    {event.Name}
-                  </Link>
-                ) : (
-                  <p className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}>
-                    {event.Name}
-                  </p>
-                )
-              }
+              <p className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}>
+                {event.Name}
+              </p>
+
               {event['Time of Day'] && (
                 <div className={css['when']}>
                   {Array.from(Array(totalDays)).map((_, index: number) => {
-                    const timeOfDayArray = event['Time of Day'] && event['Time of Day'].split(',')
                     const time = timeOfDayArray[index]
                     const useDayIndicator = !!timeOfDayArray[1] && totalDays > 1
 
                     if (!time) return null
+                    if (shouldRepeatTimeOfDay && isMultiDayEvent && index > 0) return null
 
                     return (
                       <p className="bold" key={index}>
@@ -331,7 +321,7 @@ const Timeline = (props: any) => {
         <div className={css['timeline']}>
           {events}
 
-          {Array.from(Array(eventDuration)).map((_, index: number) => {
+          {Array.from(Array(scheduleDuration)).map((_, index: number) => {
             const day = moment(defaultSortEvents[0].Date.startDate).add(index, 'days')
             const weekday = day.format('ddd')
             const date = day.format('MMM DD')
@@ -370,34 +360,56 @@ const EventMeta = (props: any) => {
 }
 
 const EventLinks = (props: any) => {
-  const { startDate, timeOfDayArray, endDate, duration: eventDuration, event } = props
-  // const start = startDate.utc().format('YYYYMMDD')
-  // const end = endDate.utc().format('YYYYMMDD')
-
-  //icalgen.yc.sg/ <--- use this for sanity checks
-  // http: console.log(timeOfDayArray, 't of day')
-
-  // https://calendar.google.com/calendar/u/0/r/eventedit?text&dates=20220310T230000Z/20220315T110000Z&details=Date+and+Time:+Mar+10,+2022+11:00+PM+-+Mar+15,+2022+11:00+AM%0D%0AVenue:+olufsvej+10%0D%0A&location=olufsvej+10&trp=true&sf=true&output=xml#f
-
-  const start = startDate
-  const end = endDate
+  const [calendarModalOpen, setCalendarModalOpen] = React.useState(false)
+  const {
+    startDate,
+    timeOfDayArray,
+    endDate,
+    duration: eventDuration,
+    isMultiDayEvent,
+    shouldRepeatTimeOfDay,
+    event,
+  } = props
+  const start = startDate.clone()
+  const end = endDate.clone()
   const firstDay = timeOfDayArray[0]
   const lastDay = timeOfDayArray[timeOfDayArray.length - 1]
-  const startOfFirstDay = sanitizeEventTime(firstDay.split('-')[0])
-  const endOfLastDay = sanitizeEventTime(lastDay.split('-')[1])
+  const startOfFirstDay = sanitizeEventTime(firstDay.split('-')[0]) || '000000'
+  const endOfLastDay = sanitizeEventTime(lastDay.split('-')[1]) || '000000'
 
   const ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
 
-  const isMultiDayEvent = eventDuration > 1
-
   const googleCalUrl = new URL(`https://calendar.google.com/calendar/u/0/r/eventedit`)
 
-  // googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
   googleCalUrl.searchParams.append('text', `${event.Name}`)
   googleCalUrl.searchParams.append('details', `${event.Name} - ${event['Time of Day']}`)
+
   if (event.Location.url) googleCalUrl.searchParams.append('location', `${event.Location.text}`)
 
   if (isMultiDayEvent) {
+    end.add(1, 'days')
+
+    // const hasCompleteEventTimes = eventDuration === timeOfDayArray.length
+
+    // if (hasCompleteEventTimes) {
+    //   const allEventTimesValid = timeOfDayArray.every((time: string, index: number) => {
+    //     const startOfDay = sanitizeEventTime(time.split('-')[0])
+    //     const endOfDay = sanitizeEventTime(time.split('-')[1])
+
+    //     if (startOfDay && endOfDay) {
+    //       humanReadableTimes += `Day ${index + 1}} - ${time.trim()}`
+
+    //       return true
+    //     }
+
+    //     return false
+    //   })
+
+    //   if (!allEventTimesValid) humanReadableTimes = ''
+    // } else {
+
+    // }
+
     googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
 
     ics.push(
@@ -407,7 +419,7 @@ const EventLinks = (props: any) => {
       `DTSTART:${start.format('YYYYMMDD')}`,
       `DTEND:${end.format('YYYYMMDD')}`,
       `SUMMARY:${event.Name} - ${event['Time of Day']}`,
-      `DESCRIPTION:${event.Name}`,
+      `DESCRIPTION:${event.Name} - ${event['Time of Day']}`,
       event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
       event.Location.url && `LOCATION:${event.Location.text}`,
       `END:VEVENT`
@@ -446,9 +458,13 @@ const EventLinks = (props: any) => {
 
   return (
     <div className={`${css['event-links']} small-text uppercase`}>
-      <Link href={event.URL} indicateExternal>
-        Visit website
-      </Link>
+      {event.URL && event.URL.length > 0 ? (
+        <Link href={event.URL} indicateExternal>
+          Visit website
+        </Link>
+      ) : (
+        <p>Website coming soon</p>
+      )}
 
       {event.Location && event.Location.url && (
         <Link href={event.Location.url} indicateExternal>
@@ -456,13 +472,29 @@ const EventLinks = (props: any) => {
         </Link>
       )}
 
-      {/* <a {...icsAttributes} className="hover-underline">
-        Add to Calendar
-      </a>
+      {/* <div className={css['add-to-calendar']}>
+        <AddToCalendarIcon className={`big-text icon`} onClick={() => setCalendarModalOpen(true)} />
+      </div>
 
-      <a href={googleCalUrl.href} className="hover-underline">
-        Add to Calendar
-      </a> */}
+      {calendarModalOpen && (
+        <Modal
+          className={css['add-to-calendar-modal']}
+          open={calendarModalOpen}
+          close={() => setCalendarModalOpen(false)}
+        >
+          <div className={css['add-to-calendar-modal-content']}>
+            <p className="bold uppercase">Add event to your calendar:</p>
+
+            <a {...icsAttributes} className="button sm small-text">
+              Download (.ICS)
+            </a>
+
+            <Link indicateExternal href={googleCalUrl.href} className="button sm small-text">
+              Google Calendar
+            </Link>
+          </div>
+        </Modal>
+      )} */}
     </div>
   )
 }
@@ -476,7 +508,7 @@ const LearnMore = (props: { open: boolean; close: () => void; event: any }) => {
 
       <Modal open={props.open} close={props.close} className={css['learn-more-modal']}>
         <div className={css['learn-more-modal-content']}>
-          <ListEventMobile {...getFormattedEventData(props.event, moment())} event={props.event} timeline />
+          <ListEventMobile {...getFormattedEventData(props.event)} event={props.event} timeline />
         </div>
       </Modal>
     </>
@@ -676,8 +708,6 @@ const ListEventMobile = (props: any) => {
           ))}
         <div className={css['bottom']}>
           <EventMeta event={props.event} />
-
-          {/* <AddToCalendarIcon className={css['add-to-calendar']} /> */}
         </div>
       </div>
       <EventLinks {...props} />
@@ -699,12 +729,12 @@ const ListEvent = (props: any) => {
 }
 
 const List = (props: any) => {
-  const { eventDuration, eventsByDay, sortedEvents, events } = props
+  const { scheduleDuration, eventsByDay, events } = props
 
   return (
     <div className={css['list']}>
       <ListTableHeader />
-      {Array.from(Array(eventDuration)).map((_, index: number) => {
+      {Array.from(Array(scheduleDuration)).map((_, index: number) => {
         const day = moment(events[0].Date.startDate).add(index, 'days')
         const eventsForDay = eventsByDay[index]
 
@@ -1001,9 +1031,7 @@ const formatResult = (result: any) => {
   })
 
   // This isn't the cleanest way to insert default values for time of day, but time crunch so being pragmatic
-  if (!properties['Time of Day'])
-    properties['Time of Day'] =
-      'Full Day,Full day,Full Day,Full day,Full Day,Full day,Full Day,Full day,Full Day,Full day,Full Day,Full day,Full day'
+  if (!properties['Time of Day']) properties['Time of Day'] = 'Full Day'
 
   return properties
 }

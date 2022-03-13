@@ -197,7 +197,7 @@ $max-content-width: $content-width + ($side-gap * 2);
   cursor: pointer;
 
   &:hover {
-    background: rgb(0, 0, 0);
+    background: rgb(61, 61, 61);
     color: rgb(209, 209, 209);
     --icon-color: rgb(209, 209, 209);
   }

@@ -226,6 +226,7 @@
 
     .event-links {
       padding-left: 24px;
+      padding-right: 24px;
     }
 
     .content {
@@ -284,6 +285,41 @@
 
     &:last-child {
       margin-right: 0px;
+    }
+  }
+
+  .add-to-calendar {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+    --color-icon: white !important;
+  }
+}
+
+.add-to-calendar-modal {
+  [data-type='modal-content'] {
+    width: 300px !important;
+  }
+
+  .add-to-calendar-modal-content {
+    color: black;
+
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+
+    p {
+      margin-right: 32px;
+    }
+
+    > * {
+      align-self: flex-start;
+      margin-top: 16px;
+
+      &:first-child {
+        margin-top: 0px;
+      }
     }
   }
 }
@@ -400,6 +436,7 @@
   // Styles shared by event and event-in-table
   .event,
   .event-in-table {
+    overflow: hidden;
     margin-top: 4px;
 
     .content {

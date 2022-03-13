@@ -14,6 +14,7 @@ import SwipeToScroll from 'common/components/swipe-to-scroll'
 import Visa from 'assets/icons/visa.svg'
 import Clock from 'assets/icons/clock.svg'
 import Globe from 'assets/icons/globe.svg'
+import PinIcon from 'assets/icons/pin.svg'
 import Dollar from 'assets/icons/dollar.svg'
 import Water from 'assets/icons/water.svg'
 // @ts-ignore
@@ -596,6 +597,13 @@ const CityGuide: NextPage = () => {
                   interesting for everyone. So where better to give a distributed (and passionate) ecosystem a more
                   connected feel than in a city brought together by canals 🛶, bike lanes 🚲, and culture 🏫 throughout?{' '}
                 </p>
+
+                <br />
+
+                <AnchorLink href={`#city-map`} className={`button sm orange-fill`}>
+                  <PinIcon />
+                  &nbsp;&nbsp;Find venues
+                </AnchorLink>
               </div>
 
               <div className={css['right']}>
@@ -623,8 +631,8 @@ const CityGuide: NextPage = () => {
         </div>
       </div>
 
-      <div className={css['map']}>
-        <div className={css['directions']}>
+      <div className={css['map']} id="city-map">
+        <div className={css['title']}>
           <div className={`section`}>
             <div className="clear-vertical">
               <p className={`large-text bold uppercase`}>Notable Locations</p>

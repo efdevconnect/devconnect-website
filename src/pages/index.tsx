@@ -114,6 +114,20 @@ const FAQ = [
       )
     },
   },
+  {
+    text: 'Does Devconnect schedule list all the blockchain events happening in Amsterdam that week? (Where are all the parties🎉?)',
+    value: 'events',
+    content: () => {
+      return (
+        <p>
+          Our goal with Devconnect is to encourage decentralized co-ordination of an Ethereum based event series. There
+          will naturally be a lot more events, parties, and activities taking place the week of Devconnect that are not
+          listed on our event schedule. Please check out the community driven AMS Blockchain Week schedule located here
+          for more events, parties, and activities that you may be interested in.
+        </p>
+      )
+    },
+  },
 ]
 
 const CodeOfConduct = () => {
