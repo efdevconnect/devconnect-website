@@ -123,7 +123,7 @@ const FAQ = [
           Our goal with Devconnect is to encourage decentralized co-ordination of an Ethereum based event series. There
           will naturally be a lot more events, parties, and activities taking place the week of Devconnect that are not
           listed on our event schedule. Please check out the community driven AMS Blockchain Week schedule{' '}
-          <Link href="https://discord.com/channels/@me/781534210166882324/952846297122103357" indicateExternal>
+          <Link href="https://amsterdamblockchainweek.org/" indicateExternal>
             located here
           </Link>
           &nbsp;for more events, parties, and activities that you may be interested in.

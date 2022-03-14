@@ -610,14 +610,16 @@ const CityGuide: NextPage = () => {
                 <div className={css['call-to-action']}>
                   <Link
                     href="https://www.google.com/maps/d/embed?mid=143AuN51prJpx6M62b9xMTAwdXNm-dstJ&hl=en&ehbc=2E312F"
+                    indicateExternal
                     className={`button sm orange-fill`}
                   >
-                    <PinIcon className={`${css['pin']} icon`} />
+                    {/* <PinIcon className={`${css['pin']} icon`} /> */}
                     Find venues
                   </Link>
 
                   <Link
-                    href="https://discord.com/channels/@me/781534210166882324/952846297122103357"
+                    href="https://amsterdamblockchainweek.org/"
+                    indicateExternal
                     className={`button sm orange-fill`}
                   >
                     AMS Blockchain Week
