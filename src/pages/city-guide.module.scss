@@ -66,6 +66,30 @@
 
       .details-2 {
       }
+
+      .call-to-action {
+        display: flex;
+        flex-direction: column;
+
+        @media (min-width: $screen-md) {
+          flex-direction: row;
+        }
+
+        > a {
+          display: flex;
+          // width: 200px;
+          justify-content: space-between;
+          margin-top: 8px;
+
+          &:first-child {
+            margin-right: 16px;
+          }
+
+          .pin {
+            margin-right: 8px;
+          }
+        }
+      }
     }
 
     .right {

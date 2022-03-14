@@ -600,10 +600,29 @@ const CityGuide: NextPage = () => {
 
                 <br />
 
-                <AnchorLink href={`#city-map`} className={`button sm orange-fill`}>
-                  <PinIcon />
-                  &nbsp;&nbsp;Find venues
-                </AnchorLink>
+                <p>
+                  Find additional events and parties happening around Devconnect through the AMS blockchain week
+                  website.
+                </p>
+
+                <br />
+
+                <div className={css['call-to-action']}>
+                  <Link
+                    href="https://www.google.com/maps/d/embed?mid=143AuN51prJpx6M62b9xMTAwdXNm-dstJ&hl=en&ehbc=2E312F"
+                    className={`button sm orange-fill`}
+                  >
+                    <PinIcon className={`${css['pin']} icon`} />
+                    Find venues
+                  </Link>
+
+                  <Link
+                    href="https://discord.com/channels/@me/781534210166882324/952846297122103357"
+                    className={`button sm orange-fill`}
+                  >
+                    AMS Blockchain Week
+                  </Link>
+                </div>
               </div>
 
               <div className={css['right']}>

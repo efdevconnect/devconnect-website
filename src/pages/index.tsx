@@ -122,8 +122,11 @@ const FAQ = [
         <p>
           Our goal with Devconnect is to encourage decentralized co-ordination of an Ethereum based event series. There
           will naturally be a lot more events, parties, and activities taking place the week of Devconnect that are not
-          listed on our event schedule. Please check out the community driven AMS Blockchain Week schedule located here
-          for more events, parties, and activities that you may be interested in.
+          listed on our event schedule. Please check out the community driven AMS Blockchain Week schedule{' '}
+          <Link href="https://discord.com/channels/@me/781534210166882324/952846297122103357" indicateExternal>
+            located here
+          </Link>
+          &nbsp;for more events, parties, and activities that you may be interested in.
         </p>
       )
     },
@@ -504,7 +507,7 @@ const Home: NextPage = (props: any) => {
             <div className={`clear-vertical`}>
               <h1 className="section-header grey">FAQ</h1>
 
-              <div className={`${css['accordion']}`}>
+              <div className={`${css['accordion']} tab-content`}>
                 <Accordion>
                   {FAQ.map(faq => {
                     return (
