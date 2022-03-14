@@ -483,7 +483,7 @@ const EventLinks = (props: any) => {
         </Link>
       )}
 
-      <div className={css['add-to-calendar']}>
+      {/* <div className={css['add-to-calendar']}>
         <AddToCalendarIcon className={`big-text icon`} onClick={() => setCalendarModalOpen(true)} />
       </div>
 
@@ -505,7 +505,7 @@ const EventLinks = (props: any) => {
             </Link>
           </div>
         </Modal>
-      )}
+      )} */}
     </div>
   )
 }
