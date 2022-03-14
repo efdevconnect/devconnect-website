@@ -368,7 +368,15 @@ const EventMeta = (props: any) => {
 
 const EventLinks = (props: any) => {
   const [calendarModalOpen, setCalendarModalOpen] = React.useState(false)
-  const { startDate, timeOfDayArray, endDate, duration: eventDuration, isMultiDayEvent, event } = props
+  const {
+    startDate,
+    timeOfDayArray,
+    endDate,
+    duration: eventDuration,
+    isMultiDayEvent,
+    event,
+    shouldRepeatTimeOfDay,
+  } = props
   const start = startDate.clone()
   const end = endDate.clone()
   const firstDay = timeOfDayArray[0]
@@ -388,8 +396,8 @@ const EventLinks = (props: any) => {
       if (timeIsValid) {
         const timeOfDay = `${startOfDay.normalizedEventTime} - ${endOfDay.normalizedEventTime}`
 
-        if (isMultiDayEvent) {
-          humanReadableTimes.push(`Day ${index + 1}}: ${timeOfDay}`)
+        if (isMultiDayEvent && !shouldRepeatTimeOfDay) {
+          humanReadableTimes.push(`Day ${index + 1}: ${timeOfDay}`)
         } else {
           humanReadableTimes.push(`${timeOfDay}`)
         }
