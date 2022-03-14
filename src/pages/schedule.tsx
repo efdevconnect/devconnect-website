@@ -280,13 +280,17 @@ const Timeline = (props: any) => {
                   {Array.from(Array(totalDays)).map((_, index: number) => {
                     const time = timeOfDayArray[index]
                     const useDayIndicator = !!timeOfDayArray[1] && totalDays > 1
+                    const sameTimeEveryDay = shouldRepeatTimeOfDay && totalDays > 1 && time !== 'FULL DAY'
 
                     if (!time) return null
                     if (shouldRepeatTimeOfDay && isMultiDayEvent && index > 0) return null
 
                     return (
                       <p className="bold" key={index}>
-                        <span className={css['time']}>{time}</span>
+                        <span className={css['time']}>
+                          {time}
+                          {sameTimeEveryDay ? ' Every day' : ''}
+                        </span>
                         {useDayIndicator && (
                           <>
                             <br />
@@ -369,43 +373,37 @@ const EventLinks = (props: any) => {
   const end = endDate.clone()
   const firstDay = timeOfDayArray[0]
   const lastDay = timeOfDayArray[timeOfDayArray.length - 1]
-  const hasCompleteEventTimes = eventDuration === timeOfDayArray.length
+
   const { calendarTime: startOfFirstDay } = sanitizeEventTime(firstDay.split('-')[0]) || { calendarTime: '000000' }
   const { calendarTime: endOfLastDay } = sanitizeEventTime(lastDay.split('-')[1]) || { calendarTime: '000000' }
 
   const description = (() => {
     let humanReadableTimes: string[] = []
 
-    // We do a best effort attempt to include time of day in the description, but it requires some formatting (particularly for multi-day events with inconsistent time of day):
-    if (hasCompleteEventTimes) {
-      const allEventTimesValid = timeOfDayArray.every((time: string, index: number) => {
-        const startOfDay = sanitizeEventTime(time.split('-')[0])
-        const endOfDay = sanitizeEventTime(time.split('-')[1])
-        const timeIsValid = startOfDay && endOfDay
+    const allEventTimesValid = timeOfDayArray.every((time: string, index: number) => {
+      const startOfDay = sanitizeEventTime(time.split('-')[0])
+      const endOfDay = sanitizeEventTime(time.split('-')[1])
+      const timeIsValid = startOfDay && endOfDay
 
-        if (timeIsValid) {
-          const timeOfDay = `${startOfDay.normalizedEventTime} - ${endOfDay.normalizedEventTime}`
+      if (timeIsValid) {
+        const timeOfDay = `${startOfDay.normalizedEventTime} - ${endOfDay.normalizedEventTime}`
 
-          if (isMultiDayEvent) {
-            humanReadableTimes.push(`Day ${index + 1}}: ${timeOfDay}`)
-          } else {
-            humanReadableTimes.push(`${timeOfDay}`)
-          }
+        if (isMultiDayEvent) {
+          humanReadableTimes.push(`Day ${index + 1}}: ${timeOfDay}`)
+        } else {
+          humanReadableTimes.push(`${timeOfDay}`)
         }
+      }
 
-        return timeIsValid
-      })
+      return timeIsValid
+    })
 
-      if (!allEventTimesValid) humanReadableTimes = []
-    }
-
-    // If we failed to generate a human readable time in the above stop, we just default to showing the direct notion input
-    if (humanReadableTimes.length === 0) {
-      humanReadableTimes.push(event['Time of Day'])
-    }
+    if (!allEventTimesValid) return null
 
     return `${event['Name']} - ${humanReadableTimes.join(', ')}`
   })()
+
+  const enableAddToCalendar = description !== null
 
   const googleCalUrl = (() => {
     const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE`)
@@ -483,29 +481,33 @@ const EventLinks = (props: any) => {
         </Link>
       )}
 
-      {/* <div className={css['add-to-calendar']}>
-        <AddToCalendarIcon className={`big-text icon`} onClick={() => setCalendarModalOpen(true)} />
-      </div>
-
-      {calendarModalOpen && (
-        <Modal
-          className={css['add-to-calendar-modal']}
-          open={calendarModalOpen}
-          close={() => setCalendarModalOpen(false)}
-        >
-          <div className={css['add-to-calendar-modal-content']}>
-            <p className="bold uppercase">Add event to your calendar:</p>
-
-            <a {...icsAttributes} className="button sm small-text">
-              Download (.ICS)
-            </a>
-
-            <Link indicateExternal href={googleCalUrl.href} className="button sm small-text">
-              Google Calendar
-            </Link>
+      {enableAddToCalendar && (
+        <>
+          <div className={css['add-to-calendar']}>
+            <AddToCalendarIcon className={`big-text icon`} onClick={() => setCalendarModalOpen(true)} />
           </div>
-        </Modal>
-      )} */}
+
+          {calendarModalOpen && (
+            <Modal
+              className={css['add-to-calendar-modal']}
+              open={calendarModalOpen}
+              close={() => setCalendarModalOpen(false)}
+            >
+              <div className={css['add-to-calendar-modal-content']}>
+                <p className="bold uppercase">Add event to your calendar:</p>
+
+                <a {...icsAttributes} className="button sm small-text">
+                  Download (.ICS)
+                </a>
+
+                <Link indicateExternal href={googleCalUrl.href} className="button sm small-text">
+                  Google Calendar
+                </Link>
+              </div>
+            </Modal>
+          )}
+        </>
+      )}
     </div>
   )
 }
@@ -1041,8 +1043,8 @@ const formatResult = (result: any) => {
     }
   })
 
-  // This isn't the cleanest way to insert default values for time of day, but time crunch so being pragmatic
-  if (!properties['Time of Day']) properties['Time of Day'] = 'Full Day'
+  // Insert a default value for time of day when unspecified
+  if (!properties['Time of Day']) properties['Time of Day'] = 'FULL DAY'
 
   return properties
 }
