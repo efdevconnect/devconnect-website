@@ -43,8 +43,8 @@ const getEventBoundaries = (events: any) => {
   let min: moment.Moment | undefined, max: moment.Moment | undefined
 
   events.forEach((event: any) => {
-    const startDay = moment(event.Date.startDate),
-      endDay = moment(event.Date.endDate)
+    const startDay = moment.utc(event.Date.startDate),
+      endDay = moment.utc(event.Date.endDate)
 
     if (min ? startDay.isBefore(min) : true) min = startDay
     if (max ? endDay.isAfter(max) : true) max = endDay
@@ -222,7 +222,7 @@ const Timeline = (props: any) => {
       shouldRepeatTimeOfDay,
     } = getFormattedEventData(event)
     const offsetFromFirstDay = startDay.diff(min, 'days') + 1
-    const offsetFromFirstEventInSchedule = startDay.diff(moment(sortedEvents[0].Date.startDate), 'days')
+    const offsetFromFirstEventInSchedule = startDay.diff(moment.utc(sortedEvents[0].Date.startDate), 'days')
     let subtractDays = 0
     // We don't render empty days, so we have to account for that when placing items into our grid - we subtract the empty days prior to the current event, treating them as if they don't exist in the grid
     Array.from(Array(offsetFromFirstEventInSchedule)).forEach((_, index: number) => {
@@ -329,7 +329,7 @@ const Timeline = (props: any) => {
           {events}
 
           {Array.from(Array(scheduleDuration)).map((_, index: number) => {
-            const day = moment(defaultSortEvents[0].Date.startDate).add(index, 'days')
+            const day = moment.utc(defaultSortEvents[0].Date.startDate).add(index, 'days')
             const weekday = day.format('ddd')
             const date = day.format('MMM DD')
             const noEventsForDay = !eventsByDay[index]
@@ -756,7 +756,7 @@ const List = (props: any) => {
     <div className={css['list']}>
       <ListTableHeader />
       {Array.from(Array(scheduleDuration)).map((_, index: number) => {
-        const day = moment(events[0].Date.startDate).add(index, 'days')
+        const day = moment.utc(events[0].Date.startDate).add(index, 'days')
         const eventsForDay = eventsByDay[index]
 
         // Some days within the event range may not have any events
