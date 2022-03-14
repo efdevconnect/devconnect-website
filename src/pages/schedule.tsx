@@ -92,9 +92,12 @@ const sanitizeEventTime = (eventTime: string) => {
   if (isCorrectFormat) {
     const asMoment = moment.duration(normalizedEventTime)
 
-    return `${leftPadNumber(asMoment.get('hours'))}${leftPadNumber(asMoment.get('minutes'))}${leftPadNumber(
-      asMoment.get('seconds')
-    )}`
+    return {
+      calendarTime: `${leftPadNumber(asMoment.get('hours'))}${leftPadNumber(asMoment.get('minutes'))}${leftPadNumber(
+        asMoment.get('seconds')
+      )}`,
+      normalizedEventTime,
+    }
   }
 
   return null
@@ -110,8 +113,8 @@ const getFormattedEventData = (event: any, day?: any) => {
   const formattedEndDate = endDate.format('MMM DD')
   const duration = calculateEventDuration(startDate, endDate)
   const isMultiDayEvent = duration > 1
-  // If a time has * at the end, we treat it as repeating for the whole week
   const timeOfDayArray = event['Time of Day'] && event['Time of Day'].split(',')
+  // If its a multi day event but only one time is specified, we assume that is the time of day for the entire week
   const shouldRepeatTimeOfDay = isMultiDayEvent && timeOfDayArray.length === 1
   const timeOfDayIndex = currentDate ? currentDate.diff(startDate, 'days') : 0
   const timeOfDay = timeOfDayArray && timeOfDayArray[shouldRepeatTimeOfDay ? 0 : timeOfDayIndex]
@@ -361,54 +364,66 @@ const EventMeta = (props: any) => {
 
 const EventLinks = (props: any) => {
   const [calendarModalOpen, setCalendarModalOpen] = React.useState(false)
-  const {
-    startDate,
-    timeOfDayArray,
-    endDate,
-    duration: eventDuration,
-    isMultiDayEvent,
-    shouldRepeatTimeOfDay,
-    event,
-  } = props
+  const { startDate, timeOfDayArray, endDate, duration: eventDuration, isMultiDayEvent, event } = props
   const start = startDate.clone()
   const end = endDate.clone()
   const firstDay = timeOfDayArray[0]
   const lastDay = timeOfDayArray[timeOfDayArray.length - 1]
-  const startOfFirstDay = sanitizeEventTime(firstDay.split('-')[0]) || '000000'
-  const endOfLastDay = sanitizeEventTime(lastDay.split('-')[1]) || '000000'
+  const hasCompleteEventTimes = eventDuration === timeOfDayArray.length
+  const { calendarTime: startOfFirstDay } = sanitizeEventTime(firstDay.split('-')[0]) || { calendarTime: '000000' }
+  const { calendarTime: endOfLastDay } = sanitizeEventTime(lastDay.split('-')[1]) || { calendarTime: '000000' }
+
+  const description = (() => {
+    let humanReadableTimes: string[] = []
+
+    // We do a best effort attempt to include time of day in the description, but it requires some formatting (particularly for multi-day events with inconsistent time of day):
+    if (hasCompleteEventTimes) {
+      const allEventTimesValid = timeOfDayArray.every((time: string, index: number) => {
+        const startOfDay = sanitizeEventTime(time.split('-')[0])
+        const endOfDay = sanitizeEventTime(time.split('-')[1])
+        const timeIsValid = startOfDay && endOfDay
+
+        if (timeIsValid) {
+          const timeOfDay = `${startOfDay.normalizedEventTime} - ${endOfDay.normalizedEventTime}`
+
+          if (isMultiDayEvent) {
+            humanReadableTimes.push(`Day ${index + 1}}: ${timeOfDay}`)
+          } else {
+            humanReadableTimes.push(`${timeOfDay}`)
+          }
+        }
+
+        return timeIsValid
+      })
+
+      if (!allEventTimesValid) humanReadableTimes = []
+    }
+
+    // If we failed to generate a human readable time in the above stop, we just default to showing the direct notion input
+    if (humanReadableTimes.length === 0) {
+      humanReadableTimes.push(event['Time of Day'])
+    }
+
+    return `${event['Name']} - ${humanReadableTimes.join(', ')}`
+  })()
+
+  const googleCalUrl = (() => {
+    const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE`)
+
+    googleCalUrl.searchParams.append('text', `${event.Name}`)
+    googleCalUrl.searchParams.append('details', `${description}`)
+
+    if (event.Location.url) googleCalUrl.searchParams.append('location', `${event.Location.text}`)
+
+    return googleCalUrl
+  })()
 
   const ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
 
-  const googleCalUrl = new URL(`https://calendar.google.com/calendar/u/0/r/eventedit`)
-
-  googleCalUrl.searchParams.append('text', `${event.Name}`)
-  googleCalUrl.searchParams.append('details', `${event.Name} - ${event['Time of Day']}`)
-
-  if (event.Location.url) googleCalUrl.searchParams.append('location', `${event.Location.text}`)
-
   if (isMultiDayEvent) {
+    // Have to add a day for multi-day events since the final day is not included in the range
+    // (if not, it will make a boundary at exactly midnight on the previous day since the dates default to 00:00 when no time is specified)
     end.add(1, 'days')
-
-    // const hasCompleteEventTimes = eventDuration === timeOfDayArray.length
-
-    // if (hasCompleteEventTimes) {
-    //   const allEventTimesValid = timeOfDayArray.every((time: string, index: number) => {
-    //     const startOfDay = sanitizeEventTime(time.split('-')[0])
-    //     const endOfDay = sanitizeEventTime(time.split('-')[1])
-
-    //     if (startOfDay && endOfDay) {
-    //       humanReadableTimes += `Day ${index + 1}} - ${time.trim()}`
-
-    //       return true
-    //     }
-
-    //     return false
-    //   })
-
-    //   if (!allEventTimesValid) humanReadableTimes = ''
-    // } else {
-
-    // }
 
     googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
 
@@ -418,8 +433,8 @@ const EventLinks = (props: any) => {
       `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
       `DTSTART:${start.format('YYYYMMDD')}`,
       `DTEND:${end.format('YYYYMMDD')}`,
-      `SUMMARY:${event.Name} - ${event['Time of Day']}`,
-      `DESCRIPTION:${event.Name} - ${event['Time of Day']}`,
+      `SUMMARY:${event.Name}`,
+      `DESCRIPTION:${description}`,
       event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
       event.Location.url && `LOCATION:${event.Location.text}`,
       `END:VEVENT`
@@ -437,18 +452,14 @@ const EventLinks = (props: any) => {
       `DTSTART:${start.format('YYYYMMDD')}T${startOfFirstDay}`,
       `DTEND:${end.format('YYYYMMDD')}T${endOfLastDay}`,
       `SUMMARY:${event.Name}`,
-      `DESCRIPTION:${event.Name} - ${event['Time of Day']}`,
+      `DESCRIPTION:${description}`,
       event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
       event.Location.url && `LOCATION:${event.Location.text}`,
       `END:VEVENT`
     )
   }
 
-  // console.log(googleCalUrl, 'google add')
-
   ics.push(`END:VCALENDAR`)
-
-  console.log(ics.filter((row: string) => !!row).join('\n'), 'ics')
 
   const file = new Blob([ics.filter((row: string) => !!row).join('\n')], { type: 'text/calendar' })
   const icsAttributes = {
@@ -472,7 +483,7 @@ const EventLinks = (props: any) => {
         </Link>
       )}
 
-      {/* <div className={css['add-to-calendar']}>
+      <div className={css['add-to-calendar']}>
         <AddToCalendarIcon className={`big-text icon`} onClick={() => setCalendarModalOpen(true)} />
       </div>
 
@@ -494,7 +505,7 @@ const EventLinks = (props: any) => {
             </Link>
           </div>
         </Modal>
-      )} */}
+      )}
     </div>
   )
 }
