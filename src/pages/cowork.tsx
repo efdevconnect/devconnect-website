@@ -30,7 +30,7 @@ const waves = [
     status: 'sold out',
   },
   {
-    status: 'on sale now',
+    status: 'sold out',
   },
   {
     status: 'March 22nd',
@@ -41,7 +41,7 @@ const waves = [
 ]
 
 const Cowork: NextPage = (props: any) => {
-  const [soldOut, setSoldout] = React.useState(false)
+  const [soldOut, setSoldout] = React.useState(true)
 
   return (
     <>
