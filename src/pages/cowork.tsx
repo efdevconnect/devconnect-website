@@ -33,7 +33,7 @@ const waves = [
     status: 'sold out',
   },
   {
-    status: 'March 22nd',
+    status: 'on sale now',
   },
   {
     status: 'March 29th',
@@ -41,7 +41,7 @@ const waves = [
 ]
 
 const Cowork: NextPage = (props: any) => {
-  const [soldOut, setSoldout] = React.useState(true)
+  const [soldOut, setSoldout] = React.useState(false)
 
   return (
     <>
@@ -156,105 +156,6 @@ const Cowork: NextPage = (props: any) => {
                     <b>Energize.</b> Light snacks and drinks will be offered throughout.
                   </p>
                 </div>
-                {/* 
-                <div className={`${css['waves-info']} border-top`}>
-                  <div className={css['current-wave']}>
-                    <p className={`big-text bold uppercase ${css['title']}`}>Co-work Tickets</p>
-                    <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 2 of 5</p>
-                  </div>
-                </div> */}
-
-                {/* <div className={`${css['waves-info']}`}>
-                  <div className={css['current-wave']}>
-                    <p className={`big-text bold uppercase ${css['title']}`}>Co-work Tickets</p>
-                    <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 2 of 5</p>
-                  </div>
-
-                  <div className={css['waves']}>
-                    {waves.map(({ status }, index) => {
-                      let classNameTag = 'tag'
-                      let className = css['wave']
-
-                      if (status === 'sold out') {
-                        classNameTag += ` red`
-                        className += ` ${css['wave-sold-out']}`
-                      }
-
-                      if (status === 'on sale now') {
-                        classNameTag += ` green`
-                        className += ` ${css['wave-on-sale']}`
-                      }
-
-                      const waveIsOnSale = status === 'on sale now'
-
-                      const body = (
-                        <>
-                          <div>Ticket Wave 0{index + 1}</div>
-                          <div className={`${classNameTag} tiny-text bold`}>{status}</div>
-                        </>
-                      )
-
-                      if (waveIsOnSale) {
-                        return (
-                          <Link
-                            href="https://ticketh.xyz/devconnect/cowork"
-                            key={index}
-                            className={`${className} small-text-fixed bold`}
-                          >
-                            {body}
-                          </Link>
-                        )
-                      } else {
-                        return (
-                          <div key={index} className={`${className} small-text-fixed bold`}>
-                            {body}
-                          </div>
-                        )
-                      }
-                    })}
-                  </div>
-
-                  <AnchorLink href={'#waves'} offset="32" className={`bold ${css['learn-more-ticket-waves']}`}>
-                    Learn More —
-                  </AnchorLink> */}
-
-                {/* <p className="bold">
-                    Tickets to the Co-work Space are sold in multiple large batches. We will communicate via our&nbsp;
-                    <Link indicateExternal href="https://twitter.com/efdevconnect" className="generic blue">
-                      twitter
-                    </Link>
-                    &nbsp;when tickets go on sale, and also when tickets have sold out in each batch.
-                  </p> */}
-
-                {/* <br /> */}
-
-                {/* <p className={`bold`}>
-                    While ticketing for all other events during Devconnect is left up to their respective organizers,
-                    tickets to the co-work are open to all Devconnect attendees looking to work together and hang out
-                    between sessions, so come meet with old and new friends alike. More details below.
-                  </p> */}
-
-                {/* <br /> */}
-
-                {/* Sold out sticker will be used once all the waves are over */}
-                {/* {soldOut ? (
-                    <div className={css['sold-out']}>
-                      <AnchorLink href={'#waves'} offset="32" className="button sm blue-fill">
-                        New wave coming soon
-                      </AnchorLink>
-                      <Image src={SoldOut} alt="Sold out sticker" />
-                    </div>
-                  ) : (
-                    <Link
-                      indicateExternal
-                      href={'https://ticketh.xyz/devconnect/cowork'}
-                      offset="32"
-                      className="button sm orange-fill"
-                    >
-                      Get your tickets now!
-                    </Link>
-                  )} */}
-                {/* </div> */}
               </div>
             </div>
           </div>
@@ -285,7 +186,7 @@ const Cowork: NextPage = (props: any) => {
                     <br />
 
                     <div className={css['current-wave']}>
-                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 3 of 5</p>
+                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 4 of 5</p>
                     </div>
 
                     <div className={`${css['waves-info']}`}>
