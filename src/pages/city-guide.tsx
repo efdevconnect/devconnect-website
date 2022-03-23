@@ -33,26 +33,30 @@ const tabs = [
     content: () => {
       return (
         <div className={`tab-content small-text ${css['airport-transit']}`}>
-          <div className={`section`}>
-            <p className={`header small-text bold`}>Ride Sharing</p>
-            <p className="small-text">
-              You can easily Uber or Bolt into Amsterdam or to the Airport. Schiphol Airport is not too far from the
-              City Center.
-            </p>
-          </div>
-          <div className={`section`}>
-            <p className={`header small-text bold`}>Metro</p>
-            <Link href="https://www.amsterdam.info/transport/metro/" className="small-text hover-underline">
-              <p>View Metro Routes</p>
-            </Link>
-            <br />
-            <p className="small-text">
-              The Metro will likely have a stop close to your accommodation. <br />
-              There is a direct metro to Centraal (main station) which also then has access to many more metro and tram
-              stops. After midnight, trains from Schiphol Airport to Centraal Station run hourly rather than every 10-15
-              minutes, a taxi, Uber, or Bolt will be your best option.
-            </p>
-          </div>
+          <p className={`header small-text bold`}>Ride Sharing</p>
+          <p className="small-text">
+            You can easily Uber or Bolt into Amsterdam or to the Airport. Schiphol Airport is not too far from the City
+            Center.
+          </p>
+
+          <p className={`header small-text bold`}>Metro</p>
+          <Link
+            href="https://www.amsterdam.info/transport/metro/"
+            indicateExternal
+            style={{ display: 'inline-flex' }}
+            className="small-text hover-underline"
+          >
+            <p>View Metro Routes</p>
+          </Link>
+
+          <br />
+          <br />
+          <p className="small-text">
+            The Metro will likely have a stop close to your accommodation. <br />
+            There is a direct metro to Centraal (main station) which also then has access to many more metro and tram
+            stops. After midnight, trains from Schiphol Airport to Centraal Station run hourly rather than every 10-15
+            minutes, a taxi, Uber, or Bolt will be your best option.
+          </p>
         </div>
       )
     },
@@ -63,58 +67,57 @@ const tabs = [
     content: () => {
       return (
         <div className={`tab-content small-text ${css['getting-around']}`}>
-          <div className={`section`}>
-            <p className={`header small-text bold`}>Public Transport</p>
-            <p className="small-text">
-              Amsterdam is easy to bike and harder to drive. Cyclists can make use of the many bike-friendly streets
-              while parking is expensive in Center.
-            </p>
-            <p className="small-text">There is a great public transport system: Train, Tram, Metro, &amp; Bus.</p>
-            <p className="medium-text underline">Transport System</p>
+          <p className={`header small-text bold`}>Public Transport</p>
+          <p className="small-text">
+            Amsterdam is easy to bike and harder to drive. Cyclists can make use of the many bike-friendly streets while
+            parking is expensive in Center.
+          </p>
+          <p className="small-text">There is a great public transport system: Train, Tram, Metro, &amp; Bus.</p>
+          <p className="medium-text underline">Transport System</p>
 
-            <p className="small-text">
-              Amsterdam&apos;s public transport network runs on a ticketing system called <i>GVB</i>.
-            </p>
-            <p className="small-text">
-              Downloading the{' '}
-              <Link
-                href="https://en.gvb.nl/klantenservice/reizen-met-de-gvb-reisapp-0"
-                className="small-text hover-underline"
-                indicateExternal
-              >
-                GVB public transport app
-              </Link>{' '}
-              should come in handy.
-              <br />
-              Or download the{' '}
-              <Link
-                href="https://www.iamsterdam.com/media/pdf/visiting-uit/getting-around/artt-map-nz-lijn-2020.pdf?la=en"
-                className="small-text hover-underline"
-                indicateExternal
-              >
-                map
-              </Link>{' '}
-              in advance.
-            </p>
+          <p className="small-text">
+            Amsterdam&apos;s public transport network runs on a ticketing system called <i>GVB</i>.
+          </p>
+          <p className="small-text">
+            Downloading the{' '}
+            <Link
+              href="https://en.gvb.nl/klantenservice/reizen-met-de-gvb-reisapp-0"
+              className="small-text hover-underline"
+              indicateExternal
+            >
+              GVB public transport app
+            </Link>{' '}
+            should come in handy.
+            <br />
+            Or download the{' '}
+            <Link
+              href="https://www.iamsterdam.com/media/pdf/visiting-uit/getting-around/artt-map-nz-lijn-2020.pdf?la=en"
+              className="small-text hover-underline"
+              indicateExternal
+            >
+              map
+            </Link>{' '}
+            in advance.
+          </p>
 
-            <p className="medium-text underline">Travel passes</p>
-            <p className="small-text">
-              Buy an{' '}
-              <Link
-                href="https://www.ov-chipkaart.nl/purchase-an-ov-chipkaart.htm"
-                className="small-text hover-underline"
-              >
-                OV-chipkaart
-              </Link>{' '}
-              for travel around the city
-            </p>
-            <p className="small-text">Top this up at any public transport station, or buy day passes, etc.</p>
-          </div>
+          <p className="medium-text underline">Travel passes</p>
+          <p className="small-text">
+            Buy an{' '}
+            <Link
+              href="https://www.ov-chipkaart.nl/purchase-an-ov-chipkaart.htm"
+              className="small-text hover-underline"
+              indicateExternal
+            >
+              OV-chipkaart
+            </Link>{' '}
+            for travel around the city
+          </p>
+          <p className="small-text">Top this up at any public transport station, or buy day passes, etc.</p>
 
-          <div className={`section`}>
-            <p className={`header small-text bold`}>Bike Rentals</p>
-            <p className="small-text">A lot of bike rentals can be found around the Centraal Station.</p>
+          <p className={`header small-text bold`}>Bike Rentals</p>
+          <p className="small-text">A lot of bike rentals can be found around the Centraal Station.</p>
 
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Link
               href="https://www.macbike.nl/"
               indicateExternal

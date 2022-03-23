@@ -164,7 +164,7 @@
   background: linear-gradient(180deg, #6a4efa 0%, #f286fd 113.61%);
   z-index: 1;
   position: relative;
-  display: flex;
+  // display: flex;
   flex-direction: column;
 
   > * {
@@ -281,10 +281,6 @@
 
 .scene-faq {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
   background: white;
   color: black;
 

@@ -94,7 +94,7 @@ const Cowork: NextPage = (props: any) => {
 
       <div className={css['cowork']}>
         <div className={`section fade-in-up`}>
-          <div className="clear">
+          <div>
             <div className="border-bottom" id="general-info">
               <Tabs
                 tabs={[
@@ -160,7 +160,7 @@ const Cowork: NextPage = (props: any) => {
             </div>
           </div>
 
-          <div className="clear">
+          <div>
             <div className={`${css['ticketing']}`} id="ticketing">
               <Accordion className={css['accordion']}>
                 <AccordionItem alwaysOpen title="Ticketing information" id="ticketing">

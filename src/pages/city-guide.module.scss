@@ -94,7 +94,10 @@
 
     .right {
       flex-shrink: 0;
-      flex-basis: 50%;
+
+      @media (min-width: $screen-lg) {
+        flex-basis: 50%;
+      }
 
       .list {
         margin-top: 24px;

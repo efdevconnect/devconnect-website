@@ -41,8 +41,9 @@
 
   .content {
     position: relative;
-    flex-grow: 1;
-    display: flex;
+    // flex-grow: 1;
+    // display: flex;
+    // width: 100%;
 
     .background-title {
       font-family: 'Oswald', sans-serif;
@@ -87,8 +88,9 @@
       position: absolute;
       right: 0px;
       bottom: 32px;
-      width: 50%;
+      width: 52%;
       height: 100%;
+      grid-column: 2 / 4;
 
       @media (max-width: $screen-md) {
         bottom: 0px;

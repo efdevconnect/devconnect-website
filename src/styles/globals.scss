@@ -20,56 +20,30 @@ $side-gap: 64px;
 $max-content-width: $content-width + ($side-gap * 2);
 
 .section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  // justify-content: center;
-
-  > * {
-    max-width: $max-content-width;
-    width: 100%;
-  }
-}
-
-.clear {
-  padding: 0px 64px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(64px, 1fr) minmax(auto, 1680px) minmax(64px, 1fr);
 
   @media (max-width: $screen-md) {
-    padding: 0px 16px;
+    grid-template-columns: minmax(16px, 1fr) minmax(auto, 1680px) minmax(16px, 1fr);
   }
 
-  &-vertical {
-    padding: 32px 64px;
-
-    @media (max-width: $screen-md) {
-      padding: 24px 16px;
-    }
+  > * {
+    grid-column: 2 / 3;
   }
 
-  &-left {
-    padding-left: 64px;
-
-    @media (max-width: $screen-md) {
-      padding-left: 16px;
-    }
+  > .expand {
+    grid-column: 1 / 4;
   }
 }
 
-// .section {
-//   padding: 0px 64px;
+.clear-vertical {
+  padding: 32px 0px;
 
-//   @media (max-width: $screen-sm) {
-//     padding: 0px 16px;
-//   }
-
-//   &-clear-vertical {
-//     padding: 32px 64px;
-
-//     @media (max-width: $screen-sm) {
-//       padding: 24px 16px;
-//     }
-//   }
-// }
+  @media (max-width: $screen-md) {
+    padding: 24px 0px;
+  }
+}
 
 .dark-grey {
   color: $color-dark-grey;

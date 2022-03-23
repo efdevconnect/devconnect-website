@@ -373,24 +373,26 @@ const Home: NextPage = (props: any) => {
             </div>
 
             <div className="section">
-              <div className={`${css['info']} clear`}>
-                <div
-                  className={css['date-container']}
-                  onMouseEnter={() => setDateHovered(true)}
-                  onMouseLeave={() => setDateHovered(false)}
-                >
-                  <p className={`${css['date']} subheader`}>April 18-25, 2022</p>
-                  {dateHovered && <Image src={FingersCrossed} alt="Fingers crossed" />}
+              <div className={css['info-container']}>
+                <div className={`${css['info']}`}>
+                  <div
+                    className={css['date-container']}
+                    onMouseEnter={() => setDateHovered(true)}
+                    onMouseLeave={() => setDateHovered(false)}
+                  >
+                    <p className={`${css['date']} subheader`}>April 18-25, 2022</p>
+                    {dateHovered && <Image src={FingersCrossed} alt="Fingers crossed" />}
+                  </div>
+
+                  <p className={`${css['place']} subheader`}>Amsterdam, Netherlands</p>
+
+                  <p className={css['description']}>
+                    <span>
+                      A <b className={css['red-underline']}>collaborative</b>
+                    </span>{' '}
+                    <b>Ethereum</b> <span>week, built by and for</span> <b>everyone.</b>
+                  </p>
                 </div>
-
-                <p className={`${css['place']} subheader`}>Amsterdam, Netherlands</p>
-
-                <p className={css['description']}>
-                  <span>
-                    A <b className={css['red-underline']}>collaborative</b>
-                  </span>{' '}
-                  <b>Ethereum</b> <span>week, built by and for</span> <b>everyone.</b>
-                </p>
               </div>
             </div>
 

@@ -125,11 +125,12 @@ const Mobile = () => {
 
       {createPortal(
         <div className={`${open ? css['open'] : ''} ${css['foldout']}`}>
-          <div className={`${css['foldout-toggle']} clear`}>
-            {/* <p className="uppercase bold underline">Devconnect</p> */}
-            <DevconnectAmsterdam width="100px" height="50px" />
-            <div className={css['icon']} onClick={() => setOpen(false)}>
-              <IconCross />
+          <div className="section">
+            <div className={`${css['foldout-toggle']}`}>
+              <DevconnectAmsterdam width="100px" height="50px" />
+              <div className={css['icon']} onClick={() => setOpen(false)}>
+                <IconCross />
+              </div>
             </div>
           </div>
 
