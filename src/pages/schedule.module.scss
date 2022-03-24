@@ -251,6 +251,10 @@
         background: var(--difficulty-color);
         color: white;
         pointer-events: all;
+
+        .attend-details {
+          color: white;
+        }
       }
     }
   }
@@ -330,6 +334,14 @@
   color: white;
   background: var(--difficulty-color);
   display: none;
+
+  p {
+    letter-spacing: 0.08em;
+  }
+
+  .attend-details {
+    color: black;
+  }
 
   // Desktop + cursor devices (not touch)
   @media (min-width: $screen-lg) and (hover: hover) {

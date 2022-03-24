@@ -528,12 +528,9 @@ const LearnMore = (props: { open: boolean; close: () => void; event: any }) => {
 
   return (
     <>
-      <div
-        className={`${className} tiny-text-em bold`}
-        // style={{ display: 'flex', justifyContent: 'space-between', fontWeight: '' }}
-      >
-        {props.event['Attend'] && <p style={{ color: 'black' }}>{props.event['Attend']}</p>}
+      <div className={`${className} tiny-text-em bold`} style={{ display: 'flex', justifyContent: 'space-between' }}>
         <p>Learn More →</p>
+        {props.event['Attend'] && <p className={css['attend-details']}>{props.event['Attend']}</p>}
       </div>
 
       <Modal open={props.open} close={props.close} className={css['learn-more-modal']}>
