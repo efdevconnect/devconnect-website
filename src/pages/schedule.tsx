@@ -18,6 +18,7 @@ import ScheduleBackground from 'assets/images/schedule-bg.svg'
 import Dropdown from 'common/components/dropdown'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import Alert from 'common/components/alert'
+import { useRouter } from 'next/dist/client/router'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -275,6 +276,8 @@ const Timeline = (props: any) => {
                 {event.Name}
               </p>
 
+              {/* {event['Attend'] && <p>{event['Attend']}</p>} */}
+
               {event['Time of Day'] && (
                 <div className={css['when']}>
                   {Array.from(Array(totalDays)).map((_, index: number) => {
@@ -525,7 +528,13 @@ const LearnMore = (props: { open: boolean; close: () => void; event: any }) => {
 
   return (
     <>
-      <div className={`${className} tiny-text-em bold`}>Learn More →</div>
+      <div
+        className={`${className} tiny-text-em bold`}
+        // style={{ display: 'flex', justifyContent: 'space-between', fontWeight: '' }}
+      >
+        {props.event['Attend'] && <p style={{ color: 'black' }}>{props.event['Attend']}</p>}
+        <p>Learn More →</p>
+      </div>
 
       <Modal open={props.open} close={props.close} className={css['learn-more-modal']}>
         <div className={css['learn-more-modal-content']}>
@@ -891,8 +900,30 @@ const Expand = (props: any) => {
   )
 }
 
-const Schedule: NextPage = (props: any) => {
-  const [scheduleView, setScheduleView] = React.useState('calendar')
+const scheduleViewHOC = (Component: any) => {
+  const ComponentWithScheduleView = (props: any) => {
+    const [scheduleView, setScheduleView] = React.useState('timeline')
+
+    const router = useRouter()
+
+    useEffect(() => {
+      const hash = window.location.hash
+
+      if (hash && hash === '#list') {
+        setScheduleView('list')
+        router.replace(router.pathname)
+      }
+    }, [])
+
+    return <Component {...props} scheduleView={scheduleView} setScheduleView={setScheduleView} />
+  }
+
+  return ComponentWithScheduleView
+}
+
+const Schedule: NextPage = scheduleViewHOC((props: any) => {
+  const { scheduleView, setScheduleView } = props
+  // const [scheduleView, setScheduleView] = React.useState('timeline')
   const { events, ...filterAttributes } = useFilter(props.events)
   const scheduleHelpers = useScheduleData(events)
   const accordionRefs = React.useRef({} as { [key: string]: any })
@@ -923,8 +954,8 @@ const Schedule: NextPage = (props: any) => {
                   <p className={`${css['text']} small-text`}>List</p>
                 </button>
                 <button
-                  className={`${scheduleView === 'calendar' && css['selected']} ${css['switch']}`}
-                  onClick={() => setScheduleView('calendar')}
+                  className={`${scheduleView === 'timeline' && css['selected']} ${css['switch']}`}
+                  onClick={() => setScheduleView('timeline')}
                 >
                   <CalendarIcon />
                   <p className={`${css['text']} small-text`}>Timeline</p>
@@ -946,7 +977,7 @@ const Schedule: NextPage = (props: any) => {
             <Filter events={events} {...filterAttributes} />
             <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
 
-            {scheduleView === 'calendar' && <p className={`small-text uppercase ${css['swipe']}`}>Drag for more →</p>}
+            {scheduleView === 'timeline' && <p className={`small-text uppercase ${css['swipe']}`}>Drag for more →</p>}
           </div>
 
           {events.length === 0 ? (
@@ -963,7 +994,7 @@ const Schedule: NextPage = (props: any) => {
               </div> */}
 
               {scheduleView === 'list' && <List {...scheduleHelpers} accordionRefs={accordionRefs} />}
-              {scheduleView === 'calendar' && <Timeline {...scheduleHelpers} />}
+              {scheduleView === 'timeline' && <Timeline {...scheduleHelpers} />}
             </>
           )}
         </div>
@@ -971,7 +1002,7 @@ const Schedule: NextPage = (props: any) => {
       <Footer />
     </>
   )
-}
+})
 
 export default Schedule
 

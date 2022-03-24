@@ -617,7 +617,7 @@ const CityGuide: NextPage = () => {
                     className={`button sm orange-fill`}
                   >
                     {/* <PinIcon className={`${css['pin']} icon`} /> */}
-                    Find venues
+                    Venues Map
                   </Link>
 
                   <Link
