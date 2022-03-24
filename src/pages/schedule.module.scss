@@ -339,10 +339,6 @@
     letter-spacing: 0.08em;
   }
 
-  .attend-details {
-    color: black;
-  }
-
   // Desktop + cursor devices (not touch)
   @media (min-width: $screen-lg) and (hover: hover) {
     background: var(--difficulty-color-bg);
@@ -352,6 +348,10 @@
     right: 0px;
     bottom: 0%;
     pointer-events: none;
+
+    .attend-details {
+      color: black;
+    }
   }
 }
 
