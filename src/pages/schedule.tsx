@@ -6,6 +6,7 @@ import { Footer } from './index'
 import moment from 'moment'
 import ListIcon from 'assets/icons/list.svg'
 import CalendarIcon from 'assets/icons/calendar.svg'
+import PeopleIcon from 'assets/icons/people.svg'
 import ChevronDown from 'assets/icons/chevron-down.svg'
 import ChevronUp from 'assets/icons/chevron-up.svg'
 import AddToCalendarIcon from 'assets/icons/add-to-calendar.svg'
@@ -276,8 +277,6 @@ const Timeline = (props: any) => {
                 {event.Name}
               </p>
 
-              {/* {event['Attend'] && <p>{event['Attend']}</p>} */}
-
               {event['Time of Day'] && (
                 <div className={css['when']}>
                   {Array.from(Array(totalDays)).map((_, index: number) => {
@@ -355,16 +354,26 @@ const Timeline = (props: any) => {
 const EventMeta = (props: any) => {
   return (
     <div className={css['meta']}>
-      {props.event.Category &&
-        props.event.Category.length > 0 &&
-        props.event.Category.map((category: any) => {
-          return (
-            <div key={category} className={`tag tiny-text-em`}>
-              {category}
-            </div>
-          )
-        })}
-      {props.event['Difficulty'] && <div className={`tiny-text-em ${css['difficulty']}`}>{props.event.Difficulty}</div>}
+      {props.event['General Size'] && props.event['General Size'].length > 0 && (
+        <div className={`small-text-em`} style={{ display: 'flex', alignItems: 'center' }}>
+          <PeopleIcon className={`large-text-em icon`} />
+          &nbsp;{props.event['General Size']}
+        </div>
+      )}
+      {props.event['Difficulty'] && (
+        <div className={`small-text-em ${css['difficulty']}`}>{props.event.Difficulty}</div>
+      )}
+      <div className={css['categories']}>
+        {props.event.Category &&
+          props.event.Category.length > 0 &&
+          props.event.Category.map((category: any) => {
+            return (
+              <div key={category} className={`tag tiny-text-em`}>
+                {category}
+              </div>
+            )
+          })}
+      </div>
     </div>
   )
 }

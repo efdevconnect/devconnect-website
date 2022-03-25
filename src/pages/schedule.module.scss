@@ -388,12 +388,28 @@
   align-items: center;
   flex-wrap: wrap;
   text-transform: uppercase;
-  margin-top: -4px;
+
   font-weight: bold;
   position: relative;
 
+  .categories {
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    // margin-top: 4px;
+    transform: translateX(-4px);
+
+    > * {
+      margin-top: 4px;
+    }
+  }
+
   > * {
-    margin-top: 4px;
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0px;
+    }
   }
 }
 
@@ -650,7 +666,7 @@
 
     @media (min-width: $screen-lg) {
       font-size: 12px;
-      --padding: 12px;
+      --padding: 12px 12px 8px 12px;
     }
 
     .content {
@@ -739,7 +755,7 @@
           }
 
           .organizers {
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             color: $monochrome-9;
           }
         }
