@@ -36,7 +36,10 @@ const waves = [
     status: 'sold out',
   },
   {
-    status: 'on sale now',
+    status: 'sold out',
+  },
+  {
+    status: 'April 4th',
   },
 ]
 
@@ -186,7 +189,7 @@ const Cowork: NextPage = (props: any) => {
                     <br />
 
                     <div className={css['current-wave']}>
-                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 5 of 5</p>
+                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 5 of 6</p>
                     </div>
 
                     <div className={`${css['waves-info']}`}>
@@ -237,12 +240,13 @@ const Cowork: NextPage = (props: any) => {
 
                     <p>
                       Tickets to the Co-work Space will be sold in waves every Tuesday, on{' '}
-                      <b>February 24, March 8, March 15, March 22, and March 29</b>, at 16:00 UTC. We will announce
-                      on&nbsp;
+                      <b>February 24, March 8, March 15, March 22, March 29 and April 4th</b>, at 16:00 UTC. We will
+                      announce on&nbsp;
                       <Link indicateExternal href="https://twitter.com/efdevconnect">
                         twitter
                       </Link>
-                      &nbsp;when each wave has sold out. <b>The last ticket wave will be March 29th.</b>
+                      &nbsp;when each wave has sold out.{' '}
+                      <b>Due to high demand we have added a final 6th wave on April at 16:00 UTC.</b>
                     </p>
 
                     <p>
