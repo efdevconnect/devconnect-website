@@ -239,8 +239,8 @@ const Cowork: NextPage = (props: any) => {
                     </div>
 
                     <p>
-                      Tickets to the Co-work Space will be sold in waves every Tuesday, on{' '}
-                      <b>February 24, March 8, March 15, March 22, and March 29th</b>, at 16:00 UTC. We will announce
+                      Tickets to the Co-work Space will be €1, and will be sold in waves every Tuesday, on{' '}
+                      <b>February 24, March 8, March 15, March 22, and March 29</b>, at 16:00 UTC. We will announce
                       on&nbsp;
                       <Link indicateExternal href="https://twitter.com/efdevconnect">
                         twitter
