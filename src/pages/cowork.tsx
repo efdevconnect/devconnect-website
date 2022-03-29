@@ -44,7 +44,7 @@ const waves = [
 ]
 
 const Cowork: NextPage = (props: any) => {
-  const [soldOut, setSoldout] = React.useState(false)
+  const [soldOut, setSoldout] = React.useState(true)
 
   return (
     <>
