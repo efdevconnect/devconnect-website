@@ -239,7 +239,7 @@ const Cowork: NextPage = (props: any) => {
                     </div>
 
                     <p>
-                      Tickets to the Co-work Space will be €1, and will be sold in waves every Tuesday, on{' '}
+                      Tickets to the Co-work Space will be sold in waves every Tuesday, on{' '}
                       <b>February 24, March 8, March 15, March 22, and March 29</b>, at 16:00 UTC. We will announce
                       on&nbsp;
                       <Link indicateExternal href="https://twitter.com/efdevconnect">
@@ -250,8 +250,9 @@ const Cowork: NextPage = (props: any) => {
                     </p>
 
                     <p>
-                      We will accept fiat payments via Stripe and ETH &amp; DAI payments via two L2s: Optimism and
-                      Arbitrum. To keep costs low for everyone, we will only be accepting payments on L2s.{' '}
+                      Tickets to the Co-work Space will be €1. We will accept fiat payments via Stripe and ETH &amp; DAI
+                      payments via two L2s: Optimism and Arbitrum. To keep costs low for everyone, we will only be
+                      accepting payments on L2s.{' '}
                     </p>
 
                     {!soldOut && (
