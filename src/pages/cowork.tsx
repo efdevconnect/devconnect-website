@@ -39,7 +39,7 @@ const waves = [
     status: 'sold out',
   },
   {
-    status: 'April 4th',
+    status: 'April 5th',
   },
 ]
 
@@ -246,7 +246,7 @@ const Cowork: NextPage = (props: any) => {
                         twitter
                       </Link>
                       &nbsp;when each wave has sold out.{' '}
-                      <b>Due to high demand we have added a final 6th wave on April 4th at 16:00 UTC.</b>
+                      <b>Due to high demand we have added a final 6th wave on April 5th at 16:00 UTC.</b>
                     </p>
 
                     <p>
