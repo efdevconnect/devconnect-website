@@ -44,6 +44,12 @@ const waves = [
   {
     status: 'April 5th 23:00 UTC',
   },
+  {
+    status: 'April 12th 16:00 UTC',
+  },
+  {
+    status: 'April 12th 23:00 UTC',
+  },
   // {
   //   status: 'April 5th',
   // },
@@ -195,7 +201,7 @@ const Cowork: NextPage = (props: any) => {
                     <br />
 
                     <div className={css['current-wave']}>
-                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 6 of 7</p>
+                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 6 of 9</p>
                     </div>
 
                     <div className={`${css['waves-info']}`}>
@@ -252,7 +258,10 @@ const Cowork: NextPage = (props: any) => {
                         twitter
                       </Link>
                       &nbsp;when each wave has sold out.{' '}
-                      <b>Due to high demand we have added a final 7th wave on April 5th at 23:00 UTC.</b>
+                      <b>
+                        Due to high demand we have added a final series of waves on April 5th at 23:00 UTC, April 12th
+                        at 16:00 UTC and April 12th at 23:00 UTC
+                      </b>
                     </p>
 
                     <p>
