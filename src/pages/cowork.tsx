@@ -42,7 +42,7 @@ const waves = [
     status: 'sold out',
   },
   {
-    status: 'April 5th 23:00 UTC',
+    status: 'on sale now',
   },
   {
     status: 'April 12th 16:00 UTC',
@@ -50,13 +50,10 @@ const waves = [
   {
     status: 'April 12th 23:00 UTC',
   },
-  // {
-  //   status: 'April 5th',
-  // },
 ]
 
 const Cowork: NextPage = (props: any) => {
-  const [soldOut, setSoldout] = React.useState(true)
+  const [soldOut, setSoldout] = React.useState(false)
 
   return (
     <>
@@ -201,7 +198,7 @@ const Cowork: NextPage = (props: any) => {
                     <br />
 
                     <div className={css['current-wave']}>
-                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 6 of 9</p>
+                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 7 of 9</p>
                     </div>
 
                     <div className={`${css['waves-info']}`}>
