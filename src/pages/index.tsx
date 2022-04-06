@@ -34,13 +34,13 @@ const FAQ = [
           team, and we will be implementing whatever COVID requirements are mandated by the government of The
           Netherlands at the start of the event.
           <br /> <br />
-          Though we expect the requirements to change again before Devconnect,&nbsp;
-          <b>
-            Amsterdam has steadily reduced their COVID requirements, to the point that as of Feb 25th, everything is
-            open like normal, no mask requirements except public transport, and for anything under a 500pp event
-            vaccine/test/proof-of-recovery is not needed.
-          </b>
-          &nbsp;These policies will be revisited again March 15th. Stay tuned
+          Please continue to monitor the requirements prior to your travel and arrival in Amsterdam for Devconnect. The
+          Government of Netherlands continues to update their policies. New policies have come into effect as of 23
+          March 2022. Visit the{' '}
+          <Link href="https://www.government.nl/topics/coronavirus-covid-19" indicateExternal>
+            official website
+          </Link>{' '}
+          to learn more.
         </p>
       )
     },
