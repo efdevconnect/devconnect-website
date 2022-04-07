@@ -297,24 +297,18 @@ export const Footer = ({ inFoldoutMenu }: FooterProps) => {
 
             <div className={css['bottom']}>
               <div className={css['crafted-by']}>
-                <p className="small-text">Crafted and curated with passion ♥ ✨ at the Ethereum Foundation.</p>
+                <p className="tiny-text">Crafted and curated with passion ♥ ✨ at the Ethereum Foundation.</p>
                 <p className={`${css['copyright']} tiny-text`}>
                   © {new Date().getFullYear()} — Ethereum Foundation. All Rights Reserved.
                 </p>
               </div>
 
               <div className={css['links']}>
-                <a className="small-text" target="_blank" rel="noreferrer" href="https://devcon.org">
-                  Devcon
-                </a>
-                <a className="small-text" target="_blank" rel="noreferrer" href="mailto:support@devcon.org">
-                  Contact Us
-                </a>
-                <a className="small-text" target="_blank" rel="noreferrer" href="https://ethereum.foundation">
-                  Ethereum Foundation
-                </a>
+                <Link href="https://devcon.org">Devcon</Link>
+                <Link href="mailto:support@devcon.org">Contact Us</Link>
+                <Link href="https://ethereum.foundation">Ethereum Foundation</Link>
+
                 <a
-                  className="small-text"
                   role="button"
                   tabIndex={0}
                   onKeyDown={e => {
@@ -330,6 +324,10 @@ export const Footer = ({ inFoldoutMenu }: FooterProps) => {
                 >
                   Code of Conduct
                 </a>
+
+                <Link href="https://ethereum.org/en/privacy-policy/">Privacy policy</Link>
+                <Link href="https://ethereum.org/en/terms-of-use/">Terms of use</Link>
+                <Link href="https://ethereum.org/en/cookie-policy/">Cookie policy</Link>
               </div>
             </div>
           </div>

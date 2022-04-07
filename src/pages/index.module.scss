@@ -566,6 +566,7 @@
         @media (max-width: $screen-lg) {
           order: 1;
         }
+        @include tiny-text;
 
         display: flex;
         flex-wrap: wrap;
