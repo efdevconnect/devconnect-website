@@ -426,7 +426,8 @@ const EventLinks = (props: any) => {
   const enableAddToCalendar = description !== null
 
   const googleCalUrl = (() => {
-    const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE`)
+    const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE&ctz=Europe/Amsterdam`)
+    // const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE`)
 
     googleCalUrl.searchParams.append('text', `${event.Name}`)
     googleCalUrl.searchParams.append('details', `${description}`)
