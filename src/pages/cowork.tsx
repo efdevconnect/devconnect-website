@@ -45,7 +45,7 @@ const waves = [
     status: 'sold out',
   },
   {
-    status: 'on sale now',
+    status: 'sold out',
   },
   {
     status: 'April 12th 23:00 UTC',
