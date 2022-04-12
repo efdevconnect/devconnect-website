@@ -45,7 +45,7 @@ const waves = [
     status: 'sold out',
   },
   {
-    status: 'April 12th 16:00 UTC',
+    status: 'on sale now',
   },
   {
     status: 'April 12th 23:00 UTC',
@@ -198,7 +198,7 @@ const Cowork: NextPage = (props: any) => {
                     <br />
 
                     <div className={css['current-wave']}>
-                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 7 of 9</p>
+                      <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 8 of 9</p>
                     </div>
 
                     <div className={`${css['waves-info']}`}>

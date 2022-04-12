@@ -46,6 +46,29 @@ const FAQ = [
     },
   },
   {
+    text: 'Where can I get COVID tests in Amsterdam?',
+    value: 'covid testing',
+    content: () => {
+      return (
+        <p>
+          There are plenty of spots around the city of Amsterdam to get a COVID-19 test.
+          <br /> <br />
+          Testing is performed by the{' '}
+          <Link href="https://www.ggd.amsterdam.nl/english/coronavirus/testing-amsterdam/" indicateExternal>
+            GGD (Netherlands Municipal Health Service)
+          </Link>{' '}
+          with &amp; without appointments.
+          <br /> <br />
+          Appointments can be made{' '}
+          <Link href="https://coronatest.nl/" indicateExternal>
+            here
+          </Link>{' '}
+          (best to visit the site from a Netherlands IP address).
+        </p>
+      )
+    },
+  },
+  {
     text: 'How do I sponsor?',
     value: 'tickets refundable',
     content: () => {
