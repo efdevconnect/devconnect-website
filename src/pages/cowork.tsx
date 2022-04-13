@@ -48,12 +48,12 @@ const waves = [
     status: 'sold out',
   },
   {
-    status: 'on sale now',
+    status: 'sold out',
   },
 ]
 
 const Cowork: NextPage = (props: any) => {
-  const [soldOut, setSoldout] = React.useState(!waves.some(wave => wave.status === 'on sale now'))
+  // const [soldOut, setSoldout] = React.useState(!waves.some(wave => wave.status === 'on sale now'))
 
   return (
     <>
@@ -248,7 +248,9 @@ const Cowork: NextPage = (props: any) => {
                     </div>
 
                     <p>
-                      Tickets to the Co-work Space will be sold in waves every Tuesday, on{' '}
+                      Tickets are fully sold out, but you can sign up for the waitlist for a chance to get a ticket
+                      should the venue not be fully utilized over the week.
+                      {/* Tickets to the Co-work Space will be sold in waves every Tuesday, on{' '}
                       <b>February 24, March 8, March 15, March 22, and March 29</b>, at 16:00 UTC. We will announce
                       on&nbsp;
                       <Link indicateExternal href="https://twitter.com/efdevconnect">
@@ -258,7 +260,7 @@ const Cowork: NextPage = (props: any) => {
                       <b>
                         Due to high demand we have added a final series of waves on April 5th at 23:00 UTC, April 12th
                         at 16:00 UTC and April 12th at 23:00 UTC
-                      </b>
+                      </b> */}
                     </p>
 
                     <p>
@@ -267,18 +269,27 @@ const Cowork: NextPage = (props: any) => {
                       accepting payments on L2s.{' '}
                     </p>
 
-                    {!soldOut && (
+                    <Link
+                      indicateExternal
+                      href="https://ticketh.xyz/devconnect/cowork/"
+                      className="button sm orange-fill"
+                    >
+                      Sign up for waitlist
+                    </Link>
+                    <br />
+
+                    {/* {!soldOut && (
                       <>
                         <Link
                           indicateExternal
                           href="https://ticketh.xyz/devconnect/cowork/"
                           className="button sm orange-fill"
                         >
-                          Get your tickets now!
+                          Sign up for waitlist
                         </Link>
                         <br />
                       </>
-                    )}
+                    )} */}
 
                     <div className="divider"></div>
 
