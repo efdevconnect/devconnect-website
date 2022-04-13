@@ -83,6 +83,11 @@ const Cowork: NextPage = (props: any) => {
               <br />
               every day 09:00 AM - 11:00 PM
             </p>
+            <br />
+            <AnchorLink href="#first-come-first-serve" offset="32" className="hover-underline">
+              <i className="bold">Space is limited:</i> <br />
+              <i>First-come first-serve, even with a ticket</i>
+            </AnchorLink>
           </div>
 
           <div className={css['call-to-action']}>
@@ -293,7 +298,9 @@ const Cowork: NextPage = (props: any) => {
 
                     <div className="divider"></div>
 
-                    <p className={`header small-text bold`}>First Come First Serve</p>
+                    <p className={`header small-text bold`} id="first-come-first-serve">
+                      First Come First Serve
+                    </p>
                     <p>
                       The Co-work Space will be open from: <b>April 18-25th, 2022 09:00 - 23:00.</b>
                     </p>
