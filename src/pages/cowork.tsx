@@ -191,21 +191,16 @@ const Cowork: NextPage = (props: any) => {
                       our&nbsp;
                       <Link href="/schedule">schedule</Link> and find the event you are interested in attending.
                     </p>
-
                     <div className="divider"></div>
-
                     <div className={css['current-wave']}>
                       <p className={`header small-text bold no-clearance`} id="waves">
                         Ticketing Waves
                       </p>
                     </div>
-
                     <br />
-
                     <div className={css['current-wave']}>
                       <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 9 of 9</p>
                     </div>
-
                     <div className={`${css['waves-info']}`}>
                       <div className={css['waves']}>
                         {waves.map(({ status }, index) => {
@@ -251,7 +246,6 @@ const Cowork: NextPage = (props: any) => {
                         })}
                       </div>
                     </div>
-
                     <p>
                       Tickets are fully sold out, but you can sign up for the waitlist for a chance to get a ticket
                       should the venue not be fully utilized over the week.
@@ -267,13 +261,25 @@ const Cowork: NextPage = (props: any) => {
                         at 16:00 UTC and April 12th at 23:00 UTC
                       </b> */}
                     </p>
-
                     <p>
                       Tickets to the Co-work Space will be €1. We will accept fiat payments via Stripe and ETH &amp; DAI
                       payments via two L2s: Optimism and Arbitrum. To keep costs low for everyone, we will only be
                       accepting payments on L2s.{' '}
                     </p>
 
+                    {/* <div style={{ position: 'relative' }}>
+                      <div className={css['sold-out']}>
+                        <Link
+                          indicateExternal
+                          href="https://ticketh.xyz/devconnect/cowork/"
+                          className="button sm blue-fill"
+                        >
+                          Sign up for waitlist
+                        </Link>
+
+                        <Image src={SoldOut} alt="Sold out sticker" />
+                      </div>
+                    </div> */}
                     <Link
                       indicateExternal
                       href="https://ticketh.xyz/devconnect/cowork/"
@@ -282,7 +288,6 @@ const Cowork: NextPage = (props: any) => {
                       Sign up for waitlist
                     </Link>
                     <br />
-
                     {/* {!soldOut && (
                       <>
                         <Link
@@ -295,9 +300,7 @@ const Cowork: NextPage = (props: any) => {
                         <br />
                       </>
                     )} */}
-
                     <div className="divider"></div>
-
                     <p className={`header small-text bold`} id="first-come-first-serve">
                       First Come First Serve
                     </p>
@@ -322,7 +325,6 @@ const Cowork: NextPage = (props: any) => {
                       From April 22-24th, ETHGlobal will be hosting a Hackathon within the Beurs van Berlage venue, and
                       therefore we will have more limited capacity on these days.
                     </p>
-
                     <p className={`header small-text bold`}>Covid-19 Policy</p>
                     <p>
                       COVID-19 regulations are constantly changing around the world. We will be following the COVID-19
@@ -334,7 +336,6 @@ const Cowork: NextPage = (props: any) => {
                         Vaccination, if they are required to enter the venue at the time of the event.
                       </b>
                     </p>
-
                     <p className={`header small-text bold`}>Registration</p>
                     <p>
                       If you purchase a ticket, a QR-code will be emailed to you 3 days before the event, and you may

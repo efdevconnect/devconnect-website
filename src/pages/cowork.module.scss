@@ -176,11 +176,17 @@
 
     padding-top: 1em;
     margin-top: 1em;
+  }
+
+  .ticketing {
+    .accordion {
+      margin-top: 0px;
+    }
 
     .sold-out {
-      position: absolute;
-      bottom: 0px;
-      right: 0px;
+      // position: absolute;
+      // bottom: 0px;
+      // right: 0px;
 
       > * {
         &:not(a) {
@@ -192,12 +198,6 @@
           bottom: 0px;
         }
       }
-    }
-  }
-
-  .ticketing {
-    .accordion {
-      margin-top: 0px;
     }
   }
 

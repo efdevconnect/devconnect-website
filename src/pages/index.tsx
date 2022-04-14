@@ -64,6 +64,9 @@ const FAQ = [
             here
           </Link>{' '}
           (best to visit the site from a Netherlands IP address).
+          <br /> <br />
+          Please get tested if you feel ill or have cold or flu-like symptoms. We are grateful for the lifting of many
+          COVID restrictions in the Netherlands, but we still want to keep everyone healthy &amp; safe.
         </p>
       )
     },
