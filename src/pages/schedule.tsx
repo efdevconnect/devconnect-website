@@ -20,6 +20,8 @@ import Dropdown from 'common/components/dropdown'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import Alert from 'common/components/alert'
 import { useRouter } from 'next/dist/client/router'
+// @ts-ignore
+import Toggle from 'react-toggle'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -253,7 +255,7 @@ const Timeline = (props: any) => {
 
     return (
       <div
-        key={event.Name}
+        key={event.Name + offsetFromFirstDay}
         className={`${css['event']} ${css[event['Stable ID']]} ${css[event['Difficulty']]}`}
         style={gridPlacement}
         {...draggableAttributes}
@@ -937,7 +939,15 @@ const scheduleViewHOC = (Component: any) => {
 const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const { scheduleView, setScheduleView } = props
   // const [scheduleView, setScheduleView] = React.useState('timeline')
-  const { events, ...filterAttributes } = useFilter(props.events)
+  let { events, ...filterAttributes } = useFilter(props.events)
+  const [hideSoldOut, setHideSoldOut] = React.useState(false)
+
+  if (hideSoldOut) {
+    events = events.filter((event: any) => {
+      return event['Attend'] !== 'Sold out'
+    })
+  }
+
   const scheduleHelpers = useScheduleData(events)
   const accordionRefs = React.useRef({} as { [key: string]: any })
 
@@ -992,6 +1002,11 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
 
             {scheduleView === 'timeline' && <p className={`small-text uppercase ${css['swipe']}`}>Drag for more →</p>}
           </div>
+
+          <label className={css['hide-sold-out']}>
+            <Toggle defaultChecked={hideSoldOut} icons={false} onChange={() => setHideSoldOut(!hideSoldOut)} />
+            <span>Hide sold out events</span>
+          </label>
 
           {events.length === 0 ? (
             <div className={css['no-results']}>

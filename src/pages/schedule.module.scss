@@ -859,3 +859,13 @@
     }
   }
 }
+
+.hide-sold-out {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+
+  span {
+    margin-left: 0.5em;
+  }
+}
