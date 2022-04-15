@@ -502,6 +502,12 @@ const EventLinks = (props: any) => {
         </Link>
       )}
 
+      {event['Stream URL'] && (
+        <Link href={event['Stream URL']} indicateExternal>
+          Stream
+        </Link>
+      )}
+
       {enableAddToCalendar && (
         <>
           <div className={css['add-to-calendar']}>
@@ -1035,7 +1041,7 @@ const notionDatabasePropertyResolver = (property: any, key: any) => {
 
       const dechunked = property[property.type]
         ? property[property.type].reduce((acc: string, chunk: any) => {
-            if (chunk.href && property.type === 'rich_text' && key !== 'URL') {
+            if (chunk.href && property.type === 'rich_text' && key !== 'URL' && key !== 'Stream URL') {
               acc += `<a href=${chunk.href} target="_blank" class="generic" rel="noopener noreferrer">${chunk.plain_text}</a>`
             } else {
               acc += chunk.plain_text
