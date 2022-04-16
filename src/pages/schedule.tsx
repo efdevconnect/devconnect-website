@@ -944,7 +944,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
 
   if (hideSoldOut) {
     events = events.filter((event: any) => {
-      return event['Attend'] !== 'Sold out'
+      return !['sold out', 'applications closed'].includes(event['Attend'] && event['Attend'].toLowerCase())
     })
   }
 
