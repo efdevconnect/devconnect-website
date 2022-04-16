@@ -256,8 +256,18 @@ const Cowork: NextPage = (props: any) => {
                       </div>
                     </div>
                     <p>
-                      Tickets are fully sold out, but you can sign up for the waitlist for a chance to get a ticket
-                      should the venue not be fully utilized over the week.
+                      <b>
+                        Tickets are fully sold out, but you can sign up for the waitlist for a chance to get a ticket
+                        should the venue not be fully utilized over the week.
+                      </b>{' '}
+                      For those of you without tickets, here&apos;s list of discounted{' '}
+                      <Link
+                        href="https://ef-events.notion.site/Co-working-spaces-for-Devconnect-attendees-3028a648d3714d1587be6f70b8d04ff5"
+                        indicateExternal
+                      >
+                        alternative co-working spaces
+                      </Link>
+                      .
                       {/* Tickets to the Co-work Space will be sold in waves every Tuesday, on{' '}
                       <b>February 24, March 8, March 15, March 22, and March 29</b>, at 16:00 UTC. We will announce
                       on&nbsp;
@@ -270,12 +280,20 @@ const Cowork: NextPage = (props: any) => {
                         at 16:00 UTC and April 12th at 23:00 UTC
                       </b> */}
                     </p>
+
                     <p>
                       Tickets to the Co-work Space will be €1. We will accept fiat payments via Stripe and ETH &amp; DAI
                       payments via two L2s: Optimism and Arbitrum. To keep costs low for everyone, we will only be
                       accepting payments on L2s.{' '}
                     </p>
 
+                    <Link
+                      indicateExternal
+                      href="https://ticketh.xyz/devconnect/cowork/"
+                      className="button sm orange-fill"
+                    >
+                      Sign up for waitlist
+                    </Link>
                     {/* <div style={{ position: 'relative' }}>
                       <div className={css['sold-out']}>
                         <Link
@@ -289,14 +307,7 @@ const Cowork: NextPage = (props: any) => {
                         <Image src={SoldOut} alt="Sold out sticker" />
                       </div>
                     </div> */}
-                    <Link
-                      indicateExternal
-                      href="https://ticketh.xyz/devconnect/cowork/"
-                      className="button sm orange-fill"
-                    >
-                      Sign up for waitlist
-                    </Link>
-                    <br />
+
                     {/* {!soldOut && (
                       <>
                         <Link

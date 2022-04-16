@@ -116,6 +116,18 @@ const FAQ = [
     },
   },
   {
+    text: 'What if the official Devconnect cowork space is full or I would like to book a private space for my team?',
+    value: 'cowork space',
+    content: () => {
+      return (
+        <p>
+          Don&apos;t fret! There are many co-working spaces around Amsterdam and some of them offer discounts for
+          Devconnect attendees! See here.
+        </p>
+      )
+    },
+  },
+  {
     text: 'Approximately how many people will fit at each event?',
     value: 'tickets refundable',
     content: () => {
