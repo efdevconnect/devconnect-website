@@ -122,7 +122,14 @@ const FAQ = [
       return (
         <p>
           Don&apos;t fret! There are many co-working spaces around Amsterdam and some of them offer discounts for
-          Devconnect attendees! See here.
+          Devconnect attendees!{' '}
+          <Link
+            href="https://ef-events.notion.site/Co-working-spaces-for-Devconnect-attendees-3028a648d3714d1587be6f70b8d04ff5"
+            indicateExternal
+          >
+            See here
+          </Link>
+          .
         </p>
       )
     },

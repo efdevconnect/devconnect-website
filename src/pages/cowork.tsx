@@ -260,7 +260,7 @@ const Cowork: NextPage = (props: any) => {
                         Tickets are fully sold out, but you can sign up for the waitlist for a chance to get a ticket
                         should the venue not be fully utilized over the week.
                       </b>{' '}
-                      For those of you without tickets, here&apos;s list of discounted{' '}
+                      For those of you without tickets, here&apos;s a list of discounted{' '}
                       <Link
                         href="https://ef-events.notion.site/Co-working-spaces-for-Devconnect-attendees-3028a648d3714d1587be6f70b8d04ff5"
                         indicateExternal
