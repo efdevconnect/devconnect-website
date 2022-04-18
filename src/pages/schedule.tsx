@@ -505,7 +505,7 @@ const EventLinks = (props: any) => {
       )}
 
       {event['Stream URL'] && (
-        <Link href={event['Stream URL']} indicateExternal>
+        <Link href={event['Stream URL']} indicateExternal className="button xs orange-fill">
           Stream
         </Link>
       )}

@@ -177,6 +177,12 @@ $max-content-width: $content-width + ($side-gap * 2);
     --icon-color: rgb(209, 209, 209);
   }
 
+  &.xs {
+    height: 32px;
+    font-size: inherit;
+    padding: 0 12px;
+  }
+
   &.sm {
     height: 48px;
     @include medium-text;
