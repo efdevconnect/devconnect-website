@@ -115,6 +115,15 @@
     }
   }
 
+  .door-tally {
+    display: flex;
+    justify-content: center;
+
+    @media (min-width: $screen-md) {
+      justify-content: flex-start;
+    }
+  }
+
   .current-wave {
     display: flex;
     justify-content: space-between;

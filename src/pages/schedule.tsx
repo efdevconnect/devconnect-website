@@ -802,6 +802,7 @@ const useFilter = (events: any) => {
   const keysToFilterOn = ['Category', 'Difficulty', 'Attend']
   const [filters, setFilters] = React.useState({} as { [key: string]: any })
   const filterableValues = {} as { [key: string]: Set<string> }
+  const [hideSoldOut, setHideSoldOut] = React.useState(false)
 
   // Run through events collecting all the possible values to filter on for the specified keys above - looks a bit messy but w/e
   // Could hardcode the filter values too but this is future proof if someone changes the range of possible values for any of the above fields
@@ -824,23 +825,30 @@ const useFilter = (events: any) => {
 
   const activeFilters = Object.keys(filters)
 
-  const filteredEvents =
-    activeFilters.length === 0
-      ? events
-      : events.filter((event: any) => {
-          return activeFilters.every(key => {
-            const activeFilter = filters[key]
+  const filteredEvents = events.filter((event: any) => {
+    if (hideSoldOut && ['sold out', 'applications closed'].includes(event['Attend'] && event['Attend'].toLowerCase())) {
+      return false
+    }
 
-            if (Array.isArray(event[key])) return event[key].includes(activeFilter)
+    if (activeFilters.length > 0) {
+      return activeFilters.every(key => {
+        const activeFilter = filters[key]
 
-            return activeFilter === event[key]
-          })
-        })
+        if (Array.isArray(event[key])) return event[key].includes(activeFilter)
+
+        return activeFilter === event[key]
+      })
+    }
+
+    return true
+  })
 
   return {
     events: filteredEvents,
     keysToFilterOn,
     filterableValues,
+    hideSoldOut,
+    setHideSoldOut,
     filters,
     onChange: (key: string, value: string) => {
       const nextFilter = {
@@ -858,7 +866,7 @@ const useFilter = (events: any) => {
 const Filter = (props: any) => {
   return (
     <div className={`${css['filter']} small-text`}>
-      <p className="bold">Filter:</p>
+      <p className={`${css['filter-text']} bold`}>Filter:</p>
       {props.keysToFilterOn.map((key: string) => {
         const valuesToFilterBy = props.filterableValues[key]
 
@@ -880,6 +888,15 @@ const Filter = (props: any) => {
           </div>
         )
       })}
+
+      <label className={css['hide-sold-out']}>
+        <Toggle
+          defaultChecked={props.hideSoldOut}
+          icons={false}
+          onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
+        />
+        <span>Hide sold out events</span>
+      </label>
     </div>
   )
 }
@@ -938,15 +955,7 @@ const scheduleViewHOC = (Component: any) => {
 
 const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const { scheduleView, setScheduleView } = props
-  // const [scheduleView, setScheduleView] = React.useState('timeline')
-  let { events, ...filterAttributes } = useFilter(props.events)
-  const [hideSoldOut, setHideSoldOut] = React.useState(false)
-
-  if (hideSoldOut) {
-    events = events.filter((event: any) => {
-      return !['sold out', 'applications closed'].includes(event['Attend'] && event['Attend'].toLowerCase())
-    })
-  }
+  const { events, ...filterAttributes } = useFilter(props.events)
 
   const scheduleHelpers = useScheduleData(events)
   const accordionRefs = React.useRef({} as { [key: string]: any })
@@ -1000,13 +1009,10 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
             <Filter events={events} {...filterAttributes} />
             <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
 
-            {scheduleView === 'timeline' && <p className={`small-text uppercase ${css['swipe']}`}>Drag for more →</p>}
+            {scheduleView === 'timeline' && (
+              <p className={`small-text uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
+            )}
           </div>
-
-          <label className={css['hide-sold-out']}>
-            <Toggle defaultChecked={hideSoldOut} icons={false} onChange={() => setHideSoldOut(!hideSoldOut)} />
-            <span>Hide sold out events</span>
-          </label>
 
           {events.length === 0 ? (
             <div className={css['no-results']}>

@@ -99,7 +99,7 @@
     padding: 16px 0px;
 
     > * {
-      margin-top: 16px;
+      padding-top: 16px;
     }
 
     .expand-container {
@@ -114,7 +114,7 @@
       display: none;
       color: $monochrome-7;
 
-      @media (min-width: $screen-md) {
+      @media (min-width: $screen-lg) {
         display: inline-block;
       }
     }
@@ -785,9 +785,20 @@
 .filter {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   flex-direction: row;
+  margin-top: -16px;
+
+  .filter-text {
+    display: none;
+
+    @media (min-width: $screen-sm) {
+      display: inline-block;
+    }
+  }
 
   > * {
+    margin-top: 16px;
     margin-right: 8px;
   }
 
@@ -863,7 +874,6 @@
 .hide-sold-out {
   display: inline-flex;
   align-items: center;
-  margin-bottom: 16px;
 
   span {
     margin-left: 0.5em;
