@@ -4,6 +4,7 @@ import { Client } from '@notionhq/client'
 import css from './schedule.module.scss'
 import { Footer } from './index'
 import moment from 'moment'
+import momentTZ from 'moment-timezone'
 import ListIcon from 'assets/icons/list.svg'
 import CalendarIcon from 'assets/icons/calendar.svg'
 import PeopleIcon from 'assets/icons/people.svg'
@@ -337,12 +338,18 @@ const Timeline = (props: any) => {
             const weekday = day.format('ddd')
             const date = day.format('MMM DD')
             const noEventsForDay = !eventsByDay[index]
+            const now = momentTZ.tz(moment(), 'Europe/Amsterdam')
+            const dayIsActive = day.isSame(now, 'day')
 
             if (noEventsForDay) return null
 
+            let className = css['day']
+
+            if (dayIsActive) className += ` ${css['active']}`
+
             return (
-              <div className={css['day']} key={index}>
-                <p>{weekday}</p>
+              <div className={className} key={index}>
+                <p>{dayIsActive ? 'TODAY' : weekday}</p>
                 <p>{date}</p>
               </div>
             )
@@ -575,8 +582,12 @@ const ListDayHeader = React.forwardRef((props: any, ref: any) => {
   const [open, setOpen] = React.useState(true)
   const day = props.date.format('dddd')
   const date = props.date.format('MMM DD')
+  const now = momentTZ.tz(moment(), 'Europe/Amsterdam')
+  const dayIsActive = props.date.isSame(now, 'day')
+
   let className = css['day-header']
 
+  // if (dayIsActive) className += ` ${css['active']}`
   if (open) className += ` ${css['open']}`
 
   React.useImperativeHandle(ref, () => {
@@ -590,7 +601,7 @@ const ListDayHeader = React.forwardRef((props: any, ref: any) => {
     <div>
       <div className={className} onClick={() => setOpen(!open)}>
         <div className={css['date']}>
-          <p className="section-header thin large-text">{day}</p>
+          <p className="section-header thin large-text">{dayIsActive ? 'TODAY' : day}</p>
           <p className="section-header thin small-text">{date}</p>
         </div>
 

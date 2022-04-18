@@ -375,6 +375,10 @@
     background: black;
   }
 
+  &.active {
+    background: black;
+  }
+
   * {
     fill: $monochrome-2;
   }
