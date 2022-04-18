@@ -291,31 +291,38 @@ const Timeline = (props: any) => {
                     if (shouldRepeatTimeOfDay && isMultiDayEvent && index > 0) return null
 
                     return (
-                      <p className="bold" key={index}>
-                        <span className={css['time']}>
-                          {time}
-                          {sameTimeEveryDay ? ' Every day' : ''}
-                        </span>
-                        {useDayIndicator && (
-                          <>
-                            <br />
-                            <span className={`${css['which-day']} small-text-em`}>Day {index + 1}</span>
-                          </>
+                      <div key={index}>
+                        <p className="bold">
+                          <span className={css['time']}>
+                            {time}
+                            {sameTimeEveryDay ? ' Every day' : ''}
+                          </span>
+                          {useDayIndicator && (
+                            <>
+                              <br />
+                              <span className={`${css['which-day']} small-text-em`}>Day {index + 1}</span>
+                            </>
+                          )}
+                        </p>
+                        {event['Stable ID'] === 'Cowork' && (
+                          <i className="bold">🎉 Happy hour 18:00 - 20:00 every day 🎉</i>
                         )}
-                      </p>
+                      </div>
                     )
                   })}
                 </div>
               )}
             </div>
 
-            <div className={css['bottom']}>
-              <div className={`${css['organizers']} bold`}>
-                {event['Organizer'] ? event['Organizer'].join(', ') : <p>Organizer</p>}
-              </div>
+            {event['Stable ID'] !== 'Cowork' && (
+              <div className={css['bottom']}>
+                <div className={`${css['organizers']} bold`}>
+                  {event['Organizer'] ? event['Organizer'].join(', ') : <p>Organizer</p>}
+                </div>
 
-              <EventMeta event={event} />
-            </div>
+                <EventMeta event={event} />
+              </div>
+            )}
           </div>
         </div>
 
@@ -372,6 +379,7 @@ const EventMeta = (props: any) => {
       {props.event['Difficulty'] && (
         <div className={`small-text-em ${css['difficulty']}`}>{props.event.Difficulty}</div>
       )}
+
       <div className={css['categories']}>
         {props.event.Category &&
           props.event.Category.length > 0 &&
@@ -624,6 +632,12 @@ const ListEventDesktop = (props: any) => {
           <div>
             <p className="big-text uppercase">
               {formattedDate} — <br /> <span className="big-text">{timeOfDay}</span>
+              {props.event['Stable ID'] === 'Cowork' && (
+                <>
+                  <br />
+                  <span className="small-text bold">Happy hour 18:00 - 20:00 🎉</span>
+                </>
+              )}
             </p>
             {isMultiDayEvent && (
               <p className={`${css['end-date']} tiny-text uppercase`}>
@@ -725,6 +739,12 @@ const ListEventMobile = (props: any) => {
         <div className={css['date']}>
           <p className={`small-text uppercase ${css['time-of-day']}`}>
             {formattedDate} — <br /> <span className="large-text">{timeOfDay}</span>
+            {props.event['Stable ID'] === 'Cowork' && (
+              <>
+                <br />
+                <span className="small-text bold">Happy hour 18:00 - 20:00 🎉</span>
+              </>
+            )}
           </p>
           {isMultiDayEvent && (
             <p className={`${css['end-date']} small-text uppercase`}>
