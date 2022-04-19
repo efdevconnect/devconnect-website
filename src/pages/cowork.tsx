@@ -53,7 +53,7 @@ const waves = [
 ]
 
 const Cowork: NextPage = (props: any) => {
-  // const [soldOut, setSoldout] = React.useState(!waves.some(wave => wave.status === 'on sale now'))
+  const [soldOut, setSoldout] = React.useState(!waves.some(wave => wave.status === 'on sale now'))
 
   return (
     <>
@@ -258,11 +258,15 @@ const Cowork: NextPage = (props: any) => {
                       </div>
                     </div>
                     <p>
-                      <b>
+                      {/* <b>
                         Tickets are fully sold out, but you can sign up for the waitlist for a chance to get a ticket
                         should the venue not be fully utilized over the week.
-                      </b>{' '}
-                      For those of you without tickets, here&apos;s a list of discounted{' '}
+                      </b>{' '} */}
+                      <b>If the co-work venue is not at capacity tickets may become available again during the week.</b>
+                      &nbsp;
+                      <b>
+                        If you are without a ticket or need a private co-working space, here&apos;s a list of discounted{' '}
+                      </b>
                       <Link
                         href="https://ef-events.notion.site/Co-working-spaces-for-Devconnect-attendees-3028a648d3714d1587be6f70b8d04ff5"
                         indicateExternal
@@ -270,17 +274,6 @@ const Cowork: NextPage = (props: any) => {
                         alternative co-working spaces
                       </Link>
                       .
-                      {/* Tickets to the Co-work Space will be sold in waves every Tuesday, on{' '}
-                      <b>February 24, March 8, March 15, March 22, and March 29</b>, at 16:00 UTC. We will announce
-                      on&nbsp;
-                      <Link indicateExternal href="https://twitter.com/efdevconnect">
-                        twitter
-                      </Link>
-                      &nbsp;when each wave has sold out.{' '}
-                      <b>
-                        Due to high demand we have added a final series of waves on April 5th at 23:00 UTC, April 12th
-                        at 16:00 UTC and April 12th at 23:00 UTC
-                      </b> */}
                     </p>
 
                     <p>
@@ -294,7 +287,7 @@ const Cowork: NextPage = (props: any) => {
                       href="https://ticketh.xyz/devconnect/cowork/"
                       className="button sm orange-fill"
                     >
-                      Sign up for waitlist
+                      Get tickets
                     </Link>
                     {/* <div style={{ position: 'relative' }}>
                       <div className={css['sold-out']}>
