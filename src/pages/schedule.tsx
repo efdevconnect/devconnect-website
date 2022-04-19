@@ -218,7 +218,7 @@ const Timeline = (props: any) => {
   const [eventModalOpen, setEventModalOpen] = React.useState('')
   const draggableAttributes = useDraggableLink()
 
-  const events = sortedEvents.map((event: any) => {
+  const events = sortedEvents.map((event: any, index: number) => {
     const {
       startDate: startDay,
       isMultiDayEvent,
@@ -254,80 +254,88 @@ const Timeline = (props: any) => {
       '--eventLength': totalDays,
     }
 
+    // const isLastIteration = index === sortedEvents.length - 1
+
+    // if (isLastIteration) console.log(currentRow)
+
     return (
-      <div
-        key={event.Name + offsetFromFirstDay}
-        className={`${css['event']} ${css[event['Stable ID']]} ${css[event['Difficulty']]}`}
-        style={gridPlacement}
-        {...draggableAttributes}
-        onClick={e => {
-          draggableAttributes.onClick(e)
+      <React.Fragment key={event.Name + offsetFromFirstDay}>
+        <div
+          className={`${css['event']} ${css[event['Stable ID']]} ${css[event['Difficulty']]}`}
+          style={gridPlacement}
+          {...draggableAttributes}
+          onClick={e => {
+            draggableAttributes.onClick(e)
 
-          if (!e.defaultPrevented) {
-            setEventModalOpen(event.Name)
-          }
-        }}
-      >
-        <div className={css['content']}>
-          {event['Stable ID'] === 'Cowork' && (
-            <div className={css['image']}>
-              <DevconnectAmsterdam style={{ width: '50px' }} />
-            </div>
-          )}
-          <div className={css['content-inner']}>
-            <div className={css['top']}>
-              <p className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}>
-                {event.Name}
-              </p>
+            if (!e.defaultPrevented) {
+              setEventModalOpen(event.Name)
+            }
+          }}
+        >
+          <div className={css['content']}>
+            {event['Stable ID'] === 'Cowork' && (
+              <div className={css['image']}>
+                <DevconnectAmsterdam style={{ width: '50px' }} />
+              </div>
+            )}
+            <div className={css['content-inner']}>
+              <div className={css['top']}>
+                <p className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}>
+                  {event.Name}
+                </p>
 
-              {event['Time of Day'] && (
-                <div className={css['when']}>
-                  {Array.from(Array(totalDays)).map((_, index: number) => {
-                    const time = timeOfDayArray[index]
-                    const useDayIndicator = !!timeOfDayArray[1] && totalDays > 1
-                    const sameTimeEveryDay = shouldRepeatTimeOfDay && totalDays > 1 && time !== 'FULL DAY'
+                {event['Time of Day'] && (
+                  <div className={css['when']}>
+                    {Array.from(Array(totalDays)).map((_, index: number) => {
+                      const time = timeOfDayArray[index]
+                      const useDayIndicator = !!timeOfDayArray[1] && totalDays > 1
+                      const sameTimeEveryDay = shouldRepeatTimeOfDay && totalDays > 1 && time !== 'FULL DAY'
 
-                    if (!time) return null
-                    if (shouldRepeatTimeOfDay && isMultiDayEvent && index > 0) return null
+                      if (!time) return null
+                      if (shouldRepeatTimeOfDay && isMultiDayEvent && index > 0) return null
 
-                    return (
-                      <div key={index}>
-                        <p className="bold">
-                          <span className={css['time']}>
-                            {time}
-                            {sameTimeEveryDay ? ' Every day' : ''}
-                          </span>
-                          {useDayIndicator && (
-                            <>
-                              <br />
-                              <span className={`${css['which-day']} small-text-em`}>Day {index + 1}</span>
-                            </>
+                      return (
+                        <div key={index}>
+                          <p className="bold">
+                            <span className={css['time']}>
+                              {time}
+                              {sameTimeEveryDay ? ' Every day' : ''}
+                            </span>
+                            {useDayIndicator && (
+                              <>
+                                <br />
+                                <span className={`${css['which-day']} small-text-em`}>Day {index + 1}</span>
+                              </>
+                            )}
+                          </p>
+                          {event['Stable ID'] === 'Cowork' && (
+                            <i className="bold">🎉 Happy hour 18:00 - 20:00 every day 🎉</i>
                           )}
-                        </p>
-                        {event['Stable ID'] === 'Cowork' && (
-                          <i className="bold">🎉 Happy hour 18:00 - 20:00 every day 🎉</i>
-                        )}
-                      </div>
-                    )
-                  })}
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {event['Stable ID'] !== 'Cowork' && (
+                <div className={css['bottom']}>
+                  <div className={`${css['organizers']} bold`}>
+                    {event['Organizer'] ? event['Organizer'].join(', ') : <p>Organizer</p>}
+                  </div>
+
+                  <EventMeta event={event} />
                 </div>
               )}
             </div>
-
-            {event['Stable ID'] !== 'Cowork' && (
-              <div className={css['bottom']}>
-                <div className={`${css['organizers']} bold`}>
-                  {event['Organizer'] ? event['Organizer'].join(', ') : <p>Organizer</p>}
-                </div>
-
-                <EventMeta event={event} />
-              </div>
-            )}
           </div>
-        </div>
 
-        <LearnMore event={event} open={eventModalOpen === event.Name} close={() => setEventModalOpen('')} />
-      </div>
+          <LearnMore event={event} open={eventModalOpen === event.Name} close={() => setEventModalOpen('')} />
+        </div>
+        {/* {isLastIteration && (
+          <div style={{ gridRow: `1 / ${currentRow + 1}`, gridColumn: 'span 1', background: 'yellow' }}></div>
+        )} */}
+      </React.Fragment>
     )
   })
 
@@ -587,11 +595,12 @@ const ListTableHeader = () => {
 }
 
 const ListDayHeader = React.forwardRef((props: any, ref: any) => {
-  const [open, setOpen] = React.useState(true)
+  // const [open, setOpen] = React.useState(true)
   const day = props.date.format('dddd')
   const date = props.date.format('MMM DD')
   const now = momentTZ.tz(moment(), 'Europe/Amsterdam')
   const dayIsActive = props.date.isSame(now, 'day')
+  const [open, setOpen] = React.useState(dayIsActive)
 
   let className = css['day-header']
 
