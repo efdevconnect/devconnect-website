@@ -262,7 +262,10 @@ const Cowork: NextPage = (props: any) => {
                         Tickets are fully sold out, but you can sign up for the waitlist for a chance to get a ticket
                         should the venue not be fully utilized over the week.
                       </b>{' '} */}
-                      <b>If the co-work venue is not at capacity tickets may become available again during the week.</b>
+                      <b>
+                        If the co-work venue is not at capacity, tickets may become available again over the course of
+                        the week.
+                      </b>
                       &nbsp;
                       <b>
                         If you are without a ticket or need a private co-working space, here&apos;s a list of discounted{' '}
@@ -287,7 +290,7 @@ const Cowork: NextPage = (props: any) => {
                       href="https://ticketh.xyz/devconnect/cowork/"
                       className="button sm orange-fill"
                     >
-                      Get tickets
+                      Get tickets here
                     </Link>
                     {/* <div style={{ position: 'relative' }}>
                       <div className={css['sold-out']}>
