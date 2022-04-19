@@ -309,7 +309,7 @@ const Timeline = (props: any) => {
                             )}
                           </p>
                           {event['Stable ID'] === 'Cowork' && (
-                            <i className="bold">🎉 Happy hour 18:00 - 20:00 every day 🎉</i>
+                            <i className="bold">🎉 Social hours 18:00 - 20:00 every day 🎉</i>
                           )}
                         </div>
                       )
@@ -644,7 +644,7 @@ const ListEventDesktop = (props: any) => {
               {props.event['Stable ID'] === 'Cowork' && (
                 <>
                   <br />
-                  <span className="small-text bold">Happy hour 18:00 - 20:00 🎉</span>
+                  <span className="small-text bold">Social hours 18:00 - 20:00 🎉</span>
                 </>
               )}
             </p>
@@ -751,7 +751,7 @@ const ListEventMobile = (props: any) => {
             {props.event['Stable ID'] === 'Cowork' && (
               <>
                 <br />
-                <span className="small-text bold">Happy hour 18:00 - 20:00 🎉</span>
+                <span className="small-text bold">Social hours 18:00 - 20:00 🎉</span>
               </>
             )}
           </p>
