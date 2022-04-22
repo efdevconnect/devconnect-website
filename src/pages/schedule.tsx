@@ -217,6 +217,14 @@ const Timeline = (props: any) => {
   const placementTracker = createPlacementTracker()
   const [eventModalOpen, setEventModalOpen] = React.useState('')
   const draggableAttributes = useDraggableLink()
+  // Ref of current active day element (to scroll into view on load)
+  // const todayRef = React.useRef<any>()
+
+  // React.useEffect(() => {
+  //   if (todayRef.current) {
+  //     todayRef.current.scrollIntoView({ scrollIntoViewOptions: { inline: 'center' } })
+  //   }
+  // }, [])
 
   const events = sortedEvents.map((event: any, index: number) => {
     const {
@@ -332,8 +340,9 @@ const Timeline = (props: any) => {
 
           <LearnMore event={event} open={eventModalOpen === event.Name} close={() => setEventModalOpen('')} />
         </div>
+
         {/* {isLastIteration && (
-          <div style={{ gridRow: `1 / ${currentRow + 1}`, gridColumn: 'span 1', background: 'yellow' }}></div>
+          <div style={{ gridRow: `1 / ${currentRow + 1}`, gridColumn: '1 / 3', background: 'yellow' }}></div>
         )} */}
       </React.Fragment>
     )
@@ -344,7 +353,7 @@ const Timeline = (props: any) => {
       <div className={`${css['timeline-background']} clear-vertical`}>
         <ScheduleBackground />
       </div>
-      <SwipeToScroll noBounds stopped={eventModalOpen !== ''}>
+      <SwipeToScroll /*focusRef={todayRef}*/ noBounds stopped={eventModalOpen !== ''}>
         <div className={css['timeline']}>
           {events}
 
@@ -363,7 +372,7 @@ const Timeline = (props: any) => {
             if (dayIsActive) className += ` ${css['active']}`
 
             return (
-              <div className={className} key={index}>
+              <div className={className} key={index} /*ref={dayIsActive ? todayRef : undefined}*/>
                 <p>{dayIsActive ? 'TODAY' : weekday}</p>
                 <p>{date}</p>
               </div>

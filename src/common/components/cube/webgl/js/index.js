@@ -17,7 +17,7 @@ export const init = () => {
   const regl = Regl({
     container: document.getElementById('cube'),
     attributes: {
-      antialias: true,
+      antialias: false,
       alpha: false,
     },
   })

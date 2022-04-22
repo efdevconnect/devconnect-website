@@ -6,6 +6,7 @@ import useDimensions from 'react-cool-dimensions'
 type SwipeToScrollProps = {
   noBounds?: boolean
   stopped?: boolean
+  focusRef?: React.RefObject<HTMLElement>
   children: React.ReactChild | React.ReactChild[]
 }
 
@@ -13,6 +14,7 @@ const SwipeToScroll = (props: SwipeToScrollProps) => {
   const el = React.useRef<any>()
   const [maxScrolled, setMaxScrolled] = React.useState(0)
   const lastX = React.useRef(0)
+  // const focusCompleted = React.useRef(false)
 
   const reset = () => {
     if (lastX.current && el.current) {
@@ -25,8 +27,23 @@ const SwipeToScroll = (props: SwipeToScrollProps) => {
   const { observe } = useDimensions({
     onResize: ({ width }) => {
       reset()
+
       if (el.current && el.current.scrollWidth) {
-        setMaxScrolled(el.current.scrollWidth - width)
+        const maxScroll = el.current.scrollWidth - width
+        setMaxScrolled(maxScroll)
+
+        // Scroll to focusable element if defined
+        // if (!focusCompleted.current && props.focusRef && props.focusRef.current) {
+        //   const focusElement = props.focusRef.current
+        //   const offsetLeft = focusElement.offsetLeft
+        //   lastX.current = Math.min(offsetLeft, maxScroll)
+        //   el.current.style.transition = 'all 0.7s ease-out'
+        //   el.current.style.transform = `translateX(${-lastX.current}px)`
+        //   el.current.addEventListener('transitionend', () => {
+        //     el.current.style.transition = 'none'
+        //   })
+        //   focusCompleted.current = true
+        // }
       }
     },
   })

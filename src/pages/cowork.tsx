@@ -205,10 +205,11 @@ const Cowork: NextPage = (props: any) => {
                     <div className="divider"></div>
                     <div className={css['current-wave']}>
                       <p className={`header small-text bold no-clearance`} id="waves">
-                        Ticketing Waves
+                        Ticketing
                       </p>
                     </div>
                     <br />
+                    {/* <br />
                     <div className={css['current-wave']}>
                       <p className={`${css['wave-number']} bold uppercase`}>Current Wave — 9 of 9</p>
                     </div>
@@ -256,15 +257,15 @@ const Cowork: NextPage = (props: any) => {
                           }
                         })}
                       </div>
-                    </div>
+                    </div> */}
                     <p>
                       {/* <b>
                         Tickets are fully sold out, but you can sign up for the waitlist for a chance to get a ticket
                         should the venue not be fully utilized over the week.
                       </b>{' '} */}
                       <b>
-                        If the co-work venue is not at capacity, tickets may become available again over the course of
-                        the week.
+                        If the co-work venue is not at capacity, tickets may become available over the course of the
+                        week.
                       </b>
                       &nbsp;
                       <b>
