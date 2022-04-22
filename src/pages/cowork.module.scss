@@ -117,14 +117,12 @@
 
   .door-tally {
     display: flex;
-    justify-content: center;
-
-    @media (min-width: $screen-md) {
-      justify-content: flex-start;
-    }
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 32px;
   }
 
-  .current-wave {
+  .current-wave {ç
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;

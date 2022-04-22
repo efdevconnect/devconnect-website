@@ -177,7 +177,7 @@ const Cowork: NextPage = (props: any) => {
             </div>
           </div>
 
-          {/* <div className={css['door-tally']}>
+          <div className={css['door-tally']}>
             <iframe
               width="250"
               height="280"
@@ -186,7 +186,10 @@ const Cowork: NextPage = (props: any) => {
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
-          </div> */}
+            <p className="tiny-text bold">
+              Note: this does not account of a line outside the venue if there is one (I.e., in the mornings each day)
+            </p>
+          </div>
 
           <div>
             <div className={`${css['ticketing']}`} id="ticketing">
