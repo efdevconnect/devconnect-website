@@ -267,7 +267,7 @@ const Cowork: NextPage = (props: any) => {
                         should the venue not be fully utilized over the week.
                       </b>{' '} */}
                       <b>
-                        If the co-work venue is not at capacity, tickets may become available over the course of the
+                        If the co-work venue is not at capacity tickets may become available over the course of the
                         week.
                       </b>
                       &nbsp;
