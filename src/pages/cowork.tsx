@@ -186,9 +186,7 @@ const Cowork: NextPage = (props: any) => {
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
-            <p className="tiny-text bold">
-              Note: this does not account of a line outside the venue if there is one (I.e., in the mornings each day)
-            </p>
+            <p className="tiny-text bold">Note: this does not account for a line outside the venue if there is one</p>
           </div>
 
           <div>
