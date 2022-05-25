@@ -300,18 +300,7 @@ const Home: NextPage = (props: any) => {
             <div className="section">
               <div className={css['info-container']}>
                 <div className={`${css['info']}`}>
-                  {/* <div
-                    className={css['date-container']}
-                    onMouseEnter={() => setDateHovered(true)}
-                    onMouseLeave={() => setDateHovered(false)}
-                  >
-                    <p className={`${css['date']} subheader`}>April 18-25, 2022</p>
-                    {dateHovered && <Image src={FingersCrossed} alt="Fingers crossed" />}
-                  </div>
-
-                  <p className={`${css['place']} subheader`}>Amsterdam, Netherlands</p> */}
-
-                  <Link href="#event-retro" className={`button blue-fill ${css['video-recap-button']}`}>
+                  <Link href="#video" className={`button blue-fill ${css['video-recap-button']}`}>
                     <span>
                       <YoutubeIcon /> Watch Video Recap
                     </span>
@@ -383,7 +372,7 @@ const Home: NextPage = (props: any) => {
                 </Link>
               </div>
               <div className={css['right']}>
-                <div className="aspect">
+                <div className="aspect" id="video">
                   <iframe
                     width="100%"
                     height="100%"
@@ -393,7 +382,6 @@ const Home: NextPage = (props: any) => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   ></iframe>
-                  {/* <Image src={VideoPlaceholder} objectFit="contain" layout="fill" alt="Devconnect event images" /> */}
                 </div>
               </div>
             </div>
