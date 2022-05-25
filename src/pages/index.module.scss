@@ -16,7 +16,7 @@
     flex-wrap: nowrap;
     text-transform: uppercase;
 
-    > a {
+    >a {
       &:not(.twitter) {
         @media (max-width: $screen-sm) {
           display: none;
@@ -24,7 +24,7 @@
       }
     }
 
-    > * {
+    >* {
       margin-right: 50px;
       font-weight: 700;
       cursor: pointer;
@@ -91,27 +91,57 @@
       font-weight: 700;
     }
 
-    .date-container {
+    .video-recap-button {
+      background: none;
       position: relative;
-      display: inline-block;
+      background-clip: padding-box;
+      border: solid 1px transparent;
+      color: white !important;
+      --icon-color: white !important;
 
-      .date {
-        font-weight: 400;
+      &:hover {
+        text-decoration: underline;
+      }
+
+      span {
+        svg {
+          font-size: 1.2em;
+          margin-right: 0.5em;
+        }
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       > * {
-        &:not(p) {
-          position: absolute !important;
-          width: auto;
-          // No idea what's going on here, wanted to do left 100% but that shrinks the image - no time to fix so just estimating position
-          right: calc(-100% + 22px);
-          top: calc(-100% - 15px);
-        }
+        z-index: 3;
+      }
+
+      /* Gradient border hack */ 
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background: black;
+        margin: -1px;
+        border-radius: inherit;
+        z-index: 2;
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        z-index: 1;
+        margin: -2px;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #4f82fa -4.65%, #7b87cb 18.45%, #FA4F4F 38.91%, #FF5C00 63.58%, #928c75 80.38%, #4FF0FA 95.07%);
       }
     }
 
     .description {
-      margin-top: 40px;
+      margin-top: 30px;
       max-width: 650px;
       font-size: 48px;
       line-height: 56.25px;
@@ -122,7 +152,7 @@
         margin-top: 20px;
       }
 
-      > span {
+      >span {
         font-weight: 300;
       }
 
@@ -164,10 +194,10 @@
   background: linear-gradient(180deg, #6a4efa 0%, #f286fd 113.61%);
   z-index: 1;
   position: relative;
-  // display: flex;
+  display: flex;
   flex-direction: column;
 
-  > * {
+  >* {
     flex-grow: 1;
   }
 
@@ -177,11 +207,12 @@
     position: absolute;
     left: 0px;
     right: 0px;
-    height: 100%;
+    height: 101%; // Avoid weird cropping issue
     width: 100%;
+    opacity: 0.7;
     background-image: url('../assets/images/tile-column.png');
     background-repeat: repeat-x;
-    background-size: 150px;
+    background-size: 100px;
     background-position: bottom;
   }
 
@@ -190,6 +221,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 
     .background-title {
       position: absolute;
@@ -200,7 +232,7 @@
       }
     }
 
-    > * {
+    >* {
       flex-shrink: 0;
     }
 
@@ -209,15 +241,31 @@
       flex-shrink: 0;
       display: flex;
 
-      position: relative;
-      padding-bottom: 28px;
+      @media (max-width: $screen-lg) {
+        flex-direction: column;
+      }
+
+      p {
+        margin-top: 2em;
+      }
+
+      :global(.button) {
+        margin-top: 2em;
+      }
 
       .body {
-        flex-basis: 65%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-basis: 60%;
+        margin-right: 2em;
+        min-height: 500px;
+        position: relative;
         flex-shrink: 0;
 
         @media (max-width: $screen-lg) {
           flex-basis: 100%;
+          min-height: auto;
         }
 
         :global(.subheader) {
@@ -239,9 +287,25 @@
         }
       }
 
-      .sun-emoji {
+      .cube-images {
+        display: flex;
+        justify-content: flex-end;
         position: relative;
         flex-grow: 1;
+        // margin-left: 2em;
+        height: 100%;
+        margin-top: 0px;
+
+        > * {
+          position: absolute;
+          height: 100%;
+          width: 100%;
+        }
+
+        // position: absolute;
+        // height: 100%;
+        // top: 0px;
+        // right: 0px;
 
         @media (max-width: $screen-lg) {
           display: none;
@@ -250,7 +314,7 @@
     }
 
     .topics-container {
-      > * {
+      >* {
         margin-top: 12px;
       }
 
@@ -258,7 +322,7 @@
     }
 
     .buttons {
-      > * {
+      >* {
         display: inline-flex;
         margin-left: 24px;
 
@@ -286,6 +350,138 @@
 
   .accordion {
     padding-bottom: 32px;
+  }
+}
+
+.scene-event-retro {
+  background: white;
+  color: black;
+  position: relative;
+
+  .columns {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: $screen-lg) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .left {
+      flex-basis: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      p {
+        margin-bottom: 3em;
+      }
+
+      @media (max-width: $screen-lg) {
+        flex-basis: auto;
+        width: 100%;
+        margin-left: 0px;
+      }
+    }
+
+    .right {
+      flex-basis: 50%;
+      margin-left: 50px;
+
+      @media (max-width: $screen-lg) {
+        margin-top: 2em;
+        flex-basis: auto;
+        width: 100%;
+        margin-left: 0px;
+      }
+    }
+  }
+
+
+  .background {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+
+  .gallery {
+    padding-top: 0px;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    display: flex;
+    grid-template-columns: repeat(130, 1fr);
+    padding: 16px 0px;
+
+
+    @media (max-width: $screen-lg) {
+      display: none !important;
+    }
+
+    @media (min-width: $screen-md) {
+      display: grid;
+      // border-top: 1px solid $standard-border-color;
+      // border-bottom: 1px solid $standard-border-color;
+      padding: 32px 0px;
+    }
+
+    .grid-item {
+      grid-row: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      &:nth-child(1) {
+        z-index: 1;
+        grid-column: 1 / span 33;
+      }
+
+      &:nth-child(2) {
+        grid-column: 23 / span 42;
+      }
+
+      &:nth-child(3) {
+        z-index: 2;
+        grid-column: 55 / span 30;
+      }
+
+      &:nth-child(4) {
+        grid-column: 72 / span 32;
+      }
+
+      &:nth-child(5) {
+        grid-column: 100 / span 40;
+        z-index: 2;
+      }
+
+      @media (max-width: $screen-md) {
+        &:nth-child(1) {
+          display: none;
+        }
+
+        &:nth-child(2) {
+          grid-column: 1 / 65;
+        }
+
+        &:nth-child(3) {
+          display: none;
+          z-index: 3;
+          grid-column: 35 / 95;
+        }
+
+        &:nth-child(4) {
+          display: none;
+          z-index: 1;
+          grid-column: 75 / 130;
+        }
+
+        &:nth-child(5) {
+          display: none;
+        }
+      }
+    }
   }
 }
 
@@ -442,7 +638,7 @@
       justify-content: space-between;
       align-items: center;
 
-      > * {
+      >* {
         &:nth-child(2) {
           width: $width-right-column;
 
@@ -512,7 +708,7 @@
           align-items: center;
           padding-right: 15px;
 
-          > * {
+          >* {
             &:nth-child(1) {
               @media (max-width: $screen-md) {
                 display: none;
@@ -521,7 +717,7 @@
           }
         }
 
-        > a {
+        >a {
           margin-top: 32px;
 
           @media (max-width: $screen-md) {
@@ -566,6 +762,7 @@
         @media (max-width: $screen-lg) {
           order: 1;
         }
+
         @include tiny-text;
 
         display: flex;
@@ -573,7 +770,7 @@
         text-transform: uppercase;
         font-weight: 700;
 
-        > * {
+        >* {
           margin-top: 12px;
           transform: translateY(-12px);
           margin-right: 25px;
@@ -612,37 +809,19 @@
   }
 }
 
-.text-container,
-.body {
-  > * {
-    margin-top: 28px;
-
-    @media (max-width: $screen-lg) {
-      margin-top: 16px;
-    }
-  }
-}
-
-.scene-about,
-.scene-amsterdam {
-  padding-bottom: 90px;
-
-  @media (max-width: $screen-lg) {
-    padding-bottom: 36px;
-  }
-}
-
-.nc-loop-mouse-16-icon-f > :nth-child(2) {
+.nc-loop-mouse-16-icon-f> :nth-child(2) {
   --animation-duration: 1s;
   transform-origin: 50% 50%;
   animation: nc-loop-mouse-anim var(--animation-duration) infinite;
 }
 
 @keyframes nc-loop-mouse-anim {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(20%);
   }

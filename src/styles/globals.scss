@@ -193,6 +193,12 @@ $max-content-width: $content-width + ($side-gap * 2);
     color: $color-blue;
   }
 
+  &.purple {
+    background: #6D4FFA;
+    color: white;
+    --icon-color: white;
+  }
+
   &.blue {
     background: white;
     color: $color-blue;

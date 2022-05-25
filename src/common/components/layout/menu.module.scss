@@ -2,6 +2,10 @@
 
 $width-right-column: 190px;
 
+.streameth-highlight {
+  color: #8D75FF;
+}
+
 .menu,
 .footer-menu {
   a {
@@ -121,13 +125,13 @@ $width-right-column: 190px;
   text-transform: uppercase;
 
   .multi-link,
-  > a {
+  >a {
     padding: 8px 0px;
   }
 
   .multi-link,
   .social-media,
-  > a {
+  >a {
     display: none;
 
     @media (min-width: $screen-lg) {
@@ -143,7 +147,7 @@ $width-right-column: 190px;
   //   }
   // }
 
-  > * {
+  >* {
     margin-right: 50px;
     font-weight: 700;
     cursor: pointer;
@@ -177,7 +181,7 @@ $width-right-column: 190px;
       margin-left: 8px;
     }
 
-    > * {
+    >* {
       &:nth-child(1) {
         @media (max-width: $screen-md) {
           display: none;
@@ -186,7 +190,7 @@ $width-right-column: 190px;
     }
   }
 
-  > a,
+  >a,
   .social-media,
   .multi-link {
     align-self: flex-start;
@@ -194,7 +198,7 @@ $width-right-column: 190px;
   }
 
   .social-media {
-    > * {
+    >* {
       margin-right: 4px;
     }
   }
@@ -272,7 +276,7 @@ $width-right-column: 190px;
   transform: translateX(-8px);
   font-size: 20px;
 
-  > * {
+  >* {
     padding: 8px;
     margin-right: 4px;
   }
