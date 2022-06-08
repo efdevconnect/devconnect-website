@@ -37,9 +37,34 @@ const FAQ = [
     content: () => {
       return (
         <p>
-          <Link href="https://streameth.tv" indicateExternal>
-            Streameth
+          You can find content from most events on the{' '}
+          <Link href="/schedule" indicateExternal>
+            Devconnect schedule
           </Link>
+          ,{' '}
+          <Link href="https://streameth.tv" indicateExternal>
+            StreamETH
+          </Link>
+          , and at each event’s website.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'What is the difference between Devcon and Devconnect?',
+    value: 'diff',
+    content: () => {
+      return (
+        <p>
+          While complementary, both Devcon and Devconnect are very different types of events.{' '}
+          <Link href="https://devcon.org" indicateExternal>
+            Devcon
+          </Link>{' '}
+          is the Ethereum Foundation&apos;s oldest and principal event where the Ethereum community gathers in one venue
+          for several days of programming, collaboration, and reunion. Devconnect was an experimental event that we did
+          for the first time this year (2022), the focus was on in-depth conversations, facilitated through independent,
+          topic-specific events. It was spread throughout different venues around Amsterdam city, each with their own
+          access control and ticketing.
         </p>
       )
     },
@@ -48,14 +73,19 @@ const FAQ = [
     text: 'Will there be a Devconnect next year?',
     value: 'next-year',
     content: () => {
-      return <p>There will be 47 devconnects next year</p>
+      return (
+        <p>
+          To be determined! If you liked it, show us your love on Twitter{' '}
+          <Link href="https://twitter.com/efdevconnect">@EFDevconnect</Link> ;)
+        </p>
+      )
     },
   },
   {
     text: 'Where will Devconnect take place next?',
     value: 'where-next',
     content: () => {
-      return <p>Mars</p>
+      return <p>To be determined! Welcoming ideas :)</p>
     },
   },
 ]
@@ -364,7 +394,7 @@ const Home: NextPage = (props: any) => {
                   </p>
                 </div>
                 <Link
-                  href="https://discord.gg/FhmA3KeF3B"
+                  href="https://t.me/CryptoCanalCommunity"
                   className={`button purple ${css['get-involved-button']}`}
                   indicateExternal
                 >
@@ -427,7 +457,7 @@ const Home: NextPage = (props: any) => {
                     </div>
 
                     <Link
-                      href="https://discord.gg/FhmA3KeF3B"
+                      href="https://blog.ethereum.org/2022/05/30/devconnect-wrap/"
                       className={`button ${css['get-involved-button']}`}
                       indicateExternal
                     >

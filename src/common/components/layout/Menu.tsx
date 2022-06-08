@@ -60,10 +60,10 @@ const MultiLink = (props: any) => {
 }
 
 const menuItems = [
-  {
-    text: 'About',
-    url: '/',
-  },
+  // {
+  //   text: 'About',
+  //   url: '/',
+  // },
   {
     text: 'Editions',
     children: [
