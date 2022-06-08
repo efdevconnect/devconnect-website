@@ -20,11 +20,11 @@ import Link from 'common/components/link/Link'
 import Accordion, { AccordionItem } from 'common/components/accordion'
 import Modal from 'common/components/modal'
 import YoutubeIcon from 'assets/icons/youtube.svg'
-import Cowork1 from 'assets/images/cowork-gallery/cowork-1.png'
-import Cowork2 from 'assets/images/cowork-gallery/cowork-2.jpg'
-import Cowork3 from 'assets/images/cowork-gallery/cowork-3.png'
-import Cowork4 from 'assets/images/cowork-gallery/cowork-4.png'
-import Cowork5 from 'assets/images/cowork-gallery/cowork-5.png'
+import Cowork1 from 'assets/images/event-pictures/amsterdam-2022-event-picture-2.jpg'
+import Cowork2 from 'assets/images/event-pictures/amsterdam-2022-event-picture-6.jpg'
+import Cowork3 from 'assets/images/event-pictures/amsterdam-2022-event-picture-1.jpg'
+import Cowork4 from 'assets/images/event-pictures/amsterdam-2022-event-picture-5.jpg'
+import Cowork5 from 'assets/images/event-pictures/amsterdam-2022-event-picture-3.jpg'
 
 const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
@@ -376,7 +376,7 @@ const Home: NextPage = (props: any) => {
                   <iframe
                     width="100%"
                     height="100%"
-                    src="https://www.youtube.com/embed/PuZ34IeY_L0"
+                    src="https://www.youtube.com/embed/6X0yIUq7fpc"
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -397,7 +397,7 @@ const Home: NextPage = (props: any) => {
                 <Image src={Cowork3} alt="Cowork space example" />
               </div>
               <div className={css['grid-item']}>
-                <Image src={Cowork4} alt="Cowork space example" />
+                <Image src={Cowork4} alt="Cowork space example" layout="fill" />
               </div>
               <div className={css['grid-item']}>
                 <Image src={Cowork5} alt="Cowork space example" />

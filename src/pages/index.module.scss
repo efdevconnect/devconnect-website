@@ -114,15 +114,18 @@
         align-items: center;
       }
 
-      > * {
+      >* {
         z-index: 3;
       }
 
-      /* Gradient border hack */ 
+      /* Gradient border hack */
       &:after {
         content: '';
         position: absolute;
-        top: 0; right: 0; bottom: 0; left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
         background: black;
         margin: -1px;
         border-radius: inherit;
@@ -132,7 +135,10 @@
       &:before {
         content: '';
         position: absolute;
-        top: 0; right: 0; bottom: 0; left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
         z-index: 1;
         margin: -2px;
         border-radius: inherit;
@@ -297,7 +303,7 @@
         height: 100%;
         margin-top: 0px;
 
-        > * {
+        >* {
           position: absolute;
           height: 100%;
           width: 100%;
@@ -450,6 +456,9 @@
 
       &:nth-child(4) {
         grid-column: 72 / span 32;
+        position: relative;
+        top: 7.5%;
+        height: 85%;
       }
 
       &:nth-child(5) {
