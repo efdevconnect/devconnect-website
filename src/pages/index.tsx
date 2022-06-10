@@ -11,12 +11,20 @@ import DevconnectAmsterdamText from 'assets/images/amsterdam-logo-text.svg'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import RoadToDevcon from 'assets/images/rtd.png'
 import HorizontalLooper from 'common/components/horizontal-looper'
-import SunEmoji from 'assets/images/sun-heart-emoji.png'
+import CubeImages from 'assets/images/cube-images.png'
+import BluePrint from 'assets/images/blueprint-bg.png'
+import VideoPlaceholder from 'assets/images/devconnect-video-placeholder.png'
 import { SEO } from 'common/components/SEO'
 import { Menu, FooterMenu } from 'common/components/layout/Menu'
 import Link from 'common/components/link/Link'
 import Accordion, { AccordionItem } from 'common/components/accordion'
 import Modal from 'common/components/modal'
+import YoutubeIcon from 'assets/icons/youtube.svg'
+import Cowork1 from 'assets/images/event-pictures/amsterdam-2022-event-picture-2.jpg'
+import Cowork2 from 'assets/images/event-pictures/amsterdam-2022-event-picture-6.jpg'
+import Cowork3 from 'assets/images/event-pictures/amsterdam-2022-event-picture-1.jpg'
+import Cowork4 from 'assets/images/event-pictures/amsterdam-2022-event-picture-5.jpg'
+import Cowork5 from 'assets/images/event-pictures/amsterdam-2022-event-picture-3.jpg'
 
 const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
@@ -24,156 +32,60 @@ const Cube = dynamic(() => import('common/components/cube'), {
 
 const FAQ = [
   {
-    text: 'What are the COVID policies?',
-    value: 'covid policies',
+    text: 'Where can I find the devconnect streams?',
+    value: 'streams',
     content: () => {
       return (
         <p>
-          While each event during Devconnect is independently-hosted and it is up to their discretion for what COVID
-          policies they adhere to (see their respective websites), the Co-work Space will be hosted by the Devconnect
-          team, and we will be implementing whatever COVID requirements are mandated by the government of The
-          Netherlands at the start of the event.
-          <br /> <br />
-          Please continue to monitor the requirements prior to your travel and arrival in Amsterdam for Devconnect. The
-          Government of Netherlands continues to update their policies. New policies have come into effect as of 23
-          March 2022. Visit the{' '}
-          <Link href="https://www.government.nl/topics/coronavirus-covid-19" indicateExternal>
-            official website
-          </Link>{' '}
-          to learn more.
-        </p>
-      )
-    },
-  },
-  {
-    text: 'Where can I get COVID tests in Amsterdam?',
-    value: 'covid testing',
-    content: () => {
-      return (
-        <p>
-          There are plenty of spots around the city of Amsterdam to get a COVID-19 test.
-          <br /> <br />
-          Testing is performed by the{' '}
-          <Link href="https://www.ggd.amsterdam.nl/english/coronavirus/testing-amsterdam/" indicateExternal>
-            GGD (Netherlands Municipal Health Service)
-          </Link>{' '}
-          with &amp; without appointments.
-          <br /> <br />
-          Appointments can be made{' '}
-          <Link href="https://coronatest.nl/" indicateExternal>
-            here
-          </Link>{' '}
-          (best to visit the site from a Netherlands IP address).
-          <br /> <br />
-          Please get tested if you feel ill or have cold or flu-like symptoms. We are grateful for the lifting of many
-          COVID restrictions in the Netherlands, but we still want to keep everyone healthy &amp; safe.
-        </p>
-      )
-    },
-  },
-  {
-    text: 'How do I sponsor?',
-    value: 'tickets refundable',
-    content: () => {
-      return (
-        <p>
-          While Devconnect will be sponsor-free, independent events happening throughout Devconnect may be looking for
-          sponsorship. If you&apos;re interested in sponsoring, check out relevant events to see if they are accepting
-          sponsorships.
-        </p>
-      )
-    },
-  },
-  {
-    text: 'From my understanding, Devconnect will just be separate events hosted by individual projects/teams/individuals, correct?',
-    value: 'tickets refundable',
-    content: () => {
-      return <p>This is correct!</p>
-    },
-  },
-  {
-    text: 'Will there be a central venue where these events will be held, or is each host responsible for locating avenue for their event?',
-    value: 'tickets refundable',
-    content: () => {
-      return (
-        <p>
-          Each host is responsible for their own venue. There will be many events in many different venues throughout
-          Amsterdam during the week. Attendees will need to pick and choose based on their interest.
-        </p>
-      )
-    },
-  },
-  {
-    text: 'Will there be any "main events" hosted directly by Devconnect?',
-    value: 'tickets refundable',
-    content: () => {
-      return (
-        <p>
-          There will be an open Co-Working space throughout the week with tickets available to all. This will be in
-          Beurs van Berlage. Other than that, all events will be independently hosted.
-        </p>
-      )
-    },
-  },
-  {
-    text: 'What if the official Devconnect cowork space is full or I would like to book a private space for my team?',
-    value: 'cowork space',
-    content: () => {
-      return (
-        <p>
-          Don&apos;t fret! There are many co-working spaces around Amsterdam and some of them offer discounts for
-          Devconnect attendees!{' '}
-          <Link
-            href="https://ef-events.notion.site/Co-working-spaces-for-Devconnect-attendees-3028a648d3714d1587be6f70b8d04ff5"
-            indicateExternal
-          >
-            See here
+          You can find content from most events on the{' '}
+          <Link href="/schedule" indicateExternal>
+            Devconnect schedule
           </Link>
-          .
-        </p>
-      )
-    },
-  },
-  {
-    text: 'Approximately how many people will fit at each event?',
-    value: 'tickets refundable',
-    content: () => {
-      return (
-        <p>
-          Sizes will vary, and range from a 25-person zkEVM workshop for example, to a 300-person event on staking by
-          ETHStaker, to a 800-person ETHGlobal hackathon. Some are private, some free, some will be based on
-          applications, and others may be ticketed with paid tickets.
-        </p>
-      )
-    },
-  },
-  {
-    text: 'What is the primary audience you are hoping to attract for Devconnect?',
-    value: 'tickets refundable',
-    content: () => {
-      return (
-        <p>
-          While this does vary by event, the focus in general are those who are involved/interested in the ecosystem in
-          one particular area and want to dive deeper!
-        </p>
-      )
-    },
-  },
-  {
-    text: 'Does Devconnect schedule list all the blockchain events happening in Amsterdam that week? (Where are all the parties🎉?)',
-    value: 'events',
-    content: () => {
-      return (
-        <p>
-          Our goal with Devconnect is to encourage decentralized co-ordination of an Ethereum based event series. There
-          will naturally be a lot more events, parties, and activities taking place the week of Devconnect that are not
-          listed on our event schedule. Please check out the community driven AMS Blockchain Week schedule{' '}
-          <Link href="https://amsterdamblockchainweek.org/" indicateExternal>
-            located here
+          ,{' '}
+          <Link href="https://streameth.tv" indicateExternal>
+            StreamETH
           </Link>
-          &nbsp;for more events, parties, and activities that you may be interested in.
+          , and at each event’s website.
         </p>
       )
+    },
+  },
+  {
+    text: 'What is the difference between Devcon and Devconnect?',
+    value: 'diff',
+    content: () => {
+      return (
+        <p>
+          While complementary, both Devcon and Devconnect are very different types of events.{' '}
+          <Link href="https://devcon.org" indicateExternal>
+            Devcon
+          </Link>{' '}
+          is the Ethereum Foundation&apos;s oldest and principal event where the Ethereum community gathers in one venue
+          for several days of programming, collaboration, and reunion. Devconnect was an experimental event that we did
+          for the first time this year (2022), the focus was on in-depth conversations, facilitated through independent,
+          topic-specific events. It was spread throughout different venues around Amsterdam city, each with their own
+          access control and ticketing.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Will there be a Devconnect next year?',
+    value: 'next-year',
+    content: () => {
+      return (
+        <p>
+          To be determined! If you liked it, show us your love on Twitter{' '}
+          <Link href="https://twitter.com/efdevconnect">@EFDevconnect</Link> ;)
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Where will Devconnect take place next?',
+    value: 'where-next',
+    content: () => {
+      return <p>To be determined! Welcoming ideas :)</p>
     },
   },
 ]
@@ -418,16 +330,11 @@ const Home: NextPage = (props: any) => {
             <div className="section">
               <div className={css['info-container']}>
                 <div className={`${css['info']}`}>
-                  <div
-                    className={css['date-container']}
-                    onMouseEnter={() => setDateHovered(true)}
-                    onMouseLeave={() => setDateHovered(false)}
-                  >
-                    <p className={`${css['date']} subheader`}>April 18-25, 2022</p>
-                    {dateHovered && <Image src={FingersCrossed} alt="Fingers crossed" />}
-                  </div>
-
-                  <p className={`${css['place']} subheader`}>Amsterdam, Netherlands</p>
+                  <Link href="#video" className={`button blue-fill ${css['video-recap-button']}`}>
+                    <span>
+                      <YoutubeIcon /> Watch Video Recap
+                    </span>
+                  </Link>
 
                   <p className={css['description']}>
                     <span>
@@ -465,88 +372,114 @@ const Home: NextPage = (props: any) => {
             </div>
           </Scene>
 
-          <Scene growVertically growNaturally id="about" className={`${css['scene-about']}`}>
-            <div className="section">
-              <div className={`${css['scene-about-content']} clear-vertical`}>
-                <h1 className="section-header">About</h1>
+          <Scene growVertically growNaturally id="event-retro" className={`${css['scene-event-retro']} section`}>
+            <div className={`${css['background']} expand`}>
+              <Image src={BluePrint} objectFit="contain" alt="Building outline" />
+            </div>
+            <h1 className="section-header grey clear-vertical" style={{ zIndex: 1 }}>
+              Devconnect // Amsterdam 2022
+            </h1>
 
-                <div className={css['text-container']}>
-                  <div className={css['body']}>
-                    <p className={`background-title`}>DEV/CONNECT</p>
-                    <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
-                    <p className="section-header as-text-body">
-                      Devconnect is a week-long in-person gathering that will feature independent Ethereum events, each
-                      with a unique focus. The goal is to focus on depth-first sessions rather than size, and to bring
-                      the Ethereum community together in smaller groups to talk, learn about, or make serious progress
-                      on specific subjects.
-                    </p>
-
-                    <p className="subheader as-text-body">
-                      Events at and around Devconnect will be independently hosted and curated by experts in those
-                      domains.
-                    </p>
-
-                    <p className="subheader as-text-body">
-                      As for everyone coming to town and wanting to hang out and work together between events,
-                      we&apos;ll maintain a{' '}
-                      <Link href="/cowork" className={`bold ${css['cowork-link']}`}>
-                        space for collaboration
-                      </Link>{' '}
-                      for all who are interested.
-                    </p>
-
-                    <Link
-                      href="https://blog.ethereum.org/2021/12/13/announcing-devconnect/"
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`subheader ${css['read-blog']}`}
-                      indicateExternal
-                    >
-                      READ BLOG POST
-                    </Link>
-                  </div>
-
-                  <div className={css['sun-emoji']}>
-                    {/* <DevconnectAmsterdam /> */}
-                    <Image src={SunEmoji} objectFit="contain" alt="Sun emoji" />
-                  </div>
+            <div className={`${css['columns']} clear-vertical`}>
+              <div className={css['left']}>
+                <div>
+                  <p className="big-text">
+                    Thanks to all those who came to the first ever Devconnect. What started out as an experimental idea
+                    turned into one of the most impactful Ethereum events to date — thank you for being a part of it!
+                    Hope to see you at the next one.
+                  </p>
+                  <p className="big-text">
+                    While Devconnect is over, the Dutch ethereum community continues to grow! If you wish to get
+                    involved, you can join the Dutch CryptoCanal Community.
+                  </p>
                 </div>
-
-                <div className={css['topics-container']}>
-                  <p className="subheader as-text-body">Topics Include</p>
-                  <HorizontalLooper slow unpadded>
-                    <p className="section-header">
-                      zkEVM • metaverse • STAKING • CONSENSUS LAYER • Web3 UX • NFTS • solidity • governance • developer
-                      infrastructure • Execution Layer • Web2 ➞ Web3 dev • ETHconomics • Rollups • MEV • Security •
-                      Sustainability • Advocacy • VDFs • Hackathon • Workshops •&nbsp;
-                    </p>
-                  </HorizontalLooper>
-                </div>
-
-                <div className={css['buttons']}>
-                  <Link href="/schedule" className={`button ${css['view-schedule']}`}>
-                    View Schedule
-                  </Link>
-
-                  <Link
-                    href="https://discord.gg/FhmA3KeF3B"
-                    className={`button ${css['get-involved-button']}`}
-                    indicateExternal
-                  >
-                    Discord
-                  </Link>
-
-                  <Link
-                    href="https://ef-events.notion.site/Host-an-event-at-Devconnect-8d1c95ea7f4f41d9a4239eb87ed1fb03"
-                    className={`button ${css['get-involved-button']}`}
-                    indicateExternal
-                  >
-                    Host an Event
-                  </Link>
+                <Link
+                  href="https://t.me/CryptoCanalCommunity"
+                  className={`button purple ${css['get-involved-button']}`}
+                  indicateExternal
+                >
+                  Crypto Canal Telegram
+                </Link>
+              </div>
+              <div className={css['right']}>
+                <div className="aspect" id="video">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/6X0yIUq7fpc"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
                 </div>
               </div>
             </div>
+
+            <div className={`${css['gallery']}`}>
+              <div className={css['grid-item']}>
+                <Image src={Cowork1} alt="Cowork space example" />
+              </div>
+              <div className={css['grid-item']}>
+                <Image src={Cowork2} alt="Cowork space example" />
+              </div>
+              <div className={css['grid-item']}>
+                <Image src={Cowork3} alt="Cowork space example" />
+              </div>
+              <div className={css['grid-item']}>
+                <Image src={Cowork4} alt="Cowork space example" layout="fill" />
+              </div>
+              <div className={css['grid-item']}>
+                <Image src={Cowork5} alt="Cowork space example" />
+              </div>
+            </div>
           </Scene>
+
+          <div id="about" className={`${css['scene-about']}`}>
+            <div className="section">
+              <div className={`${css['scene-about-content']} clear-vertical`}>
+                <h1 className="section-header">What is Devconnect?</h1>
+
+                <div className={css['text-container']}>
+                  <div className={css['body']}>
+                    <div className={`background-title clear-vertical`}>DEV/CONNECT</div>
+                    <div>
+                      <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
+                      <p className="section-header as-text-body">
+                        Devconnect is a week-long in-person gathering that will feature independent Ethereum events,
+                        each with a unique focus.
+                      </p>
+                      <p className="section-header as-text-body">
+                        The goal is to focus on depth-first sessions rather than size, and to bring the Ethereum
+                        community together in smaller groups to talk, learn about, or make serious progress on specific
+                        subjects.
+                      </p>
+                    </div>
+
+                    <Link
+                      href="https://blog.ethereum.org/2022/05/30/devconnect-wrap/"
+                      className={`button ${css['get-involved-button']}`}
+                      indicateExternal
+                    >
+                      Read blog post
+                    </Link>
+                  </div>
+
+                  <div className={css['cube-images']}>
+                    <div>
+                      <Image
+                        src={CubeImages}
+                        layout="fill"
+                        objectFit="contain"
+                        objectPosition="right"
+                        alt="Devconnect event images"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <Scene growVertically growNaturally id="faq" className={`${css['scene-faq']} section`}>
             <div className={`clear-vertical`}>
@@ -565,36 +498,6 @@ const Home: NextPage = (props: any) => {
               </div>
             </div>
           </Scene>
-
-          {/* <Scene growVertically id="amsterdam" className={`${css['scene-amsterdam']} section`}>
-          <h1 className="section-header clear-vertical grey">
-            Amsterdam <br /> Netherlands
-          </h1>
-
-          <div className={`clear ${css['content']}`}>
-            <div className={css['text-container']}>
-              <div className={css['background-header']}>
-                <HorizontalLooper>
-                  <p className={`massive-header`}>Amsterdam</p>
-                  <p className={`massive-header`}>Amsterdam</p>
-                  <p className={`massive-header`}>Amsterdam</p>
-                </HorizontalLooper>
-              </div>
-              <p className={`${css['about-text']} subheader as-text-body`}>AMSTERDAM - [ ahm-stuhr-dahYUMMMm ]</p>
-              <p className="section-header as-text-body">
-                Amsterdam is known as one of the world’s most multicultural cities.
-              </p>
-              <p className="section-header as-text-body">
-                Like Ethereum, it can mean many things to many different people, and there’s something interesting for
-                everyone. So where better to give a distributed (and passionate) ecosystem a more connected feel than in
-                a city brought together by canals 🛶, bike lanes 🚲, and culture 🏫 throughout?
-              </p>
-            </div>
-            <div className={css['image']}>
-              <Image src={Amsterdam} objectFit="cover" layout="fill" alt="Amsterdam" />
-            </div>
-          </div>
-        </Scene> */}
         </main>
         <Footer />
       </div>

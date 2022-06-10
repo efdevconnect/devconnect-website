@@ -34,14 +34,21 @@ const MultiLink = (props: any) => {
           {props.to.map((menuItem: any) => {
             if (menuItem.external) {
               return (
-                <Link key={menuItem.text} href={menuItem.url} target="_blank" rel="noreferrer" indicateExternal>
+                <Link
+                  className={menuItem.customClass}
+                  key={menuItem.text}
+                  href={menuItem.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  indicateExternal
+                >
                   {menuItem.text}
                 </Link>
               )
             }
 
             return (
-              <Link key={menuItem.text} href={menuItem.url}>
+              <Link className={menuItem.customClass} key={menuItem.text} href={menuItem.url}>
                 {menuItem.text}
               </Link>
             )
@@ -53,42 +60,60 @@ const MultiLink = (props: any) => {
 }
 
 const menuItems = [
+  // {
+  //   text: 'About',
+  //   url: '/',
+  // },
   {
-    text: 'About',
-    url: '/',
-  },
-  {
-    text: 'Schedule',
-    url: '/schedule',
-  },
-  {
-    text: 'Co-work',
-    url: '/cowork',
-  },
-  {
-    text: 'Amsterdam',
-    url: '/city-guide',
-  },
-  {
-    text: 'Get Involved',
+    text: 'Editions',
     children: [
       {
-        text: 'Host an event',
-        external: true,
-        url: 'https://ef-events.notion.site/Host-an-event-at-Devconnect-8d1c95ea7f4f41d9a4239eb87ed1fb03',
-      },
-      {
-        text: 'Volunteer',
-        external: true,
-        url: 'https://forms.gle/6eoj7wDjXx6qhNj78',
-      },
-      {
-        text: 'Press Inquiry',
-        external: true,
-        url: 'https://forms.gle/wV9hKjFdmhw38gbF8',
+        text: 'Amsterdam 2022',
+        url: '/schedule',
       },
     ],
   },
+  {
+    text: 'Devcon',
+    url: 'https://devcon.org',
+  },
+  {
+    text: 'StreamETH',
+    customClass: css['streameth-highlight'],
+    url: 'https://streameth.tv',
+  },
+  // {
+  //   text: 'Schedule',
+  //   url: '/schedule',
+  // },
+  // {
+  //   text: 'Co-work',
+  //   url: '/cowork',
+  // },
+  // {
+  //   text: 'Amsterdam',
+  //   url: '/city-guide',
+  // },
+  // {
+  //   text: 'Get Involved',
+  //   children: [
+  //     {
+  //       text: 'Host an event',
+  //       external: true,
+  //       url: 'https://ef-events.notion.site/Host-an-event-at-Devconnect-8d1c95ea7f4f41d9a4239eb87ed1fb03',
+  //     },
+  //     {
+  //       text: 'Volunteer',
+  //       external: true,
+  //       url: 'https://forms.gle/6eoj7wDjXx6qhNj78',
+  //     },
+  //     {
+  //       text: 'Press Inquiry',
+  //       external: true,
+  //       url: 'https://forms.gle/wV9hKjFdmhw38gbF8',
+  //     },
+  //   ],
+  // },
 ]
 
 const Mobile = () => {
@@ -154,14 +179,14 @@ export const FooterMenu = (props: any) => {
 
         if (isMultiLink) {
           return (
-            <MultiLink key={menuItem.text} to={menuItem.children}>
+            <MultiLink className={menuItem.customClass} key={menuItem.text} to={menuItem.children}>
               {menuItem.text}
             </MultiLink>
           )
         }
 
         return (
-          <Link key={menuItem.text} href={menuItem.url}>
+          <Link className={menuItem.customClass} key={menuItem.text} href={menuItem.url}>
             {menuItem.text}
           </Link>
         )
@@ -172,13 +197,13 @@ export const FooterMenu = (props: any) => {
           <TwitterIcon style={{ fill: 'white' }} />
         </a>
 
-        <a target="_blank" rel="noreferrer" href="https://discord.gg/FhmA3KeF3B">
+        {/* <a target="_blank" rel="noreferrer" href="https://discord.gg/FhmA3KeF3B">
           <DiscordIcon style={{ fill: 'white' }} />
         </a>
 
         <a target="_blank" rel="noreferrer" href="https://t.me/efdevconnect">
           <TelegramIcon style={{ fill: 'white' }} />
-        </a>
+        </a> */}
       </div>
     </div>
   )
@@ -194,14 +219,14 @@ export const Menu = (props: any) => {
 
         if (isMultiLink) {
           return (
-            <MultiLink key={menuItem.text} to={menuItem.children}>
+            <MultiLink className={menuItem.customClass} key={menuItem.text} to={menuItem.children}>
               {menuItem.text}
             </MultiLink>
           )
         }
 
         return (
-          <Link key={menuItem.text} href={menuItem.url}>
+          <Link className={menuItem.customClass} key={menuItem.text} href={menuItem.url}>
             {menuItem.text}
           </Link>
         )
@@ -212,13 +237,13 @@ export const Menu = (props: any) => {
           <TwitterIcon style={{ fill: 'white' }} />
         </a>
 
-        <a target="_blank" rel="noreferrer" href="https://discord.gg/FhmA3KeF3B">
+        {/* <a target="_blank" rel="noreferrer" href="https://discord.gg/FhmA3KeF3B">
           <DiscordIcon style={{ fill: 'white' }} />
         </a>
 
         <a target="_blank" rel="noreferrer" href="https://t.me/efdevconnect">
           <TelegramIcon style={{ fill: 'white' }} />
-        </a>
+        </a> */}
       </div>
     </div>
   )

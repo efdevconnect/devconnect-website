@@ -2,6 +2,8 @@ import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import LinkIndicator from 'assets/icons/link-indicator.svg'
 import css from './link.module.scss'
+// @ts-ignore
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 type LinkProps = {
   children: ReactNode
@@ -68,6 +70,14 @@ const WrappedLink = React.forwardRef(
             </span>
           )}
         </a>
+      )
+    }
+
+    if (href.startsWith('#')) {
+      return (
+        <AnchorLink href={href} {...linkAttributes} offset={125}>
+          {children}
+        </AnchorLink>
       )
     }
 
