@@ -15,6 +15,7 @@ import DevconnectAmsterdam from 'assets/images/amsterdam-logo-text.svg'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { createPortal } from 'react-dom'
 import { Footer } from 'pages/index'
+import { useRouter } from 'next/router'
 
 const MultiLink = (props: any) => {
   const [open, setOpen] = React.useState(false)
@@ -59,7 +60,7 @@ const MultiLink = (props: any) => {
   )
 }
 
-const menuItems = [
+const menuItems = (pathname: string) => [
   // {
   //   text: 'About',
   //   url: '/',
@@ -79,7 +80,7 @@ const menuItems = [
   },
   {
     text: 'StreamETH',
-    customClass: css['streameth-highlight'],
+    customClass: pathname === '/' ? css['streameth-highlight'] : undefined,
     url: 'https://streameth.tv',
   },
   // {
@@ -168,13 +169,15 @@ const Mobile = () => {
 }
 
 export const FooterMenu = (props: any) => {
+  const router = useRouter();
+
   return (
     <div className={css['footer-menu']} id="footer-menu">
       <AnchorLink href="#__next" id="back-to-top" className={`${css['back-to-top']} dark-grey`}>
         Back to top <ArrowUpIcon />
       </AnchorLink>
 
-      {menuItems.map((menuItem: any) => {
+      {menuItems(router.pathname).map((menuItem: any) => {
         const isMultiLink = !!menuItem.children
 
         if (isMultiLink) {
@@ -210,11 +213,13 @@ export const FooterMenu = (props: any) => {
 }
 
 export const Menu = (props: any) => {
+  const router = useRouter();
+
   return (
     <div className={css['menu']}>
       <Mobile />
 
-      {menuItems.map((menuItem: any) => {
+      {menuItems(router.pathname).map((menuItem: any) => {
         const isMultiLink = !!menuItem.children
 
         if (isMultiLink) {
