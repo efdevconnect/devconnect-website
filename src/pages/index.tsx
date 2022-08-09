@@ -390,15 +390,15 @@ const Home: NextPage = (props: any) => {
                   </p>
                   <p className="big-text">
                     While Devconnect is over, the Dutch ethereum community continues to grow! If you wish to get
-                    involved, you can join the Dutch CryptoCanal Community.
+                    involved, you can join the Ethereum DEV NL meetup group.
                   </p>
                 </div>
                 <Link
-                  href="https://t.me/CryptoCanalCommunity"
+                  href="https://www.meetup.com/Ethereum-DEV-NL/"
                   className={`button purple ${css['get-involved-button']}`}
                   indicateExternal
                 >
-                  Crypto Canal Telegram
+                  Ethereum DEV NL
                 </Link>
               </div>
               <div className={css['right']}>
