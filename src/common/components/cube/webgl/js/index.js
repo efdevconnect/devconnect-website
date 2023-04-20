@@ -134,7 +134,7 @@ export const init = () => {
       maskId: CubeMasks.M2,
     },
     {
-      texture: Texture(regl, 'devconnect-cube-1.png'),
+      texture: Texture(regl, 'istanbul-logo.png'),
       typeId: ContentTypes.RED,
       maskId: CubeMasks.M3,
     },
@@ -145,7 +145,7 @@ export const init = () => {
     },
     {
       texture: Texture(regl, 'devconnect-cube-4.png'),
-      typeId: ContentTypes.BLUE,
+      typeId: ContentTypes.RED,
       maskId: CubeMasks.M5,
     },
   ]
