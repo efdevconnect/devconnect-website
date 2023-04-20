@@ -18,11 +18,7 @@ export const AccordionItem = React.forwardRef((props: any, ref: any) => {
 
   return (
     <div className={className}>
-      <div
-        id={props.id}
-        className={`bold big-text ${css['toggle']}`}
-        onClick={() => setOpen(props.alwaysOpen || !open)}
-      >
+      <div id={props.id} className={`big-text ${css['toggle']}`} onClick={() => setOpen(props.alwaysOpen || !open)}>
         {props.title}
         {open ? <ChevronUp /> : <ChevronDown />}
       </div>

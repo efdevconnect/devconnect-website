@@ -18,7 +18,7 @@ export const init = () => {
     container: document.getElementById('cube'),
     attributes: {
       antialias: false,
-      alpha: false,
+      // alpha: false,
     },
   })
 
@@ -124,28 +124,28 @@ export const init = () => {
    */
   const textures = [
     {
-      texture: Texture(regl, 'logo.png'),
+      texture: Texture(regl, 'devconnect-cube-1.png'),
       typeId: ContentTypes.RAINBOW,
       maskId: CubeMasks.M1,
     },
     {
-      texture: Texture(regl, 'logo-2.png'),
+      texture: Texture(regl, 'devconnect-cube-2.png'),
       typeId: ContentTypes.BLUE,
       maskId: CubeMasks.M2,
     },
     {
-      texture: Texture(regl, 'logo.png'),
+      texture: Texture(regl, 'devconnect-cube-6.png'),
       typeId: ContentTypes.RED,
       maskId: CubeMasks.M3,
     },
     {
-      texture: Texture(regl, 'text-1.png'),
+      texture: Texture(regl, 'devconnect-cube-3.png'),
       typeId: ContentTypes.BLUE,
       maskId: CubeMasks.M4,
     },
     {
-      texture: Texture(regl, 'text-2.png'),
-      typeId: ContentTypes.RED,
+      texture: Texture(regl, 'devconnect-cube-4.png'),
+      typeId: ContentTypes.BLUE,
       maskId: CubeMasks.M5,
     },
   ]
@@ -187,7 +187,7 @@ export const init = () => {
      * Clear context
      */
     regl.clear({
-      color: [0, 0, 0, 0],
+      // color: [255, 255, 255, 0],
       depth: 1,
     })
 

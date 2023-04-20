@@ -35,12 +35,13 @@ export const useDraggableLink = () => {
 }
 
 const WrappedLink = React.forwardRef(
-  ({ children, indicateExternal, external, allowDrag, href, ...rest }: LinkProps, ref: any) => {
+  ({ children, indicateExternal, external, allowDrag, onClick, href, ...rest }: LinkProps, ref: any) => {
     const isMailTo = href.startsWith('mailto:')
     const linkAttributes = {
       ...rest,
       className: rest.className ? `${rest.className} ${css['link']} generic` : `${css['link']} generic`,
       ...useDraggableLink(),
+      onClick,
     }
 
     if (isMailTo) {
@@ -82,12 +83,10 @@ const WrappedLink = React.forwardRef(
     }
 
     return (
-      <Link href={href}>
-        <a {...linkAttributes}>
-          <span className={css['link']} data-type="link-text">
-            {children}
-          </span>
-        </a>
+      <Link href={href} {...linkAttributes}>
+        <span className={css['link']} data-type="link-text">
+          {children}
+        </span>
       </Link>
     )
   }

@@ -10,10 +10,15 @@ mat2 rotate2d(float value){
 }
 
 vec3 gradient1(vec2 st, float tick) {
-  vec3 c1 = vec3(0.98, 0.71, 0.0);
-  vec3 c2 = vec3(0.95, 0.20, 0.14);
-  vec3 c3 = vec3(0.89, 0.12, 0.78);
-  vec3 c4 = vec3(0.30, 0.24, 0.96);
+  //vec3 c1 = vec3(0.98, 0.71, 0.0);
+  //vec3 c2 = vec3(0.95, 0.20, 0.14);
+  //vec3 c3 = vec3(0.89, 0.12, 0.78);
+  //vec3 c4 = vec3(0.30, 0.24, 0.96);
+
+  vec3 c1 = vec3(0,1.0,0.918);
+  vec3 c2 = vec3(0.89, 0.12, 0.78);
+  vec3 c3 = vec3(0.8,0.306,0.145);
+  vec3 c4 = vec3(1.,0.475,0.353);
 
   st.y = 1.0 - st.y;
 
@@ -34,11 +39,20 @@ vec3 gradient1(vec2 st, float tick) {
 }
 
 vec3 gradient2(vec2 st, float tick) {
-  vec3 c1 = vec3(1.0, 0.8, 0.2);
-  vec3 c2 = vec3(0.92, 0.20, 0.14);
+  // vec3 c1 = vec3(1.0, 0.8, 0.2);
+  // vec3 c2 = vec3(0.92, 0.20, 0.14);
+
+  //vec3 c1 = vec3(1.,0.475,0.353);
+  //vec3 c2 = vec3(0.9,0.40,0.2);
+
+ // vec3 c1 = vec3(0.647,0.392,0.659);
+ // vec3 c2 = vec3(0.373,0.761,0.663);
+
+  vec3 c1 = vec3(0,1.0,0.918); // teal bright
+  vec3 c2 = vec3(0.647,0.392,0.659); // purp bright
 
   st -= vec2(0.5);
-  st *= scale(vec2(3.8));
+  st *= scale(vec2(3));
   st *= rotate2d(tick * PI);
   st += vec2(0.5);
 
@@ -46,11 +60,17 @@ vec3 gradient2(vec2 st, float tick) {
 }
 
 vec3 gradient3(vec2 st, float tick) {
-  vec3 c1 = vec3(0.89, 0.12, 0.78);
-  vec3 c2 = vec3(0.29, 0.68, 0.95);
+  // vec3 c1 = vec3(0.89, 0.12, 0.78);
+  // vec3 c2 = vec3(0.29, 0.68, 0.95);
+
+  //vec3 c1 = vec3(0.647,0.392,0.659);
+  //vec3 c2 = vec3(0.4,0.3,0.6);
+
+  vec3 c1 = vec3(0.8,0.306,0.145);
+  vec3 c2 = vec3(0.373,0.761,0.663);
 
   st -= vec2(0.5);
-  st *= scale(vec2(3.8));
+  st *= scale(vec2(3));
   st *= rotate2d(tick * PI);
   st += vec2(0.5);
 
@@ -58,6 +78,7 @@ vec3 gradient3(vec2 st, float tick) {
 }
 
 vec3 gradients(int type, vec2 st, float tick) {
+  // return vec3(1.,1.,1.);
   if (type == 1) {
     return gradient1(st, tick);
   } else if (type == 2) {
@@ -68,3 +89,7 @@ vec3 gradients(int type, vec2 st, float tick) {
 }
 
 #pragma glslify: export(gradients);
+
+//  vec4 a = vec4(1.0,0.306,0.145, 0.8);
+//  vec4 b = vec4(0.373,0.761,0.663, 0.8);
+//  vec4 c = vec4(0.647,0.392,0.659, 0.8);

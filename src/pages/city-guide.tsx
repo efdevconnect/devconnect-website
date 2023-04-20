@@ -7,7 +7,7 @@ import AreasToStayCityCenter from 'assets/images/city-guide/city-center.png'
 import AreasToStayEast from 'assets/images/city-guide/east.png'
 import AreasToStaySouth from 'assets/images/city-guide/south.png'
 import AreasToStayWest from 'assets/images/city-guide/west.png'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import css from './city-guide.module.scss'
 import { SEO } from 'common/components/SEO'
 import SwipeToScroll from 'common/components/swipe-to-scroll'

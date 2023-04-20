@@ -1,30 +1,35 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
+import ImageNew from 'next/image'
 import css from './index.module.scss'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import HeaderLogo from 'assets/images/header-logo.svg'
-import Logo from 'assets/images/logo.svg'
+import Logo from 'assets/images/logo-ist.svg'
 import LogoBig from 'assets/images/logo-big.svg'
-import FingersCrossed from 'assets/images/fingers-crossed.png'
-import DevconnectAmsterdamText from 'assets/images/amsterdam-logo-text.svg'
-import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
+import DevconnectAmsterdamText from 'assets/images/istanbul-logo-text.svg'
+import DevconnectAmsterdam from 'assets/images/istanbul-logo-with-eth.svg'
 import RoadToDevcon from 'assets/images/rtd.png'
-import HorizontalLooper from 'common/components/horizontal-looper'
-import CubeImages from 'assets/images/cube-images.png'
-import BluePrint from 'assets/images/blueprint-bg.png'
-import VideoPlaceholder from 'assets/images/devconnect-video-placeholder.png'
+import CubeImages from 'assets/images/cube-images-ist.png'
 import { SEO } from 'common/components/SEO'
 import { Menu, FooterMenu } from 'common/components/layout/Menu'
 import Link from 'common/components/link/Link'
 import Accordion, { AccordionItem } from 'common/components/accordion'
 import Modal from 'common/components/modal'
-import YoutubeIcon from 'assets/icons/youtube.svg'
-import Cowork1 from 'assets/images/event-pictures/amsterdam-2022-event-picture-2.jpg'
-import Cowork2 from 'assets/images/event-pictures/amsterdam-2022-event-picture-6.jpg'
-import Cowork3 from 'assets/images/event-pictures/amsterdam-2022-event-picture-1.jpg'
-import Cowork4 from 'assets/images/event-pictures/amsterdam-2022-event-picture-5.jpg'
-import Cowork5 from 'assets/images/event-pictures/amsterdam-2022-event-picture-3.jpg'
+import bgMerged from 'assets/images/istanbul-bg/bg-merged.png'
+import Hehe from 'assets/images/hehe.png'
+import FadeIn from 'common/components/fade-in'
+// import BluePrint from 'assets/images/blueprint-bg.png'
+// import VideoPlaceholder from 'assets/images/devconnect-video-placeholder.png'
+// import YoutubeIcon from 'assets/icons/youtube.svg'
+// import Cowork1 from 'assets/images/event-pictures/amsterdam-2022-event-picture-2.jpg'
+// import Cowork2 from 'assets/images/event-pictures/amsterdam-2022-event-picture-6.jpg'
+// import Cowork3 from 'assets/images/event-pictures/amsterdam-2022-event-picture-1.jpg'
+// import Cowork4 from 'assets/images/event-pictures/amsterdam-2022-event-picture-5.jpg'
+// import Cowork5 from 'assets/images/event-pictures/amsterdam-2022-event-picture-3.jpg'
+// import bgUpper from 'assets/images/istanbul-bg/bg-upper.png'
+// import bgCenter from 'assets/images/istanbul-bg/bg-center.png'
+// import bgLower from 'assets/images/istanbul-bg/bg-lower.png'
 
 const Cube = dynamic(() => import('common/components/cube'), {
   ssr: false,
@@ -32,20 +37,18 @@ const Cube = dynamic(() => import('common/components/cube'), {
 
 const FAQ = [
   {
-    text: 'Where can I find the devconnect streams?',
-    value: 'streams',
+    text: 'What about Devcon?',
+    value: 'whataboutdevcon',
     content: () => {
       return (
         <p>
-          You can find content from most events on the{' '}
-          <Link href="/schedule" indicateExternal>
-            Devconnect schedule
+          Devcon will remain our principal event, and we&apos;re excited to bring Devcon 7 to Southeast Asia in 2024!
+          Specific dates and location are coming soon. Read about why we&apos;re scheduling Devcon 7 for 2024 in
+          Southeast Asia{' '}
+          <Link href="https://blog.ethereum.org/2023/02/28/devcon-7-update" indicateExternal>
+            here
           </Link>
-          ,{' '}
-          <Link href="https://streameth.tv" indicateExternal>
-            StreamETH
-          </Link>
-          , and at each event’s website.
+          .
         </p>
       )
     },
@@ -55,37 +58,181 @@ const FAQ = [
     value: 'diff',
     content: () => {
       return (
-        <p>
-          While complementary, both Devcon and Devconnect are very different types of events.{' '}
-          <Link href="https://devcon.org" indicateExternal>
-            Devcon
-          </Link>{' '}
-          is the Ethereum Foundation&apos;s oldest and principal event where the Ethereum community gathers in one venue
-          for several days of programming, collaboration, and reunion. Devconnect was an experimental event that we did
-          for the first time this year (2022), the focus was on in-depth conversations, facilitated through independent,
-          topic-specific events. It was spread throughout different venues around Amsterdam city, each with their own
-          access control and ticketing.
-        </p>
+        <>
+          <p>
+            Devcon and Devconnect are the only two events organized by the Ethereum Foundation (yes, all the other
+            amazing ETH events are community-run!). Both events are Ethereum-focused but serve different purposes.
+          </p>
+
+          <p>
+            <b>Devcon</b> is a global Ethereum <b>family reunion</b> a place to celebrate success and align on updates
+            and direction. It is our principal event, all in one place with one big venue, and talks and workshops open
+            to all. Devcon 7 is{' '}
+            <Link href="https://blog.ethereum.org/2023/02/28/devcon-7-update" indicateExternal>
+              scheduled for 2024 in Southeast Asia
+            </Link>
+            .
+          </p>
+
+          <p>
+            <b>Devconnect</b> on the other hand, is a week <b>to make progress</b>, dive deep into specific topics among
+            fellow experts, to co-work and collaborate. It is structurally entirely different from Devcon, and consists
+            of many individual events, organized by you the community, that each cover one topic in depth.
+          </p>
+        </>
       )
     },
   },
   {
-    text: 'Will there be a Devconnect next year?',
-    value: 'next-year',
+    text: 'Why is Devconnect coming to Istanbul?',
+    value: 'why-istanbul',
+    content: () => {
+      return (
+        <>
+          <p>
+            In choosing Istanbul as the host city for Devconnect 2023, we aim to capitalize on its unique position as a
+            bridge between East and West. Accessibility is a key priority, and Istanbul&apos;s major international
+            airport, efficient local metro, and abundance of suitable venues for community events make it the perfect
+            location for Devconnect 2023.
+          </p>
+          <p>
+            The engaged local community and numerous student blockchain clubs in the region further strengthen our
+            belief in the potential of this vibrant city. We are confident that Istanbul&apos;s unique blend of history,
+            culture, and modernity will provide an inspiring backdrop for the global Ethereum developer community to
+            come together, collaborate with these passionate groups, and drive innovation for Ethereum.
+          </p>
+        </>
+      )
+    },
+  },
+  {
+    text: 'What about the earthquakes that happened in Turkey and Syria?',
+    value: 'earthquake',
+    content: () => {
+      return (
+        <>
+          <p>
+            While Istanbul the city was not physically affected, we recognize and have had on our minds the{' '}
+            <Link
+              href="https://en.wikipedia.org/wiki/2023_Turkey–Syria_earthquake#:~:text=As of 20 March 2023,disaster
+            in its modern history"
+              indicateExternal
+            >
+              devastating earthquakes
+            </Link>{' '}
+            that so heavily impacted southern and central Turkey and northern and western Syria, and affected the lives
+            of millions. Our hearts go out to all who lost loved ones or their homes.
+          </p>
+          <p>
+            We know that Turkey and Syria will need support for a long time. We hope the decision to bring Devconnect to
+            Istanbul can show our support, and encourage others to support this region in different ways.
+          </p>
+        </>
+      )
+    },
+  },
+  {
+    text: 'From my understanding, Devconnect will just be separate events hosted by individual projects/teams/individuals, correct?',
+    value: 'separate-events',
+    content: () => {
+      return <p>This is correct!</p>
+    },
+  },
+  {
+    text: 'Will there be a central venue where these events will be held, or is each host responsible for locating a venue for their event?',
+    value: 'central-venue',
     content: () => {
       return (
         <p>
-          To be determined! If you liked it, show us your love on Twitter{' '}
-          <Link href="https://twitter.com/efdevconnect">@EFDevconnect</Link> ;)
+          Each host is responsible for their own venue. There will be many events in many different venues throughout
+          Istanbul during the week. Attendees will need to pick and choose based on their interest.
         </p>
       )
     },
   },
   {
-    text: 'Where will Devconnect take place next?',
-    value: 'where-next',
+    text: 'Will there be any "main events" hosted directly by Devconnect?',
+    value: 'main-events',
     content: () => {
-      return <p>To be determined! Welcoming ideas :)</p>
+      return (
+        <p>
+          There will be an open Co-Working space throughout the week with tickets available to all. Other than that, all
+          events will be independently hosted, ticketed, and organized.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Approximately how many people will fit at each event?',
+    value: 'how-many-people',
+    content: () => {
+      return (
+        <p>
+          Sizes will vary, and range from 25-person workshops, to 300-person events, to a 800-person hackathon for
+          example. Some are private, some free, some will be based on applications, and others may be ticketed with paid
+          tickets.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'What is the primary audience you are hoping to attract for Devconnect IST?',
+    value: 'primary-audience',
+    content: () => {
+      return (
+        <p>
+          While this does vary by event, the focus in general are those who are involved/interested in the ecosystem in
+          one particular area and want to dive deeper!
+        </p>
+      )
+    },
+  },
+
+  {
+    text: 'How do you host an event at Devconnect?',
+    value: 'organizers',
+    content: () => {
+      return (
+        <>
+          <p>
+            Tl;dr: Just do it! No permission needed. Set the goals, determine target demographic, choose from one of the
+            many great venues in Istanbul, and announce (tagging{' '}
+            <Link href="https://twitter.com/efdevconnect" indicateExternal>
+              @EFDevconnect
+            </Link>
+            ).
+          </p>
+          <p>
+            First, thank you for your interest in participating! As a recap,{' '}
+            <b>Devconnect is a week-long series of independent events</b> focused on specific topics organized by
+            independent teams/projects that are most familiar with the topic.
+          </p>
+          <p>Through Devconnect, we aim to foster:</p>
+          <ul>
+            <li>Smaller, depth-first conversations led by the experts in those topics</li>
+            <li>Audiences/attendees that are very relevant to the topic at hand</li>
+            <li>Foster collaboration and community throughout Devconnect week</li>
+          </ul>
+          <p>
+            <b>We, the Devconnect team, will be supporting the week in three ways:</b>
+          </p>
+          <ul>
+            <li>
+              Signaling towards a place (Istanbul) and a time (November 13-19) for in-person cullaboration among our
+              distributed Ethereum community
+            </li>
+            <li>Organizing a Coworking Space throughout the week open to all</li>
+            <li>Helping with publicity through Devconnect.org calendar, twitter, etc.</li>
+          </ul>
+          <p>
+            <i>
+              <b>Beyond that, all the events happening throughout the week will be independently hosted</b>. There will
+              be no &quot;main&quot; event. All events will be in different venues around Istanbul — a city with many
+              conference centers.
+            </i>
+          </p>
+        </>
+      )
     },
   },
 ]
@@ -312,6 +459,8 @@ const Scene = (props: any) => {
 
 const Home: NextPage = (props: any) => {
   const [dateHovered, setDateHovered] = React.useState(false)
+  const [hehe, setHehe] = React.useState(false)
+  const organizersRef = React.useRef<any>()
 
   return (
     <>
@@ -330,25 +479,29 @@ const Home: NextPage = (props: any) => {
             <div className="section">
               <div className={css['info-container']}>
                 <div className={`${css['info']}`}>
-                  <Link href="#video" className={`button blue-fill ${css['video-recap-button']}`}>
-                    <span>
-                      <YoutubeIcon /> Watch Video Recap
-                    </span>
-                  </Link>
-
-                  <p className={css['description']}>
-                    <span>
-                      A <b className={css['red-underline']}>collaborative</b>
-                    </span>{' '}
-                    <b>Ethereum</b> <span>week, built by and for</span> <b>everyone.</b>
+                  <p className={css['big-description']}>
+                    <span>Devconnect</span> <span>is</span> <span className={css['red-underline']}>back!</span>
                   </p>
+
+                  <Link href="#about" className={`button blue-fill ${css['video-recap-button']}`}>
+                    <span>ISTANBUL, Türkiye</span>
+                    <span>November 13-19, 2023</span>
+                  </Link>
                 </div>
               </div>
             </div>
 
             <div className={`section ${css['bottom-section']}`}>
               <div className={`${css['bottom']} clear-vertical`}>
-                <Logo />
+                <div>
+                  <Logo
+                    onMouseEnter={() => setHehe(true)}
+                    onMouseLeave={() => setHehe(false)}
+                    onTouchStart={() => setHehe(!hehe)}
+                    className={css['logo-bottom-left']}
+                  />
+                  {hehe && <ImageNew src={Hehe} alt="Hehe" className={css['hehe']} />}
+                </div>
 
                 <div className={css['scroll-for-more']}>
                   <p>Scroll to learn more</p>
@@ -372,7 +525,76 @@ const Home: NextPage = (props: any) => {
             </div>
           </Scene>
 
-          <Scene growVertically growNaturally id="event-retro" className={`${css['scene-event-retro']} section`}>
+          <Scene growVertically growNaturally id="istanbul" className={`${css['scene-istanbul']}`}>
+            {/* <div className={`${css['background']} expand`}>
+              <Image src={BluePrint} objectFit="contain" alt="Building outline" />
+            </div> */}
+            <FadeIn>
+              <div className="section" id="about">
+                <h1 className="section-header grey clear-vertical" style={{ zIndex: 1 }}>
+                  Devconnect // Istanbul 2023
+                </h1>
+
+                <div className={`${css['columns']} clear-vertical`}>
+                  <div className={css['left']}>
+                    <div>
+                      <p className={css['big-description']}>
+                        <span>
+                          A <b className={css['red-underline']}>collaborative</b>
+                        </span>{' '}
+                        <b>Ethereum</b> <span>week, built by and for</span> <b>everyone.</b>
+                      </p>
+                      <p className="big-text">
+                        One notable feedback we received from attendees of the{` `}
+                        <Link href="https://blog.ethereum.org/2022/05/30/devconnect-wrap" indicateExternal>
+                          first-ever Devconnect in Amsterdam in 2022
+                        </Link>{' '}
+                        was that they felt the sessions and conversations had a significant impact on the ecosystem by
+                        driving progress in tangible ways.
+                      </p>
+                      <p className="big-text">
+                        Many expressed their wishes for Devconnect to happen again, and after we saw the impact, we
+                        strongly agreed. <b>Devconnect is coming back on November 13-19 this year!</b>
+                      </p>
+                    </div>
+                    <Link
+                      href="https://blog.ethereum.org/2023/04/20/announcing-devconnect-ist"
+                      className={`button purple ${css['get-involved-button']}`}
+                      indicateExternal
+                    >
+                      Read the full announcement
+                    </Link>
+                  </div>
+                  <div className={css['right']}>
+                    <div className="aspect">
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src="https://www.youtube.com/embed/6X0yIUq7fpc"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+
+            <div className={css['background-cityscape']}>
+              <ImageNew src={bgMerged} alt="Istanbul inspired cityscape background" />
+            </div>
+
+            {/* <div className={css['background-layers']}>
+              <ImageNew src={bgUpper} alt="Istanbul inspired background" />
+              <ImageNew src={bgLower} alt="Istanbul inspired background" />
+              <ImageNew src={bgCenter} alt="Istanbul inspired background" />
+            </div> */}
+          </Scene>
+
+          {/* NOTE: RETAINING FOR POST DEVCONNECT RECAP: */}
+          {/* <Scene growVertically growNaturally id="event-retro" className={`${css['scene-event-retro']} section`}>
             <div className={`${css['background']} expand`}>
               <Image src={BluePrint} objectFit="contain" alt="Building outline" />
             </div>
@@ -433,70 +655,103 @@ const Home: NextPage = (props: any) => {
                 <Image src={Cowork5} alt="Cowork space example" />
               </div>
             </div>
-          </Scene>
+          </Scene> */}
 
           <div id="about" className={`${css['scene-about']}`}>
-            <div className="section">
-              <div className={`${css['scene-about-content']} clear-vertical`}>
-                <h1 className="section-header">What is Devconnect?</h1>
+            <FadeIn>
+              <div className="section">
+                <div className={`${css['scene-about-content']} clear-vertical`}>
+                  <h1 className="section-header">What is Devconnect?</h1>
 
-                <div className={css['text-container']}>
-                  <div className={css['body']}>
-                    <div className={`background-title clear-vertical`}>DEV/CONNECT</div>
-                    <div>
-                      <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
-                      <p className="section-header as-text-body">
-                        Devconnect is a week-long in-person gathering that will feature independent Ethereum events,
-                        each with a unique focus.
-                      </p>
-                      <p className="section-header as-text-body">
-                        The goal is to focus on depth-first sessions rather than size, and to bring the Ethereum
-                        community together in smaller groups to talk, learn about, or make serious progress on specific
-                        subjects.
-                      </p>
+                  <div className={css['text-container']}>
+                    <div className={css['body']}>
+                      <div className={`background-title clear-vertical`}>DEV/CONNECT</div>
+                      <div>
+                        <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
+                        <p className="section-header as-text-body">
+                          Devconnect is a week-long gathering that features independent Ethereum events, each with a
+                          unique focus. Unlike a usual conference, the goal is to facilitate the deep discussions and
+                          conversations that are needed to continue to improve Ethereum. The target audience for most
+                          events will be experts or people very interested in the specific domain of the event to enable
+                          in-depth understanding and discussions.
+                        </p>
+                        <p className="big-text as-text-body">
+                          Devconnect is a natural candidate to apply{' '}
+                          <Link
+                            href="https://archive.devcon.org/archive/watch/6/opening-ceremonies-aya/?playlist=Staff
+                          Picks&tab=YouTube"
+                            indicateExternal
+                            className="white-link"
+                          >
+                            subtraction
+                          </Link>
+                          . Each discussion during Devconnect will be hosted and curated by experts in those domains.
+                          Our team will help foster coordination so that hosts have logistical help, and assurance that
+                          there&apos;s minimal overlap of similar domains to avoid pulling participants in different
+                          directions.
+                        </p>
+                      </div>
+
+                      {/* <Link
+                        href="https://blog.ethereum.org/2022/05/30/devconnect-wrap/"
+                        className={`button white ${css['get-involved-button']}`}
+                        indicateExternal
+                      >
+                        Devconnect Telegram
+                      </Link> */}
+                      <Link
+                        href="#organizers"
+                        className={`button white ${css['get-involved-button']}`}
+                        onClick={() => {
+                          console.log('hello')
+                          organizersRef.current.open()
+                        }}
+                        indicateExternal
+                      >
+                        Want to organize an event?
+                      </Link>
                     </div>
 
-                    <Link
-                      href="https://blog.ethereum.org/2022/05/30/devconnect-wrap/"
-                      className={`button ${css['get-involved-button']}`}
-                      indicateExternal
-                    >
-                      Read blog post
-                    </Link>
-                  </div>
-
-                  <div className={css['cube-images']}>
-                    <div>
-                      <Image
-                        src={CubeImages}
-                        layout="fill"
-                        objectFit="contain"
-                        objectPosition="right"
-                        alt="Devconnect event images"
-                      />
+                    <div className={css['cube-images']}>
+                      <div>
+                        <Image
+                          src={CubeImages}
+                          layout="fill"
+                          objectFit="contain"
+                          objectPosition="right"
+                          alt="Devconnect event images"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </FadeIn>
           </div>
 
           <Scene growVertically growNaturally id="faq" className={`${css['scene-faq']} section`}>
-            <div className={`clear-vertical`}>
-              <h1 className="section-header grey">FAQ</h1>
+            <FadeIn>
+              <div className={`clear-vertical`}>
+                <h1 className="section-header grey">FAQ</h1>
 
-              <div className={`${css['accordion']} tab-content`}>
-                <Accordion>
-                  {FAQ.map(faq => {
-                    return (
-                      <AccordionItem key={faq.text} title={faq.text} id={faq.value}>
-                        {faq.content && faq.content()}
-                      </AccordionItem>
-                    )
-                  })}
-                </Accordion>
+                <div className={`${css['accordion']} tab-content`}>
+                  <Accordion>
+                    {FAQ.map(faq => {
+                      return (
+                        <AccordionItem
+                          key={faq.text}
+                          title={faq.text}
+                          id={faq.value}
+                          ref={faq.value === 'organizers' ? organizersRef : undefined}
+                        >
+                          {faq.content && faq.content()}
+                        </AccordionItem>
+                      )
+                    })}
+                  </Accordion>
+                </div>
               </div>
-            </div>
+            </FadeIn>
           </Scene>
         </main>
         <Footer />

@@ -8,7 +8,7 @@ import Cowork2 from 'assets/images/cowork-gallery/cowork-2.jpg'
 import Cowork3 from 'assets/images/cowork-gallery/cowork-3.png'
 import Cowork4 from 'assets/images/cowork-gallery/cowork-4.png'
 import Cowork5 from 'assets/images/cowork-gallery/cowork-5.png'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import css from './cowork.module.scss'
 import PinIcon from 'assets/icons/pin.svg'
 import TicketIcon from 'assets/icons/ticket.svg'

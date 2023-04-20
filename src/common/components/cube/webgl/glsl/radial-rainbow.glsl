@@ -1,15 +1,24 @@
 const float PI2 = 6.28318530718;
 
+// https://airtightinteractive.com/util/hex-to-glsl/
+
 vec4 radialRainbow(vec2 st, float tick) {
+  // return vec4(0, 0, 0, 0.3);
   vec2 toCenter = vec2(0.5) - st;
   float angle = mod((atan(toCenter.y, toCenter.x) / PI2) + 0.5 + sin(tick * 0.002), 1.0);
 
   // colors
-  vec4 a = vec4(0.15, 0.58, 0.96, 1.0);
-  vec4 b = vec4(0.29, 1.00, 0.55, 1.0);
-  vec4 c = vec4(1.00, 0.0, 0.85, 1.0);
-  vec4 d = vec4(0.92, 0.20, 0.14, 1.0);
-  vec4 e = vec4(1.00, 0.96, 0.32, 1.0);
+  //vec4 a = vec4(0.15, 0.58, 0.96, 1.0);
+  //vec4 b = vec4(0.29, 1.00, 0.55, 1.0);
+  //vec4 c = vec4(1.00, 0.0, 0.85, 1.0);
+  //vec4 d = vec4(0.92, 0.20, 0.14, 1.0);
+  //vec4 e = vec4(1.00, 0.96, 0.32, 1.0);
+
+  vec4 a = vec4(1.0,0.306,0.145, 1);
+  vec4 b = vec4(0.373,0.761,0.663, 1);
+  vec4 c = vec4(0.647,0.392,0.659, 1);
+  vec4 d = b;
+  vec4 e = c;
 
   float step = 1.0 / 10.0;
 

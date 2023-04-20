@@ -10,7 +10,7 @@ import IconCross from 'assets/icons/cross.svg'
 import ChevronUp from 'assets/icons/chevron-up.svg'
 import ArrowUpIcon from 'assets/icons/arrow-up.svg'
 import ArrowDropdown from 'assets/icons/arrow-dropdown.svg'
-import DevconnectAmsterdam from 'assets/images/amsterdam-logo-text.svg'
+import DevconnectLogoText from 'assets/images/istanbul-logo-text.svg'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { createPortal } from 'react-dom'
@@ -61,16 +61,20 @@ const MultiLink = (props: any) => {
 }
 
 const menuItems = (pathname: string) => [
-  // {
-  //   text: 'About',
-  //   url: '/',
-  // },
   {
-    text: 'Editions',
+    text: 'About',
+    url: pathname === '/' ? '#about' : '/#about', // Smoothscrolling if already on the page, otherwise hard link
+  },
+  {
+    text: 'FAQ',
+    url: pathname === '/' ? '#faq' : '/#faq', // Smoothscrolling if already on the page, otherwise hard link
+  },
+  {
+    text: 'Past Editions',
     children: [
       {
         text: 'Amsterdam 2022',
-        url: '/schedule',
+        url: '/edition/amsterdam',
       },
     ],
   },
@@ -78,22 +82,14 @@ const menuItems = (pathname: string) => [
     text: 'Devcon',
     url: 'https://devcon.org',
   },
-  {
-    text: 'StreamETH',
-    customClass: pathname === '/' ? css['streameth-highlight'] : undefined,
-    url: 'https://streameth.tv',
-  },
   // {
-  //   text: 'Schedule',
-  //   url: '/schedule',
+  //   text: 'StreamETH',
+  //   customClass: pathname === '/' ? css['streameth-highlight'] : undefined,
+  //   url: 'https://streameth.tv',
   // },
   // {
   //   text: 'Co-work',
   //   url: '/cowork',
-  // },
-  // {
-  //   text: 'Amsterdam',
-  //   url: '/city-guide',
   // },
   // {
   //   text: 'Get Involved',
@@ -153,7 +149,7 @@ const Mobile = () => {
         <div className={`${open ? css['open'] : ''} ${css['foldout']}`}>
           <div className="section">
             <div className={`${css['foldout-toggle']}`}>
-              <DevconnectAmsterdam width="100px" height="50px" />
+              <DevconnectLogoText width="100px" height="50px" />
               <div className={css['icon']} onClick={() => setOpen(false)}>
                 <IconCross />
               </div>
@@ -169,7 +165,7 @@ const Mobile = () => {
 }
 
 export const FooterMenu = (props: any) => {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <div className={css['footer-menu']} id="footer-menu">
@@ -199,21 +195,16 @@ export const FooterMenu = (props: any) => {
         <a target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
           <TwitterIcon style={{ fill: 'white' }} />
         </a>
-
-        {/* <a target="_blank" rel="noreferrer" href="https://discord.gg/FhmA3KeF3B">
-          <DiscordIcon style={{ fill: 'white' }} />
-        </a>
-
         <a target="_blank" rel="noreferrer" href="https://t.me/efdevconnect">
           <TelegramIcon style={{ fill: 'white' }} />
-        </a> */}
+        </a>
       </div>
     </div>
   )
 }
 
 export const Menu = (props: any) => {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <div className={css['menu']}>
@@ -241,14 +232,9 @@ export const Menu = (props: any) => {
         <a target="_blank" rel="noreferrer" href="https://twitter.com/efdevconnect">
           <TwitterIcon style={{ fill: 'white' }} />
         </a>
-
-        {/* <a target="_blank" rel="noreferrer" href="https://discord.gg/FhmA3KeF3B">
-          <DiscordIcon style={{ fill: 'white' }} />
-        </a>
-
         <a target="_blank" rel="noreferrer" href="https://t.me/efdevconnect">
           <TelegramIcon style={{ fill: 'white' }} />
-        </a> */}
+        </a>
       </div>
     </div>
   )

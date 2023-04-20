@@ -6,7 +6,7 @@ export default (regl, src) => {
 
   const image = new Image()
 
-  image.src = require(`../../assets/cube-image-${src}`).default.src
+  image.src = require(`../../assets/${src}`).default.src
 
   image.onload = function () {
     texture({

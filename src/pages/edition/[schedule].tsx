@@ -2,7 +2,7 @@ import next, { NextPage } from 'next'
 import React, { useEffect } from 'react'
 import { Client } from '@notionhq/client'
 import css from './schedule.module.scss'
-import { Footer } from './index'
+import { Footer } from '../index'
 import moment from 'moment'
 import momentTZ from 'moment-timezone'
 import ListIcon from 'assets/icons/list.svg'
@@ -1019,12 +1019,12 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
     <>
       <SEO title="Schedule" description="Devconnect schedule" />
       <Hero className={`${css['hero']}`} autoHeight backgroundTitle="Schedule">
-        <p className="uppercase extra-large-text bold secondary title">schedule</p>
+        <p className="uppercase extra-large-text bold secondary title">schedule - Amsterdam 2022</p>
       </Hero>
       <div className={`${css['schedule']} section`}>
         <div className="fade-in-up clear-vertical">
           <div className={`${css['header-row']}`}>
-            <h1 className="extra-large-text uppercase bold">Devconnect week</h1>
+            <h1 className="extra-large-text uppercase bold">Amsterdam 2022</h1>
             <div className={`${css['view']} small-text`}>
               <div className={css['options']}>
                 <button
@@ -1171,12 +1171,19 @@ const formatResult = (result: any) => {
   return properties
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context: any) {
   const notion = new Client({
     auth: process.env.NOTION_SECRET,
   })
 
-  const databaseID = '8b177855e75b4964bb9f3622437f04f5'
+  const databaseID = (() => {
+    const path = context.params.schedule
+
+    if (path === 'amsterdam') return '8b177855e75b4964bb9f3622437f04f5'
+    if (path === 'istanbul') return '8b177855e75b4964bb9f3622437f04f5'
+
+    throw 'no database provided'
+  })()
 
   let data = {}
 
@@ -1227,5 +1234,15 @@ export async function getStaticProps() {
       events: data,
     },
     revalidate: 1 * 60 * 30, // 30 minutes, in seconds
+  }
+}
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [
+      { params: { schedule: 'amsterdam' } },
+      { params: { schedule: 'istanbul', notionDatabase: '8b177855e75b4964bb9f3622437f04f5' } },
+    ],
+    fallback: false,
   }
 }

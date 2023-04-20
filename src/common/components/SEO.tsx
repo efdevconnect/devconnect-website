@@ -11,7 +11,7 @@ interface SEOProps {
 
 export function SEO(props: SEOProps) {
   const router = useRouter()
-  const title = props.title ? `${props.title} · ${TITLE}` : `${TITLE} · Amsterdam`
+  const title = props.title ? `${props.title} · ${TITLE}` : `${TITLE} · Istanbul`
   const description = props.description || DESCRIPTION
   const image = props.imageUrl || IMAGE_OG
   const url = router.route === '/' ? SITE_URL : SITE_URL.replace(/\/$/, '') + router.asPath.split('?')[0]
@@ -33,7 +33,7 @@ export function SEO(props: SEOProps) {
       <meta property="og:image" content={image} key="og_image" />
       <meta property="og:image:url" content={image} key="og_image_url" />
       <meta property="og:image:secure_url" content={image} key="og_image_secure_url" />
-      <meta property="og:image:alt" content="Devconnect Amsterdam" key="og_image_alt" />
+      <meta property="og:image:alt" content="Devconnect Istanbul" key="og_image_alt" />
       <meta property="og:image:type" content="image/png" key="og_image_type" />
       <meta property="og:image:width" content="1200" key="og_image_width" />
       <meta property="og:image:height" content="630" key="og_image_height" />
@@ -43,6 +43,8 @@ export function SEO(props: SEOProps) {
       <meta name="twitter:title" content={title} key="tw_title" />
       <meta name="twitter:description" content={description} key="tw_description" />
       <meta name="twitter:image" content={image} key="tw_image" />
+
+      <link rel="manifest" href="/site.webmanifest" />
     </Head>
   )
 }

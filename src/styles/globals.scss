@@ -12,7 +12,7 @@ body,
 
 body {
   color: $white;
-  background-color: $black;
+  background: linear-gradient(60deg, #0d0d20, #161627, #312046, #121212);
   overflow-x: hidden;
 }
 
@@ -76,7 +76,7 @@ $max-content-width: $content-width + ($side-gap * 2);
   }
 
   @media (max-width: $screen-sm) {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   &.grey {
@@ -153,6 +153,10 @@ $max-content-width: $content-width + ($side-gap * 2);
   text-decoration: underline;
 }
 
+.purple {
+  color: $color-purple;
+}
+
 .button {
   display: inline-flex;
   justify-content: center;
@@ -163,7 +167,7 @@ $max-content-width: $content-width + ($side-gap * 2);
   height: 64px;
   align-self: flex-start;
   font-family: inherit;
-  font-size: 18px;
+  font-size: 1em;
   text-transform: uppercase;
   font-weight: 700;
   padding: 0px 24px;
@@ -197,6 +201,15 @@ $max-content-width: $content-width + ($side-gap * 2);
     background: #6D4FFA;
     color: white;
     --icon-color: white;
+  }
+
+  &.white {
+    background: white;
+
+    &:hover {
+      color: black;
+      --icon-color: black;
+    }
   }
 
   &.blue {
@@ -265,6 +278,11 @@ a {
   &.blue {
     color: $color-link;
     --icon-color: #{$color-link};
+  }
+
+  &.white-link {
+    color: white;
+    --icon-color: #{white};
   }
 
   &.hover-underline {
@@ -352,6 +370,12 @@ a {
   &.fast {
     animation-duration: 0.7s;
   }
+  
+  &.delay {
+    opacity: 0;
+    animation-duration: 1s;
+    animation-delay: 2s;
+  }
 }
 
 @keyframes fade-in-up {
@@ -380,7 +404,7 @@ a {
   text-transform: uppercase;
   color: rgb(255, 255, 255);
   -webkit-text-fill-color: rgb(0, 0, 0, 0); /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: rgb(255, 255, 255);
 }
 

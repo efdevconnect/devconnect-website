@@ -50,6 +50,10 @@
       padding: 20px 16px;
       // padding-right: 15%;
       border-top: 1px solid $standard-border-color;
+
+      @media (min-width: 800px) {
+        padding-right: 5%;
+      }
     }
   }
 }

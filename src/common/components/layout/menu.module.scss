@@ -195,7 +195,7 @@ $width-right-column: 190px;
   .social-media,
   .multi-link {
     align-self: flex-start;
-    margin-top: 28px;
+    margin-top: 20px;
   }
 
   .social-media {
@@ -223,6 +223,7 @@ $width-right-column: 190px;
 }
 
 .foldout-toggle {
+  z-index: 1000000000000;
   margin-right: 0px;
   display: flex;
   justify-content: space-between;
@@ -253,7 +254,7 @@ $width-right-column: 190px;
   position: fixed;
   flex-direction: column;
   padding-top: 24px;
-  background: #0d0d0d;
+  background: linear-gradient(60deg, #0d0d20, #161627, #312046, #121212);
   bottom: 0px;
   z-index: 19;
   top: 0px;
