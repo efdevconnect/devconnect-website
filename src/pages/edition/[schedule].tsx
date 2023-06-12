@@ -1048,14 +1048,16 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
             </div>
           </div>
 
-          <Alert title="Ticket Information">
-            <b>
-              EACH event in devconnect is independently hosted and you will require tickets for each event you wish to
-              attend.
-            </b>
-            &nbsp;For information on acquiring tickets to the independently-hosted events during the week of Devconnect
-            please visit their respective websites.
-          </Alert>
+          {props.edition === 'istanbul' && (
+            <Alert title="Ticket Information">
+              <b>
+                EACH event in devconnect is independently hosted and you will require tickets for each event you wish to
+                attend.
+              </b>
+              &nbsp;For information on acquiring tickets to the independently-hosted events during the week of
+              Devconnect please visit their respective websites.
+            </Alert>
+          )}
 
           <div className={`${css['top-bar']}`}>
             <Filter events={events} {...filterAttributes} />
@@ -1235,6 +1237,7 @@ export async function getStaticProps(context: any) {
   return {
     props: {
       events: data,
+      edition: context.params.schedule,
     },
     revalidate: 1 * 60 * 30, // 30 minutes, in seconds
   }
