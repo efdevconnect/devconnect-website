@@ -1019,15 +1019,32 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
   return (
     <>
       <SEO title="Schedule" description="Devconnect schedule" />
-      <Hero className={`${css['hero']}`} autoHeight backgroundTitle="Amsterdam">
-        <p className="uppercase extra-large-text bold secondary title">Past Editions - Amsterdam 2022</p>
+      <Hero
+        className={`${css['hero']}`}
+        autoHeight
+        backgroundTitle={(() => {
+          if (props.edition === 'istanbul') return 'Istanbul'
+          if (props.edition === 'amsterdam') return 'Amsterdam'
+        })()}
+      >
+        <p className="uppercase extra-large-text bold secondary title">
+          {(() => {
+            if (props.edition === 'istanbul') return 'Istanbul 2023'
+            if (props.edition === 'amsterdam') return 'Past Editions - Amsterdam 2022'
+          })()}
+        </p>
       </Hero>
 
       <div className={`${css['schedule']} section`}>
         <div className="fade-in-up clear-vertical">
-          <Retro />
+          {props.edition !== 'istanbul' && <Retro />}
           <div className={`${css['header-row']}`}>
-            <h1 className="extra-large-text uppercase bold">Amsterdam 2022 Schedule</h1>
+            <h1 className="extra-large-text uppercase bold">
+              {(() => {
+                if (props.edition === 'istanbul') return 'Istanbul 2023 Schedule'
+                if (props.edition === 'amsterdam') return 'Amsterdam 2022 Schedule'
+              })()}
+            </h1>
             <div className={`${css['view']} small-text`}>
               <div className={css['options']}>
                 <button
@@ -1155,8 +1172,13 @@ const notionDatabasePropertyResolver = (property: any, key: any) => {
 const formatResult = (result: any) => {
   const properties = {} as { [key: string]: any }
 
+  // Our schedules follow multiple formats, so we have to normalize before processing:
+  const normalizedNotionEventData = normalizeEvent(result.properties)
+
   // Format the raw notion data into something more workable
-  Object.entries(result.properties).forEach(([key, value]) => {
+  Object.entries(normalizedNotionEventData).forEach(([key, value]) => {
+    if (typeof value === 'undefined') return
+
     const val = notionDatabasePropertyResolver(value, key)
 
     if (Array.isArray(val)) {
@@ -1181,50 +1203,80 @@ export async function getStaticProps(context: any) {
     auth: process.env.NOTION_SECRET,
   })
 
-  const notionDatabaseID = (() => {
+  let data = {}
+
+  const istanbulQuery = {
+    database_id: '949b9d7e7fc74986b7ce03580bd4c65b',
+    sorts: [
+      {
+        property: '[HOST] Event Date',
+        direction: 'ascending',
+      },
+      {
+        property: '[WEB] Priority (sort)',
+        direction: 'descending',
+      },
+    ],
+    filter: {
+      and: [
+        {
+          property: '[HOST] Event Date',
+          date: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: '[WEB] Live',
+          checkbox: {
+            equals: true,
+          },
+        },
+      ],
+    },
+  }
+
+  const amsterdamQuery = {
+    database_id: '8b177855e75b4964bb9f3622437f04f5',
+    sorts: [
+      {
+        property: 'Date',
+        direction: 'ascending',
+      },
+      {
+        property: 'Priority (sort)',
+        direction: 'descending',
+      },
+    ],
+    filter: {
+      and: [
+        {
+          property: 'Date',
+          date: {
+            is_not_empty: true,
+          },
+        },
+        {
+          property: 'Live',
+          checkbox: {
+            equals: true,
+          },
+        },
+      ],
+    },
+  }
+
+  const query = (() => {
     const path = context.params.schedule
 
-    return '8b177855e75b4964bb9f3622437f04f5'
-
-    if (path === 'amsterdam') return '8b177855e75b4964bb9f3622437f04f5'
-    if (path === 'istanbul') return '949b9d7e7fc74986b7ce03580bd4c65b'
+    if (path === 'amsterdam') return amsterdamQuery
+    if (path === 'istanbul') return istanbulQuery
 
     throw 'no database provided'
   })()
 
-  let data = {}
-
   try {
     // Notion returns up to 100 results per request. We won't have that many events, but if we ever get close, add support for pagination at this step.
-    const response = await notion.databases.query({
-      database_id: notionDatabaseID,
-      sorts: [
-        {
-          property: 'Date',
-          direction: 'ascending',
-        },
-        {
-          property: 'Priority (sort)',
-          direction: 'descending',
-        },
-      ],
-      filter: {
-        and: [
-          {
-            property: 'Date',
-            date: {
-              is_not_empty: true,
-            },
-          },
-          {
-            property: 'Live',
-            checkbox: {
-              equals: true,
-            },
-          },
-        ],
-      },
-    })
+    const response = await notion.databases.query(query as any)
 
     data = response.results.map(formatResult)
   } catch (error) {
@@ -1250,4 +1302,55 @@ export const getStaticPaths = async () => {
     paths: [{ params: { schedule: 'amsterdam' } }, { params: { schedule: 'istanbul' } }],
     fallback: false,
   }
+}
+
+/*
+  Notion data normalization stuff below...
+*/
+const createKeyResolver =
+  (eventData: any) =>
+  (...candidateKeys: string[]) => {
+    const keyMatch = candidateKeys.find(key => {
+      return typeof eventData[key] !== 'undefined'
+    })
+
+    return keyMatch ? eventData[keyMatch] : undefined
+  }
+
+const normalizeEvent = (eventData: any): FormattedNotionEvent => {
+  const keyResolver = createKeyResolver(eventData)
+
+  return {
+    'Stable ID': keyResolver('Stable ID', '[WEB] Stable ID'),
+    Name: keyResolver('Name'),
+    Organizer: keyResolver('Organizer', '[HOST] Organizer'),
+    URL: keyResolver('URL', '[HOST] Event Website URL'),
+    'Stream URL': keyResolver('Stream URL'),
+    Date: keyResolver('Date', '[HOST] Event Date'),
+    Live: keyResolver('Live', '[WEB] Live'),
+    Attend: keyResolver('Attend', '[HOST] Status'),
+    'Brief Description': keyResolver('Brief Description', '[HOST] Description (280 chars, tweet size)'),
+    'Time of Day': keyResolver('Time of Day', '[HOST] Event Hours'),
+    Category: keyResolver('Category', '[HOST] Category'),
+    'Num. of Attendees': keyResolver('Num. of Attendees', '[HOST] Num. of Attendees'),
+    Difficulty: keyResolver('Difficulty', '[HOST] Difficulty'),
+    Location: keyResolver('Location', '[HOST] Location'),
+  }
+}
+
+type FormattedNotionEvent = {
+  'Stable ID'?: any
+  Name?: any
+  Organizer?: any[]
+  URL?: any
+  'Stream URL'?: any
+  Date?: any
+  Location?: any
+  Live?: any
+  Attend?: any
+  'Brief Description'?: any
+  'Time of Day'?: any
+  Category?: any
+  'Num. of Attendees'?: any
+  Difficulty?: any
 }
