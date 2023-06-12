@@ -1184,6 +1184,8 @@ export async function getStaticProps(context: any) {
   const notionDatabaseID = (() => {
     const path = context.params.schedule
 
+    return '8b177855e75b4964bb9f3622437f04f5'
+
     if (path === 'amsterdam') return '8b177855e75b4964bb9f3622437f04f5'
     if (path === 'istanbul') return '949b9d7e7fc74986b7ce03580bd4c65b'
 
