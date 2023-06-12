@@ -1,8 +1,8 @@
 @import './reset.scss';
 @import './variables.scss';
+@import './layout.scss';
 @import './accordion.scss';
 @import './vendor.scss';
-
 html,
 body,
 #__next {
@@ -109,6 +109,17 @@ $max-content-width: $content-width + ($side-gap * 2);
   }
 }
 
+.paragraph-intro {
+  max-width: 650px;
+  font-size: 48px;
+  line-height: 56.25px;
+
+  @media (max-width: $screen-lg) {
+    font-size: 24px;
+    line-height: 1em;
+  }
+}
+
 .tiny-text {
   @include tiny-text;
 }
@@ -163,7 +174,7 @@ $max-content-width: $content-width + ($side-gap * 2);
   align-items: center;
   border-radius: 44px;
   background: #e8e8e8;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0px 2px 4px 1.8px rgba(0, 0, 0, 0.18);
   height: 64px;
   align-self: flex-start;
   font-family: inherit;
@@ -174,6 +185,12 @@ $max-content-width: $content-width + ($side-gap * 2);
   color: black;
   --icon-color: black;
   cursor: pointer;
+
+  @media (max-width: $screen-md) {
+    height: 48px;
+    @include medium-text;
+    padding: 0 16px;
+  }
 
   &:hover {
     background: rgb(61, 61, 61);
@@ -190,7 +207,7 @@ $max-content-width: $content-width + ($side-gap * 2);
   &.sm {
     height: 48px;
     @include medium-text;
-    padding: 0 16px;
+    padding: 0 24px;
   }
 
   &.blue {
@@ -273,6 +290,10 @@ a {
 
   &.generic {
     font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &.blue {
@@ -395,11 +416,11 @@ a {
   font-size: 60px;
   position: absolute;
   left: 0px;
-  top: -36px;
-  opacity: 0.2;
+  top: -0.4em;
   font-weight: 700;
   font-size: min(220px, 23vw);
   line-height: 1em;
+  opacity: 0.1;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: rgb(255, 255, 255);
@@ -412,4 +433,84 @@ a {
   * {
     fill: var(--icon-color);
   }
+}
+
+$standard-spacing: 2em;
+
+.margin {
+  &-top {
+    margin-top: $standard-spacing;
+
+    &-less {
+      margin-top: $standard-spacing / 2;
+    }
+  }
+
+  &-bottom {
+    margin-bottom: $standard-spacing;
+
+    &-less {
+      margin-bottom: $standard-spacing / 2;
+    }
+  }
+
+  &-left {
+    margin-left: $standard-spacing;
+
+    &-less {
+      margin-left: $standard-spacing / 2;
+    }
+  }
+
+  &-right {
+    margin-right: $standard-spacing;
+
+    &-less {
+      margin-right: $standard-spacing / 2;
+    }
+  }
+}
+
+.padding {
+  &-top {
+    padding-top: $standard-spacing;
+
+    &-less {
+      padding-top: $standard-spacing / 2;
+    }
+  }
+
+  &-bottom {
+    padding-bottom: $standard-spacing;
+
+    &-less {
+      padding-bottom: $standard-spacing / 2;
+    }
+  }
+
+  &-left {
+    padding-left: $standard-spacing;
+
+    &-less {
+      padding-left: $standard-spacing / 2;
+    }
+  }
+
+  &-right {
+    padding-right: $standard-spacing;
+
+    &-less {
+      padding-right: $standard-spacing / 2;
+    }
+  }
+}
+
+$border: 1px solid $monochrome-5;
+
+.border-top {
+  border-top: $border;
+}
+
+.border-bottom {
+  border-bottom: $border;
 }

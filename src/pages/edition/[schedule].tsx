@@ -23,6 +23,7 @@ import Alert from 'common/components/alert'
 import { useRouter } from 'next/dist/client/router'
 // @ts-ignore
 import Toggle from 'react-toggle'
+import Retro from 'common/components/pages/edition/retro'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -1018,13 +1019,15 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
   return (
     <>
       <SEO title="Schedule" description="Devconnect schedule" />
-      <Hero className={`${css['hero']}`} autoHeight backgroundTitle="Schedule">
-        <p className="uppercase extra-large-text bold secondary title">schedule - Amsterdam 2022</p>
+      <Hero className={`${css['hero']}`} autoHeight backgroundTitle="Amsterdam">
+        <p className="uppercase extra-large-text bold secondary title">Past Editions - Amsterdam 2022</p>
       </Hero>
+
       <div className={`${css['schedule']} section`}>
         <div className="fade-in-up clear-vertical">
+          <Retro />
           <div className={`${css['header-row']}`}>
-            <h1 className="extra-large-text uppercase bold">Amsterdam 2022</h1>
+            <h1 className="extra-large-text uppercase bold">Amsterdam 2022 Schedule</h1>
             <div className={`${css['view']} small-text`}>
               <div className={css['options']}>
                 <button
@@ -1176,11 +1179,11 @@ export async function getStaticProps(context: any) {
     auth: process.env.NOTION_SECRET,
   })
 
-  const databaseID = (() => {
+  const notionDatabaseID = (() => {
     const path = context.params.schedule
 
     if (path === 'amsterdam') return '8b177855e75b4964bb9f3622437f04f5'
-    if (path === 'istanbul') return '8b177855e75b4964bb9f3622437f04f5'
+    if (path === 'istanbul') return '949b9d7e7fc74986b7ce03580bd4c65b'
 
     throw 'no database provided'
   })()
@@ -1190,7 +1193,7 @@ export async function getStaticProps(context: any) {
   try {
     // Notion returns up to 100 results per request. We won't have that many events, but if we ever get close, add support for pagination at this step.
     const response = await notion.databases.query({
-      database_id: databaseID,
+      database_id: notionDatabaseID,
       sorts: [
         {
           property: 'Date',
@@ -1239,10 +1242,7 @@ export async function getStaticProps(context: any) {
 
 export const getStaticPaths = async () => {
   return {
-    paths: [
-      { params: { schedule: 'amsterdam' } },
-      { params: { schedule: 'istanbul', notionDatabase: '8b177855e75b4964bb9f3622437f04f5' } },
-    ],
+    paths: [{ params: { schedule: 'amsterdam' } }, { params: { schedule: 'istanbul' } }],
     fallback: false,
   }
 }

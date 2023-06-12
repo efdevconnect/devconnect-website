@@ -70,6 +70,10 @@ const menuItems = (pathname: string) => [
     url: pathname === '/' ? '#faq' : '/#faq', // Smoothscrolling if already on the page, otherwise hard link
   },
   {
+    text: 'Schedule',
+    url: '/edition/istanbul',
+  },
+  {
     text: 'Past Editions',
     children: [
       {

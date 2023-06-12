@@ -311,13 +311,13 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding-bottom: 24px;
-  padding-top: 24px;
+  // padding-bottom: 24px;
+  // padding-top: 24px;
 
-  @media (max-width: $screen-md) {
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
+  // @media (max-width: $screen-md) {
+  //   padding-top: 16px;
+  //   padding-bottom: 16px;
+  // }
 
   >* {
     flex-grow: 1;
@@ -342,17 +342,9 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     justify-content: space-between;
     position: relative;
-
-    .background-title {
-      position: absolute;
-      left: 0px;
-
-      @media (max-width: $screen-lg) {
-        display: none;
-      }
-    }
 
     >* {
       flex-shrink: 0;
@@ -362,13 +354,14 @@
       flex-grow: 1;
       flex-shrink: 0;
       display: flex;
+      align-items: center;
 
       @media (max-width: $screen-lg) {
         flex-direction: column;
       }
 
       p {
-        margin-top: 2em;
+        margin-top: 1em;
       }
 
       :global(.button) {
@@ -379,9 +372,9 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        flex-basis: 60%;
+        flex-basis: 50%;
         margin-right: 2em;
-        min-height: 500px;
+        // min-height: 400px;
         position: relative;
         flex-shrink: 0;
 
@@ -412,25 +405,23 @@
 
       .cube-images {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         position: relative;
         flex-grow: 1;
-        // margin-left: 2em;
         height: 100%;
         margin-top: 0px;
+        max-width: 650px;
+        // min-height: 400px;
 
         >* {
-          position: absolute;
-          height: 100%;
+          // position: absolute;
+          position: relative;
+          // top: -5%;
+          height: 450px;
           width: 100%;
         }
 
-        // position: absolute;
-        // height: 100%;
-        // top: 0px;
-        // right: 0px;
-
-        @media (max-width: $screen-lg) {
+         @media (max-width: $screen-lg) {
           display: none;
         }
       }
@@ -482,54 +473,8 @@
   --icon-color: black;
   position: relative;
 
-  .columns {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    padding-top: 0px;
-
-    @media (max-width: $screen-lg) {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .left {
-      flex-basis: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      p {
-        margin-bottom: 1em;
-      }
-
-      .big-description {
-        margin-bottom: 20px;
-      }
-
-      .when-where {
-        font-weight: 700;
-      }
-
-      @media (max-width: $screen-lg) {
-        flex-basis: auto;
-        width: 100%;
-        margin-left: 0px;
-      }
-    }
-
-    .right {
-      flex-basis: 50%;
-      margin-left: 50px;
-
-      @media (max-width: $screen-lg) {
-        margin-top: 2em;
-        flex-basis: auto;
-        width: 100%;
-        margin-left: 0px;
-      }
-    }
+  :global(.left) {
+    justify-content: center;
   }
 
   .background-cityscape {

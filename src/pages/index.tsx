@@ -535,8 +535,8 @@ const Home: NextPage = (props: any) => {
                   Devconnect // Istanbul 2023
                 </h1>
 
-                <div className={`${css['columns']} clear-vertical`}>
-                  <div className={css['left']}>
+                <div className={`columns margin-bottom`}>
+                  <div className="left fill-45">
                     <div>
                       <p className={css['big-description']}>
                         <span>
@@ -544,7 +544,7 @@ const Home: NextPage = (props: any) => {
                         </span>{' '}
                         <b>Ethereum</b> <span>week, built by and for</span> <b>everyone.</b>
                       </p>
-                      <p className="big-text">
+                      {/* <p className="big-text">
                         One notable feedback we received from attendees of the{` `}
                         <Link href="https://blog.ethereum.org/2022/05/30/devconnect-wrap" indicateExternal>
                           first-ever Devconnect in Amsterdam in 2022
@@ -555,17 +555,31 @@ const Home: NextPage = (props: any) => {
                       <p className="big-text">
                         Many expressed their wishes for Devconnect to happen again, and after we saw the impact, we
                         strongly agreed. <b>Devconnect is coming back on November 13-19 this year!</b>
+                      </p> */}
+                      <p className="big-text bold margin-top-less">
+                        Devconnect is a week-long gathering of independent Ethereum events. This year we will gather in
+                        Istanbul to meet, learn, share, and make progress together.
                       </p>
                     </div>
-                    <Link
-                      href="https://blog.ethereum.org/2023/04/20/announcing-devconnect-ist"
-                      className={`button purple ${css['get-involved-button']}`}
-                      indicateExternal
-                    >
-                      Read the full announcement
-                    </Link>
+
+                    <div className="margin-top">
+                      <Link
+                        href="#organizers"
+                        className={`button purple ${css['get-involved-button']}`}
+                        indicateExternal
+                      >
+                        Organize an event
+                      </Link>
+                      <Link
+                        href="/edition/istanbul"
+                        className={`button purple ${css['get-involved-button']} margin-left-less`}
+                        indicateExternal
+                      >
+                        Curated events
+                      </Link>
+                    </div>
                   </div>
-                  <div className={css['right']}>
+                  <div className="right">
                     <div className="aspect">
                       <iframe
                         width="100%"
@@ -661,55 +675,30 @@ const Home: NextPage = (props: any) => {
             <FadeIn>
               <div className="section">
                 <div className={`${css['scene-about-content']} clear-vertical`}>
-                  <h1 className="section-header">What is Devconnect?</h1>
-
                   <div className={css['text-container']}>
                     <div className={css['body']}>
-                      <div className={`background-title clear-vertical`}>DEV/CONNECT</div>
+                      {/* <div className={`background-title`}>DEV/CONNECT</div> */}
                       <div>
+                        <h1 className="section-header grey">What is Devconnect?</h1>
                         <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
                         <p className="section-header as-text-body">
-                          Devconnect is a week-long gathering that features independent Ethereum events, each with a
-                          unique focus. Unlike a usual conference, the goal is to facilitate the deep discussions and
-                          conversations that are needed to continue to improve Ethereum. The target audience for most
-                          events will be experts or people very interested in the specific domain of the event to enable
-                          in-depth understanding and discussions.
+                          The goal of Devconnect is to facilitate the deep discussions and conversations that we need to
+                          continue to improve Ethereum.
                         </p>
                         <p className="big-text as-text-body">
-                          Devconnect is a natural candidate to apply{' '}
-                          <Link
-                            href="https://archive.devcon.org/archive/watch/6/opening-ceremonies-aya/?playlist=Staff
-                          Picks&tab=YouTube"
-                            indicateExternal
-                            className="white-link"
-                          >
-                            subtraction
-                          </Link>
-                          . Each discussion during Devconnect will be hosted and curated by experts in those domains.
-                          Our team will help foster coordination so that hosts have logistical help, and assurance that
-                          there&apos;s minimal overlap of similar domains to avoid pulling participants in different
-                          directions.
+                          Devconnect is for you, if you are passionate about creating more decentralized and fairer
+                          systems and want to collaborate in person, or if you want to meet the people working in
+                          Ethereum and cowork with them at the Devconnect Coworking Space.
                         </p>
-                      </div>
 
-                      {/* <Link
-                        href="https://blog.ethereum.org/2022/05/30/devconnect-wrap/"
-                        className={`button white ${css['get-involved-button']}`}
-                        indicateExternal
-                      >
-                        Devconnect Telegram
-                      </Link> */}
-                      <Link
-                        href="#organizers"
-                        className={`button white ${css['get-involved-button']}`}
-                        onClick={() => {
-                          console.log('hello')
-                          organizersRef.current.open()
-                        }}
-                        indicateExternal
-                      >
-                        Want to organize an event?
-                      </Link>
+                        <Link
+                          href="/edition/amsterdam"
+                          className={`button sm white ${css['get-involved-button']}`}
+                          indicateExternal
+                        >
+                          Devconnect 2022 Recap
+                        </Link>
+                      </div>
                     </div>
 
                     <div className={css['cube-images']}>
@@ -732,6 +721,59 @@ const Home: NextPage = (props: any) => {
           <Scene growVertically growNaturally id="faq" className={`${css['scene-faq']} section`}>
             <FadeIn>
               <div className={`clear-vertical`}>
+                <div className="columns border-bottom margin-bottom padding-bottom">
+                  <div className="left">
+                    <h1 className="section-header grey">What To Expect</h1>
+                    <p className="big-text margin-top-less">
+                      Devconnect events are independent of each other and have each a unique focus. The topics range
+                      from{' '}
+                      <b>
+                        decentralized systems, scalability, privacy, and incentive mechanisms, to Ethereum economics,
+                        MEV, UX, decentralized governance, and more.
+                      </b>
+                    </p>
+                    <p className="big-text margin-top-less">
+                      The target audience for most events is experts or people very interested in the domain to enable
+                      in-depth understanding. The sessions can be half-day to multiple days long and give you time to
+                      collaborate on topics you care about.
+                    </p>
+                  </div>
+                  <div className="right">
+                    <h1 className="section-header grey">Are you New to Ethereum?</h1>
+                    <p className="big-text margin-top-less">
+                      Devconnect will feature some beginner-level events as well. Additionally, you are welcome to join
+                      the <b>Devconnect Coworking Space!</b>
+                    </p>
+                    <p className="big-text margin-top-less margin-bottom-less">
+                      It is a meeting point, a place to work, and a space to relax where you can learn and exchange
+                      experiences with others in the space. Some say the Coworking Space at Devconnect 2022 in Amsterdam
+                      was worth a visit on its own!
+                    </p>
+                    <Link href="/edition/amsterdam" className={`button sm white`} indicateExternal>
+                      Stay In The Loop
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="border-bottom margin-bottom padding-bottom">
+                  <h1 className="section-header grey">For Event Organizers</h1>
+                  <p className="big-text margin-top-less margin-bottom-less">
+                    Devconnect events are independent of each other, and organized by different teams. Each discussion
+                    will be hosted and curated by experts in those domains. You have the opportunity to organize an
+                    event and contribute your expertise.
+                  </p>
+                  <Link
+                    href="#organizers"
+                    onClick={() => {
+                      organizersRef.current.open()
+                    }}
+                    className={`button sm white margin-bottom-less`}
+                    indicateExternal
+                  >
+                    Organize an Event
+                  </Link>
+                </div>
+
                 <h1 className="section-header grey">FAQ</h1>
 
                 <div className={`${css['accordion']} tab-content`}>
