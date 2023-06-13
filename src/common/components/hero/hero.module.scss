@@ -14,10 +14,24 @@
     right: 0px;
     height: 100%;
     width: 100%;
-    background: linear-gradient(120deg, hsla(43, 88%, 52%, 1) 0%, hsla(43, 80%, 52%, 0) 70%),
+  }
+
+  &:global(.istanbul) {
+    .background {
+      background: linear-gradient(120deg, rgb(25, 147, 240) 0%, hsla(43, 80%, 52%, 0) 70%),
+      linear-gradient(555deg, rgb(134, 45, 139) 10%, hsla(297, 83%, 60%, 0) 80%),
+      linear-gradient(25deg, hsla(171, 100%, 52%, 1) 10%, hsla(171, 100%, 52%, 0) 80%),
+      linear-gradient(335deg, hsla(240, 86%, 47%, 1) 100%, hsla(240, 86%, 47%, 0) 70%);
+    }
+  }
+
+  &:global(.amsterdam) {
+    .background {
+      background: linear-gradient(120deg, hsla(43, 88%, 52%, 1) 0%, hsla(43, 80%, 52%, 0) 70%),
       linear-gradient(555deg, hsla(297, 83%, 60%, 1) 10%, hsla(297, 83%, 60%, 0) 80%),
       linear-gradient(25deg, hsla(171, 100%, 52%, 1) 10%, hsla(171, 100%, 52%, 0) 80%),
       linear-gradient(335deg, hsla(240, 86%, 47%, 1) 100%, hsla(240, 86%, 47%, 0) 70%);
+    }
   }
 
   &:after {

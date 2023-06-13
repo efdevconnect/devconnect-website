@@ -16,7 +16,8 @@ import { SEO } from 'common/components/SEO'
 import Hero from 'common/components/hero'
 import Link, { useDraggableLink } from 'common/components/link'
 import Modal from 'common/components/modal'
-import ScheduleBackground from 'assets/images/schedule-bg.svg'
+import ScheduleBackgroundAmsterdam from 'assets/images/schedule-bg.svg'
+import ScheduleBackgroundIstanbul from 'assets/images/istanbul-logo-with-eth.svg'
 import Dropdown from 'common/components/dropdown'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import Alert from 'common/components/alert'
@@ -349,10 +350,16 @@ const Timeline = (props: any) => {
     )
   })
 
+  console.log(props.edition, 'edition')
+
   return (
     <>
       <div className={`${css['timeline-background']} clear-vertical`}>
-        <ScheduleBackground />
+        {props.edition === 'amsterdam' && <ScheduleBackgroundAmsterdam />}
+
+        {props.edition === 'istanbul' && (
+          <ScheduleBackgroundIstanbul style={{ maxWidth: '300px', width: '400px', opacity: 0.15, right: '16px' }} />
+        )}
       </div>
       <SwipeToScroll /*focusRef={todayRef}*/ noBounds stopped={eventModalOpen !== ''}>
         <div className={css['timeline']}>
@@ -1020,7 +1027,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
     <>
       <SEO title="Schedule" description="Devconnect schedule" />
       <Hero
-        className={`${css['hero']}`}
+        className={`${css['hero']} ${props.edition}`}
         autoHeight
         backgroundTitle={(() => {
           if (props.edition === 'istanbul') return 'Istanbul'
@@ -1041,7 +1048,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
           <div className={`${css['header-row']}`}>
             <h1 className="extra-large-text uppercase bold">
               {(() => {
-                if (props.edition === 'istanbul') return 'Istanbul 2023 Schedule'
+                if (props.edition === 'istanbul') return 'Schedule'
                 if (props.edition === 'amsterdam') return 'Amsterdam 2022 Schedule'
               })()}
             </h1>
@@ -1098,8 +1105,10 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                 {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Drag for more →</p>}
               </div> */}
 
-              {scheduleView === 'list' && <List {...scheduleHelpers} accordionRefs={accordionRefs} />}
-              {scheduleView === 'timeline' && <Timeline {...scheduleHelpers} />}
+              {scheduleView === 'list' && (
+                <List {...scheduleHelpers} edition={props.edition} accordionRefs={accordionRefs} />
+              )}
+              {scheduleView === 'timeline' && <Timeline {...scheduleHelpers} edition={props.edition} />}
             </>
           )}
         </div>

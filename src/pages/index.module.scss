@@ -81,7 +81,7 @@
 
   .info {
     position: absolute;
-    top: 53%;
+    top: 60%;
 
     @media (max-width: $screen-lg) {
       top: unset;
@@ -99,7 +99,7 @@
       border: solid 1px transparent;
       color: white !important;
       --icon-color: white !important;
-      opacity: 0;
+      opacity: 1;
       font-weight: bold;
 
       @keyframes fade-in-delay {
@@ -112,7 +112,7 @@
         }
       }
 
-      animation: fade-in-delay 0.6s 2.25s ease-out forwards;
+      // animation: fade-in-delay 0.6s 2.25s ease-out forwards;
 
       @media (max-width: $screen-md) {
         font-size: 12px;
@@ -171,14 +171,14 @@
     }
 
     .big-description {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
 
       @media (max-width: $screen-lg) {
-        margin-bottom: 20px;
+        margin-bottom: 8px;
       }
 
       > * {
-        opacity: 0;
+        opacity: 1;
         display: inline-block;
         position: relative;
 
@@ -196,14 +196,14 @@
 
         &:nth-child(1) {
           font-weight: bold;
-          animation: fade-in 0.7s ease forwards;
+          // animation: fade-in 0.7s ease forwards;
         }
         &:nth-child(2) {
-          animation: fade-in 0.7s 0.75s ease forwards;
+          // animation: fade-in 0.7s 0.75s ease forwards;
         }
         &:nth-child(3) {
           font-weight: bold;
-          animation: fade-in 0.7s 1.5s ease forwards;
+          // animation: fade-in 0.7s 1.5s ease forwards;
         }
       }
     }
@@ -461,6 +461,7 @@
   position: relative;
   background: white;
   color: black;
+  --icon-color: black;
 
   .accordion {
     padding-bottom: 32px;

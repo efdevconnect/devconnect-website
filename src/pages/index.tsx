@@ -7,8 +7,8 @@ import React from 'react'
 import HeaderLogo from 'assets/images/header-logo.svg'
 import Logo from 'assets/images/logo-ist.svg'
 import LogoBig from 'assets/images/logo-big.svg'
-import DevconnectAmsterdamText from 'assets/images/istanbul-logo-text.svg'
-import DevconnectAmsterdam from 'assets/images/istanbul-logo-with-eth.svg'
+import DevconnectIstanbulText from 'assets/images/istanbul-logo-text.svg'
+import DevconnectIstanbul from 'assets/images/istanbul-logo-with-eth.svg'
 import RoadToDevcon from 'assets/images/rtd.png'
 import CubeImages from 'assets/images/cube-images-ist.png'
 import { SEO } from 'common/components/SEO'
@@ -355,9 +355,10 @@ export const Header = () => {
 
 type FooterProps = {
   inFoldoutMenu?: boolean
+  onClickMenuItem?: () => void
 }
 
-export const Footer = ({ inFoldoutMenu }: FooterProps) => {
+export const Footer = ({ inFoldoutMenu, onClickMenuItem }: FooterProps) => {
   const [codeOfConductModalOpen, setCodeOfConductModalOpen] = React.useState(false)
   let className = css['footer-container']
 
@@ -379,8 +380,8 @@ export const Footer = ({ inFoldoutMenu }: FooterProps) => {
         <div className="section">
           <div className={`${css['footer']} clear-vertical`}>
             <div className={css['top']}>
-              <DevconnectAmsterdam />
-              <DevconnectAmsterdamText />
+              <DevconnectIstanbul />
+              <DevconnectIstanbulText />
             </div>
 
             <div className={css['middle']}>
@@ -396,7 +397,7 @@ export const Footer = ({ inFoldoutMenu }: FooterProps) => {
                 <p className={`${css['email']} medium-text`}>support@devcon.org</p>
               </div>
 
-              <FooterMenu />
+              <FooterMenu onClickMenuItem={onClickMenuItem} />
             </div>
 
             <div className={css['bottom']}>
@@ -480,7 +481,13 @@ const Home: NextPage = (props: any) => {
               <div className={css['info-container']}>
                 <div className={`${css['info']}`}>
                   <p className={css['big-description']}>
-                    <span>Devconnect</span> <span>is</span> <span className={css['red-underline']}>back!</span>
+                    <span className={css['red-underline']}>Meet the faces of Ethereum </span>
+                    {/* <span>Devconnect</span> <span>is</span> <span className={css['red-underline']}>back!</span> */}
+                  </p>
+
+                  <p style={{ maxWidth: '575px', marginBottom: '20px' }} className="big-text">
+                    Devconnect is a week-long gathering of independent Ethereum events to learn, share, and{' '}
+                    <b>make progress together</b>.
                   </p>
 
                   <Link href="#about" className={`button blue-fill ${css['video-recap-button']}`}>
@@ -539,6 +546,7 @@ const Home: NextPage = (props: any) => {
                   <div className="left fill-45">
                     <div>
                       <p className={css['big-description']}>
+                        {/* <b className={css['red-underline']}>Why Devconnect?</b> */}
                         <span>
                           A <b className={css['red-underline']}>collaborative</b>
                         </span>{' '}
@@ -556,15 +564,25 @@ const Home: NextPage = (props: any) => {
                         Many expressed their wishes for Devconnect to happen again, and after we saw the impact, we
                         strongly agreed. <b>Devconnect is coming back on November 13-19 this year!</b>
                       </p> */}
-                      <p className="big-text bold margin-top-less">
+                      {/* <p className="big-text bold margin-top-less">
                         Devconnect is a week-long gathering of independent Ethereum events. This year we will gather in
                         Istanbul to meet, learn, share, and make progress together.
+                      </p> */}
+
+                      <p className="section-header as-text-body margin-top-less">
+                        The goal of Devconnect is to facilitate the deep discussions and conversations that we need to
+                        continue to improve Ethereum.
+                      </p>
+                      <p className="big-text as-text-body margin-top-less">
+                        Devconnect is for you, if you are passionate about creating more decentralized and fairer
+                        systems and want to collaborate in person, or if you want to meet the people working in Ethereum
+                        and cowork with them at the Devconnect Coworking Space.
                       </p>
                     </div>
 
                     <div className="margin-top">
                       <Link
-                        href="#organizers"
+                        href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
                         className={`button purple ${css['get-involved-button']}`}
                         indicateExternal
                       >
@@ -575,7 +593,7 @@ const Home: NextPage = (props: any) => {
                         className={`button purple ${css['get-involved-button']} margin-left-less`}
                         indicateExternal
                       >
-                        Curated events
+                        View Schedule
                       </Link>
                     </div>
                   </div>
@@ -679,7 +697,22 @@ const Home: NextPage = (props: any) => {
                     <div className={css['body']}>
                       {/* <div className={`background-title`}>DEV/CONNECT</div> */}
                       <div>
-                        <h1 className="section-header grey">What is Devconnect?</h1>
+                        <h1 className="section-header grey">What can you expect?</h1>
+                        {/* <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p> */}
+                        <p className="big-text margin-top-less">
+                          Devconnect events are independent of each other and each have a unique focus. The topics range
+                          from{' '}
+                          <b>
+                            decentralized systems, scalability, privacy, and incentive mechanisms, to Ethereum
+                            economics, MEV, UX, decentralized governance, and more.
+                          </b>
+                        </p>
+                        <p className="big-text margin-top-less">
+                          The target audience for most events is experts or people very interested in the domain to
+                          enable in-depth understanding. The sessions can be half-day to multiple days long and give you
+                          time to collaborate on topics you care about.
+                        </p>
+                        {/* <h1 className="section-header grey">Why Devconnect?</h1>
                         <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
                         <p className="section-header as-text-body">
                           The goal of Devconnect is to facilitate the deep discussions and conversations that we need to
@@ -689,14 +722,14 @@ const Home: NextPage = (props: any) => {
                           Devconnect is for you, if you are passionate about creating more decentralized and fairer
                           systems and want to collaborate in person, or if you want to meet the people working in
                           Ethereum and cowork with them at the Devconnect Coworking Space.
-                        </p>
+                        </p> */}
 
                         <Link
-                          href="/edition/amsterdam"
+                          href="/edition/istanbul"
                           className={`button sm white ${css['get-involved-button']}`}
                           indicateExternal
                         >
-                          Devconnect 2022 Recap
+                          Explore events
                         </Link>
                       </div>
                     </div>
@@ -723,39 +756,42 @@ const Home: NextPage = (props: any) => {
               <div className={`clear-vertical`}>
                 <div className="columns border-bottom margin-bottom padding-bottom">
                   <div className="left">
-                    <h1 className="section-header grey">What To Expect</h1>
-                    <p className="big-text margin-top-less">
-                      Devconnect events are independent of each other and have each a unique focus. The topics range
-                      from{' '}
-                      <b>
-                        decentralized systems, scalability, privacy, and incentive mechanisms, to Ethereum economics,
-                        MEV, UX, decentralized governance, and more.
-                      </b>
-                    </p>
-                    <p className="big-text margin-top-less">
-                      The target audience for most events is experts or people very interested in the domain to enable
-                      in-depth understanding. The sessions can be half-day to multiple days long and give you time to
-                      collaborate on topics you care about.
-                    </p>
-                  </div>
-                  <div className="right">
                     <h1 className="section-header grey">Are you New to Ethereum?</h1>
                     <p className="big-text margin-top-less">
                       Devconnect will feature some beginner-level events as well. Additionally, you are welcome to join
-                      the <b>Devconnect Coworking Space!</b>
+                      the{' '}
+                      <Link
+                        href="https://www.notion.so/ef-events/Devconnect-IST-Coworking-space-e811d778b6a846989600d54158ff70cf?pvs=4"
+                        indicateExternal
+                      >
+                        Devconnect Coworking Space
+                      </Link>
                     </p>
                     <p className="big-text margin-top-less margin-bottom-less">
                       It is a meeting point, a place to work, and a space to relax where you can learn and exchange
-                      experiences with others in the space. Some say the Coworking Space at Devconnect 2022 in Amsterdam
-                      was worth a visit on its own!
+                      experiences with others in the space. Some say the Coworking Space at{' '}
+                      <Link href="https://devconnect.org/edition/amsterdam">Devconnect 2022</Link> in Amsterdam was
+                      worth a visit on its own.
                     </p>
-                    <Link href="/edition/amsterdam" className={`button sm white`} indicateExternal>
-                      Stay In The Loop
+                  </div>
+                  <div className="right">
+                    <h1 className="section-header grey">For Event Organizers</h1>
+                    <p className="big-text margin-top-less margin-bottom-less">
+                      Devconnect events are independent of each other, and organized by different teams. Each discussion
+                      will be hosted and curated by experts in those domains. You have the opportunity to organize an
+                      event and contribute your expertise.
+                    </p>
+                    <Link
+                      href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
+                      className={`button sm white margin-bottom-less`}
+                      indicateExternal
+                    >
+                      Organize an Event
                     </Link>
                   </div>
                 </div>
 
-                <div className="border-bottom margin-bottom padding-bottom">
+                {/* <div className="border-bottom margin-bottom padding-bottom">
                   <h1 className="section-header grey">For Event Organizers</h1>
                   <p className="big-text margin-top-less margin-bottom-less">
                     Devconnect events are independent of each other, and organized by different teams. Each discussion
@@ -772,9 +808,9 @@ const Home: NextPage = (props: any) => {
                   >
                     Organize an Event
                   </Link>
-                </div>
+                </div> */}
 
-                <h1 className="section-header grey">FAQ</h1>
+                <h1 className="section-header grey">Frequently Asked Questions</h1>
 
                 <div className={`${css['accordion']} tab-content`}>
                   <Accordion>

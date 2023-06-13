@@ -780,11 +780,20 @@
   align-items: flex-end;
   justify-content: flex-end;
   z-index: -1;
+  // width: min(300px, 100%) !important;
+  // height: 50% !important;
 
   svg {
     width: min(300px, 100%);
     height: 50%;
   }
+
+  // img {
+  //   // width: 500px !important;
+  //   // width: min(300px, 100%) !important;
+  //   // height: 50% !important;
+  //   opacity: 0.1;
+  // }
 }
 
 .filter {

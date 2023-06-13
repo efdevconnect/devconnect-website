@@ -160,7 +160,7 @@ const Mobile = () => {
             </div>
           </div>
 
-          <Footer inFoldoutMenu />
+          <Footer inFoldoutMenu onClickMenuItem={() => setOpen(false)} />
         </div>,
         document.body
       )}
@@ -189,7 +189,12 @@ export const FooterMenu = (props: any) => {
         }
 
         return (
-          <Link className={menuItem.customClass} key={menuItem.text} href={menuItem.url}>
+          <Link
+            className={menuItem.customClass}
+            key={menuItem.text}
+            href={menuItem.url}
+            onClick={props.onClickMenuItem}
+          >
             {menuItem.text}
           </Link>
         )
