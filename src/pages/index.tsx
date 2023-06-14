@@ -440,7 +440,7 @@ const Home: NextPage = (props: any) => {
                     href="http://www.iccistanbul.com/location-direction.php"
                     className={`button blue-fill ${css['video-recap-button']}`}
                   >
-                    <span>ISTANBUL, Türkiye</span>
+                    <span>ICC, ISTANBUL, Türkiye</span>
                     <span>November 13-19, 2023</span>
                   </Link>
                 </div>
