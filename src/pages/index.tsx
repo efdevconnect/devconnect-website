@@ -525,7 +525,14 @@ const Home: NextPage = (props: any) => {
                       <p className="big-text as-text-body margin-top-less">
                         Devconnect is for you, if you are passionate about creating more decentralized and fairer
                         systems and want to collaborate in person, or if you want to meet the people working in Ethereum
-                        and cowork with them at the Devconnect Coworking Space.
+                        and cowork with them at the{' '}
+                        <Link
+                          href="https://www.notion.so/ef-events/Devconnect-IST-Coworking-space-e811d778b6a846989600d54158ff70cf?pvs=4"
+                          indicateExternal
+                        >
+                          Devconnect Coworking Space
+                        </Link>
+                        .
                       </p>
                     </div>
 
