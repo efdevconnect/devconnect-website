@@ -49,7 +49,12 @@ const MultiLink = (props: any) => {
             }
 
             return (
-              <Link className={menuItem.customClass} key={menuItem.text} href={menuItem.url}>
+              <Link
+                className={menuItem.customClass}
+                key={menuItem.text}
+                href={menuItem.url}
+                onClick={props.onClickMenuItem}
+              >
                 {menuItem.text}
               </Link>
             )
@@ -63,7 +68,7 @@ const MultiLink = (props: any) => {
 const menuItems = (pathname: string) => [
   {
     text: 'About',
-    url: pathname === '/' ? '#about' : '/#about', // Smoothscrolling if already on the page, otherwise hard link
+    url: pathname === '/' ? '#about' : '/', // Smoothscrolling if already on the page, otherwise hard link
   },
   {
     text: 'FAQ',
@@ -182,7 +187,12 @@ export const FooterMenu = (props: any) => {
 
         if (isMultiLink) {
           return (
-            <MultiLink className={menuItem.customClass} key={menuItem.text} to={menuItem.children}>
+            <MultiLink
+              className={menuItem.customClass}
+              key={menuItem.text}
+              to={menuItem.children}
+              onClickMenuItem={props.onClickMenuItem}
+            >
               {menuItem.text}
             </MultiLink>
           )

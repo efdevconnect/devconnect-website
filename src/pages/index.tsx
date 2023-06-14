@@ -37,47 +37,53 @@ const Cube = dynamic(() => import('common/components/cube'), {
 
 const FAQ = [
   {
-    text: 'What about Devcon?',
-    value: 'whataboutdevcon',
+    text: 'How do I know if Devconnect is for me?',
+    value: 'howdoiknow',
     content: () => {
       return (
-        <p>
-          Devcon will remain our principal event, and we&apos;re excited to bring Devcon 7 to Southeast Asia in 2024!
-          Specific dates and location are coming soon. Read about why we&apos;re scheduling Devcon 7 for 2024 in
-          Southeast Asia{' '}
-          <Link href="https://blog.ethereum.org/2023/02/28/devcon-7-update" indicateExternal>
-            here
-          </Link>
-          .
-        </p>
+        <>
+          <p>Devconnect is for you if you …</p>
+          <ul>
+            <li>want to meet people in Ethereum in person</li>
+            <li>love to co-work in an incredible Coworking Space next to others in the Ethereum space</li>
+            <li>dive deep into topics you care about with other domain experts</li>
+            <li>want to make progress on solving specific problems</li>
+            <li>are passionate about creating more decentralized and fairer systems</li>
+          </ul>
+        </>
       )
     },
   },
   {
-    text: 'What is the difference between Devcon and Devconnect?',
-    value: 'diff',
+    text: 'How can I navigate through events and ticketing?',
+    value: 'ticketingandevents',
     content: () => {
       return (
         <>
           <p>
-            Devcon and Devconnect are the only two events organized by the Ethereum Foundation (yes, all the other
-            amazing ETH events are community-run!). Both events are Ethereum-focused but serve different purposes.
+            👉 Take a look at our curated <Link href="/edition/istanbul">events calendar here!</Link> You'll find brief
+            descriptions of each event, an estimation of the difficulty level (beginner/intermediate/expert), and links
+            to the event websites.
           </p>
-
           <p>
-            <b>Devcon</b> is a global Ethereum <b>family reunion</b> a place to celebrate success and align on updates
-            and direction. It is our principal event, all in one place with one big venue, and talks and workshops open
-            to all. Devcon 7 is{' '}
-            <Link href="https://blog.ethereum.org/2023/02/28/devcon-7-update" indicateExternal>
-              scheduled for 2024 in Southeast Asia
-            </Link>
-            .
+            👉 Follow{' '}
+            <Link href="https://twitter.com/EFDevconnect" indicateExternal>
+              @EFDevconnect
+            </Link>{' '}
+            on Twitter to stay in the loop. Follow the{' '}
+            <Link href="https://twitter.com/i/lists/1663882935949295616" indicateExternal>
+              Devconnect IST Twitter list
+            </Link>{' '}
+            for updates from event hosts.{' '}
           </p>
-
           <p>
-            <b>Devconnect</b> on the other hand, is a week <b>to make progress</b>, dive deep into specific topics among
-            fellow experts, to co-work and collaborate. It is structurally entirely different from Devcon, and consists
-            of many individual events, organized by you the community, that each cover one topic in depth.
+            There will be many events in many different venues throughout Istanbul during the week. You can pick and
+            choose based on your interests. All events will be independently hosted, ticketed, and organized. Some
+            events will be free, some will be based on applications, and others may be ticketed with paid tickets.
+          </p>
+          <p>
+            There will be an open Coworking Space throughout the week with tickets available to all, organized by the
+            Devconnect team. Once ticketing for the Cowork is open, you will find information here.
           </p>
         </>
       )
@@ -85,19 +91,19 @@ const FAQ = [
   },
   {
     text: 'Why is Devconnect coming to Istanbul?',
-    value: 'why-istanbul',
+    value: 'whyistanbul',
     content: () => {
       return (
         <>
           <p>
             In choosing Istanbul as the host city for Devconnect 2023, we aim to capitalize on its unique position as a
-            bridge between East and West. Accessibility is a key priority, and Istanbul&apos;s major international
-            airport, efficient local metro, and abundance of suitable venues for community events make it the perfect
-            location for Devconnect 2023.
+            bridge between East and West. Accessibility is a key priority, and Istanbul's major international airport,
+            efficient local metro, and abundance of suitable venues for community events make it the perfect location
+            for Devconnect 2023.
           </p>
           <p>
             The engaged local community and numerous student blockchain clubs in the region further strengthen our
-            belief in the potential of this vibrant city. We are confident that Istanbul&apos;s unique blend of history,
+            belief in the potential of this vibrant city. We are confident that Istanbul's unique blend of history,
             culture, and modernity will provide an inspiring backdrop for the global Ethereum developer community to
             come together, collaborate with these passionate groups, and drive innovation for Ethereum.
           </p>
@@ -105,131 +111,70 @@ const FAQ = [
       )
     },
   },
+  // TODO: Add back in once the scholars program is announced
+  // {
+  //   text: 'Is there any financial support to help with travel costs?',
+  //   value: 'financialsupport',
+  //   content: () => {
+  //     return (
+  //       <>
+  //         <p className="bold">Devconnect Scholars Program 🎓</p>
+  //         <p>
+  //           The Ethereum Foundation{' '}
+  //           <Link href="https://twitter.com/EFNextBillion" indicateExternal>
+  //             Next Billion Team
+  //           </Link>{' '}
+  //           offers the Devconnect Scholars Program to support talented individuals from diverse backgrounds in
+  //           contributing their unique skills to unlock the potential of the Ethereum ecosystem.
+  //         </p>
+  //         <p>
+  //           Who do you know that could significantly impact Ethereum&apos;s future and needs financial help to attend
+  //           Devconnect in Istanbul?
+  //         </p>
+  //       </>
+  //     )
+  //   },
+  // },
   {
-    text: 'What about the earthquakes that happened in Turkey and Syria?',
-    value: 'earthquake',
+    text: 'What about Devcon?',
+    value: 'ondevcon',
     content: () => {
       return (
         <>
           <p>
-            While Istanbul the city was not physically affected, we recognize and have had on our minds the{' '}
-            <Link
-              href="https://en.wikipedia.org/wiki/2023_Turkey–Syria_earthquake#:~:text=As of 20 March 2023,disaster
-            in its modern history"
-              indicateExternal
-            >
-              devastating earthquakes
+            <Link href="https://twitter.com/EFDevcon" indicateExternal>
+              Devcon
             </Link>{' '}
-            that so heavily impacted southern and central Turkey and northern and western Syria, and affected the lives
-            of millions. Our hearts go out to all who lost loved ones or their homes.
-          </p>
-          <p>
-            We know that Turkey and Syria will need support for a long time. We hope the decision to bring Devconnect to
-            Istanbul can show our support, and encourage others to support this region in different ways.
+            will remain our principal event, and we're excited to bring Devcon 7 to Southeast Asia in 2024! Specific
+            dates and location are coming soon. Read about why we&apos;re scheduling Devcon 7 for 2024 in Southeast Asia{' '}
+            <Link href="https://blog.ethereum.org/2023/02/28/devcon-7-update" indicateExternal>
+              here
+            </Link>
+            .
           </p>
         </>
       )
     },
   },
   {
-    text: 'From my understanding, Devconnect will just be separate events hosted by individual projects/teams/individuals, correct?',
-    value: 'separate-events',
-    content: () => {
-      return <p>This is correct!</p>
-    },
-  },
-  {
-    text: 'Will there be a central venue where these events will be held, or is each host responsible for locating a venue for their event?',
-    value: 'central-venue',
-    content: () => {
-      return (
-        <p>
-          Each host is responsible for their own venue. There will be many events in many different venues throughout
-          Istanbul during the week. Attendees will need to pick and choose based on their interest.
-        </p>
-      )
-    },
-  },
-  {
-    text: 'Will there be any "main events" hosted directly by Devconnect?',
-    value: 'main-events',
-    content: () => {
-      return (
-        <p>
-          There will be an open Co-Working space throughout the week with tickets available to all. Other than that, all
-          events will be independently hosted, ticketed, and organized.
-        </p>
-      )
-    },
-  },
-  {
-    text: 'Approximately how many people will fit at each event?',
-    value: 'how-many-people',
-    content: () => {
-      return (
-        <p>
-          Sizes will vary, and range from 25-person workshops, to 300-person events, to a 800-person hackathon for
-          example. Some are private, some free, some will be based on applications, and others may be ticketed with paid
-          tickets.
-        </p>
-      )
-    },
-  },
-  {
-    text: 'What is the primary audience you are hoping to attract for Devconnect IST?',
-    value: 'primary-audience',
-    content: () => {
-      return (
-        <p>
-          While this does vary by event, the focus in general are those who are involved/interested in the ecosystem in
-          one particular area and want to dive deeper!
-        </p>
-      )
-    },
-  },
-
-  {
-    text: 'How do you host an event at Devconnect?',
-    value: 'organizers',
+    text: 'What is the difference between Devcon and Devconnect?',
+    value: 'devconvsdevconnect',
     content: () => {
       return (
         <>
           <p>
-            Tl;dr: Just do it! No permission needed. Set the goals, determine target demographic, choose from one of the
-            many great venues in Istanbul, and announce (tagging{' '}
-            <Link href="https://twitter.com/efdevconnect" indicateExternal>
-              @EFDevconnect
-            </Link>
-            ).
+            Devcon and Devconnect are the only two events organized by the Ethereum Foundation (yes, all the other
+            amazing ETH events are community-run!). Both events are Ethereum-focused but serve different purposes.
           </p>
           <p>
-            First, thank you for your interest in participating! As a recap,{' '}
-            <b>Devconnect is a week-long series of independent events</b> focused on specific topics organized by
-            independent teams/projects that are most familiar with the topic.
+            <b>Devcon</b> is a global Ethereum <i>family reunion</i>, a place to celebrate success and align on updates
+            and direction. It is our principal event, all in one place with one big venue, and talks and workshops open
+            to all. <Link href="devcon.org">Devcon 7 is scheduled for 2024 in Southeast Asia</Link>!
           </p>
-          <p>Through Devconnect, we aim to foster:</p>
-          <ul>
-            <li>Smaller, depth-first conversations led by the experts in those topics</li>
-            <li>Audiences/attendees that are very relevant to the topic at hand</li>
-            <li>Foster collaboration and community throughout Devconnect week</li>
-          </ul>
           <p>
-            <b>We, the Devconnect team, will be supporting the week in three ways:</b>
-          </p>
-          <ul>
-            <li>
-              Signaling towards a place (Istanbul) and a time (November 13-19) for in-person cullaboration among our
-              distributed Ethereum community
-            </li>
-            <li>Organizing a Coworking Space throughout the week open to all</li>
-            <li>Helping with publicity through Devconnect.org calendar, twitter, etc.</li>
-          </ul>
-          <p>
-            <i>
-              <b>Beyond that, all the events happening throughout the week will be independently hosted</b>. There will
-              be no &quot;main&quot; event. All events will be in different venues around Istanbul — a city with many
-              conference centers.
-            </i>
+            <b>Devconnect</b> on the other hand, is a week to <i>make progress</i>, dive deep into specific topics among
+            fellow experts, to co-work and collaborate. It is structurally entirely different from Devcon, and consists
+            of many individual events, organized by you the community, that each cover one topic in depth.
           </p>
         </>
       )
@@ -481,7 +426,7 @@ const Home: NextPage = (props: any) => {
               <div className={css['info-container']}>
                 <div className={`${css['info']}`}>
                   <p className={css['big-description']}>
-                    <span className={css['red-underline']}>Meet the faces of Ethereum </span>
+                    <span className={css['red-underline']}>Meet the builders of Ethereum </span>
                     {/* <span>Devconnect</span> <span>is</span> <span className={css['red-underline']}>back!</span> */}
                   </p>
 
@@ -490,7 +435,10 @@ const Home: NextPage = (props: any) => {
                     <b>make progress together</b>.
                   </p>
 
-                  <Link href="#about" className={`button blue-fill ${css['video-recap-button']}`}>
+                  <Link
+                    href="http://www.iccistanbul.com/location-direction.php"
+                    className={`button blue-fill ${css['video-recap-button']}`}
+                  >
                     <span>ISTANBUL, Türkiye</span>
                     <span>November 13-19, 2023</span>
                   </Link>
@@ -580,7 +528,7 @@ const Home: NextPage = (props: any) => {
                       </p>
                     </div>
 
-                    <div className="margin-top">
+                    <div className={`margin-top ${css['nowrap']}`}>
                       <Link
                         href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
                         className={`button purple ${css['get-involved-button']}`}

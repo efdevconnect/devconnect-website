@@ -2,10 +2,10 @@
 
 .dropdown-box {
   background: $monochrome-1;
-  border: 1px solid $monochrome-8;
+  border: 1px solid $monochrome-6;
 }
 
-$padding: 4px 10px 4px 12px;
+$padding: 4px 10px 4px 10px;
 
 .container {
   @extend .dropdown-box;
@@ -33,7 +33,8 @@ $padding: 4px 10px 4px 12px;
   }
 
   .placeholder {
-    color: $monochrome-6;
+    color: $monochrome-7;
+    font-size: 14px;
 
     * {
       fill: $monochrome-6;
@@ -55,6 +56,16 @@ $padding: 4px 10px 4px 12px;
   opacity: 0;
   transition: opacity 0.4s;
   pointer-events: none;
+
+  // Just to assist on mobile when space is restricted
+  &.push-from-left {
+    left: 1px;
+    right: auto;
+
+    li {
+      text-align: left;
+    }
+  }
 
   &.open {
     opacity: 1;

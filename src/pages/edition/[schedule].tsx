@@ -285,7 +285,10 @@ const Timeline = (props: any) => {
           <div className={css['content']}>
             {event['Stable ID'] === 'Cowork' && (
               <div className={css['image']}>
-                <DevconnectAmsterdam style={{ width: '50px' }} />
+                {(() => {
+                  if (props.edition === 'istanbul') return <ScheduleBackgroundIstanbul style={{ width: '50px' }} />
+                  if (props.edition === 'amsterdam') return <DevconnectAmsterdam style={{ width: '50px' }} />
+                })()}
               </div>
             )}
             <div className={css['content-inner']}>
@@ -299,8 +302,9 @@ const Timeline = (props: any) => {
                     {Array.from(Array(totalDays)).map((_, index: number) => {
                       const time = timeOfDayArray[index]
                       const useDayIndicator = !!timeOfDayArray[1] && totalDays > 1
-                      const sameTimeEveryDay = shouldRepeatTimeOfDay && totalDays > 1 && time !== 'FULL DAY'
+                      const sameTimeEveryDay = shouldRepeatTimeOfDay && totalDays > 1 && time !== 'ALL DAY'
 
+                      if (props.edition === 'istanbul' && event['Stable ID'] !== 'Cowork') return null
                       if (!time) return null
                       if (shouldRepeatTimeOfDay && isMultiDayEvent && index > 0) return null
 
@@ -318,9 +322,9 @@ const Timeline = (props: any) => {
                               </>
                             )}
                           </p>
-                          {event['Stable ID'] === 'Cowork' && (
+                          {/* {event['Stable ID'] === 'Cowork' && (
                             <i className="bold">🎉 Social hours 18:00 - 20:00 every day 🎉</i>
-                          )}
+                          )} */}
                         </div>
                       )
                     })}
@@ -340,7 +344,12 @@ const Timeline = (props: any) => {
             </div>
           </div>
 
-          <LearnMore event={event} open={eventModalOpen === event.Name} close={() => setEventModalOpen('')} />
+          <LearnMore
+            event={event}
+            open={eventModalOpen === event.Name}
+            close={() => setEventModalOpen('')}
+            edition={props.edition}
+          />
         </div>
 
         {/* {isLastIteration && (
@@ -349,8 +358,6 @@ const Timeline = (props: any) => {
       </React.Fragment>
     )
   })
-
-  console.log(props.edition, 'edition')
 
   return (
     <>
@@ -401,9 +408,9 @@ const EventMeta = (props: any) => {
           &nbsp;{props.event['General Size']}
         </div>
       )}
-      {props.event['Difficulty'] && (
+      {/* {props.event['Difficulty'] && (
         <div className={`small-text-em ${css['difficulty']}`}>{props.event.Difficulty}</div>
-      )}
+      )} */}
 
       <div className={css['categories']}>
         {props.event.Category &&
@@ -538,7 +545,9 @@ const EventLinks = (props: any) => {
         <p>Website coming soon</p>
       )}
 
-      {event.Location && event.Location.url && (
+      {props.edition === 'istanbul' && event['Stable ID'] !== 'Cowork' && <p>Location coming soon</p>}
+
+      {(props.edition !== 'istanbul' || event['Stable ID'] === 'Cowork') && event.Location && event.Location.url && (
         <Link href={event.Location.url} indicateExternal>
           Location
         </Link>
@@ -550,7 +559,7 @@ const EventLinks = (props: any) => {
         </Link>
       )}
 
-      {enableAddToCalendar && (
+      {props.edition !== 'istanbul' && enableAddToCalendar && (
         <>
           <div className={css['add-to-calendar']}>
             <AddToCalendarIcon className={`big-text icon`} onClick={() => setCalendarModalOpen(true)} />
@@ -581,7 +590,7 @@ const EventLinks = (props: any) => {
   )
 }
 
-const LearnMore = (props: { open: boolean; close: () => void; event: any }) => {
+const LearnMore = (props: { open: boolean; close: () => void; event: any; edition: any }) => {
   let className = css['learn-more']
 
   return (
@@ -593,7 +602,12 @@ const LearnMore = (props: { open: boolean; close: () => void; event: any }) => {
 
       <Modal open={props.open} close={props.close} className={css['learn-more-modal']}>
         <div className={css['learn-more-modal-content']}>
-          <ListEventMobile {...getFormattedEventData(props.event)} event={props.event} timeline />
+          <ListEventMobile
+            {...getFormattedEventData(props.event)}
+            event={props.event}
+            timeline
+            edition={props.edition}
+          />
         </div>
       </Modal>
     </>
@@ -658,12 +672,12 @@ const ListEventDesktop = (props: any) => {
           <div>
             <p className="big-text uppercase">
               {formattedDate} — <br /> <span className="big-text">{timeOfDay}</span>
-              {props.event['Stable ID'] === 'Cowork' && (
+              {/* {props.event['Stable ID'] === 'Cowork' && (
                 <>
                   <br />
                   <span className="small-text bold">Social hours 18:00 - 20:00 🎉</span>
                 </>
-              )}
+              )} */}
             </p>
             {isMultiDayEvent && (
               <p className={`${css['end-date']} tiny-text uppercase`}>
@@ -765,12 +779,12 @@ const ListEventMobile = (props: any) => {
         <div className={css['date']}>
           <p className={`small-text uppercase ${css['time-of-day']}`}>
             {formattedDate} — <br /> <span className="large-text">{timeOfDay}</span>
-            {props.event['Stable ID'] === 'Cowork' && (
+            {/* {props.event['Stable ID'] === 'Cowork' && (
               <>
                 <br />
                 <span className="small-text bold">Social hours 18:00 - 20:00 🎉</span>
               </>
-            )}
+            )} */}
           </p>
           {isMultiDayEvent && (
             <p className={`${css['end-date']} small-text uppercase`}>
@@ -823,9 +837,9 @@ const ListEvent = (props: any) => {
   return (
     <>
       {/* List view as table (desktop) */}
-      <ListEventDesktop {...formattedEventData} event={props.event} />
+      <ListEventDesktop {...formattedEventData} event={props.event} edition={props.edition} />
       {/* List view (mobile) */}
-      <ListEventMobile {...formattedEventData} event={props.event} />
+      <ListEventMobile {...formattedEventData} event={props.event} edition={props.edition} />
     </>
   )
 }
@@ -846,7 +860,7 @@ const List = (props: any) => {
         return (
           <ListDayHeader key={index} date={day} ref={el => (props.accordionRefs.current[day.valueOf()] = el)}>
             {eventsForDay.map((event: any, index: number) => {
-              return <ListEvent event={event} key={index} day={day} />
+              return <ListEvent event={event} key={index} day={day} edition={props.edition} />
             })}
           </ListDayHeader>
         )
@@ -923,8 +937,8 @@ const useFilter = (events: any) => {
 const Filter = (props: any) => {
   return (
     <div className={`${css['filter']} small-text`}>
-      <p className={`${css['filter-text']} bold`}>Filter:</p>
-      {props.keysToFilterOn.map((key: string) => {
+      {/* <p className={`${css['filter-text']} bold`}>Filter:</p> */}
+      {props.keysToFilterOn.map((key: string, index: number) => {
         const valuesToFilterBy = props.filterableValues[key]
 
         if (!valuesToFilterBy) return null
@@ -932,6 +946,7 @@ const Filter = (props: any) => {
         return (
           <div key={key}>
             <Dropdown
+              pushFromLeft={index !== props.keysToFilterOn.length - 1}
               placeholder={key}
               value={props.filters[key]}
               onChange={val => props.onChange(key, val)}
@@ -952,7 +967,7 @@ const Filter = (props: any) => {
           icons={false}
           onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
         />
-        <span>Hide sold out events</span>
+        <span className="bold small-text">Hide sold out events</span>
       </label>
     </div>
   )
@@ -1042,7 +1057,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
         </p>
       </Hero>
 
-      <div className={`${css['schedule']} section`}>
+      <div className={`${css['schedule']} section ${css[`edition-${props.edition}`]}`}>
         <div className="fade-in-up clear-vertical">
           {props.edition !== 'istanbul' && <Retro />}
           <div className={`${css['header-row']}`}>
@@ -1073,22 +1088,47 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
           </div>
 
           {props.edition === 'istanbul' && (
-            <Alert title="Ticket Information">
-              <b>
-                EACH event in devconnect is independently hosted and you will require tickets for each event you wish to
-                attend.
-              </b>
-              &nbsp;For information on acquiring tickets to the independently-hosted events during the week of
-              Devconnect please visit their respective websites.
+            <Alert title="Disclaimer">
+              <p>
+                <b>⚠️ The schedule is a work in progress.</b> Check back regularly for the most accurate, up-to-date
+                information. This early look at the schedule is intended to help you start planning your travels and to
+                inspire other organizers who might wish to collaborate or plan their own complementary events.{' '}
+              </p>
+              <p className="bold margin-top-less">
+                👉 Remember, each event during Devconnect is independently hosted and you will require tickets for each
+                event you wish to attend. You will find ticketing information for each event soon.
+              </p>
             </Alert>
           )}
 
           <div className={`${css['top-bar']}`}>
             <Filter events={events} {...filterAttributes} />
             <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
+            <div className={css['difficulties']}>
+              <div className={css['beginner']}>
+                <p>
+                  <span className={css['indicator']}>⬤</span>Beginner
+                </p>
+              </div>
+              <div className={css['intermediate']}>
+                <p>
+                  <span className={css['indicator']}>⬤</span>Intermediate
+                </p>
+              </div>
+              <div className={css['advanced']}>
+                <p>
+                  <span className={css['indicator']}>⬤</span>Advanced
+                </p>
+              </div>
+              <div className={css['unspecified']}>
+                <p>
+                  <span className={css['indicator']}>⬤</span>All welcome
+                </p>
+              </div>
+            </div>
 
             {scheduleView === 'timeline' && (
-              <p className={`small-text uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
+              <p className={`small-text bold uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
             )}
           </div>
 
@@ -1202,7 +1242,7 @@ const formatResult = (result: any) => {
   })
 
   // Insert a default value for time of day when unspecified
-  if (!properties['Time of Day']) properties['Time of Day'] = 'FULL DAY'
+  if (!properties['Time of Day']) properties['Time of Day'] = 'ALL DAY'
 
   return properties
 }

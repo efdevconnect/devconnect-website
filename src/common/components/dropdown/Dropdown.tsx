@@ -10,6 +10,7 @@ export interface DropdownProps {
   renderCustomTrigger?: (foldout: any, defaultTriggerProps: any) => React.ReactElement
   onChange: (value: any) => void
   placeholder?: string
+  pushFromLeft?: boolean
   options: {
     [key: string]: any
   }[]
@@ -39,10 +40,12 @@ const Dropdown = React.forwardRef((props: DropdownProps, externalRef: any) => {
 
   let className = `${css['container']}`
   if (props.className) className += ` ${props.className}`
+
   // if (props.value) className += ` ${css['clearable']}`
 
   let foldoutClassName = css['dropdown']
   if (open) foldoutClassName += ` ${css['open']}`
+  if (props.pushFromLeft) foldoutClassName += ` ${css['push-from-left']}`
 
   const Icon = (() => {
     // Used by e.g. Filter

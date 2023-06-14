@@ -1100,3 +1100,14 @@
     transform: translateY(20%);
   }
 }
+
+.nowrap {
+  display: flex;
+  align-self: flex-start;
+  justify-content: center;
+  flex-wrap: nowrap;
+
+  > * {
+    flex-shrink: 0;
+  }
+}

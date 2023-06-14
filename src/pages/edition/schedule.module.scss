@@ -1,5 +1,10 @@
 @import 'styles/variables.scss';
 
+$color-unspecified: #8f78fb;
+$color-beginner: #0085ff;
+$color-intermediate:#ff9b00;
+$color-advanced: #ff2a00;
+
 .hero {
   --tile-size: 60px;
   z-index: 1;
@@ -9,6 +14,16 @@
   background: white;
   color: black;
   --icon-color: black;
+
+  &.edition-istanbul {
+    // .day {
+    //   background: #394d5c;
+    // }
+  }
+
+  &.edition-amsterdam {
+
+  }
 
   .header-row {
     display: flex;
@@ -102,6 +117,53 @@
       padding-top: 16px;
     }
 
+    .difficulties {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > * {
+        display: flex;
+        align-items: center;
+        margin-right: 8px;
+        font-size: 12px;
+        font-weight: bold;
+
+        &:last-child {
+          margin-right: 0px;
+        }
+
+        .indicator {
+          margin-right: 4px;
+          opacity: 0.6;
+        }
+
+        &.unspecified {
+          .indicator {
+            color: $color-unspecified;
+          }
+        }
+
+        &.beginner {
+          .indicator {
+            color: $color-beginner;
+          }
+        }
+
+        &.intermediate {
+          .indicator {
+            color: $color-intermediate;
+          }
+        }
+
+        &.advanced {
+          .indicator {
+            color: $color-advanced;
+          }
+        }
+      }
+    }
+
     .expand-container {
       display: none;
 
@@ -112,7 +174,7 @@
 
     .swipe {
       display: none;
-      color: $monochrome-7;
+      // color: $monochrome-7;
 
       @media (min-width: $screen-lg) {
         display: inline-block;
@@ -175,29 +237,29 @@
 
   &:not(.Beginner, .Intermediate, .Advanced) {
     background: #f9f8ff;
-    border-color: #8f78fb;
-    --difficulty-color: #8f78fb;
+    border-color: $color-unspecified;
+    --difficulty-color: #{$color-unspecified};
     --difficulty-color-bg: #e9e6ff;
   }
 
   &.Beginner {
     background: #f8fcff;
-    border-color: #0085ff;
-    --difficulty-color: #0085ff;
+    border-color: $color-beginner;
+    --difficulty-color: #{$color-beginner};
     --difficulty-color-bg: #e3f3ff;
   }
 
   &.Intermediate {
     background: #fffaf8;
-    border-color: #ff9b00;
-    --difficulty-color: #ff9b00;
+    border-color: $color-intermediate;
+    --difficulty-color: #{$color-intermediate};
     --difficulty-color-bg: #ffece4;
   }
 
   &.Advanced {
     background: #fff8f8;
-    border-color: #ff2a00;
-    --difficulty-color: #ff2a00;
+    border-color: $color-advanced;
+    --difficulty-color: #{$color-advanced};
     --difficulty-color-bg: #ffebeb;
   }
 
@@ -868,10 +930,6 @@
 
     > * {
       font-size: 0.6em;
-
-      &:first-child {
-        // margin-bottom: 2px;
-      }
     }
   }
 
