@@ -61,9 +61,9 @@ const FAQ = [
       return (
         <>
           <p>
-            👉 Take a look at our curated <Link href="/edition/istanbul">events calendar here!</Link> You'll find brief
-            descriptions of each event, an estimation of the difficulty level (beginner/intermediate/expert), and links
-            to the event websites.
+            👉 Take a look at our curated <Link href="/edition/istanbul">events calendar here!</Link> You&apos;ll find
+            brief descriptions of each event, an estimation of the difficulty level (beginner/intermediate/expert), and
+            links to the event websites.
           </p>
           <p>
             👉 Follow{' '}
@@ -78,7 +78,7 @@ const FAQ = [
           </p>
           <p>
             There will be many events in many different venues throughout Istanbul during the week. You can pick and
-            choose based on your interests. All events will be independently hosted, ticketed, and organized. Some
+            choose based on your interests. All events will be independently hosted, ticketed, and organized. Some
             events will be free, some will be based on applications, and others may be ticketed with paid tickets.
           </p>
           <p>
@@ -97,13 +97,13 @@ const FAQ = [
         <>
           <p>
             In choosing Istanbul as the host city for Devconnect 2023, we aim to capitalize on its unique position as a
-            bridge between East and West. Accessibility is a key priority, and Istanbul's major international airport,
-            efficient local metro, and abundance of suitable venues for community events make it the perfect location
-            for Devconnect 2023.
+            bridge between East and West. Accessibility is a key priority, and Istanbul&apos;s major international
+            airport, efficient local metro, and abundance of suitable venues for community events make it the perfect
+            location for Devconnect 2023.
           </p>
           <p>
             The engaged local community and numerous student blockchain clubs in the region further strengthen our
-            belief in the potential of this vibrant city. We are confident that Istanbul's unique blend of history,
+            belief in the potential of this vibrant city. We are confident that Istanbul&apos;s unique blend of history,
             culture, and modernity will provide an inspiring backdrop for the global Ethereum developer community to
             come together, collaborate with these passionate groups, and drive innovation for Ethereum.
           </p>
@@ -145,8 +145,9 @@ const FAQ = [
             <Link href="https://twitter.com/EFDevcon" indicateExternal>
               Devcon
             </Link>{' '}
-            will remain our principal event, and we're excited to bring Devcon 7 to Southeast Asia in 2024! Specific
-            dates and location are coming soon. Read about why we&apos;re scheduling Devcon 7 for 2024 in Southeast Asia{' '}
+            will remain our principal event, and we&apos;re excited to bring Devcon 7 to Southeast Asia in 2024!
+            Specific dates and location are coming soon. Read about why we&apos;re scheduling Devcon 7 for 2024 in
+            Southeast Asia{' '}
             <Link href="https://blog.ethereum.org/2023/02/28/devcon-7-update" indicateExternal>
               here
             </Link>
