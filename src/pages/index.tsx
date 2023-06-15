@@ -72,7 +72,7 @@ const FAQ = [
       return (
         <>
           <p>
-            👉 Take a look at our curated <Link href="/istanbul">events calendar here!</Link> You&apos;ll find brief
+            👉 Take a look at our curated <Link href="/schedule">events calendar here!</Link> You&apos;ll find brief
             descriptions of each event, an estimation of the difficulty level (beginner/intermediate/expert), and links
             to the event websites.
           </p>
@@ -563,7 +563,7 @@ const Home: NextPage = (props: any) => {
                         Organize an event
                       </Link>
                       <Link
-                        href="/istanbul"
+                        href="/schedule"
                         className={`button purple ${css['get-involved-button']} margin-left-less`}
                         indicateExternal
                       >
@@ -699,7 +699,7 @@ const Home: NextPage = (props: any) => {
                         </p> */}
 
                         <Link
-                          href="/istanbul"
+                          href="/schedule"
                           className={`button sm white ${css['get-involved-button']}`}
                           indicateExternal
                         >
