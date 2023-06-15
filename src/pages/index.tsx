@@ -45,8 +45,19 @@ const FAQ = [
           <p>Devconnect is for you if you …</p>
           <ul>
             <li>want to meet people in Ethereum in person</li>
-            <li>love to co-work in an incredible Coworking Space next to others in the Ethereum space</li>
-            <li>dive deep into topics you care about with other domain experts</li>
+            <li>
+              love to co-work in an incredible{' '}
+              <Link
+                href="https://www.notion.so/ef-events/Devconnect-IST-Coworking-space-e811d778b6a846989600d54158ff70cf?pvs=4"
+                indicateExternal
+              >
+                Coworking Space
+              </Link>{' '}
+              next to others in the Ethereum space
+            </li>
+            <li>
+              <b>dive</b> deep into topics you care about with other domain experts
+            </li>
             <li>want to make progress on solving specific problems</li>
             <li>are passionate about creating more decentralized and fairer systems</li>
           </ul>
@@ -61,7 +72,7 @@ const FAQ = [
       return (
         <>
           <p>
-            👉 Take a look at our curated <Link href="/edition/istanbul">events calendar here!</Link> You&apos;ll find
+            👉 Take a look at our curated <Link href="/event/istanbul">events calendar here!</Link> You&apos;ll find
             brief descriptions of each event, an estimation of the difficulty level (beginner/intermediate/expert), and
             links to the event websites.
           </p>
@@ -78,12 +89,19 @@ const FAQ = [
           </p>
           <p>
             There will be many events in many different venues throughout Istanbul during the week. You can pick and
-            choose based on your interests. All events will be independently hosted, ticketed, and organized. Some
-            events will be free, some will be based on applications, and others may be ticketed with paid tickets.
+            choose based on your interests. <b>All events will be independently hosted, ticketed, and organized.</b>{' '}
+            Some events will be free, some will be based on applications, and others may be ticketed with paid tickets.
           </p>
           <p>
-            There will be an open Coworking Space throughout the week with tickets available to all, organized by the
-            Devconnect team. Once ticketing for the Cowork is open, you will find information here.
+            There will be an open{' '}
+            <Link
+              href="https://www.notion.so/ef-events/Devconnect-IST-Coworking-space-e811d778b6a846989600d54158ff70cf?pvs=4"
+              indicateExternal
+            >
+              Coworking Space
+            </Link>{' '}
+            throughout the week with tickets available to all, organized by the Devconnect team. Once ticketing for the
+            Cowork is open, you will find information here.
           </p>
         </>
       )
@@ -545,7 +563,7 @@ const Home: NextPage = (props: any) => {
                         Organize an event
                       </Link>
                       <Link
-                        href="/edition/istanbul"
+                        href="/event/istanbul"
                         className={`button purple ${css['get-involved-button']} margin-left-less`}
                         indicateExternal
                       >
@@ -681,7 +699,7 @@ const Home: NextPage = (props: any) => {
                         </p> */}
 
                         <Link
-                          href="/edition/istanbul"
+                          href="/event/istanbul"
                           className={`button sm white ${css['get-involved-button']}`}
                           indicateExternal
                         >
@@ -707,7 +725,7 @@ const Home: NextPage = (props: any) => {
             </FadeIn>
           </div>
 
-          <Scene growVertically growNaturally id="faq" className={`${css['scene-faq']} section`}>
+          <Scene growVertically growNaturally className={`${css['scene-faq']} section`}>
             <FadeIn>
               <div className={`clear-vertical`}>
                 <div className="columns border-bottom margin-bottom padding-bottom">
@@ -726,8 +744,8 @@ const Home: NextPage = (props: any) => {
                     <p className="big-text margin-top-less margin-bottom-less">
                       It is a meeting point, a place to work, and a space to relax where you can learn and exchange
                       experiences with others in the space. Some say the Coworking Space at{' '}
-                      <Link href="https://devconnect.org/edition/amsterdam">Devconnect 2022</Link> in Amsterdam was
-                      worth a visit on its own.
+                      <Link href="https://devconnect.org/event/amsterdam">Devconnect 2022</Link> in Amsterdam was worth
+                      a visit on its own.
                     </p>
                   </div>
                   <div className="right">
@@ -768,7 +786,7 @@ const Home: NextPage = (props: any) => {
 
                 <h1 className="section-header grey">Frequently Asked Questions</h1>
 
-                <div className={`${css['accordion']} tab-content`}>
+                <div className={`${css['accordion']} tab-content`} id="faq">
                   <Accordion>
                     {FAQ.map(faq => {
                       return (

@@ -24,7 +24,7 @@ import Alert from 'common/components/alert'
 import { useRouter } from 'next/dist/client/router'
 // @ts-ignore
 import Toggle from 'react-toggle'
-import Retro from 'common/components/pages/edition/retro'
+import Retro from 'common/components/pages/event/retro'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -706,7 +706,9 @@ const ListEventDesktop = (props: any) => {
               <p className={`${css['title']} big-text bold uppercase`}>{props.event.Name}</p>
             )}
 
-            {props.event.Location && props.event.Location.url && (
+            {(() => console.log(props.edition, 'edition'))()}
+
+            {props.edition !== 'istanbul' && props.event.Location && props.event.Location.url && (
               <Link
                 href={props.event.Location.url}
                 indicateExternal
@@ -766,7 +768,7 @@ const ListEventMobile = (props: any) => {
           <p className={`${css['title']} large-text uppercase bold`}>{props.event.Name}</p>
         )}
 
-        {props.event.Location && props.event.Location.url && (
+        {props.edition !== 'istanbul' && props.event.Location && props.event.Location.url && (
           <Link
             href={props.event.Location.url}
             indicateExternal

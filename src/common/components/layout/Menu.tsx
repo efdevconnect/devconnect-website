@@ -76,14 +76,14 @@ const menuItems = (pathname: string) => [
   },
   {
     text: 'Schedule',
-    url: '/edition/istanbul',
+    url: '/event/istanbul',
   },
   {
-    text: 'Past Editions',
+    text: 'Past Events',
     children: [
       {
         text: 'Amsterdam 2022',
-        url: '/edition/amsterdam',
+        url: '/event/amsterdam',
       },
     ],
   },
