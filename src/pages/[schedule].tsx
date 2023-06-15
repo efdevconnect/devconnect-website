@@ -17,7 +17,7 @@ import Hero from 'common/components/hero'
 import Link, { useDraggableLink } from 'common/components/link'
 import Modal from 'common/components/modal'
 import ScheduleBackgroundAmsterdam from 'assets/images/schedule-bg.svg'
-import ScheduleBackgroundIstanbul from 'assets/images/istanbul-logo-with-eth.svg'
+import DevconnectIstanbul from 'assets/images/istanbul-logo-with-eth.svg'
 import Dropdown from 'common/components/dropdown'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import Alert from 'common/components/alert'
@@ -286,7 +286,7 @@ const Timeline = (props: any) => {
             {event['Stable ID'] === 'Cowork' && (
               <div className={css['image']}>
                 {(() => {
-                  if (props.edition === 'istanbul') return <ScheduleBackgroundIstanbul style={{ width: '50px' }} />
+                  if (props.edition === 'istanbul') return <DevconnectIstanbul style={{ width: '50px' }} />
                   if (props.edition === 'amsterdam') return <DevconnectAmsterdam style={{ width: '50px' }} />
                 })()}
               </div>
@@ -365,7 +365,7 @@ const Timeline = (props: any) => {
         {props.edition === 'amsterdam' && <ScheduleBackgroundAmsterdam />}
 
         {props.edition === 'istanbul' && (
-          <ScheduleBackgroundIstanbul style={{ maxWidth: '300px', width: '400px', opacity: 0.15, right: '16px' }} />
+          <DevconnectIstanbul style={{ maxWidth: '300px', width: '400px', opacity: 0.15, right: '16px' }} />
         )}
       </div>
       <SwipeToScroll /*focusRef={todayRef}*/ noBounds stopped={eventModalOpen !== ''}>
@@ -691,7 +691,10 @@ const ListEventDesktop = (props: any) => {
           )}
           {props.event['Stable ID'] === 'Cowork' && (
             <div className={css['cowork-image']}>
-              <DevconnectAmsterdam />
+              {(() => {
+                if (props.edition === 'amsterdam') return <DevconnectAmsterdam />
+                if (props.edition === 'istanbul') return <DevconnectIstanbul />
+              })()}
             </div>
           )}
         </div>
@@ -793,7 +796,14 @@ const ListEventMobile = (props: any) => {
           )}
         </div>
         {isMultiDayEvent && <div className={`tag purple tiny-text ${css['multi-day-indicator']}`}>Multi-day Event</div>}
-        {props.event['Stable ID'] === 'Cowork' && <DevconnectAmsterdam style={{ width: '50px', display: 'block' }} />}
+
+        {(() => {
+          if (props.event['Stable ID'] !== 'Cowork') return null
+
+          if (props.edition === 'istanbul') return <DevconnectIstanbul style={{ width: '50px', display: 'block' }} />
+          if (props.edition === 'amsterdam') return <DevconnectAmsterdam style={{ width: '50px', display: 'block' }} />
+        })()}
+
         {props.event['Brief Description'] && (
           <p
             className={`${css['description']} small-text`}
@@ -1105,11 +1115,16 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
             <Filter events={events} {...filterAttributes} />
             <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
             <div className={css['difficulties']}>
-              <div className={css['beginner']}>
+              <div className={css['unspecified']}>
+                <p>
+                  <span className={css['indicator']}>⬤</span>All welcome
+                </p>
+              </div>
+              {/* <div className={css['beginner']}>
                 <p>
                   <span className={css['indicator']}>⬤</span>Beginner
                 </p>
-              </div>
+              </div> */}
               <div className={css['intermediate']}>
                 <p>
                   <span className={css['indicator']}>⬤</span>Intermediate
@@ -1118,11 +1133,6 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
               <div className={css['advanced']}>
                 <p>
                   <span className={css['indicator']}>⬤</span>Advanced
-                </p>
-              </div>
-              <div className={css['unspecified']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>All welcome
                 </p>
               </div>
             </div>
