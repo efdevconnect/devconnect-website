@@ -2,7 +2,7 @@ import next, { NextPage } from 'next'
 import React, { useEffect } from 'react'
 import { Client } from '@notionhq/client'
 import css from './schedule.module.scss'
-import { Footer } from '../index'
+import { Footer } from './index'
 import moment from 'moment'
 import momentTZ from 'moment-timezone'
 import ListIcon from 'assets/icons/list.svg'
@@ -706,8 +706,6 @@ const ListEventDesktop = (props: any) => {
               <p className={`${css['title']} big-text bold uppercase`}>{props.event.Name}</p>
             )}
 
-            {(() => console.log(props.edition, 'edition'))()}
-
             {props.edition !== 'istanbul' && props.event.Location && props.event.Location.url && (
               <Link
                 href={props.event.Location.url}
@@ -1054,7 +1052,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
         <p className="uppercase extra-large-text bold secondary title">
           {(() => {
             if (props.edition === 'istanbul') return 'Istanbul 2023'
-            if (props.edition === 'amsterdam') return 'Past Editions - Amsterdam 2022'
+            if (props.edition === 'amsterdam') return 'Past Events - Amsterdam 2022'
           })()}
         </p>
       </Hero>
@@ -1316,9 +1314,11 @@ export async function getStaticProps(context: any) {
     },
   }
 
-  const query = (() => {
-    const path = context.params.schedule
+  let path = context.params.schedule
 
+  if (path === 'schedule') path = 'istanbul'
+
+  const query = (() => {
     if (path === 'amsterdam') return amsterdamQuery
     if (path === 'istanbul') return istanbulQuery
 
@@ -1342,7 +1342,7 @@ export async function getStaticProps(context: any) {
   return {
     props: {
       events: data,
-      edition: context.params.schedule,
+      edition: path,
     },
     revalidate: 1 * 60 * 30, // 30 minutes, in seconds
   }
@@ -1350,7 +1350,7 @@ export async function getStaticProps(context: any) {
 
 export const getStaticPaths = async () => {
   return {
-    paths: [{ params: { schedule: 'amsterdam' } }, { params: { schedule: 'istanbul' } }],
+    paths: [{ params: { schedule: 'schedule' } }, { params: { schedule: 'amsterdam' } }],
     fallback: false,
   }
 }

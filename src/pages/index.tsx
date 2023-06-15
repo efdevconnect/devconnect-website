@@ -72,9 +72,9 @@ const FAQ = [
       return (
         <>
           <p>
-            👉 Take a look at our curated <Link href="/event/istanbul">events calendar here!</Link> You&apos;ll find
-            brief descriptions of each event, an estimation of the difficulty level (beginner/intermediate/expert), and
-            links to the event websites.
+            👉 Take a look at our curated <Link href="/istanbul">events calendar here!</Link> You&apos;ll find brief
+            descriptions of each event, an estimation of the difficulty level (beginner/intermediate/expert), and links
+            to the event websites.
           </p>
           <p>
             👉 Follow{' '}
@@ -563,7 +563,7 @@ const Home: NextPage = (props: any) => {
                         Organize an event
                       </Link>
                       <Link
-                        href="/event/istanbul"
+                        href="/istanbul"
                         className={`button purple ${css['get-involved-button']} margin-left-less`}
                         indicateExternal
                       >
@@ -699,7 +699,7 @@ const Home: NextPage = (props: any) => {
                         </p> */}
 
                         <Link
-                          href="/event/istanbul"
+                          href="/istanbul"
                           className={`button sm white ${css['get-involved-button']}`}
                           indicateExternal
                         >
@@ -744,8 +744,8 @@ const Home: NextPage = (props: any) => {
                     <p className="big-text margin-top-less margin-bottom-less">
                       It is a meeting point, a place to work, and a space to relax where you can learn and exchange
                       experiences with others in the space. Some say the Coworking Space at{' '}
-                      <Link href="https://devconnect.org/event/amsterdam">Devconnect 2022</Link> in Amsterdam was worth
-                      a visit on its own.
+                      <Link href="https://devconnect.org/amsterdam">Devconnect 2022</Link> in Amsterdam was worth a
+                      visit on its own.
                     </p>
                   </div>
                   <div className="right">
