@@ -76,7 +76,7 @@ const menuItems = (pathname: string) => [
   },
   {
     text: 'Schedule',
-    url: '/istanbul',
+    url: '/schedule',
   },
   {
     text: 'Past Events',
