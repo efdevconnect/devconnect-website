@@ -248,7 +248,7 @@ const CodeOfConduct = () => {
         {' '}
         Anyone can report harassment. If you were or are being harassed, notice that someone else was or is being
         harassed, or have any other concerns related to harassment, you can contact a Devconnect volunteer or staff
-        member, make a report at the registration desk or info booth, or submit a complaint to support@devcon.org.
+        member, make a report at the registration desk or info booth, or submit a complaint to support@devconnect.org.
       </p>
       <p className="big-text underline bold">Approved Swag Only</p>
       <p>
@@ -293,7 +293,7 @@ const CodeOfConduct = () => {
         venue, facility, and/or local authorities.
       </p>
       <p className="big-text underline bold">How to Report</p>
-      <p>If you notice any violations of this Code of Conduct please report them to support@devcon.org.</p>
+      <p>If you notice any violations of this Code of Conduct please report them to support@devconnect.org.</p>
       <p className="big-text underline bold">Remember</p>
       <p className="bold">
         Devconnect is what you make of it, and as a community we can create a safe, meaningful, and incredible
@@ -358,7 +358,7 @@ export const Footer = ({ inFoldoutMenu, onClickMenuItem }: FooterProps) => {
                 </a>
 
                 <p className={`${css['subtext']} dark-grey`}>Brought to you by the Ethereum Foundation</p>
-                <p className={`${css['email']} medium-text`}>support@devcon.org</p>
+                <p className={`${css['email']} medium-text`}>support@devconnect.org</p>
               </div>
 
               <FooterMenu onClickMenuItem={onClickMenuItem} />
@@ -374,7 +374,7 @@ export const Footer = ({ inFoldoutMenu, onClickMenuItem }: FooterProps) => {
 
               <div className={css['links']}>
                 <Link href="https://devcon.org">Devcon</Link>
-                <Link href="mailto:support@devcon.org">Contact Us</Link>
+                <Link href="mailto:support@devconnect.org">Contact Us</Link>
                 <Link href="https://ethereum.foundation">Ethereum Foundation</Link>
 
                 <a

@@ -1,7 +1,7 @@
 import next, { NextPage } from 'next'
 import React, { useEffect } from 'react'
 import { Client } from '@notionhq/client'
-import css from './schedule.module.scss'
+import css from './[schedule].module.scss'
 import { Footer } from './index'
 import moment from 'moment'
 import momentTZ from 'moment-timezone'
@@ -263,10 +263,6 @@ const Timeline = (props: any) => {
       gridColumn: `${offsetFromFirstDay - subtractDays} / span ${totalDays}`,
       '--eventLength': totalDays,
     }
-
-    // const isLastIteration = index === sortedEvents.length - 1
-
-    // if (isLastIteration) console.log(currentRow)
 
     return (
       <React.Fragment key={event.Name + offsetFromFirstDay}>
@@ -595,12 +591,19 @@ const LearnMore = (props: { open: boolean; close: () => void; event: any; editio
 
   return (
     <>
-      <div className={`${className} tiny-text-em bold`} style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div
+        className={`${className} ${css[`edition-${props.edition}`]} tiny-text-em bold`}
+        style={{ display: 'flex', justifyContent: 'space-between' }}
+      >
         <p>Learn More →</p>
         {props.event['Attend'] && <p className={css['attend-details']}>{props.event['Attend']}</p>}
       </div>
 
-      <Modal open={props.open} close={props.close} className={css['learn-more-modal']}>
+      <Modal
+        open={props.open}
+        close={props.close}
+        className={`${css['learn-more-modal']} ${css[`edition-${props.edition}`]}`}
+      >
         <div className={css['learn-more-modal-content']}>
           <ListEventMobile
             {...getFormattedEventData(props.event)}
@@ -1077,6 +1080,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                 if (props.edition === 'amsterdam') return 'Amsterdam 2022 Schedule'
               })()}
             </h1>
+
             <div className={`${css['view']} small-text`}>
               <div className={css['options']}>
                 <button
@@ -1115,16 +1119,11 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
             <Filter events={events} {...filterAttributes} />
             <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
             <div className={css['difficulties']}>
-              <div className={css['unspecified']}>
+              <div className={css['all-welcome']}>
                 <p>
                   <span className={css['indicator']}>⬤</span>All welcome
                 </p>
               </div>
-              {/* <div className={css['beginner']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>Beginner
-                </p>
-              </div> */}
               <div className={css['intermediate']}>
                 <p>
                   <span className={css['indicator']}>⬤</span>Intermediate
@@ -1162,7 +1161,23 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
             </>
           )}
         </div>
+        {props.edition === 'istanbul' && (
+          <div className={css['organize-cta']}>
+            <Link
+              href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
+              className={`button white sm`}
+              indicateExternal
+            >
+              Add your own event
+            </Link>
+            <p>
+              Devconnect events are independently organized by the Ethereum community;{' '}
+              <b>if you have a great idea for an event, we encourage you to apply using the button above!</b>
+            </p>
+          </div>
+        )}
       </div>
+
       <Footer />
     </>
   )
