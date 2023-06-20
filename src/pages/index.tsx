@@ -454,11 +454,8 @@ const Home: NextPage = (props: any) => {
                     <b>make progress together</b>.
                   </p>
 
-                  <Link
-                    href="http://www.iccistanbul.com/location-direction.php"
-                    className={`button blue-fill ${css['video-recap-button']}`}
-                  >
-                    <span>ICC, ISTANBUL, Türkiye</span>
+                  <Link href="#about" className={`button blue-fill ${css['video-recap-button']}`}>
+                    <span>ISTANBUL, Türkiye</span>
                     <span>November 13-19, 2023</span>
                   </Link>
                 </div>
@@ -548,7 +545,7 @@ const Home: NextPage = (props: any) => {
                           href="https://www.notion.so/ef-events/Devconnect-IST-Coworking-space-e811d778b6a846989600d54158ff70cf?pvs=4"
                           indicateExternal
                         >
-                          Devconnect Coworking Space
+                          Devconnect Coworking Space (Istanbul Convention Center)
                         </Link>
                         .
                       </p>

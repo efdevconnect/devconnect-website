@@ -130,10 +130,8 @@
         justify-content: center;
         align-items: center;
 
-        > * {
-          &:first-child {
-            margin-right: 1em;
-          }
+        &:first-child {
+          margin-right: 1em;
         }
       }
 
