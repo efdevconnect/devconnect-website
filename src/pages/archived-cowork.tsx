@@ -18,6 +18,7 @@ import { Tabs } from './archived-city-guide'
 import Alert from 'common/components/alert'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
+import Head from 'next/head'
 import SoldOut from 'assets/images/sold-out.png'
 import Accordion, { AccordionItem } from 'common/components/accordion'
 import SwipeToScroll from 'common/components/swipe-to-scroll'
@@ -58,6 +59,9 @@ const Cowork: NextPage = (props: any) => {
   return (
     <>
       <SEO title="Cowork" description="Coworking at Devconnect" />
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
       {/* <div
         style={{ position: 'fixed', top: '0px', width: '100vw', zIndex: 100, background: 'black' }}
         onClick={() => setSoldout(!soldOut)}
