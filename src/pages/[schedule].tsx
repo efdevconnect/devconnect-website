@@ -1102,7 +1102,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
           </div>
 
           {props.edition === 'istanbul' && (
-            <Alert title="Disclaimer">
+            <Alert title="Important">
               <p>
                 <b>⚠️ The schedule is a work in progress.</b> Check back regularly for the most accurate, up-to-date
                 information. This early look at the schedule is intended to help you start planning your travels and to
