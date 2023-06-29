@@ -331,7 +331,7 @@ const Timeline = (props: any) => {
               {event['Stable ID'] !== 'Cowork' && (
                 <div className={css['bottom']}>
                   <div className={`${css['organizers']} bold`}>
-                    {event['Organizer'] ? event['Organizer'].join(', ') : <p>Organizer</p>}
+                    {event['Organizer'] ? event['Organizer'] : <p>Organizer</p>}
                   </div>
 
                   <EventMeta event={event} />
