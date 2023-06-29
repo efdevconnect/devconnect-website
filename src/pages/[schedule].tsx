@@ -733,9 +733,7 @@ const ListEventDesktop = (props: any) => {
         </div>
 
         <div className={`${css['organizers']} ${css['col-3']}`}>
-          {props.event['Organizer'] && (
-            <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer'].join(', ')}</p>
-          )}
+          {props.event['Organizer'] && <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer']}</p>}
         </div>
 
         <div className={`${css['attend']} ${css['col-4']}`}>
@@ -818,9 +816,7 @@ const ListEventMobile = (props: any) => {
           <img src="https://c.tenor.com/thDFJno0zuAAAAAd/happy-easter-easter-bunny.gif" alt="Easter egg" width="100%" />
         )}
 
-        {props.event['Organizer'] && (
-          <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer'].join(', ')}</p>
-        )}
+        {props.event['Organizer'] && <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer']}</p>}
         {props.event['Attend'] &&
           (props.event['URL'] ? (
             <Link
