@@ -1162,6 +1162,11 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
             </div> */}
 
             <div className={css['difficulties']}>
+              <div className={css['advanced']}>
+                <p>
+                  <span className={css['indicator']}>⬤</span>Devconnect Cowork
+                </p>
+              </div>
               <div className={css['all-welcome']}>
                 <p>
                   <span className={css['indicator']}>⬤</span>Domain Specific Events
