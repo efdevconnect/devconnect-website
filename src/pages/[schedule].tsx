@@ -25,8 +25,6 @@ import { useRouter } from 'next/dist/client/router'
 // @ts-ignore
 import Toggle from 'react-toggle'
 import Retro from 'common/components/pages/event/retro'
-import Tippy from '@tippyjs/react'
-import 'tippy.js/dist/tippy.css'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -270,7 +268,9 @@ const Timeline = (props: any) => {
     return (
       <React.Fragment key={event.Name + offsetFromFirstDay}>
         <div
-          className={`${css['event']} ${css[event['Stable ID']]} ${css[event['Difficulty']]}`}
+          className={`${css['event']} ${css[event['Stable ID']]} ${css[event['Difficulty']]} ${
+            event['Thematic'] ? css['thematic'] : ''
+          }`}
           style={gridPlacement}
           {...draggableAttributes}
           onClick={e => {
@@ -672,7 +672,11 @@ const ListEventDesktop = (props: any) => {
   const { formattedDate, timeOfDay, isMultiDayEvent, formattedStartDate, formattedEndDate } = props
 
   return (
-    <div className={`${css['event-in-table']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]}`}>
+    <div
+      className={`${css['event-in-table']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} ${
+        props.event['Thematic'] ? css['thematic'] : ''
+      }`}
+    >
       <div className={`${css['list-grid']} ${css['content']} `}>
         <div className={`${css['date']} ${css['col-1']}`}>
           <div>
@@ -762,10 +766,12 @@ const ListEventDesktop = (props: any) => {
 const ListEventMobile = (props: any) => {
   const { formattedDate, timeOfDay, isMultiDayEvent, formattedStartDate, formattedEndDate } = props
 
-  console.log(props, 'heh')
-
   return (
-    <div className={`${css['event']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} `}>
+    <div
+      className={`${css['event']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} ${
+        props.event['Thematic'] ? css['thematic'] : ''
+      }`}
+    >
       <div className={css['content']}>
         {props.event.URL ? (
           <Link href={props.event.URL} indicateExternal className={`${css['title']} large-text uppercase bold`}>
@@ -916,10 +922,7 @@ const useFilter = (events: any) => {
       return false
     }
 
-    if (
-      hideProjectSpecificEvents &&
-      ['sold out', 'applications closed'].includes(event['Thematic'] && event['Thematic'].toLowerCase())
-    ) {
+    if (hideProjectSpecificEvents && !event['Thematic']) {
       return false
     }
 
@@ -942,6 +945,7 @@ const useFilter = (events: any) => {
     filterableValues,
     hideSoldOut,
     setHideSoldOut,
+    hideProjectSpecificEvents,
     setHideProjectSpecificEvents,
     filters,
     onChange: (key: string, value: string) => {
@@ -993,17 +997,15 @@ const Filter = (props: any) => {
         <span className="bold small-text">Hide sold out events</span>
       </label> */}
 
-      <Tippy content="Some events are hosted by and promote specific crypto projects. If you aren't interested in these and just want to see thematic events, you can toggle them off here.">
-        <label className={css['toggle']}>
-          <Toggle
-            defaultChecked={props.hideProjectSpecificEvents}
-            icons={false}
-            onChange={() => props.setHideProjectSpecificEvents(!props.hideProjectSpecificEvents)}
-          />
+      <label className={css['toggle']}>
+        <Toggle
+          defaultChecked={props.hideProjectSpecificEvents}
+          icons={false}
+          onChange={() => props.setHideProjectSpecificEvents(!props.hideProjectSpecificEvents)}
+        />
 
-          <span className="bold small-text">Hide project specific events</span>
-        </label>
-      </Tippy>
+        <span className="bold small-text">Show only domain specific events</span>
+      </label>
     </div>
   )
 }
@@ -1140,7 +1142,8 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
           <div className={`${css['top-bar']}`}>
             <Filter events={events} {...filterAttributes} />
             <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
-            <div className={css['difficulties']}>
+
+            {/* <div className={css['difficulties']}>
               <div className={css['all-welcome']}>
                 <p>
                   <span className={css['indicator']}>⬤</span>All welcome
@@ -1154,6 +1157,19 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
               <div className={css['advanced']}>
                 <p>
                   <span className={css['indicator']}>⬤</span>Advanced
+                </p>
+              </div>
+            </div> */}
+
+            <div className={css['difficulties']}>
+              <div className={css['all-welcome']}>
+                <p>
+                  <span className={css['indicator']}>⬤</span>Domain Specific Events
+                </p>
+              </div>
+              <div className={css['intermediate']}>
+                <p>
+                  <span className={css['indicator']}>⬤</span>Other Events
                 </p>
               </div>
             </div>
@@ -1227,19 +1243,28 @@ const notionDatabasePropertyResolver = (property: any, key: any) => {
         return locationInfo
       }
 
-      const isGunu = property.plain_text && JSON.stringify(property.plain_text).includes('Turkish: 1')
-
-      if (isGunu) console.log(property, 'gunu')
-
       const dechunked = property[property.type]
         ? property[property.type].reduce((acc: string, chunk: any) => {
+            let textToAppend
+
             if (chunk.href && property.type === 'rich_text' && key !== 'URL' && key !== 'Stream URL') {
-              acc += `<a href=${chunk.href} target="_blank" class="generic" rel="noopener noreferrer">${chunk.plain_text}</a>`
+              textToAppend = `<a href=${chunk.href} target="_blank" class="generic" rel="noopener noreferrer">${chunk.plain_text}</a>`
             } else {
-              acc += chunk.plain_text
+              textToAppend = chunk.plain_text
             }
 
-            return acc
+            if (chunk.annotations) {
+              let annotations = 'placeholder'
+
+              if (chunk.annotations.bold) annotations = `<b>${annotations}</b>`
+              if (chunk.annotations.italic) annotations = `<i>${annotations}</i>`
+              if (chunk.annotations.strikethrough) annotations = `<s>${annotations}</s>`
+              if (chunk.annotations.underline) annotations = `<u>${annotations}</u>`
+
+              textToAppend = annotations.replace('placeholder', textToAppend)
+            }
+
+            return acc + textToAppend
           }, '')
         : null
 

@@ -34,6 +34,10 @@
   color: black;
   --icon-color: black;
 
+  :global(.react-toggle--checked .react-toggle-track) {
+    background-color: var(--all-welcome-color-1) !important;
+  }
+
   .header-row {
     display: flex;
     justify-content: space-between;
@@ -213,14 +217,17 @@
 
   &.Cowork {
     background: none !important;
-    --difficulty-color-bg: none !important;
+    --difficulty-color-bg: none;
+    border-color: var(--advanced-color-1) !important;
+    --difficulty-color: var(--advanced-color-1);
 
     &:before {
       content: '';
       z-index: -1;
       position: absolute;
       pointer-events: none;
-      background-color: var(--all-welcome-color-2);
+      background-color: var(--advanced-color-3);
+      opacity: 0.7;
       left: 0px;
       right: 0px;
       bottom: 0px;
@@ -234,26 +241,40 @@
     }
   }
 
-  &:not(.Intermediate, .Advanced) {
+  &.thematic {
     background: var(--all-welcome-color-2);
     border-color: var(--all-welcome-color-1);
     --difficulty-color: var(--all-welcome-color-1);
     --difficulty-color-bg: var(--all-welcome-color-3);
   }
 
-  &.Intermediate {
+  &:not(.thematic, .Cowork) {
     background: var(--intermediate-color-2);
     border-color: var(--intermediate-color-1);
     --difficulty-color: var(--intermediate-color-1);
     --difficulty-color-bg: var(--intermediate-color-3);
   }
 
-  &.Advanced {
-    background: var(--advanced-color-2);
-    border-color: var(--advanced-color-1);
-    --difficulty-color: var(--advanced-color-1);
-    --difficulty-color-bg: var(--advanced-color-3);
-  }
+  // &:not(.Intermediate, .Advanced) {
+  //   background: var(--all-welcome-color-2);
+  //   border-color: var(--all-welcome-color-1);
+  //   --difficulty-color: var(--all-welcome-color-1);
+  //   --difficulty-color-bg: var(--all-welcome-color-3);
+  // }
+
+  // &.Intermediate {
+  //   background: var(--intermediate-color-2);
+  //   border-color: var(--intermediate-color-1);
+  //   --difficulty-color: var(--intermediate-color-1);
+  //   --difficulty-color-bg: var(--intermediate-color-3);
+  // }
+
+  // &.Advanced {
+  //   background: var(--advanced-color-2);
+  //   border-color: var(--advanced-color-1);
+  //   --difficulty-color: var(--advanced-color-1);
+  //   --difficulty-color-bg: var(--advanced-color-3);
+  // }
 
   .multi-day-indicator {
     align-self: flex-start;
@@ -387,7 +408,7 @@
 .learn-more {
   cursor: pointer;
   padding: 4px 8px;
-  color: white;
+  // color: white;
   background: var(--difficulty-color);
   display: none;
 
