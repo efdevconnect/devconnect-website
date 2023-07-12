@@ -25,6 +25,8 @@ import { useRouter } from 'next/dist/client/router'
 // @ts-ignore
 import Toggle from 'react-toggle'
 import Retro from 'common/components/pages/event/retro'
+import Tippy from '@tippyjs/react'
+import 'tippy.js/dist/tippy.css'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -70,6 +72,7 @@ const calculateEventDuration = (min: moment.Moment | undefined, max: moment.Mome
 
 const htmlEscape = (input: string) => {
   input = input.replace(/&/g, '&amp;')
+  input = input.replace(/\n/g, '<br />')
   input = input.replace(/</g, '&lt;')
   input = input.replace(/>/g, '&gt;')
   return input
@@ -759,6 +762,8 @@ const ListEventDesktop = (props: any) => {
 const ListEventMobile = (props: any) => {
   const { formattedDate, timeOfDay, isMultiDayEvent, formattedStartDate, formattedEndDate } = props
 
+  console.log(props, 'heh')
+
   return (
     <div className={`${css['event']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} `}>
       <div className={css['content']}>
@@ -883,6 +888,7 @@ const useFilter = (events: any) => {
   const [filters, setFilters] = React.useState({} as { [key: string]: any })
   const filterableValues = {} as { [key: string]: Set<string> }
   const [hideSoldOut, setHideSoldOut] = React.useState(false)
+  const [hideProjectSpecificEvents, setHideProjectSpecificEvents] = React.useState(false)
 
   // Run through events collecting all the possible values to filter on for the specified keys above - looks a bit messy but w/e
   // Could hardcode the filter values too but this is future proof if someone changes the range of possible values for any of the above fields
@@ -910,6 +916,13 @@ const useFilter = (events: any) => {
       return false
     }
 
+    if (
+      hideProjectSpecificEvents &&
+      ['sold out', 'applications closed'].includes(event['Thematic'] && event['Thematic'].toLowerCase())
+    ) {
+      return false
+    }
+
     if (activeFilters.length > 0) {
       return activeFilters.every(key => {
         const activeFilter = filters[key]
@@ -929,6 +942,7 @@ const useFilter = (events: any) => {
     filterableValues,
     hideSoldOut,
     setHideSoldOut,
+    setHideProjectSpecificEvents,
     filters,
     onChange: (key: string, value: string) => {
       const nextFilter = {
@@ -970,14 +984,26 @@ const Filter = (props: any) => {
         )
       })}
 
-      <label className={css['hide-sold-out']}>
+      {/* <label className={css['toggle']}>
         <Toggle
           defaultChecked={props.hideSoldOut}
           icons={false}
           onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
         />
         <span className="bold small-text">Hide sold out events</span>
-      </label>
+      </label> */}
+
+      <Tippy content="Some events are hosted by and promote specific crypto projects. If you aren't interested in these and just want to see thematic events, you can toggle them off here.">
+        <label className={css['toggle']}>
+          <Toggle
+            defaultChecked={props.hideProjectSpecificEvents}
+            icons={false}
+            onChange={() => props.setHideProjectSpecificEvents(!props.hideProjectSpecificEvents)}
+          />
+
+          <span className="bold small-text">Hide project specific events</span>
+        </label>
+      </Tippy>
     </div>
   )
 }
@@ -1201,6 +1227,10 @@ const notionDatabasePropertyResolver = (property: any, key: any) => {
         return locationInfo
       }
 
+      const isGunu = property.plain_text && JSON.stringify(property.plain_text).includes('Turkish: 1')
+
+      if (isGunu) console.log(property, 'gunu')
+
       const dechunked = property[property.type]
         ? property[property.type].reduce((acc: string, chunk: any) => {
             if (chunk.href && property.type === 'rich_text' && key !== 'URL' && key !== 'Stream URL') {
@@ -1234,6 +1264,9 @@ const notionDatabasePropertyResolver = (property: any, key: any) => {
     case 'select':
       return property.select && property.select.name
 
+    case 'checkbox':
+      return property.checkbox
+
     default:
       return 'default value no handler for: ' + property.type
   }
@@ -1265,7 +1298,7 @@ const formatResult = (result: any) => {
   // Insert a default value for time of day when unspecified
   if (!properties['Time of Day']) properties['Time of Day'] = 'ALL DAY'
 
-  return properties
+  return { ...properties, raw: result }
 }
 
 export async function getStaticProps(context: any) {
@@ -1407,6 +1440,7 @@ const normalizeEvent = (eventData: any): FormattedNotionEvent => {
     'Num. of Attendees': keyResolver('Num. of Attendees', '[HOST] Num. of Attendees'),
     Difficulty: keyResolver('Difficulty', '[HOST] Difficulty'),
     Location: keyResolver('Location', '[HOST] Location'),
+    Thematic: keyResolver('[INT] Thematic'),
   }
 }
 
@@ -1425,4 +1459,5 @@ type FormattedNotionEvent = {
   Category?: any
   'Num. of Attendees'?: any
   Difficulty?: any
+  Thematic: any
 }
