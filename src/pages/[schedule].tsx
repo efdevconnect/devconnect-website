@@ -268,9 +268,20 @@ const Timeline = (props: any) => {
     return (
       <React.Fragment key={event.Name + offsetFromFirstDay}>
         <div
-          className={`${css['event']} ${css[event['Stable ID']]} ${css[event['Difficulty']]} ${
-            event['Thematic'] ? css['thematic'] : ''
-          }`}
+          className={(() => {
+            let className = `${css['event']} ${css[event['Stable ID']]}`
+
+            if (props.edition === 'istanbul') {
+              className += ` ${css['domain-based']}`
+              if (event['Thematic']) className += ` ${css['thematic']}`
+            }
+
+            if (props.edition === 'amsterdam') {
+              className += ` ${css['difficulty-based']} ${css[event['Difficulty']]}`
+            }
+
+            return className
+          })()}
           style={gridPlacement}
           {...draggableAttributes}
           onClick={e => {
@@ -673,9 +684,20 @@ const ListEventDesktop = (props: any) => {
 
   return (
     <div
-      className={`${css['event-in-table']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} ${
-        props.event['Thematic'] ? css['thematic'] : ''
-      }`}
+      className={(() => {
+        let className = `${css['event-in-table']} ${css[props.event['Stable ID']]}`
+
+        if (props.edition === 'istanbul') {
+          className += ` ${css['domain-based']}`
+          if (props.event['Thematic']) className += ` ${css['thematic']}`
+        }
+
+        if (props.edition === 'amsterdam') {
+          className += ` ${css['difficulty-based']} ${css[props.event['Difficulty']]}`
+        }
+
+        return className
+      })()}
     >
       <div className={`${css['list-grid']} ${css['content']} `}>
         <div className={`${css['date']} ${css['col-1']}`}>
@@ -768,9 +790,20 @@ const ListEventMobile = (props: any) => {
 
   return (
     <div
-      className={`${css['event']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} ${
-        props.event['Thematic'] ? css['thematic'] : ''
-      }`}
+      className={(() => {
+        let className = `${css['event']} ${css[props.event['Stable ID']]}`
+
+        if (props.edition === 'istanbul') {
+          className += ` ${css['domain-based']}`
+          if (props.event['Thematic']) className += ` ${css['thematic']}`
+        }
+
+        if (props.edition === 'amsterdam') {
+          className += ` ${css['difficulty-based']} ${css[props.event['Difficulty']]}`
+        }
+
+        return className
+      })()}
     >
       <div className={css['content']}>
         {props.event.URL ? (
@@ -889,12 +922,12 @@ const List = (props: any) => {
   )
 }
 
-const useFilter = (events: any) => {
+const useFilter = (events: any, edition: 'istanbul' | 'amsterdam') => {
   const keysToFilterOn = ['Category', 'Difficulty', 'Attend']
   const [filters, setFilters] = React.useState({} as { [key: string]: any })
   const filterableValues = {} as { [key: string]: Set<string> }
   const [hideSoldOut, setHideSoldOut] = React.useState(false)
-  const [hideProjectSpecificEvents, setHideProjectSpecificEvents] = React.useState(false)
+  const [showOnlyDomainSpecific, setShowOnlyDomainSpecific] = React.useState(false)
 
   // Run through events collecting all the possible values to filter on for the specified keys above - looks a bit messy but w/e
   // Could hardcode the filter values too but this is future proof if someone changes the range of possible values for any of the above fields
@@ -922,7 +955,7 @@ const useFilter = (events: any) => {
       return false
     }
 
-    if (hideProjectSpecificEvents && !event['Thematic']) {
+    if (edition === 'istanbul' && showOnlyDomainSpecific && !event['Thematic']) {
       return false
     }
 
@@ -945,8 +978,8 @@ const useFilter = (events: any) => {
     filterableValues,
     hideSoldOut,
     setHideSoldOut,
-    hideProjectSpecificEvents,
-    setHideProjectSpecificEvents,
+    showOnlyDomainSpecific,
+    setShowOnlyDomainSpecific,
     filters,
     onChange: (key: string, value: string) => {
       const nextFilter = {
@@ -997,15 +1030,17 @@ const Filter = (props: any) => {
         <span className="bold small-text">Hide sold out events</span>
       </label> */}
 
-      <label className={css['toggle']}>
-        <Toggle
-          defaultChecked={props.hideProjectSpecificEvents}
-          icons={false}
-          onChange={() => props.setHideProjectSpecificEvents(!props.hideProjectSpecificEvents)}
-        />
+      {props.edition === 'istanbul' && (
+        <label className={css['toggle']}>
+          <Toggle
+            defaultChecked={props.showOnlyDomainSpecific}
+            icons={false}
+            onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
+          />
 
-        <span className="bold small-text">Show only domain specific events</span>
-      </label>
+          <span className="bold small-text">Show only domain specific events</span>
+        </label>
+      )}
     </div>
   )
 }
@@ -1064,7 +1099,7 @@ const scheduleViewHOC = (Component: any) => {
 
 const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const { scheduleView, setScheduleView } = props
-  const { events, ...filterAttributes } = useFilter(props.events)
+  const { events, ...filterAttributes } = useFilter(props.events, props.edition)
 
   const scheduleHelpers = useScheduleData(events)
   const accordionRefs = React.useRef({} as { [key: string]: any })
@@ -1140,44 +1175,48 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
           )}
 
           <div className={`${css['top-bar']}`}>
-            <Filter events={events} {...filterAttributes} />
+            <Filter events={events} {...filterAttributes} edition={props.edition} />
             <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
 
-            {/* <div className={css['difficulties']}>
-              <div className={css['all-welcome']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>All welcome
-                </p>
+            {props.edition === 'amsterdam' && (
+              <div className={css['types']}>
+                <div className={css['all-welcome']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>All welcome
+                  </p>
+                </div>
+                <div className={css['intermediate']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>Intermediate
+                  </p>
+                </div>
+                <div className={css['advanced']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>Advanced
+                  </p>
+                </div>
               </div>
-              <div className={css['intermediate']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>Intermediate
-                </p>
-              </div>
-              <div className={css['advanced']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>Advanced
-                </p>
-              </div>
-            </div> */}
+            )}
 
-            <div className={css['difficulties']}>
-              <div className={css['advanced']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>Devconnect Cowork
-                </p>
+            {props.edition === 'istanbul' && (
+              <div className={css['types']}>
+                <div className={css['advanced']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>Cowork
+                  </p>
+                </div>
+                <div className={css['all-welcome']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>Domain Specific Events
+                  </p>
+                </div>
+                <div className={css['intermediate']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>Other Events
+                  </p>
+                </div>
               </div>
-              <div className={css['all-welcome']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>Domain Specific Events
-                </p>
-              </div>
-              <div className={css['intermediate']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>Other Events
-                </p>
-              </div>
-            </div>
+            )}
 
             {scheduleView === 'timeline' && (
               <p className={`small-text bold uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
