@@ -288,14 +288,14 @@
       }
     }
 
-    &.thematic {
+    &.domain {
       background: var(--first-edition-color-2);
       border-color: var(--first-edition-color-1);
       --difficulty-color: var(--first-edition-color-1);
       --difficulty-color-bg: var(--first-edition-color-3);
     }
   
-    &:not(.thematic, .Cowork) {
+    &:not(.domain, .Cowork) {
       background: var(--second-edition-color-2);
       border-color: var(--second-edition-color-1);
       --difficulty-color: var(--second-edition-color-1);

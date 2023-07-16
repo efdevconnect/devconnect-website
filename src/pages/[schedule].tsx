@@ -273,7 +273,7 @@ const Timeline = (props: any) => {
 
             if (props.edition === 'istanbul') {
               className += ` ${css['domain-based']}`
-              if (event['Thematic']) className += ` ${css['thematic']}`
+              if (event['Domain']) className += ` ${css['domain']}`
             }
 
             if (props.edition === 'amsterdam') {
@@ -689,7 +689,7 @@ const ListEventDesktop = (props: any) => {
 
         if (props.edition === 'istanbul') {
           className += ` ${css['domain-based']}`
-          if (props.event['Thematic']) className += ` ${css['thematic']}`
+          if (props.event['Domain']) className += ` ${css['domain']}`
         }
 
         if (props.edition === 'amsterdam') {
@@ -795,7 +795,7 @@ const ListEventMobile = (props: any) => {
 
         if (props.edition === 'istanbul') {
           className += ` ${css['domain-based']}`
-          if (props.event['Thematic']) className += ` ${css['thematic']}`
+          if (props.event['Domain']) className += ` ${css['domain']}`
         }
 
         if (props.edition === 'amsterdam') {
@@ -955,7 +955,7 @@ const useFilter = (events: any, edition: 'istanbul' | 'amsterdam') => {
       return false
     }
 
-    if (edition === 'istanbul' && showOnlyDomainSpecific && !event['Thematic']) {
+    if (edition === 'istanbul' && showOnlyDomainSpecific && !event['Domain']) {
       return false
     }
 
@@ -1038,7 +1038,7 @@ const Filter = (props: any) => {
             onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
           />
 
-          <span className="bold small-text">Show only domain specific events</span>
+          <span className="bold small-text">Show Only Domain/Thematic Events</span>
         </label>
       )}
     </div>
@@ -1207,7 +1207,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                 </div>
                 <div className={css['all-welcome']}>
                   <p>
-                    <span className={css['indicator']}>⬤</span>Domain Specific Events
+                    <span className={css['indicator']}>⬤</span>Domain/Thematic Events
                   </p>
                 </div>
                 <div className={css['intermediate']}>
@@ -1509,7 +1509,7 @@ const normalizeEvent = (eventData: any): FormattedNotionEvent => {
     'Num. of Attendees': keyResolver('Num. of Attendees', '[HOST] Num. of Attendees'),
     Difficulty: keyResolver('Difficulty', '[HOST] Difficulty'),
     Location: keyResolver('Location', '[HOST] Location'),
-    Thematic: keyResolver('[INT] Thematic'),
+    Domain: keyResolver('[INT] Domain'),
   }
 }
 
@@ -1528,5 +1528,5 @@ type FormattedNotionEvent = {
   Category?: any
   'Num. of Attendees'?: any
   Difficulty?: any
-  Thematic: any
+  Domain: any
 }
