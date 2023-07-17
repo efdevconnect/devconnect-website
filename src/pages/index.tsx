@@ -19,6 +19,7 @@ import Modal from 'common/components/modal'
 import bgMerged from 'assets/images/istanbul-bg/bg-merged.png'
 import Hehe from 'assets/images/hehe.png'
 import FadeIn from 'common/components/fade-in'
+import ErrorBoundary from 'common/components/error-boundary/ErrorBoundary'
 // import BluePrint from 'assets/images/blueprint-bg.png'
 // import VideoPlaceholder from 'assets/images/devconnect-video-placeholder.png'
 // import YoutubeIcon from 'assets/icons/youtube.svg'
@@ -438,7 +439,9 @@ const Home: NextPage = (props: any) => {
             <div className={css['cube-container']}>
               {/* Cube logic is loaded asynchronously and its scripts need the element to exist at initiation, so we add a div to instantiate on: */}
               <div className={css['cube']} id="cube" />
-              <Cube />
+              <ErrorBoundary>
+                <Cube />
+              </ErrorBoundary>
             </div>
 
             <div className="section">

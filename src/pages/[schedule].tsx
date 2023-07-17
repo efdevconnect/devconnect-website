@@ -1097,6 +1097,31 @@ const scheduleViewHOC = (Component: any) => {
   return ComponentWithScheduleView
 }
 
+// TODO: Get feedback then implement
+// const useScheduleSharing = () => {
+//   const [viewShared, setViewShared] = React.useState();
+//   const [sharedEvents, setSharedEvents] = React.useState();
+
+//   useEffect(() => {
+
+//   }, [])
+
+//   return {
+//     sharedEvents,
+
+//   }
+
+//   /*
+//     1) Add "attending/favorite" toggle to events, saving the data to localStorage
+//     2) Add "share" button which generates a url based on favorited events:
+//       https://devconnect.org/schedule?share=[a,b,c,...]
+//     3) Opening the share link opens the schedule in a "special" mode with a fixed "you are viewing someone elses schedule" message that can be cleared to return to the normal schedule
+//        3.1) Maybe add an option to "import" the shared events into the local schedule?
+
+//     1) Add toggle to show only attending/favorited events
+//   */
+// }
+
 const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const { scheduleView, setScheduleView } = props
   const { events, ...filterAttributes } = useFilter(props.events, props.edition)
