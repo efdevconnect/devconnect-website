@@ -264,9 +264,9 @@
   &.domain-based {
     &.Cowork {
       background: none !important;
-      --difficulty-color-bg: none;
+      --difficulty-color-bg: none !important;
       border-color: var(--third-edition-color-1) !important;
-      --difficulty-color: var(--third-edition-color-1);
+      --difficulty-color: var(--third-edition-color-1) !important;
   
       &:before {
         content: '';
