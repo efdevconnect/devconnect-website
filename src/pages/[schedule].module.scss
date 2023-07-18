@@ -6,12 +6,12 @@
 }
 
 .edition-istanbul {
-  --first-edition-color-1: #62bba5;
+  --first-edition-color-1: #40a088;
   --first-edition-color-2: #f8fffe;
-  --first-edition-color-3: #c4ece4;
-  --second-edition-color-1: #ba70be;
-  --second-edition-color-2: #fffaff;
-  --second-edition-color-3: #ffe6ff;
+  --first-edition-color-3: #addbd1;
+  --second-edition-color-1: #808080;
+  --second-edition-color-2: #ffffff;
+  --second-edition-color-3: #e6e6e6;
   --third-edition-color-1: #ff6644;
   --third-edition-color-2: #fff5f3;
   --third-edition-color-3: #ffdcd5;
@@ -680,8 +680,6 @@
     @media (min-width: $screen-lg) {
       display: none;
     }
-
-    &
 
     .content {
       .date {

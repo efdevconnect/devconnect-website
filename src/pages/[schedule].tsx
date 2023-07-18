@@ -40,6 +40,9 @@ const sortEvents = (a: any, b: any) => {
     if (aTotalDays > bTotalDays) return -1
     if (bTotalDays > aTotalDays) return 1
 
+    if (a.Domain && !b.Domain) return -1
+    if (!a.Domain && b.Domain) return 1
+
     return 0
   } else {
     return 1
@@ -1358,6 +1361,9 @@ const notionDatabasePropertyResolver = (property: any, key: any) => {
     case 'select':
       return property.select && property.select.name
 
+    case 'number':
+      return property.number
+
     case 'checkbox':
       return property.checkbox
 
@@ -1535,6 +1541,7 @@ const normalizeEvent = (eventData: any): FormattedNotionEvent => {
     Difficulty: keyResolver('Difficulty', '[HOST] Difficulty'),
     Location: keyResolver('Location', '[HOST] Location'),
     Domain: keyResolver('[INT] Domain'),
+    Priority: keyResolver('[WEB] Priority (sort)', 'Priority (sort)'),
   }
 }
 
@@ -1554,4 +1561,5 @@ type FormattedNotionEvent = {
   'Num. of Attendees'?: any
   Difficulty?: any
   Domain: any
+  Priority: any
 }
