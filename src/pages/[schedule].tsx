@@ -910,6 +910,11 @@ const useFilter = (events: any) => {
       return false
     }
 
+    // Temporary filter for non-thematic events so we can push to dev preview
+    if (!event['Domain'] && event['Stable ID'] !== 'Cowork') {
+      return false
+    }
+
     if (activeFilters.length > 0) {
       return activeFilters.every(key => {
         const activeFilter = filters[key]
@@ -1234,6 +1239,9 @@ const notionDatabasePropertyResolver = (property: any, key: any) => {
     case 'select':
       return property.select && property.select.name
 
+    case 'checkbox':
+      return property.checkbox
+
     default:
       return 'default value no handler for: ' + property.type
   }
@@ -1407,6 +1415,7 @@ const normalizeEvent = (eventData: any): FormattedNotionEvent => {
     'Num. of Attendees': keyResolver('Num. of Attendees', '[HOST] Num. of Attendees'),
     Difficulty: keyResolver('Difficulty', '[HOST] Difficulty'),
     Location: keyResolver('Location', '[HOST] Location'),
+    Domain: keyResolver('[INT] Domain'),
   }
 }
 
@@ -1425,4 +1434,5 @@ type FormattedNotionEvent = {
   Category?: any
   'Num. of Attendees'?: any
   Difficulty?: any
+  Domain: any
 }
