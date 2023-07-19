@@ -878,7 +878,7 @@ const List = (props: any) => {
   )
 }
 
-const useFilter = (events: any) => {
+const useFilter = (events: any, edition: any) => {
   const keysToFilterOn = ['Category', 'Difficulty', 'Attend']
   const [filters, setFilters] = React.useState({} as { [key: string]: any })
   const filterableValues = {} as { [key: string]: Set<string> }
@@ -911,7 +911,7 @@ const useFilter = (events: any) => {
     }
 
     // Temporary filter for non-thematic events so we can push to dev preview
-    if (!event['Domain'] && event['Stable ID'] !== 'Cowork') {
+    if (edition === 'istanbul' && !event['Domain'] && event['Stable ID'] !== 'Cowork') {
       return false
     }
 
@@ -1041,7 +1041,7 @@ const scheduleViewHOC = (Component: any) => {
 
 const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const { scheduleView, setScheduleView } = props
-  const { events, ...filterAttributes } = useFilter(props.events)
+  const { events, ...filterAttributes } = useFilter(props.events, props.edition)
 
   const scheduleHelpers = useScheduleData(events)
   const accordionRefs = React.useRef({} as { [key: string]: any })
