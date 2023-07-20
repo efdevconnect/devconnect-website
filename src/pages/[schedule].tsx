@@ -1041,7 +1041,7 @@ const Filter = (props: any) => {
             onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
           />
 
-          <span className="bold small-text">Show Only Domain/Thematic Events</span>
+          <span className="bold small-text">Show Only Thematic Events</span>
         </label>
       )}
     </div>
@@ -1235,7 +1235,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                 </div>
                 <div className={css['all-welcome']}>
                   <p>
-                    <span className={css['indicator']}>⬤</span>Domain/Thematic Events
+                    <span className={css['indicator']}>⬤</span>Thematic Events
                   </p>
                 </div>
                 <div className={css['intermediate']}>
