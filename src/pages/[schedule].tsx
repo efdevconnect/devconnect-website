@@ -1230,12 +1230,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
 
           {props.edition === 'istanbul' && (
             <Alert title="Important">
-              <p>
-                <b>⚠️ The schedule is a work in progress.</b> Check back regularly for the most accurate, up-to-date
-                information. This early look at the schedule is intended to help you start planning your travels and to
-                inspire other organizers who might wish to collaborate or plan their own complementary events.{' '}
-              </p>
-              <p className="bold margin-top-less">
+              <p className="bold">
                 👉 Remember, each event during Devconnect is independently hosted and you will require tickets for each
                 event you wish to attend. You will find ticketing information for each event soon.
               </p>
