@@ -241,9 +241,13 @@ const Timeline = (props: any) => {
     if (anchor) {
       const decoded = decodeURI(anchor)
 
-      const el = document.querySelector(`[data-name="${decoded.toLowerCase()}"]`)
+      const el = document.querySelector(`[data-id="${decoded}"]`)
 
-      setEventModalOpen(decoded)
+      const selectedEvent = sortedEvents.find((event: any) => event.ID === decoded)
+
+      if (!selectedEvent) return
+
+      setEventModalOpen(selectedEvent.ID)
 
       if (el) {
         var elementPosition = el.getBoundingClientRect().top
@@ -316,10 +320,10 @@ const Timeline = (props: any) => {
             draggableAttributes.onClick(e)
 
             if (!e.defaultPrevented) {
-              setEventModalOpen(event.Name)
+              setEventModalOpen(event.ID)
             }
           }}
-          data-name={event.Name.toLowerCase()}
+          data-id={event.ID}
         >
           <div className={css['content']}>
             {event['Stable ID'] === 'Cowork' && (
@@ -385,7 +389,7 @@ const Timeline = (props: any) => {
 
           <LearnMore
             event={event}
-            open={eventModalOpen.toLowerCase() === event.Name.toLowerCase() || eventModalOpen === event.ID}
+            open={eventModalOpen === event.ID}
             close={() => setEventModalOpen('')}
             edition={props.edition}
           />
@@ -847,7 +851,7 @@ const ListEventMobile = (props: any) => {
           )}
 
           <div className={css['share-icon']}>
-            <CopyToClipboard url={`${window.location.href.split('#')[0]}#${encodeURI(props.event.Name)}`} />
+            <CopyToClipboard url={`${window.location.href.split('#')[0]}#${encodeURI(props.event.ID)}`} />
           </div>
         </div>
 
@@ -1126,7 +1130,7 @@ const scheduleViewHOC = (Component: any) => {
 
       if (hash && hash === '#list') {
         setScheduleView('list')
-        // router.replace(router.pathname)
+        router.replace(router.pathname)
       }
     }, [])
 
@@ -1434,7 +1438,7 @@ const formatResult = (result: any) => {
   // Insert a default value for time of day when unspecified
   if (!properties['Time of Day']) properties['Time of Day'] = 'ALL DAY'
 
-  return { ...properties, raw: result }
+  return { ...properties, ID: result.id /* raw: result*/ }
 }
 
 export async function getStaticProps(context: any) {
@@ -1562,6 +1566,7 @@ const normalizeEvent = (eventData: any): FormattedNotionEvent => {
   const keyResolver = createKeyResolver(eventData)
 
   return {
+    ID: keyResolver('ID', 'id'),
     'Stable ID': keyResolver('Stable ID', '[WEB] Stable ID'),
     Name: keyResolver('Name'),
     Organizer: keyResolver('Organizer', '[HOST] Organizer'),
@@ -1582,6 +1587,7 @@ const normalizeEvent = (eventData: any): FormattedNotionEvent => {
 }
 
 type FormattedNotionEvent = {
+  ID: any
   'Stable ID'?: any
   Name?: any
   Organizer?: any[]
