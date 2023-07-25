@@ -25,6 +25,7 @@ import { useRouter } from 'next/dist/client/router'
 // @ts-ignore
 import Toggle from 'react-toggle'
 import Retro from 'common/components/pages/event/retro'
+import { CopyToClipboard } from 'common/components/copy-to-clipboard/CopyToClipboard'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -39,6 +40,9 @@ const sortEvents = (a: any, b: any) => {
   } else if (aStartDay.isSame(bStartDay)) {
     if (aTotalDays > bTotalDays) return -1
     if (bTotalDays > aTotalDays) return 1
+
+    if (a.Domain && !b.Domain) return -1
+    if (!a.Domain && b.Domain) return 1
 
     return 0
   } else {
@@ -70,6 +74,7 @@ const calculateEventDuration = (min: moment.Moment | undefined, max: moment.Mome
 
 const htmlEscape = (input: string) => {
   input = input.replace(/&/g, '&amp;')
+  input = input.replace(/\n/g, '<br />')
   input = input.replace(/</g, '&lt;')
   input = input.replace(/>/g, '&gt;')
   return input
@@ -219,6 +224,7 @@ const Timeline = (props: any) => {
   const placementTracker = createPlacementTracker()
   const [eventModalOpen, setEventModalOpen] = React.useState('')
   const draggableAttributes = useDraggableLink()
+  const router = useRouter()
   // Ref of current active day element (to scroll into view on load)
   // const todayRef = React.useRef<any>()
 
@@ -227,6 +233,33 @@ const Timeline = (props: any) => {
   //     todayRef.current.scrollIntoView({ scrollIntoViewOptions: { inline: 'center' } })
   //   }
   // }, [])
+
+  React.useEffect(() => {
+    const path = router.asPath
+    const anchor = path.split('#').pop()
+
+    if (anchor) {
+      const decoded = decodeURI(anchor)
+
+      const el = document.querySelector(`[data-id="${decoded}"]`)
+
+      const selectedEvent = sortedEvents.find((event: any) => event.ID === decoded)
+
+      if (!selectedEvent) return
+
+      setEventModalOpen(selectedEvent.ID)
+
+      if (el) {
+        var elementPosition = el.getBoundingClientRect().top
+        var offsetPosition = elementPosition + window.scrollY - 400
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        })
+      }
+    }
+  }, [])
 
   const events = sortedEvents.map((event: any, index: number) => {
     const {
@@ -267,16 +300,30 @@ const Timeline = (props: any) => {
     return (
       <React.Fragment key={event.Name + offsetFromFirstDay}>
         <div
-          className={`${css['event']} ${css[event['Stable ID']]} ${css[event['Difficulty']]}`}
+          className={(() => {
+            let className = `${css['event']} ${css[event['Stable ID']]}`
+
+            if (props.edition === 'istanbul') {
+              className += ` ${css['domain-based']}`
+              if (event['Domain']) className += ` ${css['domain']}`
+            }
+
+            if (props.edition === 'amsterdam') {
+              className += ` ${css['difficulty-based']} ${css[event['Difficulty']]}`
+            }
+
+            return className
+          })()}
           style={gridPlacement}
           {...draggableAttributes}
           onClick={e => {
             draggableAttributes.onClick(e)
 
             if (!e.defaultPrevented) {
-              setEventModalOpen(event.Name)
+              setEventModalOpen(event.ID)
             }
           }}
+          data-id={event.ID}
         >
           <div className={css['content']}>
             {event['Stable ID'] === 'Cowork' && (
@@ -342,7 +389,7 @@ const Timeline = (props: any) => {
 
           <LearnMore
             event={event}
-            open={eventModalOpen === event.Name}
+            open={eventModalOpen === event.ID}
             close={() => setEventModalOpen('')}
             edition={props.edition}
           />
@@ -566,6 +613,7 @@ const EventLinks = (props: any) => {
               className={css['add-to-calendar-modal']}
               open={calendarModalOpen}
               close={() => setCalendarModalOpen(false)}
+              noCloseIcon
             >
               <div className={css['add-to-calendar-modal-content']}>
                 <p className="bold uppercase">Add event to your calendar:</p>
@@ -603,6 +651,7 @@ const LearnMore = (props: { open: boolean; close: () => void; event: any; editio
         open={props.open}
         close={props.close}
         className={`${css['learn-more-modal']} ${css[`edition-${props.edition}`]}`}
+        noCloseIcon
       >
         <div className={css['learn-more-modal-content']}>
           <ListEventMobile
@@ -669,7 +718,22 @@ const ListEventDesktop = (props: any) => {
   const { formattedDate, timeOfDay, isMultiDayEvent, formattedStartDate, formattedEndDate } = props
 
   return (
-    <div className={`${css['event-in-table']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]}`}>
+    <div
+      className={(() => {
+        let className = `${css['event-in-table']} ${css[props.event['Stable ID']]}`
+
+        if (props.edition === 'istanbul') {
+          className += ` ${css['domain-based']}`
+          if (props.event['Domain']) className += ` ${css['domain']}`
+        }
+
+        if (props.edition === 'amsterdam') {
+          className += ` ${css['difficulty-based']} ${css[props.event['Difficulty']]}`
+        }
+
+        return className
+      })()}
+    >
       <div className={`${css['list-grid']} ${css['content']} `}>
         <div className={`${css['date']} ${css['col-1']}`}>
           <div>
@@ -760,15 +824,36 @@ const ListEventMobile = (props: any) => {
   const { formattedDate, timeOfDay, isMultiDayEvent, formattedStartDate, formattedEndDate } = props
 
   return (
-    <div className={`${css['event']} ${css[props.event['Stable ID']]} ${css[props.event['Difficulty']]} `}>
+    <div
+      className={(() => {
+        let className = `${css['event']} ${css[props.event['Stable ID']]}`
+
+        if (props.edition === 'istanbul') {
+          className += ` ${css['domain-based']}`
+          if (props.event['Domain']) className += ` ${css['domain']}`
+        }
+
+        if (props.edition === 'amsterdam') {
+          className += ` ${css['difficulty-based']} ${css[props.event['Difficulty']]}`
+        }
+
+        return className
+      })()}
+    >
       <div className={css['content']}>
-        {props.event.URL ? (
-          <Link href={props.event.URL} indicateExternal className={`${css['title']} large-text uppercase bold`}>
-            {props.event.Name}
-          </Link>
-        ) : (
-          <p className={`${css['title']} large-text uppercase bold`}>{props.event.Name}</p>
-        )}
+        <div className={css['split']}>
+          {props.event.URL ? (
+            <Link href={props.event.URL} indicateExternal className={`${css['title']} large-text uppercase bold`}>
+              {props.event.Name}
+            </Link>
+          ) : (
+            <p className={`${css['title']} large-text uppercase bold`}>{props.event.Name}</p>
+          )}
+
+          <div className={css['share-icon']}>
+            <CopyToClipboard url={`${window.location.href.split('#')[0]}#${encodeURI(props.event.ID)}`} />
+          </div>
+        </div>
 
         {props.edition !== 'istanbul' && props.event.Location && props.event.Location.url && (
           <Link
@@ -816,7 +901,9 @@ const ListEventMobile = (props: any) => {
           <img src="https://c.tenor.com/thDFJno0zuAAAAAd/happy-easter-easter-bunny.gif" alt="Easter egg" width="100%" />
         )}
 
-        {props.event['Organizer'] && <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer']}</p>}
+        <div className={css['split']}>
+          {props.event['Organizer'] && <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer']}</p>}
+        </div>
         {props.event['Attend'] &&
           (props.event['URL'] ? (
             <Link
@@ -878,11 +965,12 @@ const List = (props: any) => {
   )
 }
 
-const useFilter = (events: any, edition: any) => {
+const useFilter = (events: any, edition: 'istanbul' | 'amsterdam') => {
   const keysToFilterOn = ['Category', 'Difficulty', 'Attend']
   const [filters, setFilters] = React.useState({} as { [key: string]: any })
   const filterableValues = {} as { [key: string]: Set<string> }
   const [hideSoldOut, setHideSoldOut] = React.useState(false)
+  const [showOnlyDomainSpecific, setShowOnlyDomainSpecific] = React.useState(false)
 
   // Run through events collecting all the possible values to filter on for the specified keys above - looks a bit messy but w/e
   // Could hardcode the filter values too but this is future proof if someone changes the range of possible values for any of the above fields
@@ -910,8 +998,7 @@ const useFilter = (events: any, edition: any) => {
       return false
     }
 
-    // Temporary filter for non-thematic events so we can push to dev preview
-    if (edition === 'istanbul' && !event['Domain'] && event['Stable ID'] !== 'Cowork') {
+    if (edition === 'istanbul' && showOnlyDomainSpecific && !event['Domain']) {
       return false
     }
 
@@ -934,6 +1021,8 @@ const useFilter = (events: any, edition: any) => {
     filterableValues,
     hideSoldOut,
     setHideSoldOut,
+    showOnlyDomainSpecific,
+    setShowOnlyDomainSpecific,
     filters,
     onChange: (key: string, value: string) => {
       const nextFilter = {
@@ -975,14 +1064,26 @@ const Filter = (props: any) => {
         )
       })}
 
-      <label className={css['hide-sold-out']}>
+      {/* <label className={css['toggle']}>
         <Toggle
           defaultChecked={props.hideSoldOut}
           icons={false}
           onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
         />
         <span className="bold small-text">Hide sold out events</span>
-      </label>
+      </label> */}
+
+      {props.edition === 'istanbul' && (
+        <label className={css['toggle']}>
+          <Toggle
+            defaultChecked={props.showOnlyDomainSpecific}
+            icons={false}
+            onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
+          />
+
+          <span className="bold small-text">Only Ecosystem Events</span>
+        </label>
+      )}
     </div>
   )
 }
@@ -1038,6 +1139,31 @@ const scheduleViewHOC = (Component: any) => {
 
   return ComponentWithScheduleView
 }
+
+// TODO: Get feedback then implement
+// const useScheduleSharing = () => {
+//   const [viewShared, setViewShared] = React.useState();
+//   const [sharedEvents, setSharedEvents] = React.useState();
+
+//   useEffect(() => {
+
+//   }, [])
+
+//   return {
+//     sharedEvents,
+
+//   }
+
+//   /*
+//     1) Add "attending/favorite" toggle to events, saving the data to localStorage
+//     2) Add "share" button which generates a url based on favorited events:
+//       https://devconnect.org/schedule?share=[a,b,c,...]
+//     3) Opening the share link opens the schedule in a "special" mode with a fixed "you are viewing someone elses schedule" message that can be cleared to return to the normal schedule
+//        3.1) Maybe add an option to "import" the shared events into the local schedule?
+
+//     1) Add toggle to show only attending/favorited events
+//   */
+// }
 
 const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const { scheduleView, setScheduleView } = props
@@ -1117,25 +1243,48 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
           )}
 
           <div className={`${css['top-bar']}`}>
-            <Filter events={events} {...filterAttributes} />
+            <Filter events={events} {...filterAttributes} edition={props.edition} />
             <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
-            <div className={css['difficulties']}>
-              <div className={css['all-welcome']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>All welcome
-                </p>
+
+            {props.edition === 'amsterdam' && (
+              <div className={css['types']}>
+                <div className={css['all-welcome']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>All welcome
+                  </p>
+                </div>
+                <div className={css['intermediate']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>Intermediate
+                  </p>
+                </div>
+                <div className={css['advanced']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>Advanced
+                  </p>
+                </div>
               </div>
-              <div className={css['intermediate']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>Intermediate
-                </p>
+            )}
+
+            {props.edition === 'istanbul' && (
+              <div className={css['types']}>
+                <div className={css['advanced']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>Cowork
+                  </p>
+                </div>
+                <div className={css['all-welcome']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>Ecosystem Events
+                  </p>
+                </div>
+                <div className={css['intermediate']}>
+                  <p>
+                    <span className={css['indicator']}>⬤</span>Other Events
+                  </p>
+                </div>
               </div>
-              <div className={css['advanced']}>
-                <p>
-                  <span className={css['indicator']}>⬤</span>Advanced
-                </p>
-              </div>
-            </div>
+            )}
 
             {scheduleView === 'timeline' && (
               <p className={`small-text bold uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
@@ -1208,13 +1357,26 @@ const notionDatabasePropertyResolver = (property: any, key: any) => {
 
       const dechunked = property[property.type]
         ? property[property.type].reduce((acc: string, chunk: any) => {
+            let textToAppend
+
             if (chunk.href && property.type === 'rich_text' && key !== 'URL' && key !== 'Stream URL') {
-              acc += `<a href=${chunk.href} target="_blank" class="generic" rel="noopener noreferrer">${chunk.plain_text}</a>`
+              textToAppend = `<a href=${chunk.href} target="_blank" class="generic" rel="noopener noreferrer">${chunk.plain_text}</a>`
             } else {
-              acc += chunk.plain_text
+              textToAppend = chunk.plain_text
             }
 
-            return acc
+            if (chunk.annotations) {
+              let annotations = 'placeholder'
+
+              if (chunk.annotations.bold) annotations = `<b>${annotations}</b>`
+              if (chunk.annotations.italic) annotations = `<i>${annotations}</i>`
+              if (chunk.annotations.strikethrough) annotations = `<s>${annotations}</s>`
+              if (chunk.annotations.underline) annotations = `<u>${annotations}</u>`
+
+              textToAppend = annotations.replace('placeholder', textToAppend)
+            }
+
+            return acc + textToAppend
           }, '')
         : null
 
@@ -1238,6 +1400,9 @@ const notionDatabasePropertyResolver = (property: any, key: any) => {
       return null
     case 'select':
       return property.select && property.select.name
+
+    case 'number':
+      return property.number
 
     case 'checkbox':
       return property.checkbox
@@ -1273,7 +1438,7 @@ const formatResult = (result: any) => {
   // Insert a default value for time of day when unspecified
   if (!properties['Time of Day']) properties['Time of Day'] = 'ALL DAY'
 
-  return properties
+  return { ...properties, ID: result.id /* raw: result*/ }
 }
 
 export async function getStaticProps(context: any) {
@@ -1401,6 +1566,7 @@ const normalizeEvent = (eventData: any): FormattedNotionEvent => {
   const keyResolver = createKeyResolver(eventData)
 
   return {
+    ID: keyResolver('ID', 'id'),
     'Stable ID': keyResolver('Stable ID', '[WEB] Stable ID'),
     Name: keyResolver('Name'),
     Organizer: keyResolver('Organizer', '[HOST] Organizer'),
@@ -1416,10 +1582,12 @@ const normalizeEvent = (eventData: any): FormattedNotionEvent => {
     Difficulty: keyResolver('Difficulty', '[HOST] Difficulty'),
     Location: keyResolver('Location', '[HOST] Location'),
     Domain: keyResolver('[INT] Domain'),
+    Priority: keyResolver('[WEB] Priority (sort)', 'Priority (sort)'),
   }
 }
 
 type FormattedNotionEvent = {
+  ID: any
   'Stable ID'?: any
   Name?: any
   Organizer?: any[]
@@ -1435,4 +1603,5 @@ type FormattedNotionEvent = {
   'Num. of Attendees'?: any
   Difficulty?: any
   Domain: any
+  Priority: any
 }
