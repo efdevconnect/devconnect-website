@@ -25,6 +25,7 @@ import { useRouter } from 'next/dist/client/router'
 // @ts-ignore
 import Toggle from 'react-toggle'
 import Retro from 'common/components/pages/event/retro'
+import { CopyToClipboard } from 'common/components/copy-to-clipboard/CopyToClipboard'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -223,6 +224,7 @@ const Timeline = (props: any) => {
   const placementTracker = createPlacementTracker()
   const [eventModalOpen, setEventModalOpen] = React.useState('')
   const draggableAttributes = useDraggableLink()
+  const router = useRouter()
   // Ref of current active day element (to scroll into view on load)
   // const todayRef = React.useRef<any>()
 
@@ -231,6 +233,29 @@ const Timeline = (props: any) => {
   //     todayRef.current.scrollIntoView({ scrollIntoViewOptions: { inline: 'center' } })
   //   }
   // }, [])
+
+  React.useEffect(() => {
+    const path = router.asPath
+    const anchor = path.split('#').pop()
+
+    if (anchor) {
+      const decoded = decodeURI(anchor)
+
+      const el = document.querySelector(`[data-name="${decoded.toLowerCase()}"]`)
+
+      setEventModalOpen(decoded)
+
+      if (el) {
+        var elementPosition = el.getBoundingClientRect().top
+        var offsetPosition = elementPosition + window.scrollY - 400
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        })
+      }
+    }
+  }, [])
 
   const events = sortedEvents.map((event: any, index: number) => {
     const {
@@ -294,6 +319,7 @@ const Timeline = (props: any) => {
               setEventModalOpen(event.Name)
             }
           }}
+          data-name={event.Name.toLowerCase()}
         >
           <div className={css['content']}>
             {event['Stable ID'] === 'Cowork' && (
@@ -359,7 +385,7 @@ const Timeline = (props: any) => {
 
           <LearnMore
             event={event}
-            open={eventModalOpen === event.Name}
+            open={eventModalOpen.toLowerCase() === event.Name.toLowerCase() || eventModalOpen === event.ID}
             close={() => setEventModalOpen('')}
             edition={props.edition}
           />
@@ -583,6 +609,7 @@ const EventLinks = (props: any) => {
               className={css['add-to-calendar-modal']}
               open={calendarModalOpen}
               close={() => setCalendarModalOpen(false)}
+              noCloseIcon
             >
               <div className={css['add-to-calendar-modal-content']}>
                 <p className="bold uppercase">Add event to your calendar:</p>
@@ -620,6 +647,7 @@ const LearnMore = (props: { open: boolean; close: () => void; event: any; editio
         open={props.open}
         close={props.close}
         className={`${css['learn-more-modal']} ${css[`edition-${props.edition}`]}`}
+        noCloseIcon
       >
         <div className={css['learn-more-modal-content']}>
           <ListEventMobile
@@ -809,13 +837,19 @@ const ListEventMobile = (props: any) => {
       })()}
     >
       <div className={css['content']}>
-        {props.event.URL ? (
-          <Link href={props.event.URL} indicateExternal className={`${css['title']} large-text uppercase bold`}>
-            {props.event.Name}
-          </Link>
-        ) : (
-          <p className={`${css['title']} large-text uppercase bold`}>{props.event.Name}</p>
-        )}
+        <div className={css['split']}>
+          {props.event.URL ? (
+            <Link href={props.event.URL} indicateExternal className={`${css['title']} large-text uppercase bold`}>
+              {props.event.Name}
+            </Link>
+          ) : (
+            <p className={`${css['title']} large-text uppercase bold`}>{props.event.Name}</p>
+          )}
+
+          <div className={css['share-icon']}>
+            <CopyToClipboard url={`${window.location.href.split('#')[0]}#${encodeURI(props.event.Name)}`} />
+          </div>
+        </div>
 
         {props.edition !== 'istanbul' && props.event.Location && props.event.Location.url && (
           <Link
@@ -863,7 +897,9 @@ const ListEventMobile = (props: any) => {
           <img src="https://c.tenor.com/thDFJno0zuAAAAAd/happy-easter-easter-bunny.gif" alt="Easter egg" width="100%" />
         )}
 
-        {props.event['Organizer'] && <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer']}</p>}
+        <div className={css['split']}>
+          {props.event['Organizer'] && <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer']}</p>}
+        </div>
         {props.event['Attend'] &&
           (props.event['URL'] ? (
             <Link
@@ -1041,7 +1077,7 @@ const Filter = (props: any) => {
             onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
           />
 
-          <span className="bold small-text">Show Only Thematic Events</span>
+          <span className="bold small-text">Only Ecosystem Events</span>
         </label>
       )}
     </div>
@@ -1090,7 +1126,7 @@ const scheduleViewHOC = (Component: any) => {
 
       if (hash && hash === '#list') {
         setScheduleView('list')
-        router.replace(router.pathname)
+        // router.replace(router.pathname)
       }
     }, [])
 
@@ -1235,7 +1271,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                 </div>
                 <div className={css['all-welcome']}>
                   <p>
-                    <span className={css['indicator']}>⬤</span>Thematic Events
+                    <span className={css['indicator']}>⬤</span>Ecosystem Events
                   </p>
                 </div>
                 <div className={css['intermediate']}>

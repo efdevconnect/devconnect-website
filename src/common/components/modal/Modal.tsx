@@ -9,6 +9,7 @@ type ModalProps = {
   open: boolean
   className?: string
   close: () => void
+  noCloseIcon?: boolean
   children: React.ReactNode
   noBodyScroll?: boolean
   [key: string]: any
@@ -94,9 +95,11 @@ const ModalContent = (props: ModalProps) => {
       )} */}
 
       <div className={css['right']}>
-        <div className={css['close']}>
-          <IconClose onClick={props.close} className={`icon`} />
-        </div>
+        {props.noCloseIcon ? null : (
+          <div className={css['close']}>
+            <IconClose onClick={props.close} className={`icon`} />
+          </div>
+        )}
 
         {title && (
           <div className={css['header']}>

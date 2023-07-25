@@ -1008,3 +1008,14 @@
   flex-direction: column;
   padding-bottom: 32px;
 }
+
+.split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .share-icon {
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
