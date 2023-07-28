@@ -1,7 +1,7 @@
 import React from 'react'
 import css from './accordion.module.scss'
-import ChevronDown from 'assets/icons/chevron-down.svg'
-import ChevronUp from 'assets/icons/chevron-up.svg'
+import ChevronDown from 'assets/icons/plus.svg'
+import ChevronUp from 'assets/icons/minus.svg'
 
 export const AccordionItem = React.forwardRef((props: any, ref: any) => {
   const [open, setOpen] = React.useState(props.alwaysOpen || false)

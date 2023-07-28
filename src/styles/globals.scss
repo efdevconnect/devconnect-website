@@ -12,7 +12,7 @@ body,
 
 body {
   color: $white;
-  background: linear-gradient(60deg, #0d0d20, #161627, #312046, #121212);
+  // background: linear-gradient(60deg, #0d0d20, #161627, #312046, #121212);
   overflow-x: hidden;
 }
 
@@ -198,6 +198,11 @@ $max-content-width: $content-width + ($side-gap * 2);
     --icon-color: rgb(209, 209, 209);
   }
 
+  &.wide {
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+
   &.xs {
     height: 32px;
     font-size: inherit;
@@ -209,11 +214,11 @@ $max-content-width: $content-width + ($side-gap * 2);
     @include medium-text;
     padding: 0 24px;
   }
-
-  &.blue {
-    color: $color-blue;
+  
+  &.transparent {
+    background: none;
   }
-
+  
   &.purple {
     background: #6D4FFA;
     color: white;
@@ -258,28 +263,23 @@ $max-content-width: $content-width + ($side-gap * 2);
 
   &.orange {
     background: white;
-    color: $color-orange;
-    --icon-color: #{$color-orange};
+    color: $color-orange-2;
+    --icon-color: #{$color-orange-2};
 
     &:hover {
-      background: rgb(238, 238, 238);
-      color: rgb(128, 128, 128);
+      background: #ff5a35;
+      color: rgb(255, 255, 255);
 
-      * {
-        --icon-color: rgb(128, 128, 128);
-      }
     }
   }
 
   &.orange-fill {
-    background: $color-orange;
+    background: $color-orange-2;
     color: white;
     --icon-color: white;
 
     &:hover {
-      background: rgb(238, 238, 238);
-      color: rgb(128, 128, 128);
-      --icon-color: rgb(128, 128, 128);
+      background: #ff5a35;
     }
   }
 }
@@ -513,4 +513,9 @@ $border: 1px solid $monochrome-5;
 
 .border-bottom {
   border-bottom: $border;
+}
+
+.orange {
+  color: $color-orange-2;
+  --icon-color: #{$color-orange-2};
 }

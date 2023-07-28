@@ -3,7 +3,7 @@ const MomentTimezoneDataPlugin = require('moment-timezone-data-webpack-plugin')
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  // Add redirects to netlify.toml - netlify doesn't seem to pick up next.config.js redirects 
+  // Add redirects to netlify.toml - netlify doesn't seem to pick up next.config.js redirects
   redirects: () => {
     return [
       {
@@ -17,6 +17,17 @@ module.exports = {
         permanent: false,
       },
     ]
+  },
+  images: {
+    domains: [
+      'speak.devcon.org',
+      'storage.googleapis.com',
+      'avatars.githubusercontent.com',
+      'camo.githubusercontent.com',
+      'blog.ethereum.org',
+      'img.youtube.com',
+      'www.gravatar.com',
+    ],
   },
   webpack: (config, { webpack }) => {
     return {

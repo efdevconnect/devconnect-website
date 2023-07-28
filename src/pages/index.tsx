@@ -16,10 +16,19 @@ import { Menu, FooterMenu } from 'common/components/layout/Menu'
 import Link from 'common/components/link/Link'
 import Accordion, { AccordionItem } from 'common/components/accordion'
 import Modal from 'common/components/modal'
-import bgMerged from 'assets/images/istanbul-bg/bg-merged.png'
+// import bgMerged from 'assets/images/istanbul-bg/bg-merged.png'
+import bgMerged from 'assets/images/landscape.png'
 import Hehe from 'assets/images/hehe.png'
 import FadeIn from 'common/components/fade-in'
 import ErrorBoundary from 'common/components/error-boundary/ErrorBoundary'
+import Spline from '@splinetool/react-spline'
+import FooterBackground from 'assets/images/footer-background-triangles.png'
+import PlayIcon from 'assets/icons/play.svg'
+import { Card } from 'common/components/card'
+import Parser from 'rss-parser'
+import slugify from 'slugify'
+import { BlogPost } from 'types/BlogPost'
+import { BlogReel } from 'common/components/blog-posts/BlogPosts'
 // import BluePrint from 'assets/images/blueprint-bg.png'
 // import VideoPlaceholder from 'assets/images/devconnect-video-placeholder.png'
 // import YoutubeIcon from 'assets/icons/youtube.svg'
@@ -32,9 +41,9 @@ import ErrorBoundary from 'common/components/error-boundary/ErrorBoundary'
 // import bgCenter from 'assets/images/istanbul-bg/bg-center.png'
 // import bgLower from 'assets/images/istanbul-bg/bg-lower.png'
 
-const Cube = dynamic(() => import('common/components/cube'), {
-  ssr: false,
-})
+// const Cube = dynamic(() => import('common/components/cube'), {
+//   ssr: false,
+// })
 
 const FAQ = [
   {
@@ -340,32 +349,40 @@ export const Footer = ({ inFoldoutMenu, onClickMenuItem }: FooterProps) => {
         <CodeOfConduct />
       </Modal>
       <div className={className}>
-        <LogoBig className={css['background']} />
+        {/* <LogoBig className={css['background']} /> */}
 
-        <div className="section">
-          <div className={`${css['footer']} clear-vertical`}>
-            <div className={css['top']}>
-              <DevconnectIstanbul />
-              <DevconnectIstanbulText />
+        <div className={`${css['footer']}`}>
+          <div style={{ position: 'relative' }}>
+            <div className={css['background']}>
+              <ImageNew src={FooterBackground} alt="Colorful rectangles and triangles" />
             </div>
 
-            <div className={css['middle']}>
-              <div className={css['left']}>
-                <a target="_blank" rel="noreferrer" href="https://devcon.org" className={css['road-to-devcon']}>
+            <div className="section padding-top padding-bottom">
+              <div className={css['top']}>
+                <DevconnectIstanbul />
+                <DevconnectIstanbulText />
+              </div>
+              <div className={css['middle']}>
+                <div className={css['left']}>
+                  <FooterMenu onClickMenuItem={onClickMenuItem} />
+                </div>
+                {/* <a target="_blank" rel="noreferrer" href="https://devcon.org" className={css['road-to-devcon']}>
                   <p className={`${css['title']} extra-large-text title`}>
                     A road to <br /> devcon event
                   </p>
-                  <Image src={RoadToDevcon} alt="Road to devcon: man and dog" />
+                 <Image src={RoadToDevcon} alt="Road to devcon: man and dog" />
                 </a>
 
                 <p className={`${css['subtext']} dark-grey`}>Brought to you by the Ethereum Foundation</p>
                 <p className={`${css['email']} medium-text`}>support@devconnect.org</p>
+              </div>  */}
+
+                {/* <FooterMenu onClickMenuItem={onClickMenuItem} /> */}
               </div>
-
-              <FooterMenu onClickMenuItem={onClickMenuItem} />
             </div>
-
-            <div className={css['bottom']}>
+          </div>
+          <div className="section">
+            <div className={`${css['bottom']}`}>
               <div className={css['crafted-by']}>
                 <p className="tiny-text">Crafted and curated with passion ♥ ✨ at the Ethereum Foundation.</p>
                 <p className={`${css['copyright']} tiny-text`}>
@@ -436,19 +453,33 @@ const Home: NextPage = (props: any) => {
           <Scene className={css['scene-hero']}>
             <Header />
 
-            <div className={css['cube-container']}>
-              {/* Cube logic is loaded asynchronously and its scripts need the element to exist at initiation, so we add a div to instantiate on: */}
+            <div className={css['cube-container']}></div>
+
+            <div className={css['spline']}>
+              <ErrorBoundary>
+                <Spline
+                  scene="https://prod.spline.design/03JSjbnhW8P41kDH/scene.splinecode"
+                  onLoad={application => {
+                    console.log(application, 'application')
+                    application.setZoom(0.8)
+                  }}
+                />
+              </ErrorBoundary>
+            </div>
+
+            {/* <div className={css['cube-container']}>
               <div className={css['cube']} id="cube" />
               <ErrorBoundary>
                 <Cube />
               </ErrorBoundary>
-            </div>
+            </div> */}
 
             <div className="section">
               <div className={css['info-container']}>
                 <div className={`${css['info']}`}>
                   <p className={css['big-description']}>
-                    <span className={css['red-underline']}>Meet the builders of Ethereum </span>
+                    Meet the builders of Ethereum
+                    {/* <span className={css['red-underline']}>Meet the builders of Ethereum </span> */}
                     {/* <span>Devconnect</span> <span>is</span> <span className={css['red-underline']}>back!</span> */}
                   </p>
 
@@ -457,7 +488,7 @@ const Home: NextPage = (props: any) => {
                     <b>make progress together</b>.
                   </p>
 
-                  <Link href="#about" className={`button blue-fill ${css['video-recap-button']}`}>
+                  <Link href="#about" className={`button transparent ${css['video-recap-button']}`}>
                     <span>ISTANBUL, Türkiye</span>
                     <span>November 13-19, 2023</span>
                   </Link>
@@ -505,69 +536,41 @@ const Home: NextPage = (props: any) => {
             </div> */}
             <FadeIn>
               <div className="section" id="about">
-                <h1 className="section-header grey clear-vertical" style={{ zIndex: 1 }}>
-                  Devconnect // Istanbul 2023
+                <h1 className="section-header clear-vertical" style={{ zIndex: 1 }}>
+                  <span className="orange">WHY DEVCONNECT</span>
                 </h1>
 
                 <div className={`columns margin-bottom`}>
                   <div className="left fill-45">
                     <div>
                       <p className={css['big-description']}>
-                        {/* <b className={css['red-underline']}>Why Devconnect?</b> */}
-                        <span>
-                          A <b className={css['red-underline']}>collaborative</b>
-                        </span>{' '}
-                        <b>Ethereum</b> <span>week, built by and for</span> <b>everyone.</b>
+                        Devconnect aims to bring together Ethereum&apos;s most important{' '}
+                        <b>
+                          <span className={css['red-underline']}>builders</span>, researchers, and its community.
+                        </b>
                       </p>
-                      {/* <p className="big-text">
-                        One notable feedback we received from attendees of the{` `}
-                        <Link href="https://blog.ethereum.org/2022/05/30/devconnect-wrap" indicateExternal>
-                          first-ever Devconnect in Amsterdam in 2022
-                        </Link>{' '}
-                        was that they felt the sessions and conversations had a significant impact on the ecosystem by
-                        driving progress in tangible ways.
-                      </p>
-                      <p className="big-text">
-                        Many expressed their wishes for Devconnect to happen again, and after we saw the impact, we
-                        strongly agreed. <b>Devconnect is coming back on November 13-19 this year!</b>
-                      </p> */}
-                      {/* <p className="big-text bold margin-top-less">
-                        Devconnect is a week-long gathering of independent Ethereum events. This year we will gather in
-                        Istanbul to meet, learn, share, and make progress together.
-                      </p> */}
 
-                      <p className="section-header as-text-body margin-top-less">
-                        The goal of Devconnect is to facilitate the deep discussions and conversations that we need to
-                        continue to improve Ethereum.
-                      </p>
-                      <p className="big-text as-text-body margin-top-less">
-                        Devconnect is for you, if you are passionate about creating more decentralized and fairer
-                        systems and want to collaborate in person, or if you want to meet the people working in Ethereum
-                        and cowork with them at the{' '}
-                        <Link
-                          href="https://www.notion.so/ef-events/Devconnect-IST-Coworking-space-e811d778b6a846989600d54158ff70cf?pvs=4"
-                          indicateExternal
-                        >
-                          Devconnect Coworking Space (Istanbul Convention Center)
-                        </Link>
-                        .
+                      <p className="large-text margin-top-less">
+                        At Devconnect events, you can have deep discussions about trending topics in Ethereum, and
+                        collaborate in person on problems you are currently trying to solve. The Devconnect Cowork is a
+                        place to network, and meet the people working in Ethereum. And on the side, you can explore the
+                        rich history and culture of Istanbul.
                       </p>
                     </div>
 
                     <div className={`margin-top ${css['nowrap']}`}>
                       <Link
                         href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
-                        className={`button purple ${css['get-involved-button']}`}
-                        indicateExternal
+                        className={`button wide orange-fill ${css['get-involved-button']}`}
                       >
-                        Organize an event
+                        {/*<PlayIcon className="icon large-text" />*/} COWORK TICKETS
                       </Link>
                       <Link
                         href="/schedule"
-                        className={`button purple ${css['get-involved-button']} margin-left-less`}
+                        className={`button wide orange ${css['get-involved-button']} margin-left-less`}
                         indicateExternal
                       >
-                        View Schedule
+                        City Guide
                       </Link>
                     </div>
                   </div>
@@ -597,6 +600,66 @@ const Home: NextPage = (props: any) => {
               <ImageNew src={bgLower} alt="Istanbul inspired background" />
               <ImageNew src={bgCenter} alt="Istanbul inspired background" />
             </div> */}
+          </Scene>
+
+          <Scene className={`${css['scene-content']}`}>
+            <FadeIn>
+              <div className="section" id="about">
+                <h1 className="section-header orange margin-top-less margin-bottom-less">What to Expect</h1>
+                <p className="extra-large-text">
+                  Devconnect aims to bring together Ethereum&apos;s most important builders, researchers, and its
+                  community.
+                </p>
+
+                <p className="section-header grey large-text margin-top-less margin-bottom-less">Topics Include</p>
+
+                <p className="extra-large-text grey uppercase">
+                  Decentralized Systems • Scalability • privacy • incentive mechanisms • mev • UX • governance & more
+                </p>
+
+                {/* <p className="section-header grey large-text margin-top-less margin-bottom-less">Reasons to attend</p> */}
+
+                <div className={css['reasons-to-attend']}>
+                  {[1, 2, 3, 4, 5].map(num => {
+                    return (
+                      <div className={css['box']} key={num}>
+                        {/* <div className={css['left']}>
+                          <div className={css['number']}>{num}</div>
+                        </div> */}
+
+                        {/* <div className={css['right']}> */}
+                        <p className="margin-bottom-less">
+                          <i>
+                            "Have deep discussions about trending topics in Ethereum, and collaborate in person on
+                            problems you are currently trying to solve."
+                          </i>
+                        </p>
+
+                        {/* <span className="orange small-text bold">Event Schedule →</span> */}
+                        {/* </div> */}
+                      </div>
+                    )
+                  })}
+                </div>
+
+                <div className="margin-top border-top margin-bottom"></div>
+
+                <h1 className="section-header grey margin-bottom-less">What to Expect</h1>
+
+                <p className="extra-large-text">
+                  Multiple events, <u>independently</u> organized by the <span className="orange">community</span>. Each
+                  event has a unique focus, ranging from <b>beginner-friendly to expert level.</b>
+                </p>
+
+                <div className="margin-top border-top margin-bottom"></div>
+
+                <h1 className="section-header grey margin-bottom-less">Host Your Event At Devconnect</h1>
+
+                <p className="extra-large-text">
+                  Make Devconnect what it&apos;s supposed to be — a <b>decentralized and open Ethereum week.</b>
+                </p>
+              </div>
+            </FadeIn>
           </Scene>
 
           {/* NOTE: RETAINING FOR POST DEVCONNECT RECAP: */}
@@ -663,16 +726,14 @@ const Home: NextPage = (props: any) => {
             </div>
           </Scene> */}
 
-          <div id="about" className={`${css['scene-about']}`}>
+          {/* <div id="about" className={`${css['scene-about']}`}>
             <FadeIn>
               <div className="section">
                 <div className={`${css['scene-about-content']} clear-vertical`}>
                   <div className={css['text-container']}>
                     <div className={css['body']}>
-                      {/* <div className={`background-title`}>DEV/CONNECT</div> */}
                       <div>
                         <h1 className="section-header grey">What can you expect?</h1>
-                        {/* <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p> */}
                         <p className="big-text margin-top-less">
                           Devconnect events are independent of each other and each have a unique focus. The topics range
                           from{' '}
@@ -686,17 +747,6 @@ const Home: NextPage = (props: any) => {
                           enable in-depth understanding. The sessions can be half-day to multiple days long and give you
                           time to collaborate on topics you care about.
                         </p>
-                        {/* <h1 className="section-header grey">Why Devconnect?</h1>
-                        <p className={`subheader as-text-body`}>DEVCONNECT - [ DeV-kuUUUh-nEEeKKt ]</p>
-                        <p className="section-header as-text-body">
-                          The goal of Devconnect is to facilitate the deep discussions and conversations that we need to
-                          continue to improve Ethereum.
-                        </p>
-                        <p className="big-text as-text-body">
-                          Devconnect is for you, if you are passionate about creating more decentralized and fairer
-                          systems and want to collaborate in person, or if you want to meet the people working in
-                          Ethereum and cowork with them at the Devconnect Coworking Space.
-                        </p> */}
 
                         <Link
                           href="/schedule"
@@ -723,12 +773,22 @@ const Home: NextPage = (props: any) => {
                 </div>
               </div>
             </FadeIn>
-          </div>
+          </div> */}
+
+          <Scene growVertically growNaturally className={`${css['scene-faq']}`}>
+            <div className="section">
+              <h1 className="section-header grey border-top padding-top-less">Blog Posts</h1>
+
+              <BlogReel blogs={props.blogs} />
+
+              <div className="padding-bottom-less border-bottom "></div>
+            </div>
+          </Scene>
 
           <Scene growVertically growNaturally className={`${css['scene-faq']} section`}>
             <FadeIn>
               <div className={`clear-vertical`}>
-                <div className="columns border-bottom margin-bottom padding-bottom">
+                {/* <div className="columns border-bottom margin-bottom padding-bottom">
                   <div className="left">
                     <h1 className="section-header grey">Are you New to Ethereum?</h1>
                     <p className="big-text margin-top-less">
@@ -763,25 +823,6 @@ const Home: NextPage = (props: any) => {
                       Organize an Event
                     </Link>
                   </div>
-                </div>
-
-                {/* <div className="border-bottom margin-bottom padding-bottom">
-                  <h1 className="section-header grey">For Event Organizers</h1>
-                  <p className="big-text margin-top-less margin-bottom-less">
-                    Devconnect events are independent of each other, and organized by different teams. Each discussion
-                    will be hosted and curated by experts in those domains. You have the opportunity to organize an
-                    event and contribute your expertise.
-                  </p>
-                  <Link
-                    href="#organizers"
-                    onClick={() => {
-                      organizersRef.current.open()
-                    }}
-                    className={`button sm white margin-bottom-less`}
-                    indicateExternal
-                  >
-                    Organize an Event
-                  </Link>
                 </div> */}
 
                 <h1 className="section-header grey">Frequently Asked Questions</h1>
@@ -810,6 +851,42 @@ const Home: NextPage = (props: any) => {
       </div>
     </>
   )
+}
+
+const getBlogPosts = async (maxItems: number = 6): Promise<Array<BlogPost>> => {
+  const parser: Parser = new Parser({
+    customFields: {
+      item: ['description'],
+    },
+  })
+
+  const feed = await parser.parseURL('https://blog.ethereum.org/en/events/feed.xml')
+  const blogs = feed.items
+    .filter(i => i.categories?.some(category => category === 'Devconnect'))
+    .map(i => {
+      return {
+        id: slugify(i.title ?? ''),
+        title: i.title,
+        description: i.description,
+        date: i.pubDate ? new Date(i.pubDate).getTime() : 0,
+        author: 'Devcon Team',
+        body: i['content:encoded'] || i.description,
+        slug: slugify(i.title ?? ''),
+        permaLink: i.link,
+        imageUrl: i.enclosure ? i['enclosure'].url : '',
+      } as BlogPost
+    })
+
+  return blogs.slice(0, maxItems)
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      blogs: await getBlogPosts(),
+    },
+    revalidate: 1 * 60 * 30, // 30 minutes, in seconds
+  }
 }
 
 export default Home
