@@ -21,8 +21,6 @@ const Hero = (props: HeroProps) => {
 
   if (props.className) className += ` ${props.className}`
 
-  const shouldRenderBackground = !!props.imageProps
-
   return (
     <div className={className}>
       <Header />
@@ -33,7 +31,7 @@ const Hero = (props: HeroProps) => {
           {props.children}
         </div>
 
-        {shouldRenderBackground &&
+        {props.imageProps &&
           (props.backgroundStyle === 'fill' ? (
             <div>Fillerino</div>
           ) : (
