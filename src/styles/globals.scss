@@ -174,7 +174,8 @@ $max-content-width: $content-width + ($side-gap * 2);
   align-items: center;
   border-radius: 44px;
   background: #e8e8e8;
-  box-shadow: 0px 2px 4px 1.8px rgba(0, 0, 0, 0.18);
+  // box-shadow: 0px 2px 4px 1.8px rgba(0, 0, 0, 0.18);
+  border: 1px solid black;
   height: 64px;
   align-self: flex-start;
   font-family: inherit;
@@ -185,6 +186,10 @@ $max-content-width: $content-width + ($side-gap * 2);
   color: black;
   --icon-color: black;
   cursor: pointer;
+
+  svg {
+    font-size: 24px;
+  }
 
   @media (max-width: $screen-md) {
     height: 48px;
@@ -199,8 +204,8 @@ $max-content-width: $content-width + ($side-gap * 2);
   }
 
   &.wide {
-    padding-left: 36px;
-    padding-right: 36px;
+    padding-left: 28px;
+    padding-right: 28px;
   }
 
   &.xs {
@@ -265,6 +270,7 @@ $max-content-width: $content-width + ($side-gap * 2);
     background: white;
     color: $color-orange-2;
     --icon-color: #{$color-orange-2};
+    border-color: $color-orange-2;
 
     &:hover {
       background: #ff5a35;
@@ -277,6 +283,7 @@ $max-content-width: $content-width + ($side-gap * 2);
     background: $color-orange-2;
     color: white;
     --icon-color: white;
+    border-color: $color-orange-2;
 
     &:hover {
       background: #ff5a35;

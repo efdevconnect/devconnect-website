@@ -3,6 +3,7 @@ import css from './blog-posts.module.scss'
 import { Card } from 'common/components/card'
 import { BlogPost } from 'types/BlogPost'
 import { Slider, useSlider } from 'common/components/slider'
+import moment from 'moment'
 
 interface Props {
   blogs: Array<BlogPost>
@@ -54,7 +55,7 @@ export function BlogReel(props: Props) {
               imageUrl={blog.imageUrl}
               expandLink
               linkUrl={blog.permaLink} // Linking to blog domain temporarily until blog page is done (static-phase)
-              metadata={[blog.date, blog.author]}
+              metadata={[moment(blog.date).format('ll'), blog.author]}
               allowDrag
             />
           )

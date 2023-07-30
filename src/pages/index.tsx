@@ -24,11 +24,12 @@ import ErrorBoundary from 'common/components/error-boundary/ErrorBoundary'
 import Spline from '@splinetool/react-spline'
 import FooterBackground from 'assets/images/footer-background-triangles.png'
 import PlayIcon from 'assets/icons/play.svg'
-import { Card } from 'common/components/card'
 import Parser from 'rss-parser'
 import slugify from 'slugify'
 import { BlogPost } from 'types/BlogPost'
 import { BlogReel } from 'common/components/blog-posts/BlogPosts'
+import ShapesImage from 'assets/images/shapes.png'
+import useDimensions from 'react-cool-dimensions'
 // import BluePrint from 'assets/images/blueprint-bg.png'
 // import VideoPlaceholder from 'assets/images/devconnect-video-placeholder.png'
 // import YoutubeIcon from 'assets/icons/youtube.svg'
@@ -444,11 +445,30 @@ const Home: NextPage = (props: any) => {
   const [dateHovered, setDateHovered] = React.useState(false)
   const [hehe, setHehe] = React.useState(false)
   const organizersRef = React.useRef<any>()
+  const splineRef = React.useRef<any>()
+  const [width, setWidth] = React.useState(0)
+  const { observe } = useDimensions({
+    onResize: ({ observe, unobserve, width, height, entry }) => {
+      setWidth(width)
+    },
+  })
+
+  // React.useEffect(() => {
+  //   if (!splineRef.current) return
+
+  //   if (width > 1000) {
+  //     splineRef.current.setZoom(0.7)
+  //   } else if (width > 700) {
+  //     splineRef.current.setZoom(0.5)
+  //   } else {
+  //     splineRef.current.setZoom(0.3)
+  //   }
+  // }, [width])
 
   return (
     <>
       <SEO />
-      <div className={css.container}>
+      <div className={css.container} ref={observe}>
         <main id="main" className={css.main}>
           <Scene className={css['scene-hero']}>
             <Header />
@@ -460,8 +480,17 @@ const Home: NextPage = (props: any) => {
                 <Spline
                   scene="https://prod.spline.design/03JSjbnhW8P41kDH/scene.splinecode"
                   onLoad={application => {
-                    console.log(application, 'application')
-                    application.setZoom(0.8)
+                    splineRef.current = application
+
+                    splineRef.current.setZoom(0.6)
+
+                    // if (width > 1000) {
+                    //   splineRef.current.setZoom(0.9)
+                    // } else if (width > 700) {
+                    //   splineRef.current.setZoom(0.5)
+                    // } else {
+                    //   splineRef.current.setZoom(0.3)
+                    // }
                   }}
                 />
               </ErrorBoundary>
@@ -477,7 +506,7 @@ const Home: NextPage = (props: any) => {
             <div className="section">
               <div className={css['info-container']}>
                 <div className={`${css['info']}`}>
-                  <p className={css['big-description']}>
+                  <p className={`bold ${css['big-description']}`}>
                     Meet the builders of Ethereum
                     {/* <span className={css['red-underline']}>Meet the builders of Ethereum </span> */}
                     {/* <span>Devconnect</span> <span>is</span> <span className={css['red-underline']}>back!</span> */}
@@ -559,15 +588,12 @@ const Home: NextPage = (props: any) => {
                     </div>
 
                     <div className={`margin-top ${css['nowrap']}`}>
-                      <Link
-                        href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
-                        className={`button wide orange-fill ${css['get-involved-button']}`}
-                      >
-                        {/*<PlayIcon className="icon large-text" />*/} COWORK TICKETS
+                      <Link href="/cowork" className={`button wide orange-fill ${css['cowork-tickets-button']}`}>
+                        <PlayIcon className="icon large-text" /> COWORK TICKETS
                       </Link>
                       <Link
-                        href="/schedule"
-                        className={`button wide orange ${css['get-involved-button']} margin-left-less`}
+                        href="/city-guide"
+                        className={`button wide orange margin-left-less ${css['city-guide-button']}`}
                         indicateExternal
                       >
                         City Guide
@@ -602,11 +628,18 @@ const Home: NextPage = (props: any) => {
             </div> */}
           </Scene>
 
-          <Scene className={`${css['scene-content']}`}>
+          <Scene growNaturally growVertically className={`${css['scene-content']}`}>
             <FadeIn>
-              <div className="section" id="about">
+              <div className="section margin-bottom" id="about">
                 <h1 className="section-header orange margin-top-less margin-bottom-less">What to Expect</h1>
+
                 <p className="extra-large-text">
+                  Multiple events, <u>independently</u> organized by the <span className="orange">community</span>.
+                  <br />
+                  Each event has a unique focus, ranging from <b>beginner-friendly to expert level.</b>
+                </p>
+
+                {/* <p className="extra-large-text">
                   Devconnect aims to bring together Ethereum&apos;s most important builders, researchers, and its
                   community.
                 </p>
@@ -619,45 +652,65 @@ const Home: NextPage = (props: any) => {
 
                 {/* <p className="section-header grey large-text margin-top-less margin-bottom-less">Reasons to attend</p> */}
 
+                <div className="margin-top border-top margin-bottom"></div>
+
+                <div className={css['topics-header']}>
+                  <p className="section-header uppercase grey">Topics Include</p>
+                  <Link href="/schedule" className={`orange button`} indicateExternal>
+                    View Schedule
+                  </Link>
+                </div>
+
+                <div className="columns margin-top">
+                  <p className={`${css['topics']} left fill-65 border-bottom padding-bottom-less`}>
+                    Decentralized Systems • Scalability • privacy • incentive mechanisms • mev • UX • governance & more
+                  </p>
+
+                  <div className={`right ${css['shapes-container']}`}>
+                    <div className={css['shapes']}>
+                      <ImageNew src={ShapesImage} alt="shapes image" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="margin-top margin-bottom-less"></div>
+
+                <h1 className="section-header orange margin-bottom-less">Host Your Event At Devconnect</h1>
+
+                <p className={`${css['restrain-width']} extra-large-text margin-bottom`}>
+                  Make Devconnect what it&apos;s supposed to be — a <b>decentralized and open Ethereum week.</b>
+                </p>
+
                 <div className={css['reasons-to-attend']}>
-                  {[1, 2, 3, 4, 5].map(num => {
+                  <div className={css['no-box']}>
+                    Here are some quotes from last year&apos;s event hosts in Amsterdam with reasons to host an event:
+                  </div>
+                  {[
+                    'Get all the interested people in one place at the same time to make progress on open issues.',
+                    'Bandwidth and engagement IRL meetings is high!',
+                    'People came away from the event extremely energized, and discussions inspired new project directions.',
+                    'We realize that creating unique spaces for the blockchain community will attract our target audience.',
+                    'This type of event is a valuable feedback mechanism, and simultaneously allows for participant learning in a workshop format.',
+                  ].map(text => {
                     return (
-                      <div className={css['box']} key={num}>
-                        {/* <div className={css['left']}>
-                          <div className={css['number']}>{num}</div>
-                        </div> */}
-
-                        {/* <div className={css['right']}> */}
-                        <p className="margin-bottom-less">
-                          <i>
-                            "Have deep discussions about trending topics in Ethereum, and collaborate in person on
-                            problems you are currently trying to solve."
-                          </i>
+                      <div className={css['box']} key={text}>
+                        <p>
+                          <i>"{text}"</i>
                         </p>
-
-                        {/* <span className="orange small-text bold">Event Schedule →</span> */}
-                        {/* </div> */}
                       </div>
                     )
                   })}
                 </div>
 
-                <div className="margin-top border-top margin-bottom"></div>
-
-                <h1 className="section-header grey margin-bottom-less">What to Expect</h1>
-
-                <p className="extra-large-text">
-                  Multiple events, <u>independently</u> organized by the <span className="orange">community</span>. Each
-                  event has a unique focus, ranging from <b>beginner-friendly to expert level.</b>
-                </p>
-
-                <div className="margin-top border-top margin-bottom"></div>
-
-                <h1 className="section-header grey margin-bottom-less">Host Your Event At Devconnect</h1>
-
-                <p className="extra-large-text">
-                  Make Devconnect what it&apos;s supposed to be — a <b>decentralized and open Ethereum week.</b>
-                </p>
+                <div>
+                  <Link
+                    href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
+                    className={`button wide white ${css['get-involved-button']} margin-top`}
+                    indicateExternal
+                  >
+                    Host An Event
+                  </Link>
+                </div>
               </div>
             </FadeIn>
           </Scene>
@@ -776,13 +829,15 @@ const Home: NextPage = (props: any) => {
           </div> */}
 
           <Scene growVertically growNaturally className={`${css['scene-faq']}`}>
-            <div className="section">
-              <h1 className="section-header grey border-top padding-top-less">Blog Posts</h1>
+            <FadeIn>
+              <div className="section">
+                <h1 className="section-header grey border-top padding-top-less">Blog Posts</h1>
 
-              <BlogReel blogs={props.blogs} />
+                <BlogReel blogs={props.blogs} />
 
-              <div className="padding-bottom-less border-bottom "></div>
-            </div>
+                <div className="padding-bottom-less border-bottom "></div>
+              </div>
+            </FadeIn>
           </Scene>
 
           <Scene growVertically growNaturally className={`${css['scene-faq']} section`}>

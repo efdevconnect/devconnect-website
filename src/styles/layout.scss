@@ -20,6 +20,10 @@
         &.fill-45 {
             flex-basis: 45%;
         }
+
+        &.fill-65 {
+            flex-basis: 70%;
+        }
     
         .big-description {
             margin-bottom: 20px;
@@ -34,7 +38,7 @@
             width: 100%;
             margin-left: 0px;
 
-            &.fill-45 {
+            &.fill-45, &.fill-65 {
                 flex-basis: auto;
             }
         }
@@ -42,6 +46,7 @@
     
     .right {
         flex-basis: 50%;
+        flex-shrink: 1;
         margin-left: 50px;
     
         @media (max-width: $screen-lg) {

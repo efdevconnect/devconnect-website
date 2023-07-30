@@ -71,8 +71,12 @@ const menuItems = (pathname: string) => [
     url: pathname === '/' ? '#about' : '/', // Smoothscrolling if already on the page, otherwise hard link
   },
   {
-    text: 'FAQ',
-    url: pathname === '/' ? '#faq' : '/#faq', // Smoothscrolling if already on the page, otherwise hard link
+    text: 'Cowork',
+    url: '/cowork',
+  },
+  {
+    text: 'Guide',
+    url: '/city-guide',
   },
   {
     text: 'Schedule',

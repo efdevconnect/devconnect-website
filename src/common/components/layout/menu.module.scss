@@ -136,7 +136,7 @@ $width-right-column: 190px;
   >a {
     display: none;
 
-    @media (min-width: $screen-lg) {
+    @media (min-width: $screen-lg-2) {
       display: flex;
     }
   }
@@ -243,7 +243,7 @@ $width-right-column: 190px;
     fill: white;
   }
 
-  @media (min-width: $screen-lg) {
+  @media (min-width: $screen-lg-2) {
     display: none;
   }
 }
@@ -264,7 +264,7 @@ $width-right-column: 190px;
   transform: translateY(-100%);
   transition: transform 400ms ease-out;
 
-  @media (min-width: $screen-lg) {
+  @media (min-width: $screen-lg-2) {
     display: none !important;
   }
 

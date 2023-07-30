@@ -187,7 +187,7 @@
         z-index: 1;
         margin: -2px;
         border-radius: inherit;
-        background: linear-gradient(45deg, #6D4FFA, #FF5C00, #4FF0FA);
+        background: linear-gradient(45deg, #9982ff, #ff7627, #70f5ff);
       }
     }
 
@@ -503,6 +503,25 @@
 
   :global(.left) {
     justify-content: center;
+  }
+
+  .cowork-tickets-button, .city-guide-button {
+    @media (max-width: $screen-sm) {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+
+  .cowork-tickets-button {
+    [data-type="link-text"] {
+      display: flex;
+      align-items: center;
+  
+      svg {
+        font-size: 28px;
+        margin-right: 12px;
+      }
+    }
   }
 
   .background-cityscape {
@@ -1152,18 +1171,98 @@
 .scene-content {
   color: black;
 
-  .reasons-to-attend {
+  .topics-header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .restrain-width {
+    max-width: 70%;
+  }
+
+  .topics {
+    color: rgba(144, 152, 161, 0.70);
+    font-size: 64px;
+    letter-spacing: 3.2px;
+    text-transform: uppercase;
+
+    @media (max-width: $screen-lg) {
+      border: none !important;
+      font-size: 28px;
+    }
+  }
+
+  .shapes-container {
+    position: relative;
+
+    @media (max-width: $screen-lg) {
+      display: flex;
+      justify-content: center;
+    }
+
+    .shapes {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0px;
+      width: 100%;
+      transform: scale(1.2);
+      top: 84px;
+
+      @media (max-width: $screen-lg) {
+        max-width: 60vw;
+        transform: scale(1);
+        top: 0px;
+        position: relative;
+        border-bottom: 1px solid $standard-border-color;
+        padding-bottom: 64px;
+      }
+
+      @media (max-width: $screen-md) {
+        max-width: 80vw;
+        padding-bottom: 32px;
+        border-bottom: none;
+      }
+  
+      img {
+        object-fit: contain;
+        object-position: center;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+
+  .reasons-to-attend {
+    display: grid;
     flex-wrap: nowrap;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 16px;
+
+    @media(max-width: $screen-md) {
+      grid-template-columns: 1fr;
+    }
+
+    .no-box {
+      @include big-text;
+      margin-top: 1em;
+    }
 
     .box {
       display: flex;
+      align-items: center;
       border: 1px solid $standard-border-color;
       padding-top: 32px;
-      padding-left: 20px;
+      padding-left: 24px;
       padding-right: 32px;
-      padding-bottom: 16px;
+      padding-bottom: 32px;
+
+      @media(max-width: $screen-md) {
+        padding: 16px;
+      }
 
       .left {
         margin-right: 20px;
