@@ -13,12 +13,15 @@ type HeroProps = {
   className?: string
   backgroundClassName?: string
   backgroundTitle?: string
+  backgroundStyle?: 'fill' | 'partial'
 }
 
 const Hero = (props: HeroProps) => {
   let className = css['hero']
 
   if (props.className) className += ` ${props.className}`
+
+  const shouldRenderBackground = !!props.imageProps
 
   return (
     <div className={className}>
@@ -29,13 +32,17 @@ const Hero = (props: HeroProps) => {
         <div className={`${css['children']} ${props.autoHeight ? css['auto-height'] : ' '} clear-vertical`}>
           {props.children}
         </div>
-        {props.imageProps && (
-          <div className={css['image']}>
-            <div className={css['image-inner']}>
-              <Image {...props.imageProps} layout="fill" objectFit="cover" priority />
+
+        {shouldRenderBackground &&
+          (props.backgroundStyle === 'fill' ? (
+            <div>Fillerino</div>
+          ) : (
+            <div className={css['image']}>
+              <div className={css['image-inner']}>
+                <Image {...props.imageProps} layout="fill" objectFit="cover" priority />
+              </div>
             </div>
-          </div>
-        )}
+          ))}
       </div>
     </div>
   )

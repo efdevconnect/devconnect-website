@@ -132,8 +132,9 @@
     .text {
       @include small-text;
       margin-top: 16px;
+      font-weight: 400;
       overflow: hidden;
-      color: rgba(97, 97, 97, 1);
+      // color: rgb(152, 152, 152);
     }
 
     .bottom-section {
