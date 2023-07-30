@@ -1180,6 +1180,11 @@
 
   .restrain-width {
     max-width: 70%;
+
+    @media (max-width: $screen-lg) {
+      max-width: none;
+      margin-bottom: 16px;
+    }
   }
 
   .topics {
@@ -1190,7 +1195,7 @@
 
     @media (max-width: $screen-lg) {
       border: none !important;
-      font-size: 28px;
+      font-size: 32px;
     }
   }
 

@@ -639,19 +639,6 @@ const Home: NextPage = (props: any) => {
                   Each event has a unique focus, ranging from <b>beginner-friendly to expert level.</b>
                 </p>
 
-                {/* <p className="extra-large-text">
-                  Devconnect aims to bring together Ethereum&apos;s most important builders, researchers, and its
-                  community.
-                </p>
-
-                <p className="section-header grey large-text margin-top-less margin-bottom-less">Topics Include</p>
-
-                <p className="extra-large-text grey uppercase">
-                  Decentralized Systems • Scalability • privacy • incentive mechanisms • mev • UX • governance & more
-                </p>
-
-                {/* <p className="section-header grey large-text margin-top-less margin-bottom-less">Reasons to attend</p> */}
-
                 <div className="margin-top border-top margin-bottom"></div>
 
                 <div className={css['topics-header']}>
