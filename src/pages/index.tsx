@@ -695,7 +695,7 @@ const Home: NextPage = (props: any) => {
                     return (
                       <div className={css['box']} key={text}>
                         <p>
-                          <i>"{text}"</i>
+                          <i>&quot;{text}&quot;</i>
                         </p>
                       </div>
                     )

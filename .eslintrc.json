@@ -4,5 +4,8 @@
     "import/resolver": {
       "typescript": {}
     }
+  },
+  "rules": {
+    "react/display-name": "off"
   }
 }
