@@ -18,7 +18,7 @@ import PeopleIcon from 'assets/icons/people.svg'
 import ComputerIcon from 'assets/icons/computer.svg'
 import BoltIcon from 'assets/icons/bolt.svg'
 import PhotoIcon from 'assets/icons/photo.svg'
-import { Tabs } from './archived-city-guide'
+import { Tabs } from './city-guide'
 import Alert from 'common/components/alert'
 // @ts-ignore
 import AnchorLink from 'react-anchor-link-smooth-scroll'
