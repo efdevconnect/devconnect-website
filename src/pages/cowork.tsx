@@ -283,8 +283,8 @@ const Cowork: NextPage = (props: any) => {
                     <p>
                       <b>If you lose your wristband, you will not be granted re-entry to the venue.</b>
                       <br />
-                      Once you're checked in, head over to our Swag Desk to snag some sweet Devconnect swag! We&apos;ll
-                      also have a special discount available for attendees to obtain a SIM card.
+                      Once you&apos;re checked in, head over to our Swag Desk to snag some sweet Devconnect swag!
+                      We&apos;ll also have a special discount available for attendees to obtain a SIM card.
                     </p>
                   </div>
                 </AccordionItem>
