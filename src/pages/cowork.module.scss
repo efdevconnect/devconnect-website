@@ -19,6 +19,12 @@
   //   background-position: bottom;
   // }
 
+  :global(.background-title) {
+    @media(max-width: $screen-lg) {
+      display: none;
+    }
+  }
+
   .content {
     display: flex;
     flex-direction: column;
@@ -138,6 +144,7 @@
           @include big-text;
 
           svg {
+            flex-shrink: 0;
             font-size: 1.5em;
             margin-right: 8px;
           }

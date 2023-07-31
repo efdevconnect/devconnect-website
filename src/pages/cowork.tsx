@@ -217,7 +217,7 @@ const Cowork: NextPage = (props: any) => {
                   <div className="tab-content">
                     <p className="big-text">
                       <i>
-                        All events during Devconnect are independently hosted and it is their choice how they do
+                        All events during Devconnect are independently-hosted and it is their choice how they do
                         ticketing: open ticket sales, applications, pre-defined list of attendees, etc.
                       </i>
                     </p>
@@ -231,8 +231,9 @@ const Cowork: NextPage = (props: any) => {
                     <div className="divider"></div>
 
                     <p className="large-text">
-                      Tickets to the Coworking Space will be <span className="orange">€10</span>. We will accept fiat
-                      payments via Stripe and ETH & DAI payments via two L2s: Optimism and Arbitrum.
+                      GA Tickets to the Coworking Space will be <span className="orange">€10</span>. We will accept fiat
+                      payments via Stripe and ETH & DAI payments via Optimism, Arbitrum, as well as ETH payments on
+                      zkSync 2.0!
                     </p>
 
                     <Link
@@ -251,7 +252,7 @@ const Cowork: NextPage = (props: any) => {
                       The Coworking Space will be open from: <b>November 13-19th, 2023</b> —{' '}
                       <span className="orange">09:00 - 20:00</span>.
                     </p>
-                    <p className="large-text">
+                    <p className="big-text">
                       <b>Coworking tickets are valid for the full week;</b> however, admission is first-come first-serve
                       and entry is not guaranteed if we are at capacity.
                     </p>
