@@ -526,7 +526,7 @@ const Home: NextPage = (props: any) => {
             </div>
 
             <div className={`section ${css['bottom-section']}`}>
-              <div className={`${css['bottom']} clear-vertical`}>
+              <div className={`${css['bottom']} margin-bottom-less`}>
                 <div>
                   <Logo
                     onMouseEnter={() => setHehe(true)}
@@ -664,7 +664,7 @@ const Home: NextPage = (props: any) => {
 
                 <h1 className="section-header orange margin-bottom-less">Host Your Event At Devconnect</h1>
 
-                <p className={`${css['restrain-width']} extra-large-text margin-bottom`}>
+                <p className={`${css['restrain-width']} extra-large-text margin-bottom-less`}>
                   Make Devconnect what it&apos;s supposed to be — a <b>decentralized and open Ethereum week.</b>
                 </p>
 

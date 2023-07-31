@@ -21,13 +21,14 @@ const Hero = (props: HeroProps) => {
   let className = css['hero']
 
   if (props.className) className += ` ${props.className}`
+  if (props.backgroundStyle === 'fill') className += ` ${css['hide-bg-mobile']}`
 
   return (
     <div className={className}>
       <Header />
       <div className={props.backgroundClassName || css['background']} />
       {props.imageProps && props.backgroundStyle === 'fill' && (
-        <div className={css['background-fill']}>
+        <div data-type="background" className={css['background-fill']}>
           <ImageNew {...props.imageProps} />
         </div>
       )}

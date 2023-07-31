@@ -187,6 +187,10 @@ $max-content-width: $content-width + ($side-gap * 2);
   --icon-color: black;
   cursor: pointer;
 
+  [data-type='link-text'] {
+    text-decoration: none !important;
+  }
+
   svg {
     font-size: 24px;
   }
@@ -296,10 +300,10 @@ a {
   text-decoration: inherit;
 
   &.generic {
-    font-weight: bold;
+    // font-weight: bold;
 
     &:hover {
-      text-decoration: underline;
+      // text-decoration: underline;
     }
   }
 
@@ -525,4 +529,26 @@ $border: 1px solid $monochrome-5;
 .orange {
   color: $color-orange-2;
   --icon-color: #{$color-orange-2};
+}
+
+.row {
+  transform: translateX(-8px);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $standard-border-color;
+  padding: 16px 8px;
+  --icon-color: #{$color-orange-2};
+
+  @include big-text;
+
+  svg {
+    flex-shrink: 0;
+    font-size: 1.5em;
+    margin-right: 8px;
+  }
+
+  
+  &:last-child {
+    border-bottom: none;
+  }
 }

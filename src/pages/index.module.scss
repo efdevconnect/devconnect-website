@@ -117,8 +117,8 @@
       position: relative;
       background-clip: padding-box;
       border: solid 1px transparent;
-      color: white !important;
-      --icon-color: white !important;
+      color: black !important;
+      --icon-color: black !important;
       opacity: 1;
       font-weight: bold;
 
@@ -160,7 +160,7 @@
       }
 
       /* Gradient border hack */
-      &:not(:hover) {
+      // &:not(:hover) {
         &:after {
           content: '';
           position: absolute;
@@ -168,13 +168,18 @@
           right: 0;
           bottom: 0;
           left: 0;
-          // background: black;
+          // background: teal;
           // background: linear-gradient(60deg, #06060f, #151526, #100a17, #121212);
+          background: rgba(255, 255, 255, 0.4);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
           margin: -1px;
           border-radius: inherit;
           z-index: 2;
         }
-      }
+      // }
       // // }
 
       &:before {
@@ -186,11 +191,14 @@
         left: 0;
         z-index: 1;
         margin: -2px;
+        color: black;
         border-radius: inherit;
         background: teal;
-        // background: linear-gradient(45deg, #9982ff, #ff7627, #70f5ff);
+        background: linear-gradient(45deg, #a08bff, #ff8563, #25d2df);
+        // background: #1a1a1a;
       }
     }
+    
 
     .big-description {
       margin-bottom: 16px;

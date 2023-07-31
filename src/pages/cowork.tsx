@@ -29,51 +29,53 @@ import SwipeToScroll from 'common/components/swipe-to-scroll'
 import CoworkHero from 'assets/images/cowork-gallery/cowork.png'
 import PlayIcon from 'assets/icons/play.svg'
 
-const waves = [
-  {
-    status: 'sold out',
-  },
-  {
-    status: 'sold out',
-  },
-  {
-    status: 'sold out',
-  },
-  {
-    status: 'sold out',
-  },
-  {
-    status: 'sold out',
-  },
-  {
-    status: 'sold out',
-  },
-  {
-    status: 'sold out',
-  },
-  {
-    status: 'sold out',
-  },
-  {
-    status: 'sold out',
-  },
-]
+// const waves = [
+//   {
+//     status: 'sold out',
+//   },
+//   {
+//     status: 'sold out',
+//   },
+//   {
+//     status: 'sold out',
+//   },
+//   {
+//     status: 'sold out',
+//   },
+//   {
+//     status: 'sold out',
+//   },
+//   {
+//     status: 'sold out',
+//   },
+//   {
+//     status: 'sold out',
+//   },
+//   {
+//     status: 'sold out',
+//   },
+//   {
+//     status: 'sold out',
+//   },
+// ]
+
+export const Row = (props: any) => {
+  return (
+    <div className={css['row']}>
+      <ComputerIcon />
+      <p>
+        <b className="uppercase">Work:</b> Tables, wifi, and outlets.
+      </p>
+    </div>
+  )
+}
 
 const Cowork: NextPage = (props: any) => {
-  const [soldOut, setSoldout] = React.useState(!waves.some(wave => wave.status === 'on sale now'))
+  //   const [soldOut, setSoldout] = React.useState(!waves.some(wave => wave.status === 'on sale now'))
 
   return (
     <>
       <SEO title="Cowork" description="Coworking at Devconnect" />
-      <Head>
-        <meta name="robots" content="noindex" />
-      </Head>
-      {/* <div
-        style={{ position: 'fixed', top: '0px', width: '100vw', zIndex: 100, background: 'black' }}
-        onClick={() => setSoldout(!soldOut)}
-      >
-        soldout: {soldOut.toString()}
-      </div> */}
       <Hero
         className={css['cowork-hero']}
         imageProps={{ src: CoworkHero, alt: 'Coworking space' }}
@@ -165,25 +167,25 @@ const Cowork: NextPage = (props: any) => {
                 <p className={`uppercase bold section-header grey ${css['title']}`}>What to Expect</p>
 
                 <div className={css['what-to-expect']}>
-                  <div className={css['row']}>
+                  <div className="row">
                     <ComputerIcon />
                     <p>
                       <b className="uppercase">Work:</b> Tables, wifi, and outlets.
                     </p>
                   </div>
-                  <div className={css['row']}>
+                  <div className="row">
                     <PhotoIcon />
                     <p>
                       <b className="uppercase">Relax:</b> Comfy areas to relax alone or in a small group.
                     </p>
                   </div>
-                  <div className={css['row']}>
+                  <div className="row">
                     <PeopleIcon />
                     <p>
                       <b className="uppercase">Collab:</b> Several meeting rooms available for informal meetings
                     </p>
                   </div>
-                  <div className={css['row']}>
+                  <div className="row">
                     <BoltIcon />
                     <p>
                       <b className="uppercase">Energize:</b> Light snacks and drinks will be offered throughout
