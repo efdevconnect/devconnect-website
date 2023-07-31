@@ -275,7 +275,7 @@ $max-content-width: $content-width + ($side-gap * 2);
     &:hover {
       background: #ff5a35;
       color: rgb(255, 255, 255);
-
+      --icon-color: rgb(255, 255, 255);
     }
   }
 

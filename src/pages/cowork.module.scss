@@ -25,19 +25,29 @@
     justify-content: space-between;
 
     .info {
-      margin-top: 24px;
+      margin-top: 48px;
     }
 
     .call-to-action {
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
+      flex-wrap: nowrap;
       margin-top: 32px;
 
-      @media (min-width: $screen-md) {
-        flex-direction: row;
+      @media (max-width: $screen-md) {
+        > a {
+          &:first-child {
+            margin-right: 8px;
+          }
+  
+          > svg {
+            margin-right: 8px;
+          }
+        }
       }
 
       > a {
+        flex-shrink: 0;
         display: flex;
         // width: 200px;
         justify-content: space-between;
@@ -56,6 +66,18 @@
 }
 
 .cowork {
+  .link {
+    [data-type="link-text"] {
+      display: flex;
+      align-items: center;
+  
+      svg {
+        font-size: 26px;
+        margin-right: 8px;
+      }
+    }
+  }
+
   background: white;
   color: black;
   --icon-color: black;
@@ -76,6 +98,7 @@
       flex-direction: row;
     }
 
+
     .left,
     .right {
       flex-basis: 50%;
@@ -83,7 +106,7 @@
     }
 
     .left {
-      border-bottom: 1px solid $standard-border-color;
+      margin-bottom: 16px;
       padding-bottom: 1em;
 
       > * {
@@ -96,21 +119,44 @@
       @media (min-width: $screen-md) {
         padding-bottom: 0px;
         border-bottom: none;
-        padding-right: 100px;
+        padding-right: 50px;
       }
     }
 
     .right {
       .what-to-expect {
-        > * {
-          @media (min-width: $screen-md) {
-            &.title {
-              margin-top: 0px;
-            }
+        margin-top: 6px;
+
+        .row {
+          transform: translateX(-8px);
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid $standard-border-color;
+          padding: 16px 8px;
+          --icon-color: #{$color-orange-2};
+
+          @include big-text;
+
+          svg {
+            font-size: 1.5em;
+            margin-right: 8px;
           }
 
-          margin-top: 1em;
+          
+          &:last-child {
+            border-bottom: none;
+          }
         }
+        
+        // > * {
+        //   @media (min-width: $screen-md) {
+        //     &.title {
+        //       margin-top: 0px;
+        //     }
+        //   }
+
+        //   margin-top: 1em;
+        // }
       }
     }
   }

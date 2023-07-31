@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/legacy/image'
+import ImageNew from 'next/image'
 import css from './hero.module.scss'
 import { Header } from 'pages/index'
 
@@ -25,22 +26,25 @@ const Hero = (props: HeroProps) => {
     <div className={className}>
       <Header />
       <div className={props.backgroundClassName || css['background']} />
+      {props.imageProps && props.backgroundStyle === 'fill' && (
+        <div className={css['background-fill']}>
+          <ImageNew {...props.imageProps} />
+        </div>
+      )}
+
       <div className={`${css['content']} section`}>
         {props.backgroundTitle && <p className={`background-title clear-vertical`}>{props.backgroundTitle}</p>}
         <div className={`${css['children']} ${props.autoHeight ? css['auto-height'] : ' '} clear-vertical`}>
           {props.children}
         </div>
 
-        {props.imageProps &&
-          (props.backgroundStyle === 'fill' ? (
-            <div>Fillerino</div>
-          ) : (
-            <div className={css['image']}>
-              <div className={css['image-inner']}>
-                <Image {...props.imageProps} layout="fill" objectFit="cover" priority />
-              </div>
+        {props.imageProps && props.backgroundStyle !== 'fill' && (
+          <div className={css['image']}>
+            <div className={css['image-inner']}>
+              <Image {...props.imageProps} layout="fill" objectFit="cover" priority />
             </div>
-          ))}
+          </div>
+        )}
       </div>
     </div>
   )

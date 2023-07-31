@@ -28,6 +28,26 @@
     width: 100%;
   }
 
+  .background-fill {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #8999B3;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: right;
+
+      @media (max-width: $screen-lg) {
+        object-fit: cover;
+        opacity: 0.5;
+      }
+    }
+  }
+
   &:global(.istanbul) {
     .background {
       // background: linear-gradient(120deg, rgb(25, 147, 240) 0%, hsla(43, 80%, 52%, 0) 70%),
@@ -95,7 +115,7 @@
     .children {
       flex-grow: 1;
       display: flex;
-      height: 500px;
+      height: 425px;
       justify-content: space-between;
 
       &.auto-height {
