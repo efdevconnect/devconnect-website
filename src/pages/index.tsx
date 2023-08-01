@@ -446,12 +446,12 @@ const Home: NextPage = (props: any) => {
   const [hehe, setHehe] = React.useState(false)
   const organizersRef = React.useRef<any>()
   const splineRef = React.useRef<any>()
-  const [width, setWidth] = React.useState(0)
-  const { observe } = useDimensions({
-    onResize: ({ observe, unobserve, width, height, entry }) => {
-      setWidth(width)
-    },
-  })
+  // const [width, setWidth] = React.useState(0)
+  // const { observe } = useDimensions({
+  //   onResize: ({ observe, unobserve, width, height, entry }) => {
+  //     setWidth(width)
+  //   },
+  // })
 
   // React.useEffect(() => {
   //   if (!splineRef.current) return
@@ -468,7 +468,7 @@ const Home: NextPage = (props: any) => {
   return (
     <>
       <SEO />
-      <div className={css.container} ref={observe}>
+      <div className={css.container}>
         <main id="main" className={css.main}>
           <Scene className={css['scene-hero']}>
             <Header />
@@ -482,15 +482,23 @@ const Home: NextPage = (props: any) => {
                   onLoad={application => {
                     splineRef.current = application
 
-                    splineRef.current.setZoom(0.6)
+                    const mainEl = document.getElementById('main')
 
-                    // if (width > 1000) {
-                    //   splineRef.current.setZoom(0.9)
-                    // } else if (width > 700) {
-                    //   splineRef.current.setZoom(0.5)
-                    // } else {
-                    //   splineRef.current.setZoom(0.3)
-                    // }
+                    if (!mainEl) {
+                      splineRef.current.setZoom(0.7)
+
+                      return
+                    }
+
+                    const width = mainEl.offsetWidth
+
+                    if (width > 1000) {
+                      splineRef.current.setZoom(0.65)
+                    } else if (width > 700) {
+                      splineRef.current.setZoom(0.5)
+                    } else {
+                      splineRef.current.setZoom(0.3)
+                    }
                   }}
                 />
               </ErrorBoundary>
@@ -818,7 +826,7 @@ const Home: NextPage = (props: any) => {
           <Scene growVertically growNaturally className={`${css['scene-faq']}`}>
             <FadeIn>
               <div className="section">
-                <h1 className="section-header grey border-top padding-top-less">Blog Posts</h1>
+                <h1 className="section-header orange border-top padding-top-less">Blog Posts</h1>
 
                 <BlogReel blogs={props.blogs} />
 
@@ -867,7 +875,7 @@ const Home: NextPage = (props: any) => {
                   </div>
                 </div> */}
 
-                <h1 className="section-header grey">Frequently Asked Questions</h1>
+                <h1 className="section-header orange">Frequently Asked Questions</h1>
 
                 <div className={`${css['accordion']} tab-content`} id="faq">
                   <Accordion>

@@ -254,8 +254,11 @@ const Cowork: NextPage = (props: any) => {
                       First Come First Serve
                     </p>
                     <p className="big-text">
-                      The Cowork Space will be open from: <b>November 13-19th, 2023</b> —{' '}
-                      <span className="orange">09:00 - 20:00</span>.
+                      The Cowork Space will be open from:{' '}
+                      <b>
+                        November 13-19th, 2023 — <span className="orange">09:00 - 20:00</span>
+                      </b>
+                      .
                     </p>
                     <p className="big-text bold">
                       Cowork tickets are valid for the full week; however, admission is first-come first-serve and entry
