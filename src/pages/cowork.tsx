@@ -158,8 +158,12 @@ const Cowork: NextPage = (props: any) => {
                   work, and a space to relax.
                 </p>
                 <p className="big-text">
-                  While all of the other events happening throughout the week will be independently-organized events,
-                  this co-working space will be officially hosted by the Devconnect team.
+                  Even if you don't plan to attend any other events, the Devconnect Cowork venue is where you can meet
+                  the people working in Ethereum, make new connections, and reunite with friends.
+                </p>
+                <p>
+                  While all of the other events happening throughout the week will be independently-organized, this
+                  coworking space will be officially hosted by the Devconnect team.
                 </p>
               </div>
 
@@ -213,10 +217,10 @@ const Cowork: NextPage = (props: any) => {
               <Accordion className={css['accordion']}>
                 <AccordionItem
                   alwaysOpen
-                  title={<p className="orange uppercase large-text bold">Ticketing information</p>}
+                  title={<p className="orange uppercase section-header bold">Ticketing information</p>}
                   id="ticketing"
                 >
-                  <div className="tab-content">
+                  <div className="tab-content padding-bottom-less">
                     <p className="big-text">
                       <i>
                         All events during Devconnect are independently-hosted and it is their choice how they do
@@ -232,62 +236,60 @@ const Cowork: NextPage = (props: any) => {
                     </p>
                     <div className="divider"></div>
 
-                    <p className="large-text">
+                    <p className="big-text bold">
                       GA Tickets to the Coworking Space will be <span className="orange">€10</span>. We will accept fiat
                       payments via Stripe and ETH & DAI payments via Optimism, Arbitrum, as well as ETH payments on
                       zkSync 2.0!
                     </p>
 
                     <Link
-                      indicateExternal
                       href="https://ticketh.xyz/devconnect/cowork/"
-                      className={`button sm orange ${css['link']}`}
+                      className={`button sm wide orange ${css['link']}`}
                     >
                       <PlayIcon /> Get tickets
                     </Link>
 
                     <div className="divider"></div>
-                    <p className={`section-header large-text grey bold`} id="first-come-first-serve">
+                    <p className={`section-header grey bold margin-top-less`} id="first-come-first-serve">
                       First Come First Serve
                     </p>
-                    <p className="large-text">
-                      The Coworking Space will be open from: <b>November 13-19th, 2023</b> —{' '}
+                    <p className="big-text">
+                      The Cowork Space will be open from: <b>November 13-19th, 2023</b> —{' '}
                       <span className="orange">09:00 - 20:00</span>.
                     </p>
-                    <p className="big-text">
-                      <b>Coworking tickets are valid for the full week;</b> however, admission is first-come first-serve
-                      and entry is not guaranteed if we are at capacity.
+                    <p className="big-text bold">
+                      Cowork tickets are valid for the full week; however, admission is first-come first-serve and entry
+                      is not guaranteed if we are at capacity.
                     </p>
                     <p>
-                      In an effort to ensure maximum availability of the Coworking Space to the Ethereum community, we
-                      will be over-distributing tickets. In other words, the total number of tickets we distribute will
-                      exceed the max capacity of the Coworking Space at one time.
+                      In an effort to ensure maximum availability of the Cowork Space to the Ethereum community, we will
+                      be over-distributing tickets. In other words, the total number of tickets we distribute will
+                      exceed the max capacity of the Cowork Space at one time.
                     </p>
                     <p>
-                      Therefore, entry to the Coworking Space will be granted on a first-come first-serve basis. In the
+                      Therefore, entry to the Cowork Space will be granted on a first-come first-serve basis. In the
                       event that the venue is at full-capacity, even those with a wristband may be denied entry until
                       space becomes available.
                     </p>
 
-                    <p className={`section-header large-text grey bold margin-top-less`} id="first-come-first-serve">
+                    <p className={`section-header grey bold margin-top-less`} id="first-come-first-serve">
                       Registration
                     </p>
 
-                    <p className="big-text">
-                      If you purchase a ticket, ticket download instructions will be{' '}
-                      <b>emailed to you 1 week before the event</b>, and you may use that to check-in.
+                    <p>
+                      If you purchase a ticket, ticket download instructions will be emailed to you 1 week before the
+                      event, and you will need to follow these instructions in order to check-in.
                     </p>
                     <p>
-                      When your ticket is scanned & approved, you will be given a wristband. This wristband is how you
-                      will access the Coworking Space for the full week, so we advise that you wear it immediately upon
-                      receipt & <u>do not lose or remove the wristband</u> unless you no longer plan on attending the
-                      Coworking Space.
+                      When your ticket is scanned as valid, you will be given a wristband. This wristband will be your
+                      access to the Cowork Space for the full week, so we advise that you wear it immediately upon
+                      receipt &amp; <strong>do not lose or remove the wristband</strong> unless you no longer plan on
+                      attending the Cowork Space.
                     </p>
+                    <p>If you lose your wristband, you will not be granted re-entry to the venue.</p>
                     <p>
-                      <b>If you lose your wristband, you will not be granted re-entry to the venue.</b>
-                      <br />
-                      Once you&apos;re checked in, head over to our Swag Desk to snag some sweet Devconnect swag!
-                      We&apos;ll also have a special discount available for attendees to obtain a SIM card.
+                      Once you&apos;re checked in, head over to the Swag desk to pick up any swag you may have ordered.
+                      We will also have a special discount available for attendees to obtain a SIM card.
                     </p>
                   </div>
                 </AccordionItem>
