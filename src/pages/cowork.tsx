@@ -152,14 +152,14 @@ const Cowork: NextPage = (props: any) => {
             <div className={`${css['body']}`}>
               <div className={css['left']}>
                 <p className={`uppercase bold section-header grey ${css['title']}`}>Coworking</p>
-                <p className="large-text">
+                <p className="big-text">
                   As part of our goal to foster <b>collaboration and community</b> throughout Devconnect week, we will
-                  be hosting a co-work space for all those coming to Istanbul to use as a meeting point, a place to
-                  work, and a space to relax.
+                  be hosting a cowork space for all those coming to Istanbul to use as a meeting point, a place to work,
+                  and a space to relax.
                 </p>
                 <p className="big-text">
-                  Even if you don't plan to attend any other events, the Devconnect Cowork venue is where you can meet
-                  the people working in Ethereum, make new connections, and reunite with friends.
+                  Even if you don&apos;t plan to attend any other events, the Devconnect Cowork venue is where you can
+                  meet the people working in Ethereum, make new connections, and reunite with friends.
                 </p>
                 <p>
                   While all of the other events happening throughout the week will be independently-organized, this
