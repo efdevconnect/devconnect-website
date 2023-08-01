@@ -113,6 +113,7 @@
         margin-top: 24px;
         display: flex;
         flex-direction: column;
+        @include big-text;
 
         @media (min-width: $screen-lg) {
           margin-top: 0px;
@@ -126,6 +127,10 @@
           justify-content: space-between;
           align-items: center;
           border-bottom: 1px solid $standard-border-color;
+
+          &:last-child {
+            border-bottom: none;
+          }
 
           .left {
             display: flex;

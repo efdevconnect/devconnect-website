@@ -713,13 +713,13 @@ const List = (props: any) => {
           Language Guide
         </Link> */}
       </div>
-      {/* <div className={css['row']}>
+      <div className={css['row']}>
         <div className={`${css['left']} uppercase`}>
           <Water className={`${css['icon']} icon`} />
           <p className="bold">WATER: &nbsp;</p>
           <p>Medium safe to drink</p>
         </div>
-        <AnchorLink
+        {/* <AnchorLink
           href={`#faq`}
           className={`${css['right']} orange uppercase tiny-text hover-underline generic`}
           onClick={(e: any) => {
@@ -729,8 +729,8 @@ const List = (props: any) => {
           }}
         >
           FAQ
-        </AnchorLink>
-      </div> */}
+        </AnchorLink> */}
+      </div>
     </div>
   )
 }
@@ -831,7 +831,8 @@ const CityGuide: NextPage = () => {
                 return (
                   <AccordionItem
                     key={tab.value}
-                    title={tab.text}
+                    // title={tab.text}
+                    title={<p className="orange uppercase large-text bold">{tab.text}</p>}
                     id={tab.value}
                     ref={el => (accordionRefs.current[tab.value] = el)}
                   >
