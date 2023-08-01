@@ -33,9 +33,9 @@ const tabs = [
     value: 'plan-your-travels',
     content: () => {
       return (
-        <div className={`tab-content small-text ${css['plan-your-travels']}`}>
+        <div className={`tab-content ${css['plan-your-travels']}`}>
           <p>
-            <strong>Timezone</strong>: GMT+3 (All the year, as Turkey has no daylight savings time.)
+            <strong>Timezone</strong>: GMT+3 (all year, as Turkey has no daylight savings time)
           </p>
           <p>
             <strong>Visa requirements</strong>: Get your Visa before your travels! Most visitors require an{' '}
@@ -47,18 +47,18 @@ const tabs = [
             <a href="devconnect.org/cowork">Devconnect Cowork</a> ticket first)
           </p>
           <p>
-            <strong>Airports</strong>: Istanbul International Airport (IST) (European side) Sabiha Gökçen Airport (Asian
-            side)
+            <strong>Airports</strong>: Istanbul International Airport (IST) (European side), Sabiha Gökçen Airport
+            (Asian side)
           </p>
           <p>
-            <strong>Official language</strong>: Turkish Thank you ={' '}
+            <strong>Official language</strong>: Turkish. Thank you ={' '}
             <Link href="https://forvo.com/word/te%C5%9Fekk%C3%BCr_ederim/">Teşekkür ederim</Link>, GM = GA (Günaydın)
           </p>
           <p>
             <strong>E-SIM providers</strong>: Holafly or Airalo{' '}
           </p>
           <p>
-            <strong>SIM cards with best 4G coverage:</strong> Turkcell or Türk Telekom We recommend buying physical SIM
+            <strong>SIM cards with best 4G coverage:</strong> Turkcell or Türk Telekom. We recommend buying physical SIM
             cards in a local shop, not at the airport.
           </p>
           <p>
@@ -107,7 +107,7 @@ const tabs = [
     value: 'where-to-stay',
     content: () => {
       return (
-        <div className={`tab-content small-text ${css['getting-around']}`}>
+        <div className={`tab-content ${css['getting-around']}`}>
           <p>
             The Bosporus Strait divides Istanbul&apos;s neighborhoods into two sides: the European side and the Asian
             side. The Devconnect Cowork venue and probably most Devconnect venues will be located on the European side.
@@ -189,7 +189,7 @@ const tabs = [
     value: 'experience-the-city',
     content: () => {
       return (
-        <div className={`tab-content small-text ${css['experience-the-city']}`}>
+        <div className={`tab-content ${css['experience-the-city']}`}>
           <p>
             Istanbul&#39;s magic lies in the narrow lanes of its bazaars, the calls to prayer, the cats strolling
             around, the rhythms of Turkish music, and, of course, the delicious food. Istanbul is considered a
@@ -215,7 +215,7 @@ const tabs = [
     value: 'history-and-culture',
     content: () => {
       return (
-        <div className={`tab-content small-text ${css['history-and-culture']}`}>
+        <div className={`tab-content ${css['history-and-culture']}`}>
           <div
             className="margin-bottom"
             style={{ width: '100%', display: 'flex', justifyContent: 'center', maxWidth: '700px' }}
@@ -261,7 +261,7 @@ const tabs = [
           </p>
           <ul>
             <li>
-              <p>Books:</p>
+              <p className="bold">Books:</p>
 
               <ul>
                 <li className="margin-bottom-less">
@@ -295,7 +295,7 @@ const tabs = [
               </ul>
             </li>
             <li>
-              <p>Movies:</p>
+              <p className="bold">Movies:</p>
 
               <ul>
                 <li className="margin-bottom-less">
@@ -706,14 +706,14 @@ const List = (props: any) => {
           <p className="bold">Official language:&nbsp;</p>
           <p> Turkish </p>
         </div>
-        <Link
+        {/* <Link
           href="https://www.iamsterdam.com/en/about-amsterdam/amsterdam-information/history-and-society/language"
           className={`${css['right']} orange uppercase tiny-text hover-underline`}
         >
           Language Guide
-        </Link>
+        </Link> */}
       </div>
-      <div className={css['row']}>
+      {/* <div className={css['row']}>
         <div className={`${css['left']} uppercase`}>
           <Water className={`${css['icon']} icon`} />
           <p className="bold">WATER: &nbsp;</p>
@@ -730,7 +730,7 @@ const List = (props: any) => {
         >
           FAQ
         </AnchorLink>
-      </div>
+      </div> */}
     </div>
   )
 }
@@ -775,15 +775,15 @@ const CityGuide: NextPage = () => {
 
             <div className={css['general-info']}>
               <div className={css['left']}>
-                {/* <p className={`${css['title']} uppercase`}>
-                  TURKIYE - <span className="bold">[ TUR-KI-YEHHHH ]</span>
-                </p> */}
+                <p className={`${css['title']} uppercase bold`}>
+                  <span className="orange">TURKIYE</span> - [ TUR-KI-YEHHHH ]
+                </p>
 
                 <p className="bold big-text">Welcome, Ethereum explorers, to Istanbul!</p>
 
                 <br />
 
-                <p>
+                <p className="big-text">
                   Our destination for Devconnect 2023 is Istanbul - A city that is home to many cultures and bridges two
                   continents, Europe and Asia. It&apos;s a popular destination for visitors because it&apos;s easy to
                   reach via its major international airport (IST), it&apos;s very affordable to live, public transport

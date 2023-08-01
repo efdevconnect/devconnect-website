@@ -16,7 +16,13 @@
 
 .city-guide-hero {
   [data-type="background"] {
-    background: #98C4CB !important;
+    background: #141420 !important;
+  }
+
+  :global(.background-title) {
+    @media(max-width: $screen-lg) {
+      display: none;
+    }
   }
 
   .hero-content {
