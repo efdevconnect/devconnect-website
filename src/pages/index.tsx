@@ -373,10 +373,10 @@ export const Footer = ({ inFoldoutMenu, onClickMenuItem }: FooterProps) => {
                     method="post"
                   >
                     <div className={css['input-container']}>
-                      <div>
+                      {/* <div>
                         <label>First name</label>
                         <input type="text" name="name" />
-                      </div>
+                      </div> */}
                       <div>
                         <label>Email</label>
                         <input type="email" required name="email" />
