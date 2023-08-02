@@ -366,6 +366,25 @@ export const Footer = ({ inFoldoutMenu, onClickMenuItem }: FooterProps) => {
               <div className={css['middle']}>
                 <div className={css['left']}>
                   <FooterMenu onClickMenuItem={onClickMenuItem} />
+
+                  <form
+                    className={css['newsletter']}
+                    action="https://login.sendpulse.com/forms/simple/u/eyJ1c2VyX2lkIjo4MjUxNTM4LCJhZGRyZXNzX2Jvb2tfaWQiOjI4NDA0MywibGFuZyI6ImVuIn0="
+                    method="post"
+                  >
+                    <div className={css['input-container']}>
+                      <div>
+                        <label>First name</label>
+                        <input type="text" name="name" />
+                      </div>
+                      <div>
+                        <label>Email</label>
+                        <input type="email" required name="email" />
+                      </div>
+                    </div>
+                    <input type="hidden" name="sender" value="support@devconnect.org" />
+                    <button className="button white sm">Subscribe to newsletter</button>
+                  </form>
                 </div>
                 {/* <a target="_blank" rel="noreferrer" href="https://devcon.org" className={css['road-to-devcon']}>
                   <p className={`${css['title']} extra-large-text title`}>
