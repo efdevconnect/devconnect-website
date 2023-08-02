@@ -492,7 +492,7 @@ const Home: NextPage = (props: any) => {
 
                     const width = mainEl.offsetWidth
 
-                    if (width > 1000) {
+                    if (width > 1100) {
                       splineRef.current.setZoom(0.65)
                     } else if (width > 700) {
                       splineRef.current.setZoom(0.5)
@@ -641,13 +641,13 @@ const Home: NextPage = (props: any) => {
               <div className="section margin-bottom" id="about">
                 <h1 className="section-header orange margin-top-less margin-bottom-less">What to Expect</h1>
 
-                <p className="extra-large-text">
+                <p className="extra-large-text margin-bottom-less">
                   Multiple events, <u>independently</u> organized by the <span className="orange">community</span>.
                   <br />
                   Each event has a unique focus, ranging from <b>beginner-friendly to expert level.</b>
                 </p>
 
-                <div className="margin-top border-top margin-bottom"></div>
+                {/* <div className="margin-top margin-bottom"></div> */}
 
                 <div className={css['topics-header']}>
                   <p className="section-header uppercase grey">Topics Include</p>

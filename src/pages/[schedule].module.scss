@@ -216,10 +216,11 @@
   }
 
   &.difficulty-based {
+
     &.Cowork {
       background: none !important;
-      --difficulty-color-bg: none !important;
-      --difficulty-color: var(--first-edition-color-1) !important;
+      --color-bg: none !important;
+      --color: var(--first-edition-color-1) !important;
   
       &:before {
         content: '';
@@ -242,31 +243,31 @@
     &:not(.Intermediate, .Advanced) {
       background: var(--first-edition-color-2);
       border-color: var(--first-edition-color-1);
-      --difficulty-color: var(--first-edition-color-1);
-      --difficulty-color-bg: var(--first-edition-color-3);
+      --color: var(--first-edition-color-1);
+      --color-bg: var(--first-edition-color-3);
     }
   
     &.Intermediate {
       background: var(--second-edition-color-2);
       border-color: var(--second-edition-color-1);
-      --difficulty-color: var(--second-edition-color-1);
-      --difficulty-color-bg: var(--second-edition-color-3);
+      --color: var(--second-edition-color-1);
+      --color-bg: var(--second-edition-color-3);
     }
   
     &.Advanced {
       background: var(--third-edition-color-2);
       border-color: var(--third-edition-color-1);
-      --difficulty-color: var(--third-edition-color-1);
-      --difficulty-color-bg: var(--third-edition-color-3);
+      --color: var(--third-edition-color-1);
+      --color-bg: var(--third-edition-color-3);
     }
   }
 
   &.domain-based {
     &.Cowork {
       background: none !important;
-      --difficulty-color-bg: none !important;
+      --color-bg: none !important;
       border-color: var(--third-edition-color-1) !important;
-      --difficulty-color: var(--third-edition-color-1) !important;
+      --color: var(--third-edition-color-1) !important;
   
       &:before {
         content: '';
@@ -291,15 +292,15 @@
     &.domain {
       background: var(--first-edition-color-2);
       border-color: var(--first-edition-color-1);
-      --difficulty-color: var(--first-edition-color-1);
-      --difficulty-color-bg: var(--first-edition-color-3);
+      --color: var(--first-edition-color-1);
+      --color-bg: var(--first-edition-color-3);
     }
   
     &:not(.domain, .Cowork) {
       background: var(--second-edition-color-2);
       border-color: var(--second-edition-color-1);
-      --difficulty-color: var(--second-edition-color-1);
-      --difficulty-color-bg: var(--second-edition-color-3);
+      --color: var(--second-edition-color-1);
+      --color-bg: var(--second-edition-color-3);
     }
   }
 
@@ -312,7 +313,7 @@
   @media (hover: hover) {
     &:hover {
       .learn-more {
-        background: var(--difficulty-color);
+        background: var(--color);
         color: white;
         pointer-events: all;
 
@@ -327,7 +328,7 @@
 .learn-more-modal-content,
 .event {
   .event-links {
-    background: var(--difficulty-color);
+    background: var(--color);
     color: white;
     --icon-color: white;
     pointer-events: all;
@@ -374,14 +375,14 @@
   display: flex;
   align-items: center;
   padding: 10px 8px;
-  color: var(--difficulty-color);
-  --icon-color: var(--difficulty-color);
-  background: var(--difficulty-color-bg);
+  color: var(--color);
+  --icon-color: var(--color);
+  background: var(--color-bg);
   font-weight: bold;
   cursor: pointer;
 
   &:hover {
-    background: var(--difficulty-color);
+    background: var(--color);
     color: white;
     --icon-color: white;
   }
@@ -436,7 +437,7 @@
   cursor: pointer;
   padding: 4px 8px;
   // color: white;
-  background: var(--difficulty-color);
+  background: var(--color);
   display: none;
 
   p {
@@ -445,8 +446,8 @@
 
   // Desktop + cursor devices (not touch)
   @media (min-width: $screen-lg) and (hover: hover) {
-    background: var(--difficulty-color-bg);
-    color: var(--difficulty-color);
+    background: var(--color-bg);
+    color: var(--color);
     display: block;
     left: 0px;
     right: 0px;
@@ -497,11 +498,11 @@
   align-items: center;
   flex-wrap: wrap;
   text-transform: uppercase;
-
   font-weight: bold;
   position: relative;
 
   .categories {
+    margin-top: 2px;
     width: 100%;
     flex-wrap: wrap;
     display: flex;
@@ -514,7 +515,7 @@
   }
 
   > * {
-    margin-right: 8px;
+    margin-right: 12px;
 
     &:last-child {
       margin-right: 0px;
@@ -670,7 +671,7 @@
     //   .event-links {
     //       color: white;
     //       --icon-color: white;
-    //       background: var(--difficulty-color) !important;
+    //       background: var(--color) !important;
     //   }
     // }
   }
@@ -864,7 +865,10 @@
           }
 
           .organizers {
-            margin-bottom: 4px;
+            width: 100%;
+            padding-bottom: 6px;
+            margin-bottom: 6px;
+            border-bottom: 1px solid var(--color);
             color: $monochrome-9;
           }
         }

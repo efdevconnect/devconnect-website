@@ -16,7 +16,8 @@
 
 .city-guide-hero {
   [data-type="background"] {
-    background: #141420 !important;
+    // background: #141420 !important;
+    background: #98C4CB !important;
   }
 
   :global(.background-title) {
@@ -63,7 +64,7 @@
 
     .left {
       @media (min-width: $screen-lg) {
-        padding-right: 120px;
+        padding-right: 60px;
       }
 
       .title {
@@ -72,9 +73,6 @@
 
       .details-1 {
         margin-bottom: 16px;
-      }
-
-      .details-2 {
       }
 
       .call-to-action {
@@ -113,7 +111,7 @@
         margin-top: 24px;
         display: flex;
         flex-direction: column;
-        @include big-text;
+        // @include big-text;
 
         @media (min-width: $screen-lg) {
           margin-top: 0px;
@@ -161,6 +159,7 @@
             display: none;
             flex-shrink: 1;
             justify-content: flex-end;
+            text-align: right;
 
             @media (min-width: $screen-sm) {
               display: flex !important;

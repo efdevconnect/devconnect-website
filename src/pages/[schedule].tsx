@@ -347,7 +347,7 @@ const Timeline = (props: any) => {
                       const useDayIndicator = !!timeOfDayArray[1] && totalDays > 1
                       const sameTimeEveryDay = shouldRepeatTimeOfDay && totalDays > 1 && time !== 'ALL DAY'
 
-                      if (props.edition === 'istanbul' && event['Stable ID'] !== 'Cowork') return null
+                      // if (event['Stable ID'] !== 'Cowork') return null
                       if (!time) return null
                       if (shouldRepeatTimeOfDay && isMultiDayEvent && index > 0) return null
 
@@ -451,11 +451,14 @@ const EventMeta = (props: any) => {
           &nbsp;{props.event['General Size']}
         </div>
       )}
-      {/* {props.event['Difficulty'] && (
-        <div className={`small-text-em ${css['difficulty']}`}>{props.event.Difficulty}</div>
-      )} */}
 
-      <div className={css['categories']}>
+      {props.event.Difficulty && (
+        <div className={`small-text-em ${css['difficulty']} ${css[props.event.Difficulty]}`}>
+          {props.event.Difficulty}
+        </div>
+      )}
+
+      <div className={`${css['categories']}`}>
         {props.event.Category &&
           props.event.Category.length > 0 &&
           props.event.Category.map((category: any) => {
@@ -466,6 +469,12 @@ const EventMeta = (props: any) => {
             )
           })}
       </div>
+
+      {/* {props.event['Difficulty'] && (
+        <div className={`tiny-text-em ${css['difficulty-based']} ${css[props.event.Difficulty]}`}>
+          Difficulty: {props.event.Difficulty}
+        </div>
+      )} */}
     </div>
   )
 }
@@ -518,7 +527,7 @@ const EventLinks = (props: any) => {
   const enableAddToCalendar = description !== null
 
   const googleCalUrl = (() => {
-    const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE&ctz=Europe/Amsterdam`)
+    const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE&ctz=Europe/Istanbul`)
     // const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE`)
 
     googleCalUrl.searchParams.append('text', `${event.Name}`)
@@ -588,9 +597,9 @@ const EventLinks = (props: any) => {
         <p>Website coming soon</p>
       )}
 
-      {props.edition === 'istanbul' && event['Stable ID'] !== 'Cowork' && <p>Location coming soon</p>}
+      {/* {event['Stable ID'] !== 'Cowork' && <p>Location coming soon</p>} */}
 
-      {(props.edition !== 'istanbul' || event['Stable ID'] === 'Cowork') && event.Location && event.Location.url && (
+      {event.Location && event.Location.url && (
         <Link href={event.Location.url} indicateExternal>
           Location
         </Link>
@@ -602,7 +611,7 @@ const EventLinks = (props: any) => {
         </Link>
       )}
 
-      {props.edition !== 'istanbul' && enableAddToCalendar && (
+      {enableAddToCalendar && (
         <>
           <div className={css['add-to-calendar']}>
             <AddToCalendarIcon className={`big-text icon`} onClick={() => setCalendarModalOpen(true)} />
@@ -1573,7 +1582,7 @@ const normalizeEvent = (eventData: any): FormattedNotionEvent => {
     'Brief Description': keyResolver('Brief Description', '[HOST] Description (280 chars, tweet size)'),
     'Time of Day': keyResolver('Time of Day', '[HOST] Event Hours'),
     Category: keyResolver('Category', '[HOST] Category'),
-    'Num. of Attendees': keyResolver('Num. of Attendees', '[HOST] Num. of Attendees'),
+    'General Size': keyResolver('Num. of Attendees', '[HOST] Num. of Attendees'),
     Difficulty: keyResolver('Difficulty', '[HOST] Difficulty'),
     Location: keyResolver('Location', '[HOST] Location'),
     Domain: keyResolver('[INT] Domain'),
@@ -1595,7 +1604,7 @@ type FormattedNotionEvent = {
   'Brief Description'?: any
   'Time of Day'?: any
   Category?: any
-  'Num. of Attendees'?: any
+  'General Size'?: any
   Difficulty?: any
   Domain: any
   Priority: any

@@ -29,79 +29,53 @@ const tabs = [
     value: 'general-info',
   },
   {
-    text: 'Plan Your Travels',
+    text: 'VISA Information',
     value: 'plan-your-travels',
     content: () => {
       return (
         <div className={`tab-content ${css['plan-your-travels']}`}>
+          {/* <p>
+            <b>Timezone</b>: GMT+3 (all year, as Turkey has no daylight savings time)
+          </p> */}
           <p>
-            <strong>Timezone</strong>: GMT+3 (all year, as Turkey has no daylight savings time)
+            <b>Visa requirements</b>: Get your Visa before your travels! Most visitors require an{' '}
+            <Link indicateExternal href="https://www.evisa.gov.tr/en/">
+              e-Visa
+            </Link>
+            . Visitors from some countries can{' '}
+            <Link indicateExternal href="https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa">
+              stay with a tourist visa
+            </Link>
+            .{' '}
           </p>
           <p>
-            <strong>Visa requirements</strong>: Get your Visa before your travels! Most visitors require an{' '}
-            <a href="https://www.evisa.gov.tr/en/">e-Visa</a>. Visitors from some countries can{' '}
-            <a href="https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa">stay with a tourist visa</a>.{' '}
+            <b>Need a Visa invitation letter?</b> Write us at support@devconnect.org (you&apos;ll need to purchase{' '}
+            <Link indicateExternal href="/cowork">
+              Devconnect Cowork
+            </Link>{' '}
+            ticket first)
           </p>
           <p>
-            <strong>Need a Visa invitation letter?</strong> Write us at support@devcon.org (you&apos;ll need to purchase{' '}
-            <a href="devconnect.org/cowork">Devconnect Cowork</a> ticket first)
+            <b>Airports</b>: Istanbul International Airport (IST) (European side), Sabiha Gökçen Airport (Asian side)
           </p>
-          <p>
-            <strong>Airports</strong>: Istanbul International Airport (IST) (European side), Sabiha Gökçen Airport
-            (Asian side)
-          </p>
-          <p>
-            <strong>Official language</strong>: Turkish. Thank you ={' '}
+          {/* <p>
+            <b>Official language</b>: Turkish. Thank you ={' '}
             <Link href="https://forvo.com/word/te%C5%9Fekk%C3%BCr_ederim/">Teşekkür ederim</Link>, GM = GA (Günaydın)
+          </p> */}
+          {/* <p>
+            <b>E-SIM providers</b>: Holafly or Airalo{' '}
           </p>
           <p>
-            <strong>E-SIM providers</strong>: Holafly or Airalo{' '}
-          </p>
-          <p>
-            <strong>SIM cards with best 4G coverage:</strong> Turkcell or Türk Telekom. We recommend buying physical SIM
-            cards in a local shop, not at the airport.
-          </p>
-          <p>
-            <strong>Average November weather</strong>: High: 15ºC (59 ºF), Low: 9ºC (47ºF)
-          </p>
+            <b>SIM cards with best 4G coverage:</b> Turkcell or Türk Telekom. We recommend buying physical SIM cards in
+            a local shop, not at the airport.
+          </p> */}
+          {/* <p>
+            <b>Average November weather</b>: High: 15ºC (59 ºF), Low: 9ºC (47ºF)
+          </p> */}
         </div>
       )
     },
   },
-  //   {
-  //     text: 'Plan Your Travels',
-  //     value: 'airport-transit',
-  //     content: () => {
-  //       return (
-  //         <div className={`tab-content small-text ${css['airport-transit']}`}>
-  //           <p className={`header small-text bold`}>Ride Sharing</p>
-  //           <p className="small-text">
-  //             You can easily Uber or Bolt into Amsterdam or to the Airport. Schiphol Airport is not too far from the City
-  //             Center.
-  //           </p>
-
-  //           <p className={`header small-text bold`}>Metro</p>
-  //           <Link
-  //             href="https://www.amsterdam.info/transport/metro/"
-  //             indicateExternal
-  //             style={{ display: 'inline-flex' }}
-  //             className="small-text hover-underline"
-  //           >
-  //             <p>View Metro Routes</p>
-  //           </Link>
-
-  //           <br />
-  //           <br />
-  //           <p className="small-text">
-  //             The Metro will likely have a stop close to your accommodation. <br />
-  //             There is a direct metro to Centraal (main station) which also then has access to many more metro and tram
-  //             stops. After midnight, trains from Schiphol Airport to Centraal Station run hourly rather than every 10-15
-  //             minutes, a taxi, Uber, or Bolt will be your best option.
-  //           </p>
-  //         </div>
-  //       )
-  //     },
-  //   },
   {
     text: 'Where to stay',
     value: 'where-to-stay',
@@ -117,36 +91,34 @@ const tabs = [
             Here are the neighborhoods we recommend staying in:
           </h3>
           <p>
-            <strong>Nişantaşı/Maçka and Osmanbey</strong>: The Devconnect Cowork is right between these two
-            neighborhoods! They are considered central, and elegant districts. Taksim and Osmanbey stations are both
-            approximately a 7-minute walking distance from the ICC.
+            <b>Nişantaşı/Maçka and Osmanbey</b>: The Devconnect Cowork is right between these two neighborhoods! They
+            are considered central, and elegant districts. Taksim and Osmanbey stations are both approximately a
+            7-minute walking distance from the ICC.
           </p>
           <p>
-            <strong>Şişli:</strong> You can reach the ICC venue by walking from many areas in Şişli.
+            <b>Şişli:</b> You can reach the ICC venue by walking from many areas in Şişli.
           </p>
           <p>
-            <strong>Beyoğlu</strong>: You can reach Beyoğlu via public transport in about 20 minutes. In the
-            neighborhood, you find the famous Taksim Square and Istiklal Street, known for their nightlife, and
-            restaurant options.
+            <b>Beyoğlu</b>: You can reach Beyoğlu via public transport in about 20 minutes. In the neighborhood, you
+            find the famous Taksim Square and Istiklal Street, known for their nightlife, and restaurant options.
           </p>
           <p>
-            <strong>Karaköy/Galata</strong>: Trendy neighborhood, known for its art galleries, boutiques, and cafes. It
-            takes about 15-20 minutes by public transport to the ICC.{' '}
+            <b>Karaköy/Galata</b>: Trendy neighborhood, known for its art galleries, boutiques, and cafes. It takes
+            about 15-20 minutes by public transport to the ICC.{' '}
           </p>
           <p>
-            <strong>Beşiktaş</strong>: A hipster neighborhood close to the Bosphorus, filled with bars, cafes,
-            restaurants, and a large student population. It takes 15-20 minutes by public transport from Beşiktaş Meydan
-            to the ICC venue.{' '}
+            <b>Beşiktaş</b>: A hipster neighborhood close to the Bosphorus, filled with bars, cafes, restaurants, and a
+            large student population. It takes 15-20 minutes by public transport from Beşiktaş Meydan to the ICC venue.{' '}
           </p>
           <p>
-            <strong>Üsküdar</strong> is a good and affordable alternative on the Asian side, very local with few
-            tourists. The frequent ferries allow easy access to the European side with a 10-minute ride to Beşiktaş and
-            a ~40 minutes metro connection under the sea to the historical peninsula. Ferries are operating until late.{' '}
+            <b>Üsküdar</b> is a good and affordable alternative on the Asian side, very local with few tourists. The
+            frequent ferries allow easy access to the European side with a 10-minute ride to Beşiktaş and a ~40 minutes
+            metro connection under the sea to the historical peninsula. Ferries are operating until late.{' '}
           </p>
           <p>
-            <strong>The Historic Peninsula:</strong> The touristic center, including the neighborhood{' '}
-            <strong>Sultanahmet</strong> with many famous landmarks like the Blue Mosque, Hagia Sophia, Topkapi Palace,
-            and the Grand Bazaar, all within walking distance of each other. Check out{' '}
+            <b>The Historic Peninsula:</b> The touristic center, including the neighborhood <b>Sultanahmet</b> with many
+            famous landmarks like the Blue Mosque, Hagia Sophia, Topkapi Palace, and the Grand Bazaar, all within
+            walking distance of each other. Check out{' '}
             <Link href="https://istanbulclues.com/istanbul-historic-peninsula/" indicateExternal>
               this resource
             </Link>{' '}
@@ -154,13 +126,13 @@ const tabs = [
           </p>
           <h3 id="far-but-nice-">Far but nice:</h3>
           <p>
-            <strong>Moda in Kadıköy</strong> is one of the most beautiful, hip, and modern districts. It has a lovely
-            coast, many good restaurants, cafes and bars. The district attracts most students and upper-middle-class
-            young adults. However, Kadıköy is far from the venue, requiring a ~1-hour ride with public transport. It
-            might be a good place to stay for a local experience outside Devconnect week.{' '}
+            <b>Moda in Kadıköy</b> is one of the most beautiful, hip, and modern districts. It has a lovely coast, many
+            good restaurants, cafes and bars. The district attracts most students and upper-middle-class young adults.
+            However, Kadıköy is far from the venue, requiring a ~1-hour ride with public transport. It might be a good
+            place to stay for a local experience outside Devconnect week.{' '}
           </p>
           <p>
-            <strong>More information about all neighborhoods:</strong>
+            <b>More information about all neighborhoods:</b>
           </p>
           <p>
             <Link href="https://propertyexperts-tr.com/en/Blog/districts-of-istanbul" indicateExternal>
@@ -211,7 +183,7 @@ const tabs = [
     },
   },
   {
-    text: "Istanbul's History and Culture",
+    text: 'History and Culture',
     value: 'history-and-culture',
     content: () => {
       return (
@@ -323,296 +295,309 @@ const tabs = [
                 </li>
               </ul>
             </li>
+            <li>
+              <p className="bold">Documentaries:</p>
+              <ul>
+                <li>
+                  <p>
+                    {' '}
+                    <b>Crossing the Bridge: The Sound of Istanbul</b>
+                  </p>
+                  <p>
+                    {' '}
+                    Award-winning director Fatih Akin takes us on a journey through Istanbul, the city that bridges
+                    Europe and Asia, and challenges familiar notions of East and West. He looks at the vibrant musical
+                    scene which includes traditional Turkish music plus rock and hip-hop.
+                  </p>
+                  <p>
+                    {' '}
+                    <b>The Cat</b>
+                  </p>
+                  <p>
+                    {' '}
+                    A profile of İstanbul and its unique people, seen through the eyes of the most mysterious and
+                    beloved animal humans have ever known, the Cat.
+                  </p>
+                  <p>
+                    {' '}
+                    <b>Layers of Istanbul (Netflix)</b>
+                  </p>
+                  <p>
+                    {' '}
+                    Layers of Istanbul documentary has 6 episodes that comprise Zeyrek, Sultanahmet Square, Sultanahmet
+                    Bazaar, Cankurtaran, and Haliç-Vefa, as well as Galata. The documentary utilizes special filming
+                    techniques to create 3D models of the structures through scanning, revealing previously unseen
+                    details.
+                  </p>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
       )
     },
   },
-  //   {
-  //     text: 'Areas to stay',
-  //     value: 'areas-to-stay',
-  //     content: () => {
-  //       return (
-  //         <div className={`tab-content small-text ${css['areas-to-stay']}`}>
-  //           <div className={`columns-2`}>
-  //             <div>
-  //               <p className={`header small-text`}>City Center</p>
-  //               <p className="bold">Areas: Old Center, Canal rings, Red light district (can be noisy)</p>
-
-  //               <ul className={css['list']}>
-  //                 <li>Very lively and has the “Amsterdam energy”</li>
-  //                 <li>Beautiful old buildings and history</li>
-  //                 <li>Accessible to popular and event-related areas</li>
-  //                 <li>Walkable to almost everything you&apos;d like to experience</li>
-  //               </ul>
-  //             </div>
-  //             <div className={css['image']}>
-  //               <Image src={AreasToStayCityCenter} alt="City center" layout="fill" objectFit="cover" priority />
-  //             </div>
-  //           </div>
-  //           <div className={`divider`}></div>
-  //           <div className={`columns-2`}>
-  //             <div>
-  //               <p className={`header small-text`}>East</p>
-  //               <p className="bold">Areas: Eastern Docklands, Plantage</p>
-
-  //               <ul className={css['list']}>
-  //                 <li>Maritime heritage, with fantastic views over the water</li>
-  //                 <li>Lots of green, botanical gardens and historical buildings</li>
-  //                 <li>
-  //                   Most ethnically diverse, traditional Turkish bakeries, Surinamese supermarkets and Middle Eastern
-  //                   lunchrooms
-  //                 </li>
-  //               </ul>
-  //             </div>
-  //             <div className={css['image']}>
-  //               <Image src={AreasToStayEast} alt="East area" layout="fill" objectFit="cover" priority />
-  //             </div>
-  //           </div>
-  //           <div className={`divider`}></div>
-  //           <div className={`columns-2`}>
-  //             <div>
-  //               <p className={`header small-text bold`}>South</p>
-  //               <p className="bold">Areas: De Pijp, Oud Zuid</p>
-
-  //               <ul className={css['list']}>
-  //                 <li>Lively area, with a hip and younger international crowd</li>
-  //                 <li>Lots of restaurants and bars and places to hang out</li>
-  //                 <li>Oud Zuid is more elegant and close to the museum district</li>
-  //               </ul>
-  //             </div>
-  //             <div className={css['image']}>
-  //               <Image src={AreasToStaySouth} alt="South area" layout="fill" objectFit="cover" priority />
-  //             </div>
-  //           </div>
-  //           <div className={`divider`}></div>
-  //           <div className={`columns-2`}>
-  //             <div>
-  //               <p className={`header small-text bold`}>West</p>
-  //               <p className="bold">Areas: Oud West, Westerpark</p>
-
-  //               <ul className={css['list']}>
-  //                 <li>
-  //                   Close to the biggest parks Vondel Park and Westerpark, which combines expansive greenery with
-  //                   industrial venues (Food Hallen, Westergas)
-  //                 </li>
-  //                 <li>
-  //                   Cool spot to eat and drink&nbsp;(
-  //                   <Link href="https://foodhallen.nl/" indicateExternal className="small-text hover-underline">
-  //                     Food Hallen
-  //                   </Link>
-  //                   )
-  //                 </li>
-  //                 <li>Explore the varied mix of local hotspots in the Westerpark</li>
-  //               </ul>
-  //             </div>
-  //             <div className={css['image']}>
-  //               <Image src={AreasToStayWest} alt="West area" layout="fill" objectFit="cover" priority />
-  //             </div>
-  //           </div>
-  //         </div>
-  //       )
-  //     },
-  //   },
-  //   {
-  //     text: 'Food and Drink',
-  //     value: 'food-and-drink',
-  //     content: () => {
-  //       return (
-  //         <div className={`tab-content small-text ${css['food-and-drink']}`}>
-  //           <p className={`header small-text bold`}>General food and drink</p>
-  //           <p className="bold">
-  //             There are so many options for eating and drinking in Amsterdam, especially in the City Center — it&apos;s
-  //             hard to name just a few!
-  //           </p>
-  //           <p className="medium-text underline">Best apple pie</p>
-  //           <ul>
-  //             <li className="bold">Winkel34</li>
-  //           </ul>
-  //           <div className={`divider`}></div>
-  //           <p className={`header small-text bold`}>Popular items to eat</p>
-  //           <ul>
-  //             <li>Poffertjes</li>
-  //             <li>Stroopwafel</li>
-  //             <li>Kibbeling</li>
-  //             <li>Dutch Cheeses</li>
-  //             <li>Pannekoeken</li>
-  //           </ul>
-  //           <div className={`divider`}></div>
-  //           <p className="bold">Brown Bars and Wine Bars are in abundance.</p>
-  //           <p>Eating Borrel is super popular at these bars</p>
-  //           <ul>
-  //             <li>Bitterballen</li>
-  //             <li>Kroket</li>
-  //             <li>Friet (fries)</li>
-  //           </ul>
-
-  //           <div className={`divider`}></div>
-  //           <p className="bold">Amsterdam based breweries</p>
-  //           <ul>
-  //             <li>
-  //               <Link href="https://goo.gl/maps/HZJQwV47YgXdSTt3A" indicateExternal>
-  //                 Brouwerij t IJ
-  //               </Link>
-  //             </li>
-  //             <li>Oedipus</li>
-  //             <li>Troost</li>
-  //           </ul>
-  //         </div>
-  //       )
-  //     },
-  //   },
-  //   {
-  //     text: 'Things to try',
-  //     value: 'things-to-try',
-  //     content: () => {
-  //       return (
-  //         <div className={`tab-content small-text ${css['food-and-drink']}`}>
-  //           <p className={`header small-text bold`}>Activities</p>
-  //           <ul>
-  //             <li className="bold">Take a Canal Cruise</li>
-  //             <li>
-  //               <span className="bold">Biking</span>
-  //               <ul>
-  //                 <li>
-  //                   Whether in the city limits or a long bike ride outside the city, Amsterdam has great and safe
-  //                   infrastructure for cyclists.
-  //                 </li>
-  //               </ul>
-  //             </li>
-  //             <li>
-  //               <span className="bold">Visit the Dutch Cheese Shops</span>
-  //               <ul>
-  //                 <li>There are TONS in Centraal</li>
-  //               </ul>
-  //             </li>
-  //             <li className="bold">Coffee Shops (Not Cafes): DYOR 🙃</li>
-  //             <li className="bold">Red Light District is an interesting and historical part of Amsterdam</li>
-  //           </ul>
-
-  //           <div className={`divider`}></div>
-  //           <p className={`header small-text bold`}>Museums</p>
-  //           <p>A lot of museums are located near each other at Museum square</p>
-  //           <ul>
-  //             <li>Rijksmuseum</li>
-  //             <li>Van Gogh museum</li>
-  //             <li>Stedelijk museum </li>
-  //             <li>MOCO museum</li>
-  //             <li>Heineken Experience</li>
-  //             <li>Anne Frank Museum</li>
-  //             <li>Straat museum (street art)</li>
-  //             <li>Nxt museum</li>
-  //           </ul>
-  //           <div className={`divider`}></div>
-  //           <p className={`header small-text bold`}>Parks</p>
-  //           <p>Main shopping districts is at the Kalverstraat and Leidsestraat</p>
-  //           <ul>
-  //             <li>Vondel Park (most popular and accessible)</li>
-  //             <li>Westerpark </li>
-  //             <li>Oosterpark</li>
-  //             <li>Rembrandt Park</li>
-  //             <li>Sarphatipark, a nice smaller park in De Pijp</li>
-  //           </ul>
-  //           <div className={`divider`}></div>
-  //           <p className={`header small-text bold`}>Markets</p>
-  //           <ul>
-  //             <li>
-  //               <Link href="https://albertcuyp-markt.amsterdam/?lang=en" indicateExternal>
-  //                 Albert Cuyp Market
-  //               </Link>
-  //             </li>
-  //             <li>Waterloopplein</li>
-  //             <li>
-  //               <Link href="https://noordermarkt-amsterdam.nl/" indicateExternal>
-  //                 Noordermarkt
-  //               </Link>
-  //             </li>
-  //             <li>Ten Kate market</li>
-  //           </ul>
-  //           <div className={`divider`}></div>
-  //           <p className={`header small-text bold`}>Shopping</p>
-  //           <p>Main shopping districts is at the Kalverstraat and Leidsestraat</p>
-  //           <ul>
-  //             <li>Located between Leidsestraat and the canals you can find the nine streets (negen straatjes)</li>
-  //             <li>The big, well known department stores are the Bijenkort and Magna Plaza</li>
-  //             <li>PC Hooftstraat is Amsterdam&apos;s most exclusive shopping street </li>
-  //           </ul>
-  //           <div className={`divider`}></div>
-  //           <p className={`header small-text bold`}>Explore Amsterdam North</p>
-  //           <p>Take a free ferry ride across the river (IJ). Ferries leave from behind Central Station </p>
-  //           <ul>
-  //             <li>
-  //               Go to Buiksloterweg to visit the A&apos;DAM tower, EYE movie museum, swing over the edge of the rooftop
-  //               bar or chill at the garden of Tolhuistuin.
-  //               <ul>
-  //                 <li>
-  //                   Places to visit in the area: Nxt museum, Cafe de Ceuvel, Oedipus Brewery, Skatecafe, FC Hyena, Hangar
-  //                 </li>
-  //                 <li> Walk or bike along the river and take the ferry back from NDSM </li>
-  //               </ul>
-  //             </li>
-  //             <li>
-  //               Go to NDSM to visit the old shipwharf, one of the most artistic areas of Amsterdam
-  //               <ul>
-  //                 <li>
-  //                   Places to visit in the area: STRAAT museum (street art), Anne Frank mural painting, NDSM (wharf /
-  //                   warehouse), Nxt museum, Ijver, Noorderlight or relax at the mini-beach of Pllek
-  //                 </li>
-  //                 <li> Walk or bike along the river and take the ferry back from Buiksloterweg</li>
-  //               </ul>
-  //             </li>
-  //           </ul>
-  //         </div>
-  //       )
-  //     },
-  //   },
-  //   {
-  //     text: 'General tips',
-  //     value: 'general-tips',
-  //     content: () => {
-  //       return (
-  //         <div className={`tab-content small-text ${css['general-tips']}`}>
-  //           <p className={`header small-text bold`}>General</p>
-  //           <p className="bold underline">Places do not open very early in the mornings in Amsterdam</p>
-  //           <div className={`divider`}></div>
-  //           <p className={`header small-text bold`}>Attractions</p>
-  //           <p className={`${css['no-clearance']} bold`}>
-  //             Pre-purchase tickets where possible for museums and popular places to visit
-  //           </p>
-  //           <ul className={css['indent']}>
-  //             <li>This is to avoid long queues – especially building into the high season (June to August)</li>
-  //           </ul>
-  //           <div className={`divider`}></div>
-  //           <p className={`header small-text bold`}>Restaurants</p>
-  //           <p className={`${css['no-clearance']} bold`}> Book restaurants in advance</p>
-  //           <ul className={css['indent']}>
-  //             <li>They get booked up and packed very quickly, so it&apos;s best to book to avoid disappointment</li>
-  //           </ul>
-
-  //           <div className={`divider`}></div>
-  //           <p className={`header small-text bold`}>Biking / Cyclists</p>
-  //           <p className={`${css['no-clearance']}`}>Bike Rentals</p>
-  //           <p className={`${css['no-clearance']} bold`}>
-  //             If you are renting a bike, please be very mindful of locking it securely (bikes do get stolen)
-  //           </p>
-  //           <ul className={css['indent']}>
-  //             <li>Also be VERY MINDFUL of where you park your bike</li>
-  //             <li>
-  //               You can&apos;t just park it anywhere on the street, it will be removed by the Gemeente (Amsterdam
-  //               municipality) if placed incorrectly.
-  //             </li>
-  //           </ul>
-  //           <br />
-  //           <p className={`${css['no-clearance']}`}>Cyclists</p>
-  //           <p className={`${css['no-clearance']} bold`}>Mind the cyclists – and cycling lanes</p>
-  //           <ul className={css['indent']}>
-  //             <li>You will annoy cyclists if you are in the lanes</li>
-  //             <li>And will probably just get knocked over by the incoming bikes.</li>
-  //           </ul>
-  //         </div>
-  //       )
-  //     },
-  //   },
+  {
+    text: 'Arrival',
+    value: 'arriving-in-the-city',
+    content: () => {
+      return (
+        <div className="tab-content">
+          <p>
+            <b>Currency</b>: Turkish Lira{' '}
+          </p>
+          <p>
+            <b>Credit Card:</b> Widely used in Istanbul, you don&apos;t need much cash.{' '}
+          </p>
+          <p>
+            <b>Best exchange:</b> We recommend avoiding exchanges at the airport for their poor rates. There are lots of
+            change offices in every district.
+          </p>
+          <p>
+            <b>E-SIM providers</b>: Holafly or Airalo{' '}
+          </p>
+          <p>
+            <b>SIM cards with best 4G coverage:</b> Turkcell or Türk Telekom. We recommend buying physical SIM cards in
+            a local shop, not at the airport.
+          </p>
+          <p>
+            <b>Tipping culture</b>: 5-10% or rounding up
+          </p>
+          <p>
+            <b>Tap Water</b>: <b>NOT</b> safe to drink. Bottled water is easy to find.
+          </p>
+          <p>
+            🚨 <b>Emergency number: 112</b>
+          </p>
+        </div>
+      )
+    },
+  },
+  {
+    text: 'Getting Around',
+    value: 'getting-around',
+    content: () => {
+      return (
+        <div className="tab-content">
+          <p>
+            Public transport in Istanbul is extensive and well-developed, making it easy to move around the city. It is
+            way better to use public transport than a car, due to heavy traffic, and difficulty finding parking.
+            Especially during <b>rush hours between 5:00-6:30 PM</b>, it will be basically impossible to find a taxi.{' '}
+          </p>
+          <h3 id="use-one-of-the-many-public-transportation-options-">
+            Use one of the many public transportation options:
+          </h3>
+          <p>
+            <b>Metro</b>: The fastest way to get around, with several lines connecting different parts of the city. Look
+            for the red, blue, and white M signs to find a metro station.
+          </p>
+          <p>
+            <b>Metrobus:</b> Segregated express bus line on the Main D100 highway. Goes from the Asian side of the city
+            all the way to the end of Europe, and crosses the bridge.
+          </p>
+          <p>
+            <b>Tram</b>: Trams cover many popular areas, yet there are only three lines.
+          </p>
+          <p>
+            <b>Bus</b>: Most widely used form of public transport in Istanbul, with around 500 lines and 8,000 stops.
+          </p>
+          <p>
+            <b>Ferry (Vapur)</b>: A fun way to cross the Bosphorus between the European and Asian sides of Istanbul.
+          </p>
+          <p>
+            <b>Dolmuş (shared taxis)</b>: These minibuses are more affordable than taxis, you just hop on and pay cash
+            in the vehicle.{' '}
+          </p>
+          <p>
+            <b>Marmaray:</b> The rail connection between European and Asian Istanbul via a tunnel beneath the Bosphorus.
+          </p>
+          <p>
+            👉 To use all public transportation in Istanbul you will need the <b>Istanbulkart</b>. You can simply get
+            the card and top it up at kiosks near metro stations, piers, and bus stations. 💵 Approximate costs: 9.90 TL
+            ($0.4) each way
+          </p>
+          <p>
+            🦄 Cowork attendees also have the option to pre-order a discounted metro card when they purchase their
+            Cowork ticket. Metro cards will then be available for pickup at registration and pre-registration for those
+            who selected them.{' '}
+          </p>
+          <h2 id="transportation-apps">Transportation apps</h2>
+          <p>
+            <b>İstanbulkart</b>: Official transport app. A Turkish mobile number might be needed (you can get one with a
+            physical SIM and with some e-SIMs). You can also just get the physical İstanbulkart at kiosks close to the
+            stations.
+          </p>
+          <p>
+            <b>Uber:</b> It is used to call verified official yellow taxis, not personal drivers.{' '}
+          </p>
+          <p>
+            <b>BiTaksi:</b> Uber-like app, locally-made.
+          </p>
+          <p>
+            <a href="https://www.marti.tech/">Marti</a> and <a href="https://fenix.life/index-tr.html">Fenix</a>: Shared
+            scooter apps are widely used. Marti has the “MartiTag” mode that works like Uber.
+          </p>
+          <p>
+            <a href="https://www.isbike.istanbul/">**isbike</a>:** City bikes by the municipality. However, the city is
+            not very bikeable. There are some good bikeable zones at the coast, you can see them on the isbike map.
+          </p>
+          <p>
+            <b>Moovit:</b> Route planning and real-time information on public transport.
+          </p>
+          <p>
+            <b>Google Maps:</b> Works OK, yet, bus times might not be accurate.
+          </p>
+          <h2 id="from-the-airport-to-the-city">From the Airport to the City</h2>
+          <p>
+            We recommend using public transport because taxis are not easy to find. If you want to use the yellow taxis,
+            you should use Uber or BiTaksi to ensure you can get the best, fair rate.
+          </p>
+          <p>These are the transportation services offering transit between the airport and the city center:</p>
+          <p>
+            <b>Havabus</b>: Official airport shuttle service operating between Istanbul Sabiha Gökçen Airport (SAW) and
+            Taksim, Kadikoy, and Yenisahra.{' '}
+          </p>
+          <p>
+            <b>Havaist</b>: Official airport shuttle service between the Istanbul Airport (IST) and many destinations in
+            the city.{' '}
+          </p>
+          <p>
+            <b>IETT</b> (İstanbul Elektrik Tramvay ve Tünel İşletmeleri): IETT is a general public transportation
+            provider that operates bus routes.
+          </p>
+          <p>
+            <b>Metro</b>: M4 metro line at the Sabiha Gökçen airport, and M11 at Istanbul Airport (does not reach the M2
+            line yet but ends at Kağıthane).{' '}
+          </p>
+          <p>
+            <b>Resources and more information:</b>
+          </p>
+          <p>
+            <a href="https://istanbul-tourist-information.com/en/public-transport-in-istanbul/">
+              https://istanbul-tourist-information.com/en/public-transport-in-istanbul/
+            </a>
+          </p>
+          <p>
+            <a href="https://www.chasingthedonkey.com/getting-around-istanbul-transport/">
+              https://www.chasingthedonkey.com/getting-around-istanbul-transport/
+            </a>
+          </p>
+        </div>
+      )
+    },
+  },
+  {
+    text: 'Tips from a local',
+    value: 'local-tips',
+    content: () => {
+      return (
+        <div className="tab-content">
+          <p>
+            <b>Negotiate on markets</b>
+          </p>
+          <ul>
+            <li>
+              Always bargain at bazaars, like the Grand Bazar or Spice Market. There&apos;s always room for some
+              discount. These guys are sales experts!
+            </li>
+          </ul>
+          <p>
+            <b>Taxis</b>
+          </p>
+          <ul>
+            <li>Risk of scamming in regular taxis is high.</li>
+            <li>Use Uber or BiTaksi apps to find a taxi, follow your route, and always check the license plate.</li>
+            <li>
+              It can get difficult to find a taxi in rush hours or crowded areas, so better use public transport then.
+            </li>
+            <li>
+              If you need to use a regular taxi, always check that the taximeter is turned on and counting when
+              you&apos;re driving.
+            </li>
+            <li>
+              In case you think you were overcharged or have a problem take note of the taxi plate. You can file a
+              complaint at the “White Desk” of the municipality by calling “153”, from the{' '}
+              <a href="https://cozummerkezi.ibb.istanbul/application/cozummerkezi">website</a>,{' '}
+              <a href="https://play.google.com/store/apps/details?id=com.tr.gov.ibb.istanbulsenin">Android</a>, or{' '}
+              <a href="https://apps.apple.com/tr/app/lstanbul-senin/id1534342254?l=tr">Apple</a> apps.
+            </li>
+          </ul>
+          <p>
+            <b>How do I behave around the cats “miyav”?</b>{' '}
+          </p>
+          <p>
+            Many locals view the cats as communally-owned pets rather than traditional strays, and it&apos;s common to
+            feed them. Here there is a documentary about cats in Istanbul: “Kedi”{' '}
+            <a href="https://www.youtube.com/watch?v=PpG0z-npFIY&amp;ab_channel=vlogbrothers">
+              https://www.youtube.com/watch?v=PpG0z-npFIY&amp;ab_channel=vlogbrothers
+            </a>
+          </p>
+          <p>
+            <b>Be friendly</b> 🙂
+          </p>
+          <p>It&#39;s essential to be friendly and get along well with taxi drivers and local shopkeepers.</p>
+          <p>
+            <b>Do locals speak English?</b>
+          </p>
+          <ul>
+            <li>
+              Yes they do, even though their English may not be very fluent. Shopkeepers are very helpful in every
+              matter, and you can feel comfortable asking them questions. :)
+            </li>
+          </ul>
+        </div>
+      )
+    },
+  },
+  {
+    text: 'Safety',
+    value: 'safety',
+    content: () => {
+      return (
+        <div className="tab-content">
+          <p>
+            Istanbul is generally a safe city, but it&apos;s still a major city, so please consider the following tips:
+          </p>
+          <ul>
+            <li>
+              <b>Keep an eye on your belongings</b>, especially in crowded and touristic areas like the Grand Bazaar or
+              during peak times in public transport.
+            </li>
+            <li>
+              <b>Use reputable apps like BiTaksi or Uber</b>, and always check the license plate matches what&#39;s
+              shown in the app.
+            </li>
+            <li>
+              <b>Use public transport</b> (check the “Getting around” section above), as traffic in Istanbul can get
+              crazy (especially during peak times), with drivers being reckless or ignoring traffic signs.
+            </li>
+            <li>
+              <b>Solo Travelers</b>: Especially if you&#39;re a solo female traveler, avoid walking alone at night (use
+              BiTaski or Uber), stay in busy or tourist areas (check the neighborhood section above), check in with
+              friends and tell them where you go, and <b>trust your instincts!</b>{' '}
+              <b>If something doesn&#39;t feel right, trust your gut.</b> For example, if a taxi driver seems
+              untrustworthy, don&#39;t feel obligated to get into the car.
+            </li>
+            <li>
+              <b>Respect the dress code for religious sites</b> like the Blue Mosque. Fatih, the neighborhood where the
+              Blue Mosque and many other historical buildings are located, is quite conservative. It&#39;s better to
+              follow the dress code there.
+            </li>
+            <li>
+              <b>Earthquake safety</b>: While Istanbul was not affected by the heavy earthquakes in Turkey and Syria in
+              February 2023, earthquake safety might be on some of your minds. It is difficult to predict the occurrence
+              of an earthquake. For earthquake preparedness, it is good to inform yourself about the safety of the
+              district you are staying. The Cowork venue (ICC) has been{' '}
+              <a href="LINK">certified for resistance to earthquakes</a>.
+            </li>
+          </ul>
+          <p>
+            When you keep these tips in mind, you&apos;ll for sure have a memorable and enjoyable Devconnect experience.
+          </p>
+        </div>
+      )
+    },
+  },
 ]
 
 export const Tabs = (props: any) => {
@@ -671,7 +656,7 @@ const List = (props: any) => {
         <div className={`${css['left']} uppercase`}>
           <Visa className={`${css['icon']} icon`} />
           <p>
-            <b>Visa:</b> tourist visa (30/90 days) & e-vsa
+            <b>Visa:</b> tourist visa (30/90 days) & e-visa
           </p>
         </div>
         <AnchorLink
@@ -713,13 +698,20 @@ const List = (props: any) => {
           Language Guide
         </Link> */}
       </div>
+
       <div className={css['row']}>
+        <div className={`${css['left']} uppercase`}>
+          <Water className={`${css['icon']} icon`} />
+          <b>Average November weather</b>: 9ºC(47ºF) to 15ºC (59ºF)
+        </div>
+      </div>
+      {/* <div className={css['row']}>
         <div className={`${css['left']} uppercase`}>
           <Water className={`${css['icon']} icon`} />
           <p className="bold">WATER: &nbsp;</p>
           <p>Medium safe to drink</p>
         </div>
-        {/* <AnchorLink
+        <AnchorLink
           href={`#faq`}
           className={`${css['right']} orange uppercase tiny-text hover-underline generic`}
           onClick={(e: any) => {
@@ -729,8 +721,8 @@ const List = (props: any) => {
           }}
         >
           FAQ
-        </AnchorLink> */}
-      </div>
+        </AnchorLink>
+      </div> */}
     </div>
   )
 }
@@ -749,7 +741,9 @@ const CityGuide: NextPage = () => {
         imageProps={{ src: HeroImage, alt: 'Amsterdam' }}
       >
         <div className={css['hero-content']}>
-          <p className="uppercase extra-large-text bold secondary title">BYTE & BITE GUIDE —</p>
+          <p className="uppercase extra-large-text bold secondary title">
+            İstanbul, Byte by Byte - A Guide for Devconnect Attendees —
+          </p>
 
           <div className={css['items']}>
             {tabs.map(tab => {

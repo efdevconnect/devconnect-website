@@ -14,5 +14,9 @@
     margin-right: 8px;
     margin-bottom: 16px;
     background: white;
+
+    [data-type="link-text"] {
+        text-decoration: none !important;
+    }
   }
 }
