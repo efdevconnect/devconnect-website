@@ -188,23 +188,6 @@ const tabs = [
     content: () => {
       return (
         <div className={`tab-content ${css['history-and-culture']}`}>
-          <div
-            className="margin-bottom"
-            style={{ width: '100%', display: 'flex', justifyContent: 'center', maxWidth: '700px' }}
-          >
-            <div className="aspect">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/BzMYQIo-0NA"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-
           <p>
             Istanbul lies in a geographically unique spot, being the only city that covers two continents - Europe and
             Asia. Istanbul is not only a fusion of continents, it&apos;s also a unique blend of cultures. Ancient
@@ -766,7 +749,6 @@ const CityGuide: NextPage = () => {
         <div className="section fade-in-up">
           <div className={`${css['body']} clear-vertical`} id="general-info">
             <Tabs tabs={tabs} accordionRefs={accordionRefs} />
-
             <div className={css['general-info']}>
               <div className={css['left']}>
                 <p className={`${css['title']} uppercase bold`}>
@@ -817,16 +799,52 @@ const CityGuide: NextPage = () => {
                 <List accordionRefs={accordionRefs} />
               </div>
             </div>
-
+            <p className="section-header orange margin-top-less">Before Devconnect</p>
             <Accordion>
-              {tabs.slice(1).map((tab, index) => {
+              {tabs.slice(1, 5).map((tab, index) => {
                 const tabContent = tabs[index + 1]
 
                 return (
                   <AccordionItem
                     key={tab.value}
                     // title={tab.text}
-                    title={<p className="orange uppercase large-text bold">{tab.text}</p>}
+                    title={<p className="uppercase large-text bold">{tab.text}</p>}
+                    id={tab.value}
+                    ref={el => (accordionRefs.current[tab.value] = el)}
+                  >
+                    {tabContent.content && tabContent.content()}
+                  </AccordionItem>
+                )
+              })}
+            </Accordion>
+            {/* 
+            <div
+              className="margin-bottom-less margin-top-less"
+              style={{ width: '100%', display: 'flex', justifyContent: 'center', maxWidth: '700px' }}
+            >
+              <div className="aspect">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/BzMYQIo-0NA"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div> */}
+
+            <p className="section-header orange margin-top-less">During Devconnect</p>
+            <Accordion>
+              {tabs.slice(5).map((tab, index) => {
+                const tabContent = tabs[index + 1]
+
+                return (
+                  <AccordionItem
+                    key={tab.value}
+                    // title={tab.text}
+                    title={<p className="uppercase large-text bold">{tab.text}</p>}
                     id={tab.value}
                     ref={el => (accordionRefs.current[tab.value] = el)}
                   >
