@@ -802,7 +802,7 @@ const CityGuide: NextPage = () => {
             <p className="section-header orange margin-top-less">Before Devconnect</p>
             <Accordion>
               {tabs.slice(1, 5).map((tab, index) => {
-                const tabContent = tabs[index + 1]
+                const tabContent = tab
 
                 return (
                   <AccordionItem
@@ -838,7 +838,7 @@ const CityGuide: NextPage = () => {
             <p className="section-header orange margin-top-less">During Devconnect</p>
             <Accordion>
               {tabs.slice(5).map((tab, index) => {
-                const tabContent = tabs[index + 1]
+                const tabContent = tab
 
                 return (
                   <AccordionItem
