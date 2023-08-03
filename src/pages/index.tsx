@@ -504,7 +504,7 @@ const Home: NextPage = (props: any) => {
                     const mainEl = document.getElementById('main')
 
                     if (!mainEl) {
-                      splineRef.current.setZoom(0.7)
+                      splineRef.current.setZoom(0.5)
 
                       return
                     }
@@ -512,9 +512,9 @@ const Home: NextPage = (props: any) => {
                     const width = mainEl.offsetWidth
 
                     if (width > 1100) {
-                      splineRef.current.setZoom(0.65)
-                    } else if (width > 700) {
                       splineRef.current.setZoom(0.5)
+                    } else if (width > 700) {
+                      splineRef.current.setZoom(0.4)
                     } else {
                       splineRef.current.setZoom(0.3)
                     }
