@@ -48,6 +48,117 @@ import useDimensions from 'react-cool-dimensions'
 
 const FAQ = [
   {
+    text: 'How can I get involved?',
+    value: 'how-involve',
+    content: () => {
+      return (
+        <>
+          <p className="bold">Volunteer</p>
+          <p>
+            We will be looking for volunteers for Devconnect Istanbul soon! Follow [@
+            EFDevconnect](twitter.com/efdevconnect) to stay up to date.
+          </p>
+          <p className="bold">Be an event host</p>
+          <p>
+            If you want to organize an event during Devconnect, head over to the [event host
+            guide](https://www.notion.so/ef-events/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022?pvs=4).
+          </p>
+          <p className="bold">Media</p>
+          <p>
+            You want to cover Devconnect? Cool! Write us at press@devconnect.org for more info, or inquire to obtain a
+            media pass that grants you access to the Devconnect Cowork{' '}
+            <Link
+              href="https://docs.google.com/forms/d/1O7N0GQgyB9e7He6XtFKFu1zVwOM5a9HtO_pEOTctsr8/prefill"
+              indicateExternal
+            >
+              here
+            </Link>
+            . <span className="bold">We, the Devconnect team, are currently not seeking media partnerships.</span>
+          </p>
+        </>
+      )
+    },
+  },
+  {
+    text: 'I need a Visa invitation letter, can you help?',
+    value: 'visa',
+    content: () => {
+      return (
+        <>
+          <p>
+            Yes, we are happy to help! You&apos;ll need a{' '}
+            <Link href="/cowork" indicateExternal>
+              ticket for the Devconnect Cowork
+            </Link>{' '}
+            first, then you can write us at support@devconnect.org.
+          </p>
+        </>
+      )
+    },
+  },
+  {
+    text: 'How can I get a press pass?',
+    value: 'press-pass',
+    content: () => {
+      return (
+        <>
+          <p>
+            To inquire about obtaining a media pass for Devconnect,{' '}
+            <Link
+              href="https://docs.google.com/forms/d/1O7N0GQgyB9e7He6XtFKFu1zVwOM5a9HtO_pEOTctsr8/prefill"
+              indicateExternal
+            >
+              please fill out this form.
+            </Link>{' '}
+          </p>
+          <p>
+            A press pass grants access to the main Coworking Space that we are organizing. Please note that all other
+            events are independently hosted, and a press pass does not guarantee entry into them.{' '}
+          </p>
+          <p>
+            Ask us for more info about the event at <span className="bold">press@devconnect.org</span>.
+          </p>
+        </>
+      )
+    },
+  },
+  {
+    text: 'Can I sponsor Devconnect?',
+    value: 'sponsor',
+    content: () => {
+      return (
+        <>
+          <p>
+            The Devconnect team, responsible for organizing the coworking space in ICC, is currently not seeking
+            sponsorships.
+          </p>
+          <p>
+            Some of the independent teams organizing the different events might be seeking sponsorships. You can find
+            their websites and contact information <Link href="/schedule">on the curated Devconnect schedule</Link>.
+          </p>
+        </>
+      )
+    },
+  },
+  {
+    text: 'Can I speak at Devconnect?',
+    value: 'speak',
+    content: () => {
+      return (
+        <>
+          <p>
+            The Devconnect team, responsible for organizing the coworking space in ICC, is not looking for speakers.
+          </p>
+          <p>
+            Some of the independent teams organizing the different events might be looking for speakers or panelists.
+            You can find their websites and contact information{' '}
+            <Link href="/schedule">on the curated Devconnect schedule</Link>.
+          </p>
+        </>
+      )
+    },
+  },
+  {
     text: 'How do I know if Devconnect is for me?',
     value: 'howdoiknow',
     content: () => {

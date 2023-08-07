@@ -67,8 +67,10 @@ const SwipeToScroll = (props: SwipeToScrollProps) => {
 
     if (down) {
       el.current.style.cursor = 'grabbing'
+      el.current.classList.add(css['dragging'])
     } else {
       el.current.style.cursor = 'auto'
+      el.current.classList.remove(css['dragging'])
     }
   })
 

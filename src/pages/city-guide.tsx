@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import React from 'react'
 import { Footer } from './index'
+import ImageNew from 'next/image'
 import Hero from 'common/components/hero'
 // import AmsterdamHero from 'assets/images/amsterdam-hero.jpg'
 import HeroImage from 'assets/images/city-guide/city-guide.png'
@@ -23,6 +24,12 @@ import AnchorLink from 'react-anchor-link-smooth-scroll'
 import Link, { useDraggableLink } from 'common/components/link'
 import Accordion, { AccordionItem } from 'common/components/accordion'
 import Head from 'next/head'
+import JohnFreelyIstanbul from 'assets/images/city-guide/media/john-freely-istanbul.png'
+import MyNameIsRed from 'assets/images/city-guide/media/my-name-is-red.png'
+import Distant from 'assets/images/city-guide/media/distant.png'
+import FromRussiaWithLove from 'assets/images/city-guide/media/from-russia-with-love.png'
+import CrossingTheBridge from 'assets/images/city-guide/media/crossing-the-bridge.png'
+import TheCat from 'assets/images/city-guide/media/the-cat.png'
 
 const tabs = [
   {
@@ -495,108 +502,152 @@ const tabs = [
             If you want to delve deeper into understanding Istanbul&apos;s culture, you can get started with some of the
             following movie and book recommendations from a local.{' '}
           </p>
-          <ul>
-            <li>
-              <p className="bold">Books:</p>
 
-              <ul>
-                <li className="margin-bottom-less">
-                  <p> John Freely&apos;s Istanbul - John Freely</p>
-                  <p>
-                    John Freely is an American Academician who has lived in Istanbul for many years and is a lover of
-                    Istanbul. In this book, he describes Istanbul in a very detailed and easy-to-read manner.
-                    Istanbulites, who love Freely very much, named the Boğaziçi University Western Languages Faculty
-                    building after John Freely.
-                  </p>
-                </li>
-                <li className="margin-bottom-less">
-                  <p>My Name Is Red - Orhan Pamuk</p>
-                  <p>
-                    Orhan Pamuk is a Nobel Prize winner author who was raised in Istanbul. All of his books are related
-                    to Istanbul. If you are interested in Postmodernism in Literature, you can find no better narrative
-                    builder than Pamuk. You can also read &quot;Snow&quot;, and &quot;The Museum of Innocence&quot; from
-                    Pamuk.
-                  </p>
-                </li>
-                <li className="margin-bottom-less">
-                  <p>Murder on the Orient Express - Agatha Christie</p>
-                  <p>Do you like detective novels? Agatha Christie&#39;s work can help you get to know Istanbul.</p>
-                </li>
-                <li className="margin-bottom-less">
-                  <p>Peace - Ahmet Hamdi Tanpınar</p>
-                  If you are a true bookworm and would like to learn both the Turkish way of life and Istanbul in fine
-                  detail and with a poetic-masterfully written novel, Tanpınar will be the best choice for you. It is
-                  THE masterpiece.
-                </li>
-              </ul>
-            </li>
-            <li>
-              <p className="bold">Movies:</p>
+          <p className="bold">Books</p>
 
-              <ul>
-                <li className="margin-bottom-less">
-                  <p>
-                    Distant - 2002 - Nuri Bilge Ceylan
-                    <p>
-                      You can see the Historical European Quarter of Istanbul in this film. Distant won Palme d&apos;Or
-                      and Gran Prize of the Jury, Best Actor prizes from the Cannes Film Festival.
-                    </p>
-                  </p>
-                </li>
-                <li className="margin-bottom-less">
-                  <p> From Russia With Love- 1963 - James Bond</p>
-                  <p>
-                    In this film, you can see the legendary “Orient Express” Train line that connects Paris to Istanbul.
-                  </p>
-                </li>
-                <li className="margin-bottom-less">
-                  <p>Skyfall - 2012- James Bond</p>
-                  <p>
-                    People can see some of the most iconic places of Istanbul such as Grand Bazaar and Eminönü and
-                    Bosphorus in this Film.
-                  </p>
-                  <p>If you want to go even deeper, there are lots of films and series on Netflix about Istanbul.</p>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <p className="bold">Documentaries:</p>
-              <ul>
-                <li>
-                  <p>
-                    {' '}
-                    <b>Crossing the Bridge: The Sound of Istanbul</b>
-                  </p>
-                  <p>
-                    {' '}
-                    Award-winning director Fatih Akin takes us on a journey through Istanbul, the city that bridges
-                    Europe and Asia, and challenges familiar notions of East and West. He looks at the vibrant musical
-                    scene which includes traditional Turkish music plus rock and hip-hop.
-                  </p>
-                  <p>
-                    {' '}
-                    <b>The Cat</b>
-                  </p>
-                  <p>
-                    {' '}
-                    A profile of İstanbul and its unique people, seen through the eyes of the most mysterious and
-                    beloved animal humans have ever known, the Cat.
-                  </p>
-                  <p>
-                    {' '}
-                    <b>Layers of Istanbul (Netflix)</b>
-                  </p>
-                  <p>
-                    {' '}
-                    Layers of Istanbul documentary has 6 episodes that comprise Zeyrek, Sultanahmet Square, Sultanahmet
-                    Bazaar, Cankurtaran, and Haliç-Vefa, as well as Galata. The documentary utilizes special filming
-                    techniques to create 3D models of the structures through scanning, revealing previously unseen
-                    details.
-                  </p>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <SwipeToScroll>
+            <div className={css['media']}>
+              {[
+                {
+                  thumbnail: JohnFreelyIstanbul,
+                  thumbnailAlt: "Bookcover: John Freely's Istanbul",
+                  title: "John Freely's Istanbul",
+                  author: 'John Freely',
+                  description:
+                    'John Freely is an American Academician who has lived in Istanbul for many years and is a lover of Istanbul. In this book, he describes Istanbul in a very detailed and easy-to-read manner. Istanbulites, who love Freely very much, named the Boğaziçi University Western Languages Faculty building after John Freely.',
+                },
+                {
+                  thumbnail: MyNameIsRed,
+                  thumbnailAlt: 'Bookcover: My Name Is Red',
+                  title: 'My Name Is Red',
+                  author: 'Orhan Pamuk',
+                  description:
+                    ' Orhan Pamuk is a Nobel Prize winner author who was raised in Istanbul. All of his books are related to Istanbul. If you are interested in Postmodernism in Literature, you can find no better narrative builder than Pamuk. You can also read "Snow", and "The Museum of Innocence" from Pamuk',
+                },
+                {
+                  thumbnail: JohnFreelyIstanbul,
+                  thumbnailAlt: 'Bookcover: Murder on the Orient Express',
+                  title: 'Murder on the Orient Express',
+                  author: 'Agatha Christie',
+                  description:
+                    "Do you like detective novels? Agatha Christie's work can help you get to know Istanbul.",
+                },
+                {
+                  thumbnail: JohnFreelyIstanbul,
+                  thumbnailAlt: 'Bookcover: Peace',
+                  title: 'Peace',
+                  author: 'Ahmet Hamdi Tanpınar',
+                  description:
+                    'If you are a true bookworm and would like to learn both the Turkish way of life and Istanbul in fine detail and with a poetic-masterfully written novel, Tanpınar will be the best choice for you. It is THE masterpiece.',
+                },
+              ].map(entry => {
+                return (
+                  <div className={css['media-item']} key={entry.title}>
+                    <div className={css['image']}>
+                      <ImageNew src={entry.thumbnail} alt={entry.thumbnailAlt || 'Media thumbnail'} />
+                    </div>
+                    <div className={css['meta']}>
+                      <div className="bold">{entry.title}</div>
+                      <div className="small-text bold">{entry.author}</div>
+                      <div className="small-text">{entry.description}</div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </SwipeToScroll>
+
+          <p className="bold">Movies</p>
+
+          <SwipeToScroll>
+            <div className={css['media']}>
+              {[
+                {
+                  thumbnail: Distant,
+                  thumbnailAlt: 'Movie poster: Distant',
+                  title: 'Distant',
+                  author: 'Nuri Bilge Ceylan',
+                  description:
+                    'You can see the Historical European Quarter of Istanbul in this film. Distant won Palme d&apos;Or and Gran Prize of the Jury, Best Actor prizes from the Cannes Film Festival.',
+                },
+                {
+                  thumbnail: FromRussiaWithLove,
+                  thumbnailAlt: 'Movie poster: From Russia With Love',
+                  title: 'From Russia With Love',
+                  author: 'James Bond',
+                  description:
+                    'In this film, you can see the legendary “Orient Express” Train line that connects Paris to Istanbul.',
+                },
+                {
+                  thumbnail: JohnFreelyIstanbul,
+                  thumbnailAlt: 'Movie poster: Skyfall',
+                  title: 'Skyfall',
+                  author: 'James Bond',
+                  description:
+                    'People can see some of the most iconic places of Istanbul such as Grand Bazaar and Eminönü and Bosphorus in this Film.',
+                },
+              ].map(entry => {
+                return (
+                  <div className={css['media-item']} key={entry.title}>
+                    <div className={css['image']}>
+                      <ImageNew src={entry.thumbnail} alt={entry.thumbnailAlt || 'Media thumbnail'} />
+                    </div>
+                    <div className={css['meta']}>
+                      <div className="bold">{entry.title}</div>
+                      <div className="small-text bold">{entry.author}</div>
+                      <div className="small-text">{entry.description}</div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </SwipeToScroll>
+
+          <p className="bold">Documentaries</p>
+
+          <SwipeToScroll>
+            <div className={css['media']}>
+              {[
+                {
+                  thumbnail: CrossingTheBridge,
+                  thumbnailAlt: 'Movie poster: Crossing the Bridge: The Sound of Istanbul',
+                  title: 'Crossing the Bridge: The Sound of Istanbul',
+                  author: '',
+                  description:
+                    'Award-winning director Fatih Akin takes us on a journey through Istanbul, the city that bridges Europe and Asia, and challenges familiar notions of East and West. He looks at the vibrant musical scene which includes traditional Turkish music plus rock and hip-hop.',
+                },
+                {
+                  thumbnail: TheCat,
+                  thumbnailAlt: 'Movie poster: The Cat',
+                  title: 'The Cat',
+                  author: '',
+                  description:
+                    'A profile of İstanbul and its unique people, seen through the eyes of the most mysterious and beloved animal humans have ever known, the Cat.',
+                },
+                {
+                  thumbnail: JohnFreelyIstanbul,
+                  thumbnailAlt: 'Movie poster: Layers of Istanbul (Netflix)',
+                  title: 'Layers of Istanbul (Netflix)',
+                  author: '',
+                  description:
+                    'Layers of Istanbul documentary has 6 episodes that comprise Zeyrek, Sultanahmet Square, Sultanahmet Bazaar, Cankurtaran, and Haliç-Vefa, as well as Galata. The documentary utilizes special filming techniques to create 3D models of the structures through scanning, revealing previously unseen details.',
+                },
+              ].map(entry => {
+                return (
+                  <div className={css['media-item']} key={entry.title}>
+                    <div className={css['image']}>
+                      <ImageNew src={entry.thumbnail} alt={entry.thumbnailAlt || 'Media thumbnail'} />
+                    </div>
+                    <div className={css['meta']}>
+                      <div className="bold">{entry.title}</div>
+                      <div className="small-text bold">{entry.author}</div>
+                      <div className="small-text">{entry.description}</div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </SwipeToScroll>
         </div>
       )
     },
@@ -868,7 +919,7 @@ export const Tabs = (props: any) => {
   const linkAttributes = useDraggableLink()
 
   return (
-    <SwipeToScroll>
+    <SwipeToScroll noBounds>
       <div className={css['tabs']}>
         {props.tabs.map((tab: any, index: number) => {
           let className = `${css['tab']}`
@@ -884,11 +935,11 @@ export const Tabs = (props: any) => {
               className={className}
               {...linkAttributes}
               onClick={(e: any) => {
+                linkAttributes.onClick(e)
+
                 if (props.accordionRefs && props.accordionRefs.current[tab.value]) {
                   props.accordionRefs.current[tab.value].open()
                 }
-
-                linkAttributes.onClick(e)
               }}
             >
               {tab.text}

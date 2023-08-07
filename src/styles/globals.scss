@@ -391,6 +391,10 @@ a {
     padding-bottom: 100%;
   }
 
+  &.vertical {
+    padding-bottom: 150%;
+  }
+
   > * {
     position: absolute !important;
     top: 0;

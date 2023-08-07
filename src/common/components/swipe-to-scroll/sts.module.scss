@@ -10,6 +10,7 @@
   @media (hover: none) {
     overflow-x: auto !important;
   }
+
 }
 
 .swipe-to-scroll {
@@ -17,5 +18,11 @@
 
   @media (hover: none) {
     transform: translateX(0px) !important;
+  }
+  
+  &.dragging {
+    * {
+      pointer-events: none;
+    }
   }
 }
