@@ -113,8 +113,6 @@ const tabs = [
     text: 'Experience the City',
     value: 'experience-the-city',
     content: () => {
-      const linkAttr = useDraggableLink()
-
       return (
         <div className={`tab-content ${css['experience-the-city']}`}>
           <p className="large-text">
@@ -864,7 +862,7 @@ const tabs = [
       )
     },
   },
-]
+] as any
 
 export const Tabs = (props: any) => {
   const linkAttributes = useDraggableLink()
@@ -1000,7 +998,7 @@ const CityGuide: NextPage = () => {
     <>
       <SEO title="City Guide" description="Devconnect city guide" />
       <Head>
-        <script src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+        <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
       </Head>
       <Hero
         className={css['city-guide-hero']}
@@ -1111,7 +1109,7 @@ const CityGuide: NextPage = () => {
 
             {/* <p className="section-header orange margin-top-less">Before Devconnect</p> */}
             <Accordion>
-              {tabs.slice(3).map((tab, index) => {
+              {tabs.slice(3).map((tab: any) => {
                 const tabContent = tab
 
                 return (
