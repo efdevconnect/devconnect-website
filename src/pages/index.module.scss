@@ -886,8 +886,24 @@
 .footer-container {
   position: relative;
   overflow: hidden;
-  background: #141420; // linear-gradient(60deg, #0d0d20, #161627, #312046, #121212);
+  // background-color: rgb(20 20 32);// linear-gradient(60deg, #0d0d20, #161627, #312046, #121212);
   color: white;
+
+  background-color: #0d0d36;
+  transition: background-color .5s ease-out;
+  opacity: 1 !important;
+  position: relative;
+  
+  .gradient-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 0% 200%,rgba(28, 42, 76, 0.7) 30%,rgba(2,0,36,0) 70%);
+  }
+
+  &.visible {
+    background-color: rgb(0, 0, 0);
+  }
 
   .newsletter {
     margin-top: 8px;
@@ -963,6 +979,21 @@
       width: 100% !important;
     }
 
+    :global(#footer-wrapper) {
+      display: contents;
+      // .gradient-overlay {
+      //   display: none !important;
+      // }
+    }
+
+    :global(#footer-gradient) {
+      display: none;
+    }
+
+    :global(#newsletter-signup) {
+      display: none !important;
+    }
+
     :global(#back-to-top) {
       display: none !important;
     }
@@ -982,6 +1013,10 @@
         margin: 8px 0px !important;
       }
     }
+
+    .bottom {
+      padding-bottom: 0px !important;
+    }
   }
 
   .background {
@@ -990,7 +1025,7 @@
     height: 100%;
     right: 0px;
 
-    @media (max-width: $screen-lg) {
+    @media (max-width: $screen-xl) {
       img {
         opacity: 0.05;
       }
@@ -1239,14 +1274,37 @@
   }
 
   .topics {
-    color: rgba(144, 152, 161, 0.70);
+    // color: rgba(144, 152, 161, 0.70);
     font-size: 64px;
     letter-spacing: 3.2px;
     text-transform: uppercase;
+    display: block;
+    // flex-wrap: wrap;
+    // flex-direction: row;
 
     @media (max-width: $screen-lg) {
       border: none !important;
       font-size: 32px;
+    }
+
+    .topic {
+      color: rgba(0, 0, 0, 0.1);
+      transition: color .7s;
+      display: inline;
+      opacity: 1 !important;
+
+      // &:nth-child(2) {
+      //   transition-duration: 0.5s;
+      // }
+
+      // &:nth-child(3) {
+      //   transition-duration: 0.7s;
+      // }
+
+      &.transformed {
+        color: rgba(0, 0, 0, 1);
+        // opacity: 1;
+      }
     }
   }
 

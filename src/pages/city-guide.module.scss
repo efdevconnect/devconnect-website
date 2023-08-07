@@ -32,6 +32,13 @@
     flex-direction: column;
     justify-content: space-between;
 
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: center;
+    }
+
     .items {
       padding-top: 40px;
       a {
@@ -50,6 +57,7 @@
 .city-guide {
   background: white;
   color: black;
+  overflow: hidden;
 
   .general-info {
     border-top: 1px solid $standard-border-color;
@@ -232,6 +240,116 @@
 
     @media (min-width: $screen-md) {
       margin-top: 0px;
+    }
+  }
+}
+
+
+.plan-your-travels {
+  .airports {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 16px;
+    
+    a {
+      display: flex;
+      flex-direction: column;
+      --icon-color: #{$color-orange-2};
+
+      [data-type="link-text"] {
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        color: black;
+      }
+
+      svg {
+        margin-right: 8px;
+        font-size: 22px;
+      }
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .directions {
+      display: flex;
+    }
+
+    > * {
+      flex-shrink: 0;
+      flex-grow: 1;
+      border: 1px solid rgba(0, 0, 0, 0.20);
+      border-top: 4px solid $color-orange-2;
+      background: #F9F8FF;
+      padding: 16px 16px;
+      display: flex;
+      flex-direction: column;
+
+      &:hover {
+        border-top: 4px solid black;
+      }
+    }
+  }
+}
+
+.experience-the-city {
+  position: relative;
+
+  .tweets {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+
+    > * {
+      min-width: 120px !important;
+      max-width: 100% !important;
+    }
+  }
+
+
+  :global(.button) {
+    [data-type="link-text"] {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+  
+      svg {
+        margin-right: 8px;
+      }
+    }
+  }
+
+}
+
+.getting-around {
+  .areas {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 12%;
+    padding-right: 12%;
+
+    @media (max-width: $screen-lg) {
+      padding-left: 0%;
+      padding-right: 0%;
+    }
+
+    .area {
+      margin-bottom: 12px;
+      border-bottom: 1px solid $standard-border-color;
+      padding-bottom: 12px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .title {
+        margin-bottom: 8px;
+      }
     }
   }
 }

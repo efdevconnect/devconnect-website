@@ -22,6 +22,7 @@ import Water from 'assets/icons/water.svg'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import Link, { useDraggableLink } from 'common/components/link'
 import Accordion, { AccordionItem } from 'common/components/accordion'
+import Head from 'next/head'
 
 const tabs = [
   {
@@ -29,7 +30,7 @@ const tabs = [
     value: 'general-info',
   },
   {
-    text: 'VISA Information',
+    text: 'Getting to Istanbul',
     value: 'plan-your-travels',
     content: () => {
       return (
@@ -37,7 +38,7 @@ const tabs = [
           {/* <p>
             <b>Timezone</b>: GMT+3 (all year, as Turkey has no daylight savings time)
           </p> */}
-          <p>
+          <p className="big-text">
             <b>Visa requirements</b>: Get your Visa before your travels! Most visitors require an{' '}
             <Link indicateExternal href="https://www.evisa.gov.tr/en/">
               e-Visa
@@ -48,16 +49,48 @@ const tabs = [
             </Link>
             .{' '}
           </p>
-          <p>
-            <b>Need a Visa invitation letter?</b> Write us at support@devconnect.org (you&apos;ll need to purchase{' '}
+          <p className="big-text">
+            Need a Visa invitation letter? Write us at help@devconnect.org (you&apos;ll need to purchase{' '}
             <Link indicateExternal href="/cowork">
               Devconnect Cowork
             </Link>{' '}
             ticket first)
           </p>
-          <p>
-            <b>Airports</b>: Istanbul International Airport (IST) (European side), Sabiha Gökçen Airport (Asian side)
-          </p>
+
+          <p className="big-text bold margin-top-less">Istanbul Airports</p>
+
+          <div className={css['airports']}>
+            <Link href="https://goo.gl/maps/mZRy5WnRe4JBfoBK9">
+              <div className={css['header']}>
+                <p className="bold">IST</p>
+                <div className="grey bold">60km to venue</div>
+              </div>
+              <p className="bold big-text">Istanbul International Airport</p>
+              <p>
+                Approx. cost to venue by taxi: 300-400 <b>TRY</b>
+              </p>
+              <div className={css['directions']}>
+                <PinIcon /> <div className="tag tiny-text bold">Get Directions</div>
+              </div>
+            </Link>
+
+            <Link href="https://goo.gl/maps/XPAryow8Dagvxeer6">
+              <div className={css['header']}>
+                <p className="bold">IST</p>
+                <div className="grey bold">60km to venue</div>
+              </div>
+              <p className="bold big-text">Sabiha Gökçen Airport</p>
+              <p>
+                Approx. cost to venue by taxi: 300-400 <b>TRY</b>
+              </p>
+              <div className={css['directions']}>
+                <PinIcon /> <div className="tag tiny-text bold">Get Directions</div>
+              </div>
+            </Link>
+          </div>
+
+          {/* <b>Airports</b>: Istanbul International Airport (IST) (European side), Sabiha Gökçen Airport (Asian side)
+          </p> */}
           {/* <p>
             <b>Official language</b>: Turkish. Thank you ={' '}
             <Link href="https://forvo.com/word/te%C5%9Fekk%C3%BCr_ederim/">Teşekkür ederim</Link>, GM = GA (Günaydın)
@@ -77,92 +110,227 @@ const tabs = [
     },
   },
   {
-    text: 'Where to stay',
-    value: 'where-to-stay',
-    content: () => {
-      return (
-        <div className={`tab-content ${css['getting-around']}`}>
-          <p>
-            The Bosporus Strait divides Istanbul&apos;s neighborhoods into two sides: the European side and the Asian
-            side. The Devconnect Cowork venue and probably most Devconnect venues will be located on the European side.
-            We recommend staying around the green metro line.
-          </p>
-          <h3 id="here-are-the-neighborhoods-we-recommend-staying-in-">
-            Here are the neighborhoods we recommend staying in:
-          </h3>
-          <p>
-            <b>Nişantaşı/Maçka and Osmanbey</b>: The Devconnect Cowork is right between these two neighborhoods! They
-            are considered central, and elegant districts. Taksim and Osmanbey stations are both approximately a
-            7-minute walking distance from the ICC.
-          </p>
-          <p>
-            <b>Şişli:</b> You can reach the ICC venue by walking from many areas in Şişli.
-          </p>
-          <p>
-            <b>Beyoğlu</b>: You can reach Beyoğlu via public transport in about 20 minutes. In the neighborhood, you
-            find the famous Taksim Square and Istiklal Street, known for their nightlife, and restaurant options.
-          </p>
-          <p>
-            <b>Karaköy/Galata</b>: Trendy neighborhood, known for its art galleries, boutiques, and cafes. It takes
-            about 15-20 minutes by public transport to the ICC.{' '}
-          </p>
-          <p>
-            <b>Beşiktaş</b>: A hipster neighborhood close to the Bosphorus, filled with bars, cafes, restaurants, and a
-            large student population. It takes 15-20 minutes by public transport from Beşiktaş Meydan to the ICC venue.{' '}
-          </p>
-          <p>
-            <b>Üsküdar</b> is a good and affordable alternative on the Asian side, very local with few tourists. The
-            frequent ferries allow easy access to the European side with a 10-minute ride to Beşiktaş and a ~40 minutes
-            metro connection under the sea to the historical peninsula. Ferries are operating until late.{' '}
-          </p>
-          <p>
-            <b>The Historic Peninsula:</b> The touristic center, including the neighborhood <b>Sultanahmet</b> with many
-            famous landmarks like the Blue Mosque, Hagia Sophia, Topkapi Palace, and the Grand Bazaar, all within
-            walking distance of each other. Check out{' '}
-            <Link href="https://istanbulclues.com/istanbul-historic-peninsula/" indicateExternal>
-              this resource
-            </Link>{' '}
-            for a map and more details.{' '}
-          </p>
-          <h3 id="far-but-nice-">Far but nice:</h3>
-          <p>
-            <b>Moda in Kadıköy</b> is one of the most beautiful, hip, and modern districts. It has a lovely coast, many
-            good restaurants, cafes and bars. The district attracts most students and upper-middle-class young adults.
-            However, Kadıköy is far from the venue, requiring a ~1-hour ride with public transport. It might be a good
-            place to stay for a local experience outside Devconnect week.{' '}
-          </p>
-          <p>
-            <b>More information about all neighborhoods:</b>
-          </p>
-          <p>
-            <Link href="https://propertyexperts-tr.com/en/Blog/districts-of-istanbul" indicateExternal>
-              https://propertyexperts-tr.com/en/Blog/districts-of-istanbul
-            </Link>
-          </p>
-          <p>
-            <Link href="https://exploretraveloasis.com/the-coolest-neighbourhoods-in-istanbul/" indicateExternal>
-              https://exploretraveloasis.com/the-coolest-neighbourhoods-in-istanbul/
-            </Link>
-          </p>
-          <p>
-            <Link
-              href="https://www.isthomes.com/news/best-5-areas-to-live-on-the-asian-side-of-istanbul"
-              indicateExternal
-            >
-              https://www.isthomes.com/news/best-5-areas-to-live-on-the-asian-side-of-istanbul
-            </Link>
-          </p>
-        </div>
-      )
-    },
-  },
-  {
     text: 'Experience the City',
     value: 'experience-the-city',
     content: () => {
+      const linkAttr = useDraggableLink()
+
       return (
         <div className={`tab-content ${css['experience-the-city']}`}>
-          <p>
+          <p className="large-text">
+            There is an active and vibrant local Ethereum community in Istanbul, and they are excited to welcome
+            Devconnect attendees to their city. Many shared small videos with us, showing what Istanbul has to offer.
+            Watch the videos, and experience Istanbul&apos;s magic! ✨
+          </p>
+
+          <SwipeToScroll noBounds>
+            <div className={css['tweets']}>
+              {/* <blockquote className="twitter-tweet" data-dnt="true" {...linkAttr}>
+                <p lang="en" dir="ltr">
+                  🏡In the company of cats, Istanbul will evoke a feeling of home for each one of you.❤️
+                  <br />
+                  <br />
+                  As a part of <a href="https://twitter.com/ITUblockchain?ref_src=twsrc%5Etfw">@ITUblockchain</a> , the
+                  excitement is building for{' '}
+                  <a href="https://twitter.com/hashtag/DevconnectIST?src=hash&amp;ref_src=twsrc%5Etfw">
+                    #DevconnectIST
+                  </a>{' '}
+                  🎢
+                  <br />
+                  <br />
+                  Stay tuned for greatness! 🤩{' '}
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
+                  <a href="https://t.co/QKfuY9ktrW">https://t.co/QKfuY9ktrW</a>{' '}
+                  <a href="https://t.co/NAMBAld825">pic.twitter.com/NAMBAld825</a>
+                </p>
+                &mdash; Tuğçe (@0xtugcee){' '}
+                <a href="https://twitter.com/0xtugcee/status/1685606937503657984?ref_src=twsrc%5Etfw">July 30, 2023</a>
+              </blockquote> */}
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  There are so many little details that I love about Istanbul! And yes,{' '}
+                  <a href="https://twitter.com/ITUblockchain?ref_src=twsrc%5Etfw">@ITUblockchain</a> is the first
+                  one…🥺💖 <br />
+                  <br />I don&apos;t know which one is second but this metro station is definitely lit 😏😎
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
+                  <a href="https://twitter.com/hashtag/DevconnectIST?src=hash&amp;ref_src=twsrc%5Etfw">
+                    #DevconnectIST
+                  </a>{' '}
+                  🐈 <a href="https://t.co/SW36SyCOPp">pic.twitter.com/SW36SyCOPp</a>
+                </p>
+                &mdash; dilara aka buzagi | pepethe.lens 🌿 (@thebuzagi){' '}
+                <a href="https://twitter.com/thebuzagi/status/1685999231201423360?ref_src=twsrc%5Etfw">July 31, 2023</a>
+              </blockquote>
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  Hey people! Are you excited for Devconnect Istanbul? <br />
+                  Cause we are very excited to host you in our home and I wanted to share some videos from daily life.{' '}
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
+                  <a href="https://t.co/CxMgkAFOSk">pic.twitter.com/CxMgkAFOSk</a>
+                </p>
+                &mdash; Alamalu (@alamaluu){' '}
+                <a href="https://twitter.com/alamaluu/status/1685361500528021504?ref_src=twsrc%5Etfw">July 29, 2023</a>
+              </blockquote>
+
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  Are you ready for Istanbul 🇹🇷{' '}
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a> <br />
+                  <br />
+                  and cats… lots of cats…🐈 <a href="https://t.co/UntAaToUHC">pic.twitter.com/UntAaToUHC</a>
+                </p>
+                &mdash; hatun (@0xhatun){' '}
+                <a href="https://twitter.com/0xhatun/status/1686113561486000128?ref_src=twsrc%5Etfw">July 31, 2023</a>
+              </blockquote>
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  we&apos;re preparing a comprehensive Istanbul guide with local recommendations{' '}
+                  <a href="https://twitter.com/Sublockchain?ref_src=twsrc%5Etfw">@Sublockchain</a> <br />
+                  <br />
+                  but before that here&apos;s a little video i found <br />
+                  📍Macka Democracy Park (also known as Cats Heaven) 🐱✨{' '}
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
+                  <a href="https://twitter.com/hashtag/DevconnectIST?src=hash&amp;ref_src=twsrc%5Etfw">
+                    #DevconnectIST
+                  </a>{' '}
+                  <a href="https://t.co/gA71shWEIP">pic.twitter.com/gA71shWEIP</a>
+                </p>
+                &mdash; Helin Cagine (@helincesxyz){' '}
+                <a href="https://twitter.com/helincesxyz/status/1684630930697199616?ref_src=twsrc%5Etfw">
+                  July 27, 2023
+                </a>
+              </blockquote>
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  I couldn&#39;t fit my favorites in Istanbul into a single
+                  <br />
+                  frame. I added some synergy with a clip😛
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
+                  <a href="https://twitter.com/hashtag/DevconnectIST?src=hash&amp;ref_src=twsrc%5Etfw">
+                    #DevconnectIST
+                  </a>
+                  <br />
+                  <br />
+                  ⬇️Everybody says Taksim Square, Madien&#39;s Towers
+                  <br />
+                  etc. Here are the things you should do in Istanbul, like
+                  <br />
+                  the ones from Istanbul <a href="https://t.co/9PDSTJevVX">pic.twitter.com/9PDSTJevVX</a>
+                </p>
+                &mdash; Gökçe🌱| eckoger.lens (🌸,🌿) (@eckoger){' '}
+                <a href="https://twitter.com/eckoger/status/1685658517296824320?ref_src=twsrc%5Etfw">July 30, 2023</a>
+              </blockquote>
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  Hey <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a> are you ready for
+                  city of cats? <a href="https://t.co/Qjqa8bKWsB">pic.twitter.com/Qjqa8bKWsB</a>
+                </p>
+                &mdash; 0xDogan.eth (@DoganEth){' '}
+                <a href="https://twitter.com/DoganEth/status/1685412911429148672?ref_src=twsrc%5Etfw">July 29, 2023</a>
+              </blockquote>
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  - N e v e r - leave İstanbul without taking bosphorus boat tour 🚢🌊✨
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
+                  <a href="https://twitter.com/hashtag/DevconnectIST?src=hash&amp;ref_src=twsrc%5Etfw">
+                    #DevconnectIST
+                  </a>{' '}
+                  <a href="https://t.co/B4PCzw6sMJ">pic.twitter.com/B4PCzw6sMJ</a>
+                </p>
+                &mdash; Buse Kaya (@bbusekay){' '}
+                <a href="https://twitter.com/bbusekay/status/1685730350683590657?ref_src=twsrc%5Etfw">July 30, 2023</a>
+              </blockquote>
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  The Maltepe Orhanzgazi City Park, Fill Area Maltepe, and Maltepe Beach Parks are nice to run around.
+                  <br />
+                  <br />
+                  It&#39;s well maintained, quiet, and peaceful with nice views{' '}
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
+                  <a href="https://t.co/h8e68EhIpZ">pic.twitter.com/h8e68EhIpZ</a>
+                </p>
+                &mdash; braqzen (@braqzen){' '}
+                <a href="https://twitter.com/braqzen/status/1686040982523940864?ref_src=twsrc%5Etfw">July 31, 2023</a>
+              </blockquote>
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  👀 Here are just a few of the wonderful places in this enchanting city of Istanbul🪄that I can show
+                  you 🤩📸
+                  <br />
+                  <br />
+                  As a member of the <a href="https://twitter.com/ITUblockchain?ref_src=twsrc%5Etfw">
+                    @ITUblockchain
+                  </a>{' '}
+                  family, looking forward to be host you all in{' '}
+                  <a href="https://twitter.com/hashtag/DevconnectIST?src=hash&amp;ref_src=twsrc%5Etfw">
+                    #DevconnectIST
+                  </a>{' '}
+                  🤭💜✨<a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
+                  <a href="https://t.co/E20lR9gMzz">pic.twitter.com/E20lR9gMzz</a>
+                </p>
+                &mdash; beril (@0xberil_){' '}
+                <a href="https://twitter.com/0xberil_/status/1685627443384639488?ref_src=twsrc%5Etfw">July 30, 2023</a>
+              </blockquote>
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  I suggest all the fellas who is coming to Istanbul for{' '}
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a> to get los in the C I
+                  H A N G I R streets✨✨
+                  <a href="https://twitter.com/hashtag/DevconnectIST?src=hash&amp;ref_src=twsrc%5Etfw">
+                    #DevconnectIST
+                  </a>{' '}
+                  <a href="https://t.co/oczbVDvhQa">pic.twitter.com/oczbVDvhQa</a>
+                </p>
+                &mdash; avicado 🪄 (@avicadointech){' '}
+                <a href="https://twitter.com/avicadointech/status/1686020838284308482?ref_src=twsrc%5Etfw">
+                  July 31, 2023
+                </a>
+              </blockquote>
+              {/* <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="und" dir="ltr">
+                  ..
+                  <a href="https://twitter.com/hashtag/DevconnectIST?src=hash&amp;ref_src=twsrc%5Etfw">
+                    #DevconnectIST
+                  </a>{' '}
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
+                  <a href="https://t.co/P9FV0OxiO7">https://t.co/P9FV0OxiO7</a>{' '}
+                  <a href="https://t.co/SuX7xLlFRL">pic.twitter.com/SuX7xLlFRL</a>
+                </p>
+                &mdash; Artstein (@Artsteiin){' '}
+                <a href="https://twitter.com/Artsteiin/status/1685709292995821569?ref_src=twsrc%5Etfw">July 30, 2023</a>
+              </blockquote> */}
+              {/* <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="en" dir="ltr">
+                  Discover the vibrant heart of Istanbul in this mesmerizing video challenge!🌅 <br />
+                  <br />
+                  Join the{' '}
+                  <a href="https://twitter.com/hashtag/DevconnectIST?src=hash&amp;ref_src=twsrc%5Etfw">
+                    #DevconnectIST
+                  </a>{' '}
+                  video challenge and capture the city&#39;s magic yourself!🤗
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
+                  <a href="https://t.co/qmpui0aNR8">https://t.co/qmpui0aNR8</a>{' '}
+                  <a href="https://t.co/tQZ4kqYtRL">pic.twitter.com/tQZ4kqYtRL</a>
+                </p>
+                &mdash; ITU Blockchain (@ITUblockchain){' '}
+                <a href="https://twitter.com/ITUblockchain/status/1685592269892509696?ref_src=twsrc%5Etfw">
+                  July 30, 2023
+                </a>
+              </blockquote> */}
+              <blockquote className="twitter-tweet" data-dnt="true">
+                <p lang="tr" dir="ltr">
+                  <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a> in İstanbul⚘{' '}
+                  <a href="https://t.co/2wwByk65Ny">pic.twitter.com/2wwByk65Ny</a>
+                </p>
+                &mdash; karababa.eth🦇🔊 (@BabaBlack_){' '}
+                <a href="https://twitter.com/BabaBlack_/status/1684582970957635587?ref_src=twsrc%5Etfw">
+                  July 27, 2023
+                </a>
+              </blockquote>
+            </div>
+          </SwipeToScroll>
+
+          <p className="big-text margin-top-less">
             Istanbul&#39;s magic lies in the narrow lanes of its bazaars, the calls to prayer, the cats strolling
             around, the rhythms of Turkish music, and, of course, the delicious food. Istanbul is considered a
             cat&apos;s heaven - locals take good care of their strays, giving them food and shelter -, and a
@@ -173,11 +341,126 @@ const tabs = [
             </Link>{' '}
             put together by a local community member.{' '}
           </p>
-          <p>
-            There is an active and vibrant local Ethereum community in Istanbul, and they are excited to welcome
-            Devconnect attendees to their city. Many shared small videos with us, showing what Istanbul has to offer.
-            Watch the videos, and experience Istanbul&apos;s magic! ✨
+
+          <Link
+            className="button orange margin-top-less"
+            href="https://kaanuzdogan.com/kaans-foodie-guide-during-devconnect-istanbul"
+          >
+            <PinIcon />
+            Restaurant Guide
+          </Link>
+        </div>
+      )
+    },
+  },
+  {
+    text: 'Where to stay',
+    value: 'where-to-stay',
+    content: () => {
+      return (
+        <div className={`tab-content ${css['getting-around']}`}>
+          <p className="large-text">
+            The Bosporus Strait divides Istanbul&apos;s neighborhoods into two sides: the European side and the Asian
+            side. The Devconnect Cowork venue and probably most Devconnect venues will be located on the European side.
+            We recommend staying around the green metro line. <b>Here are the neighborhoods we recommend staying in:</b>
           </p>
+
+          <div className={css['areas']}>
+            <div
+              className={`${css['header']} margin-top-much-less extra-large-text orange border-bottom margin-bottom-much-less`}
+            >
+              Nişantaşı/Maçka and Osmanbey
+            </div>
+            <p className="big-text">
+              The Devconnect Cowork is right between these two neighborhoods! They are considered central, and elegant
+              districts. Taksim and Osmanbey stations are both approximately a 7-minute walking distance from the ICC.
+            </p>
+            <div className={css['area']}>
+              <div className="large-text margin-bottom-much-less bold">Şişli</div>
+              <p> You can reach the ICC venue by walking from many areas in Şişli.</p>
+            </div>
+            <div className={css['area']}>
+              <div className="large-text margin-bottom-much-less bold">Beyoğlu</div>
+              <p>
+                You can reach Beyoğlu via public transport in about 20 minutes. In the neighborhood, you find the famous
+                Taksim Square and Istiklal Street, known for their nightlife, and restaurant options.
+              </p>
+            </div>
+            <div className={css['area']}>
+              <div className="large-text margin-bottom-much-less bold">Karaköy/Galata</div>
+              <p>
+                Trendy neighborhood, known for its art galleries, boutiques, and cafes. It takes about 15-20 minutes by
+                public transport to the ICC.
+              </p>
+            </div>
+            <div className={css['area']}>
+              <div className="large-text margin-bottom-much-less bold">Beşiktaş</div>A hipster neighborhood close to the
+              Bosphorus, filled with bars, cafes, restaurants, and a large student population. It takes 15-20 minutes by
+              public transport from Beşiktaş Meydan to the ICC venue.{' '}
+            </div>
+            <div className={css['area']}>
+              <div className="large-text margin-bottom-much-less bold">Üsküdar</div>
+              is a good and affordable alternative on the Asian side, very local with few tourists. The frequent ferries
+              allow easy access to the European side with a 10-minute ride to Beşiktaş and a ~40 minutes metro
+              connection under the sea to the historical peninsula. Ferries are operating until late.{' '}
+            </div>
+            <div className={css['area']}>
+              <div className="large-text margin-bottom-much-less bold">The Historic Peninsula</div>
+              <p>
+                {' '}
+                The touristic center, including the neighborhood <b>Sultanahmet</b> with many famous landmarks like the
+                Blue Mosque, Hagia Sophia, Topkapi Palace, and the Grand Bazaar, all within walking distance of each
+                other. Check out{' '}
+                <Link href="https://istanbulclues.com/istanbul-historic-peninsula/" indicateExternal>
+                  this resource
+                </Link>{' '}
+                for a map and more details.
+              </p>
+            </div>
+            <div className={css['area']}>
+              <div className="large-text margin-bottom-much-less bold">Moda in Kadıköy (far, but nice)</div>
+              <b>Moda in Kadıköy</b> is one of the most beautiful, hip, and modern districts. It has a lovely coast,
+              many good restaurants, cafes and bars. The district attracts most students and upper-middle-class young
+              adults. However, Kadıköy is far from the venue, requiring a ~1-hour ride with public transport. It might
+              be a good place to stay for a local experience outside Devconnect week.
+            </div>
+          </div>
+
+          {/* <h3 id="far-but-nice" className="margin-top-less">
+            Far but nice:
+          </h3>
+          <p>
+            <b>Moda in Kadıköy</b> is one of the most beautiful, hip, and modern districts. It has a lovely coast, many
+            good restaurants, cafes and bars. The district attracts most students and upper-middle-class young adults.
+            However, Kadıköy is far from the venue, requiring a ~1-hour ride with public transport. It might be a good
+            place to stay for a local experience outside Devconnect week.{' '}
+          </p> */}
+          <p className="big-text margin-top">
+            <b>More information about all neighborhoods:</b>
+          </p>
+          <Link
+            className="large-text"
+            href="https://propertyexperts-tr.com/en/Blog/districts-of-istanbul"
+            indicateExternal
+          >
+            Districts of Istanbul
+          </Link>
+          <br />
+          <Link
+            className="large-text"
+            href="https://exploretraveloasis.com/the-coolest-neighbourhoods-in-istanbul/"
+            indicateExternal
+          >
+            The coolest neighbourhoods in Istanbul
+          </Link>
+          <br />
+          <Link
+            className="large-text"
+            href="https://www.isthomes.com/news/best-5-areas-to-live-on-the-asian-side-of-istanbul"
+            indicateExternal
+          >
+            Best 5 areas to live on the asian side of Istanbul
+          </Link>
         </div>
       )
     },
@@ -188,13 +471,13 @@ const tabs = [
     content: () => {
       return (
         <div className={`tab-content ${css['history-and-culture']}`}>
-          <p>
+          <p className="large-text">
             Istanbul lies in a geographically unique spot, being the only city that covers two continents - Europe and
             Asia. Istanbul is not only a fusion of continents, it&apos;s also a unique blend of cultures. Ancient
             histories intertwine with the modern world, and many civilizations have left their imprints over the
             millennia.{' '}
           </p>
-          <p>
+          <p className="big-text">
             Alone the different names Istanbul has been called give you a sense of the variety of cultures you can
             experience in the city. Initially founded by Greek settlers in the 7th century BC, it was known as{' '}
             <Link indicateExternal href="https://ethereum.org/en/history/#byzantium">
@@ -210,7 +493,7 @@ const tabs = [
             </Link>
             .{' '}
           </p>
-          <p>
+          <p className="big-text">
             If you want to delve deeper into understanding Istanbul&apos;s culture, you can get started with some of the
             following movie and book recommendations from a local.{' '}
           </p>
@@ -470,7 +753,7 @@ const tabs = [
     },
   },
   {
-    text: 'Tips from a local',
+    text: 'Tips from a Local',
     value: 'local-tips',
     content: () => {
       return (
@@ -590,7 +873,7 @@ export const Tabs = (props: any) => {
     <SwipeToScroll>
       <div className={css['tabs']}>
         {props.tabs.map((tab: any, index: number) => {
-          let className = `uppercase ${css['tab']}`
+          let className = `${css['tab']}`
 
           const toggled = index === 0
 
@@ -716,6 +999,9 @@ const CityGuide: NextPage = () => {
   return (
     <>
       <SEO title="City Guide" description="Devconnect city guide" />
+      <Head>
+        <script src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+      </Head>
       <Hero
         className={css['city-guide-hero']}
         backgroundClassName={css['background']}
@@ -724,11 +1010,16 @@ const CityGuide: NextPage = () => {
         imageProps={{ src: HeroImage, alt: 'Amsterdam' }}
       >
         <div className={css['hero-content']}>
-          <p className="uppercase extra-large-text bold secondary title">
-            İstanbul, Byte by Byte - A Guide for Devconnect Attendees —
-          </p>
+          <p className="uppercase extra-large-text bold secondary">İstanbuL city guide</p>
 
-          <div className={css['items']}>
+          <div className={css['hero-text']}>
+            <p className="extra-large-text bold">
+              <u>Definitive Guide for Devconnect</u>
+            </p>
+            <p className="extra-large-text">Hoşgeldin</p>
+          </div>
+
+          {/* <div className={css['items']}>
             {tabs.map(tab => {
               return (
                 <AnchorLink
@@ -741,7 +1032,7 @@ const CityGuide: NextPage = () => {
                 </AnchorLink>
               )
             })}
-          </div>
+          </div> */}
         </div>
       </Hero>
 
@@ -755,16 +1046,22 @@ const CityGuide: NextPage = () => {
                   <span className="orange">TURKIYE</span> - [ TUR-KI-YEHHHH ]
                 </p>
 
-                <p className="bold big-text">Welcome, Ethereum explorers, to Istanbul!</p>
+                <p className="bold big-text">Hoşgeldin, Ethereum explorers, to Istanbul!</p>
 
                 <br />
 
                 <p className="big-text">
                   Our destination for Devconnect 2023 is Istanbul - A city that is home to many cultures and bridges two
-                  continents, Europe and Asia. It&apos;s a popular destination for visitors because it&apos;s easy to
-                  reach via its major international airport (IST), it&apos;s very affordable to live, public transport
-                  is efficient and cheap, hospitality is genuine, and there&apos;s a lot to explore: bazaars, spices,
-                  kebaps, baklava, the Bosporus strait, and the city&apos;s rich culture and heritage.
+                  continents, Europe and Asia.
+                </p>
+
+                <br />
+
+                <p className="big-text">
+                  It&apos;s a popular destination for visitors because it&apos;s easy to reach via its major
+                  international airport (IST), it&apos;s very affordable to live, public transport is efficient and
+                  cheap, hospitality is genuine, and there&apos;s a lot to explore: bazaars, spices, kebaps, baklava,
+                  the Bosporus strait, and the city&apos;s rich culture and heritage.
                 </p>
 
                 <br />
@@ -796,19 +1093,32 @@ const CityGuide: NextPage = () => {
               </div>
 
               <div className={css['right']}>
+                <p className="grey section-header margin-bottom-much-less">Quick Tips</p>
                 <List accordionRefs={accordionRefs} />
               </div>
             </div>
-            <p className="section-header orange margin-top-less">Before Devconnect</p>
+
+            <p
+              className="section-header orange margin-top-less margin-bottom-much-less border-top padding-top-less"
+              id="plan-your-travels"
+            >
+              Getting to Istanbul
+            </p>
+            <div>{tabs[1].content()}</div>
+
+            <p className="section-header orange margin-top-less margin-bottom-much-less">Experience The City</p>
+            <div>{tabs[2].content()}</div>
+
+            {/* <p className="section-header orange margin-top-less">Before Devconnect</p> */}
             <Accordion>
-              {tabs.slice(1, 5).map((tab, index) => {
+              {tabs.slice(3).map((tab, index) => {
                 const tabContent = tab
 
                 return (
                   <AccordionItem
                     key={tab.value}
                     // title={tab.text}
-                    title={<p className="uppercase large-text bold">{tab.text}</p>}
+                    title={<p className="uppercase orange large-text bold">{tab.text}</p>}
                     id={tab.value}
                     ref={el => (accordionRefs.current[tab.value] = el)}
                   >
@@ -835,8 +1145,8 @@ const CityGuide: NextPage = () => {
               </div>
             </div> */}
 
-            <p className="section-header orange margin-top-less">During Devconnect</p>
-            <Accordion>
+            {/* <p className="section-header orange margin-top-less">During Devconnect</p> */}
+            {/* <Accordion>
               {tabs.slice(5).map((tab, index) => {
                 const tabContent = tab
 
@@ -844,7 +1154,7 @@ const CityGuide: NextPage = () => {
                   <AccordionItem
                     key={tab.value}
                     // title={tab.text}
-                    title={<p className="uppercase large-text bold">{tab.text}</p>}
+                    title={<p className="uppercase large-text orange bold">{tab.text}</p>}
                     id={tab.value}
                     ref={el => (accordionRefs.current[tab.value] = el)}
                   >
@@ -852,7 +1162,7 @@ const CityGuide: NextPage = () => {
                   </AccordionItem>
                 )
               })}
-            </Accordion>
+            </Accordion> */}
           </div>
         </div>
       </div>

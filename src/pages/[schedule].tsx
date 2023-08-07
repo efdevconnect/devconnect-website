@@ -26,6 +26,7 @@ import { useRouter } from 'next/dist/client/router'
 import Toggle from 'react-toggle'
 import Retro from 'common/components/pages/event/retro'
 import { CopyToClipboard } from 'common/components/copy-to-clipboard/CopyToClipboard'
+import Tooltip from 'common/components/tooltip'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -261,6 +262,7 @@ const Timeline = (props: any) => {
     }
   }, [])
 
+  // Timeline/default schedule events:
   const events = sortedEvents.map((event: any, index: number) => {
     const {
       startDate: startDay,
@@ -325,6 +327,12 @@ const Timeline = (props: any) => {
           }}
           data-id={event.ID}
         >
+          {/* <div className={css['hover-overlay']}>
+            <Tooltip arrow title="Create a custom schedule by favoriting events you are interested in!">
+              <div className={css['favorite']}>Favorite</div>
+            </Tooltip>
+          </div> */}
+
           <div className={css['content']}>
             {event['Stable ID'] === 'Cowork' && (
               <div className={css['image']}>

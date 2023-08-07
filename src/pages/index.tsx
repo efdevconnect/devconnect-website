@@ -19,7 +19,7 @@ import Modal from 'common/components/modal'
 // import bgMerged from 'assets/images/istanbul-bg/bg-merged.png'
 import bgMerged from 'assets/images/landscape.png'
 import Hehe from 'assets/images/hehe.png'
-import FadeIn from 'common/components/fade-in'
+import Observer from 'common/components/observer'
 import ErrorBoundary from 'common/components/error-boundary/ErrorBoundary'
 import Spline from '@splinetool/react-spline'
 import FooterBackground from 'assets/images/footer-background-triangles.png'
@@ -349,44 +349,50 @@ export const Footer = ({ inFoldoutMenu, onClickMenuItem }: FooterProps) => {
       >
         <CodeOfConduct />
       </Modal>
-      <div className={className}>
-        {/* <LogoBig className={css['background']} /> */}
+      <Observer repeating activeClassName={css['visible']} observerOptions={{ threshold: 0.7 }}>
+        {/* <div className={css['footer-wrapper']} id="footer-wrapper">
+          <div className={css['gradient-overlay']} id="footer-gradient"></div> */}
 
-        <div className={`${css['footer']}`}>
-          <div style={{ position: 'relative' }}>
-            <div className={css['background']}>
-              <ImageNew src={FooterBackground} alt="Colorful rectangles and triangles" />
-            </div>
+        <div className={className}>
+          {/* <LogoBig className={css['background']} /> */}
 
-            <div className="section padding-top padding-bottom">
-              <div className={css['top']}>
-                <DevconnectIstanbul />
-                <DevconnectIstanbulText />
+          <div className={css['gradient-overlay']} id="footer-gradient"></div>
+          <div className={`${css['footer']}`}>
+            <div style={{ position: 'relative' }}>
+              <div className={css['background']}>
+                <ImageNew src={FooterBackground} alt="Colorful rectangles and triangles" />
               </div>
-              <div className={css['middle']}>
-                <div className={css['left']}>
-                  <FooterMenu onClickMenuItem={onClickMenuItem} />
 
-                  <form
-                    className={css['newsletter']}
-                    action="https://login.sendpulse.com/forms/simple/u/eyJ1c2VyX2lkIjo4MjUxNTM4LCJhZGRyZXNzX2Jvb2tfaWQiOjI4NDA0MywibGFuZyI6ImVuIn0="
-                    method="post"
-                  >
-                    <div className={css['input-container']}>
-                      {/* <div>
+              <div className="section padding-top padding-bottom">
+                <div className={css['top']}>
+                  <DevconnectIstanbul />
+                  <DevconnectIstanbulText />
+                </div>
+                <div className={css['middle']}>
+                  <div className={css['left']}>
+                    <FooterMenu onClickMenuItem={onClickMenuItem} />
+
+                    <form
+                      id="newsletter-signup"
+                      className={css['newsletter']}
+                      action="https://login.sendpulse.com/forms/simple/u/eyJ1c2VyX2lkIjo4MjUxNTM4LCJhZGRyZXNzX2Jvb2tfaWQiOjI4NDA0MywibGFuZyI6ImVuIn0="
+                      method="post"
+                    >
+                      <div className={css['input-container']}>
+                        {/* <div>
                         <label>First name</label>
                         <input type="text" name="name" />
                       </div> */}
-                      <div>
-                        <label>Email</label>
-                        <input type="email" required name="email" />
+                        <div>
+                          <label>Email</label>
+                          <input type="email" required name="email" />
+                        </div>
                       </div>
-                    </div>
-                    <input type="hidden" name="sender" value="support@devconnect.org" />
-                    <button className="button white sm">Subscribe to newsletter</button>
-                  </form>
-                </div>
-                {/* <a target="_blank" rel="noreferrer" href="https://devcon.org" className={css['road-to-devcon']}>
+                      <input type="hidden" name="sender" value="support@devconnect.org" />
+                      <button className="button white sm">Subscribe to newsletter</button>
+                    </form>
+                  </div>
+                  {/* <a target="_blank" rel="noreferrer" href="https://devcon.org" className={css['road-to-devcon']}>
                   <p className={`${css['title']} extra-large-text title`}>
                     A road to <br /> devcon event
                   </p>
@@ -397,49 +403,51 @@ export const Footer = ({ inFoldoutMenu, onClickMenuItem }: FooterProps) => {
                 <p className={`${css['email']} medium-text`}>support@devconnect.org</p>
               </div>  */}
 
-                {/* <FooterMenu onClickMenuItem={onClickMenuItem} /> */}
+                  {/* <FooterMenu onClickMenuItem={onClickMenuItem} /> */}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="section">
-            <div className={`${css['bottom']}`}>
-              <div className={css['crafted-by']}>
-                <p className="tiny-text">Crafted and curated with passion ♥ ✨ at the Ethereum Foundation.</p>
-                <p className={`${css['copyright']} tiny-text`}>
-                  © {new Date().getFullYear()} — Ethereum Foundation. All Rights Reserved.
-                </p>
-              </div>
+            <div className="section">
+              <div className={`${css['bottom']}`}>
+                <div className={css['crafted-by']}>
+                  <p className="tiny-text">Crafted and curated with passion ♥ ✨ at the Ethereum Foundation.</p>
+                  <p className={`${css['copyright']} tiny-text`}>
+                    © {new Date().getFullYear()} — Ethereum Foundation. All Rights Reserved.
+                  </p>
+                </div>
 
-              <div className={css['links']}>
-                <Link href="https://devcon.org">Devcon</Link>
-                <Link href="mailto:support@devconnect.org">Contact Us</Link>
-                <Link href="https://ethereum.foundation">Ethereum Foundation</Link>
+                <div className={css['links']}>
+                  <Link href="https://devcon.org">Devcon</Link>
+                  <Link href="mailto:support@devconnect.org">Contact Us</Link>
+                  <Link href="https://ethereum.foundation">Ethereum Foundation</Link>
 
-                <a
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter') {
+                  <a
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter') {
+                        setCodeOfConductModalOpen(!codeOfConductModalOpen)
+                      }
+                    }}
+                    onClick={(e: React.SyntheticEvent) => {
+                      e.preventDefault()
+
                       setCodeOfConductModalOpen(!codeOfConductModalOpen)
-                    }
-                  }}
-                  onClick={(e: React.SyntheticEvent) => {
-                    e.preventDefault()
+                    }}
+                  >
+                    Code of Conduct
+                  </a>
 
-                    setCodeOfConductModalOpen(!codeOfConductModalOpen)
-                  }}
-                >
-                  Code of Conduct
-                </a>
-
-                <Link href="https://ethereum.org/en/privacy-policy/">Privacy policy</Link>
-                <Link href="https://ethereum.org/en/terms-of-use/">Terms of use</Link>
-                <Link href="https://ethereum.org/en/cookie-policy/">Cookie policy</Link>
+                  <Link href="https://ethereum.org/en/privacy-policy/">Privacy policy</Link>
+                  <Link href="https://ethereum.org/en/terms-of-use/">Terms of use</Link>
+                  <Link href="https://ethereum.org/en/cookie-policy/">Cookie policy</Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+        {/* </div> */}
+      </Observer>
     </>
   )
 }
@@ -590,7 +598,7 @@ const Home: NextPage = (props: any) => {
             {/* <div className={`${css['background']} expand`}>
               <Image src={BluePrint} objectFit="contain" alt="Building outline" />
             </div> */}
-            <FadeIn>
+            <Observer>
               <div className="section" id="about">
                 <h1 className="section-header clear-vertical" style={{ zIndex: 1 }}>
                   <span className="orange">WHY DEVCONNECT</span>
@@ -642,7 +650,7 @@ const Home: NextPage = (props: any) => {
                   </div>
                 </div>
               </div>
-            </FadeIn>
+            </Observer>
 
             <div className={css['background-cityscape']}>
               <ImageNew src={bgMerged} alt="Istanbul inspired cityscape background" />
@@ -656,77 +664,108 @@ const Home: NextPage = (props: any) => {
           </Scene>
 
           <Scene growNaturally growVertically className={`${css['scene-content']}`}>
-            <FadeIn>
-              <div className="section margin-bottom" id="about">
-                <h1 className="section-header orange margin-top-less margin-bottom-less">What to Expect</h1>
+            {/* <Observer> */}
+            <div className="section margin-bottom" id="about">
+              <h1 className="section-header orange margin-top-less margin-bottom-less">What to Expect</h1>
 
-                <p className="extra-large-text margin-bottom-less">
-                  Multiple events, <u>independently</u> organized by the <span className="orange">community</span>.
-                  <br />
-                  Each event has a unique focus, ranging from <b>beginner-friendly to expert level.</b>
-                </p>
+              <p className="extra-large-text margin-bottom-less">
+                Multiple events, <u>independently</u> organized by the <span className="orange">community</span>.
+                <br />
+                Each event has a unique focus, ranging from <b>beginner-friendly to expert level.</b>
+              </p>
 
-                {/* <div className="margin-top margin-bottom"></div> */}
+              {/* <div className="margin-top margin-bottom"></div> */}
 
-                <div className={css['topics-header']}>
-                  <p className="section-header uppercase grey">Topics Include</p>
-                  <Link href="/schedule" className={`orange button`} indicateExternal>
-                    View Schedule
-                  </Link>
-                </div>
+              <div className={css['topics-header']}>
+                <p className="section-header uppercase grey">Topics Include</p>
+                <Link href="/schedule" className={`orange button`} indicateExternal>
+                  View Schedule
+                </Link>
+              </div>
 
-                <div className="columns margin-top">
-                  <p className={`${css['topics']} left fill-65 border-bottom padding-bottom-less`}>
-                    Decentralized Systems • Scalability • privacy • incentive mechanisms • mev • UX • governance & more
-                  </p>
-
-                  <div className={`right ${css['shapes-container']}`}>
-                    <div className={css['shapes']}>
-                      <ImageNew src={ShapesImage} alt="shapes image" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="margin-top margin-bottom-less"></div>
-
-                <h1 className="section-header orange margin-bottom-less">Host Your Event At Devconnect</h1>
-
-                <p className={`${css['restrain-width']} extra-large-text margin-bottom-less`}>
-                  Make Devconnect what it&apos;s supposed to be — a <b>decentralized and open Ethereum week.</b>
-                </p>
-
-                <div className={css['reasons-to-attend']}>
-                  <div className={css['no-box']}>
-                    Here are some quotes from last year&apos;s event hosts in Amsterdam with reasons to host an event:
-                  </div>
-                  {[
-                    'Get all the interested people in one place at the same time to make progress on open issues.',
-                    'Bandwidth and engagement IRL meetings is high!',
-                    'People came away from the event extremely energized, and discussions inspired new project directions.',
-                    'We realize that creating unique spaces for the blockchain community will attract our target audience.',
-                    'This type of event is a valuable feedback mechanism, and simultaneously allows for participant learning in a workshop format.',
-                  ].map(text => {
-                    return (
-                      <div className={css['box']} key={text}>
-                        <p>
-                          <i>&quot;{text}&quot;</i>
-                        </p>
-                      </div>
-                    )
-                  })}
-                </div>
-
-                <div>
-                  <Link
-                    href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
-                    className={`button wide white ${css['get-involved-button']} margin-top`}
-                    indicateExternal
+              <div className="columns margin-top">
+                <div
+                  className={`${css['topics']} left fill-65 border-bottom padding-bottom-less`}
+                  id="topics-container"
+                >
+                  <Observer
+                    activeClassName={css['transformed']}
+                    repeating
+                    observerOptions={{
+                      rootMargin: '-40% 0px -25% 0%',
+                    }}
                   >
-                    Host An Event
-                  </Link>
+                    <div className={css['topic']}>Decentralized Systems • </div>
+                  </Observer>
+
+                  <Observer
+                    activeClassName={css['transformed']}
+                    repeating
+                    observerOptions={{
+                      rootMargin: '-40% 0px -25% 0%',
+                    }}
+                  >
+                    <div className={css['topic']}>Scalability • privacy • incentive mechanisms</div>
+                  </Observer>
+
+                  <Observer
+                    activeClassName={css['transformed']}
+                    repeating
+                    observerOptions={{
+                      rootMargin: '-40% 0px -25% 0%',
+                    }}
+                  >
+                    <div className={css['topic']}> • mev • UX • governance & more</div>
+                  </Observer>
+                </div>
+
+                <div className={`right ${css['shapes-container']}`}>
+                  <div className={css['shapes']}>
+                    <ImageNew src={ShapesImage} alt="shapes image" />
+                  </div>
                 </div>
               </div>
-            </FadeIn>
+
+              <div className="margin-top margin-bottom-less"></div>
+
+              <h1 className="section-header orange margin-bottom-less">Host Your Event At Devconnect</h1>
+
+              <p className={`${css['restrain-width']} extra-large-text margin-bottom-less`}>
+                Make Devconnect what it&apos;s supposed to be — a <b>decentralized and open Ethereum week.</b>
+              </p>
+
+              <div className={css['reasons-to-attend']}>
+                <div className={css['no-box']}>
+                  Here are some quotes from last year&apos;s event hosts in Amsterdam with reasons to host an event:
+                </div>
+                {[
+                  'Get all the interested people in one place at the same time to make progress on open issues.',
+                  'Bandwidth and engagement IRL meetings is high!',
+                  'People came away from the event extremely energized, and discussions inspired new project directions.',
+                  'We realize that creating unique spaces for the blockchain community will attract our target audience.',
+                  'This type of event is a valuable feedback mechanism, and simultaneously allows for participant learning in a workshop format.',
+                ].map(text => {
+                  return (
+                    <div className={css['box']} key={text}>
+                      <p>
+                        <i>&quot;{text}&quot;</i>
+                      </p>
+                    </div>
+                  )
+                })}
+              </div>
+
+              <div>
+                <Link
+                  href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
+                  className={`button wide white ${css['get-involved-button']} margin-top`}
+                  indicateExternal
+                >
+                  Host An Event
+                </Link>
+              </div>
+            </div>
+            {/* </Observer> */}
           </Scene>
 
           {/* NOTE: RETAINING FOR POST DEVCONNECT RECAP: */}
@@ -794,7 +833,7 @@ const Home: NextPage = (props: any) => {
           </Scene> */}
 
           {/* <div id="about" className={`${css['scene-about']}`}>
-            <FadeIn>
+            <Observer>
               <div className="section">
                 <div className={`${css['scene-about-content']} clear-vertical`}>
                   <div className={css['text-container']}>
@@ -839,11 +878,11 @@ const Home: NextPage = (props: any) => {
                   </div>
                 </div>
               </div>
-            </FadeIn>
+            </Observer>
           </div> */}
 
           <Scene growVertically growNaturally className={`${css['scene-faq']}`}>
-            <FadeIn>
+            <Observer>
               <div className="section">
                 <h1 className="section-header orange border-top padding-top-less">Blog Posts</h1>
 
@@ -851,11 +890,11 @@ const Home: NextPage = (props: any) => {
 
                 <div className="padding-bottom-less border-bottom "></div>
               </div>
-            </FadeIn>
+            </Observer>
           </Scene>
 
           <Scene growVertically growNaturally className={`${css['scene-faq']} section`}>
-            <FadeIn>
+            <Observer>
               <div className={`clear-vertical`}>
                 {/* <div className="columns border-bottom margin-bottom padding-bottom">
                   <div className="left">
@@ -913,9 +952,10 @@ const Home: NextPage = (props: any) => {
                   </Accordion>
                 </div>
               </div>
-            </FadeIn>
+            </Observer>
           </Scene>
         </main>
+
         <Footer />
       </div>
     </>

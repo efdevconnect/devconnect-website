@@ -1,7 +1,6 @@
 import React from 'react'
 import ShareIcon from 'assets/icons/share.svg'
-import 'react-tippy/dist/tippy.css'
-import { Tooltip } from 'react-tippy'
+import Tooltip from '../tooltip'
 
 type ShareProps = {
   url: string
