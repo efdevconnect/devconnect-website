@@ -1104,7 +1104,9 @@ const CityGuide: NextPage = () => {
             </p>
             <div>{tabs[1].content()}</div>
 
-            <p className="section-header orange margin-top-less margin-bottom-much-less">Experience The City</p>
+            <p className="section-header orange margin-top-less margin-bottom-much-less" id="experience-the-city">
+              Experience The City
+            </p>
             <div>{tabs[2].content()}</div>
 
             {/* <p className="section-header orange margin-top-less">Before Devconnect</p> */}
