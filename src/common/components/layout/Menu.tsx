@@ -98,7 +98,7 @@ const menuItems = (pathname: string) => [
       {
         text: 'Press Inquiry',
         external: true,
-        url: 'https://docs.google.com/forms/d/1O7N0GQgyB9e7He6XtFKFu1zVwOM5a9HtO_pEOTctsr8/prefill',
+        url: 'https://forms.gle/se7hd5Sz5x8Lkoj87',
       },
     ],
   },
