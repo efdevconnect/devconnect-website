@@ -109,7 +109,7 @@ const volunteerFAQ = [
     content: () => {
       return (
         <p>
-          While we appreciate your enthusiasm, it's recommended to focus on one role and shift to ensure the best
+          While we appreciate your enthusiasm, it&apos;s recommended to focus on one role and shift to ensure the best
           experience and avoid overcommitment. We will be selecting ~100 volunteers to support the event to ensure each
           person can also go enjoy Devconnect while not on shift.
         </p>
@@ -123,7 +123,7 @@ const volunteerFAQ = [
       return (
         <p>
           Volunteers will have the opportunity to experience parts of the event. However, your primary responsibility
-          during your shift will be to support the event's smooth operation.
+          during your shift will be to support the event&apos;s smooth operation.
         </p>
       )
     },
@@ -505,9 +505,9 @@ const Cowork: NextPage = (props: any) => {
               id="volunteer"
             >
               <p className="margin-bottom-less large-text">
-                We're looking for volunteers! Volunteering is often a good first step into the Ethereum ecosystem. If
-                you want to experience the event from behind the scenes and contribute to its success, apply here as a
-                volunteer for the Devconnect Cowork.
+                We&apos;re looking for volunteers! Volunteering is often a good first step into the Ethereum ecosystem.
+                If you want to experience the event from behind the scenes and contribute to its success, apply here as
+                a volunteer for the Devconnect Cowork.
               </p>
               <Link
                 indicateExternal
