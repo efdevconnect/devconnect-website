@@ -66,21 +66,41 @@ const MultiLink = (props: any) => {
 }
 
 const menuItems = (pathname: string) => [
-  {
-    text: 'About',
-    url: pathname === '/' ? '#about' : '/', // Smoothscrolling if already on the page, otherwise hard link
-  },
+  // {
+  //   text: 'About',
+  //   url: pathname === '/' ? '#about' : '/', // Smoothscrolling if already on the page, otherwise hard link
+  // },
   {
     text: 'Cowork',
     url: '/cowork',
   },
   {
-    text: 'Guide',
+    text: 'City Guide',
     url: '/city-guide',
   },
   {
     text: 'Schedule',
     url: '/schedule',
+  },
+  {
+    text: 'Get Involved',
+    children: [
+      {
+        text: 'Host an event',
+        external: true,
+        url: 'https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022',
+      },
+      {
+        text: 'Volunteer',
+        external: true,
+        url: 'https://forms.gle/tEf9UAcn7sHbkQau5',
+      },
+      {
+        text: 'Press Inquiry',
+        external: true,
+        url: 'https://docs.google.com/forms/d/1O7N0GQgyB9e7He6XtFKFu1zVwOM5a9HtO_pEOTctsr8/prefill',
+      },
+    ],
   },
   {
     text: 'Past Events',
@@ -91,39 +111,16 @@ const menuItems = (pathname: string) => [
       },
     ],
   },
-  {
-    text: 'Devcon',
-    url: 'https://devcon.org',
-  },
   // {
   //   text: 'StreamETH',
   //   customClass: pathname === '/' ? css['streameth-highlight'] : undefined,
   //   url: 'https://streameth.tv',
   // },
-  // {
-  //   text: 'Co-work',
-  //   url: '/cowork',
-  // },
-  // {
-  //   text: 'Get Involved',
-  //   children: [
-  //     {
-  //       text: 'Host an event',
-  //       external: true,
-  //       url: 'https://ef-events.notion.site/Host-an-event-at-Devconnect-8d1c95ea7f4f41d9a4239eb87ed1fb03',
-  //     },
-  //     {
-  //       text: 'Volunteer',
-  //       external: true,
-  //       url: 'https://forms.gle/6eoj7wDjXx6qhNj78',
-  //     },
-  //     {
-  //       text: 'Press Inquiry',
-  //       external: true,
-  //       url: 'https://forms.gle/wV9hKjFdmhw38gbF8',
-  //     },
-  //   ],
-  // },
+  {
+    text: 'Devcon',
+    onlyFooter: true,
+    url: 'https://devcon.org',
+  },
 ]
 
 const Mobile = () => {
@@ -236,6 +233,8 @@ export const Menu = (props: any) => {
 
       {menuItems(router.pathname).map((menuItem: any) => {
         const isMultiLink = !!menuItem.children
+
+        if (menuItem.onlyFooter) return null
 
         if (isMultiLink) {
           return (

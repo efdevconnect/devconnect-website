@@ -237,7 +237,7 @@ const tabs = [
                 &mdash; 0xDogan.eth (@DoganEth){' '}
                 <a href="https://twitter.com/DoganEth/status/1685412911429148672?ref_src=twsrc%5Etfw">July 29, 2023</a>
               </blockquote>
-              <blockquote className="twitter-tweet" data-dnt="true">
+              {/* <blockquote className="twitter-tweet" data-dnt="true">
                 <p lang="en" dir="ltr">
                   - N e v e r - leave İstanbul without taking bosphorus boat tour 🚢🌊✨
                   <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a>{' '}
@@ -294,7 +294,7 @@ const tabs = [
                 <a href="https://twitter.com/avicadointech/status/1686020838284308482?ref_src=twsrc%5Etfw">
                   July 31, 2023
                 </a>
-              </blockquote>
+              </blockquote> */}
               {/* <blockquote className="twitter-tweet" data-dnt="true">
                 <p lang="und" dir="ltr">
                   ..
@@ -326,7 +326,7 @@ const tabs = [
                   July 30, 2023
                 </a>
               </blockquote> */}
-              <blockquote className="twitter-tweet" data-dnt="true">
+              {/* <blockquote className="twitter-tweet" data-dnt="true">
                 <p lang="tr" dir="ltr">
                   <a href="https://twitter.com/EFDevconnect?ref_src=twsrc%5Etfw">@EFDevconnect</a> in İstanbul⚘{' '}
                   <a href="https://t.co/2wwByk65Ny">pic.twitter.com/2wwByk65Ny</a>
@@ -335,7 +335,7 @@ const tabs = [
                 <a href="https://twitter.com/BabaBlack_/status/1684582970957635587?ref_src=twsrc%5Etfw">
                   July 27, 2023
                 </a>
-              </blockquote>
+              </blockquote> */}
             </div>
           </SwipeToScroll>
 

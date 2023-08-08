@@ -138,6 +138,7 @@ $width-right-column: 190px;
     display: none;
 
     @media (min-width: $screen-lg-2) {
+      white-space: nowrap;
       display: flex;
     }
   }
@@ -151,7 +152,7 @@ $width-right-column: 190px;
   // }
 
   >* {
-    margin-right: 50px;
+    margin-right: 40px;
     font-weight: 700;
     cursor: pointer;
 
@@ -196,7 +197,7 @@ $width-right-column: 190px;
   >a,
   .social-media,
   .multi-link {
-    align-self: flex-start;
+    align-self: flex-start;;
     margin-top: 20px;
   }
 
