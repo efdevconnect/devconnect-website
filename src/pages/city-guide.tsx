@@ -74,11 +74,11 @@ const tabs = [
             <Link href="https://goo.gl/maps/mZRy5WnRe4JBfoBK9">
               <div className={css['header']}>
                 <p className="bold">IST</p>
-                <div className="grey bold">60km to venue</div>
+                <div className="grey bold">40km to venue</div>
               </div>
               <p className="bold big-text">Istanbul International Airport</p>
               <p>
-                Approx. cost to venue by taxi: 300-400 <b>TRY</b>
+                Approx. cost to venue by taxi: ~350 <b>TRY</b>
               </p>
               <div className={css['directions']}>
                 <PinIcon /> <div className="tag tiny-text bold">Get Directions</div>
@@ -92,7 +92,7 @@ const tabs = [
               </div>
               <p className="bold big-text">Sabiha Gökçen Airport</p>
               <p>
-                Approx. cost to venue by taxi: 300-400 <b>TRY</b>
+                Approx. cost to venue by taxi: ~450 <b>TRY</b>
               </p>
               <div className={css['directions']}>
                 <PinIcon /> <div className="tag tiny-text bold">Get Directions</div>
