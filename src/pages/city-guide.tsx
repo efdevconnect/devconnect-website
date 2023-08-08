@@ -87,7 +87,7 @@ const tabs = [
 
             <Link href="https://goo.gl/maps/XPAryow8Dagvxeer6">
               <div className={css['header']}>
-                <p className="bold">IST</p>
+                <p className="bold">SAW</p>
                 <div className="grey bold">60km to venue</div>
               </div>
               <p className="bold big-text">Sabiha Gökçen Airport</p>
@@ -1102,7 +1102,7 @@ const CityGuide: NextPage = () => {
                   <span className="orange">TURKIYE</span> - [ TUR-KI-YEHHHH ]
                 </p>
 
-                <p className="bold big-text">Hoşgeldin, Ethereum explorers, to Istanbul!</p>
+                <p className="bold big-text">Hoşgeldiniz, Ethereum explorers, to Istanbul!</p>
 
                 <br />
 

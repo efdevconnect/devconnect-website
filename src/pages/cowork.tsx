@@ -238,8 +238,7 @@ const Cowork: NextPage = (props: any) => {
 
                     <p className="big-text bold">
                       GA Tickets to the Coworking Space will be <span className="orange">€10</span>. We will accept fiat
-                      payments via Stripe and ETH & DAI payments via Optimism, Arbitrum, as well as ETH payments on
-                      zkSync 2.0!
+                      payments via Stripe, ETH & DAI payments via Optimism, Arbitrum, and ETH payments on zkSync 2.0.
                     </p>
 
                     <Link

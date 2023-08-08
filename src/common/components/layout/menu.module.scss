@@ -9,6 +9,7 @@ $width-right-column: 190px;
 
 .menu,
 .footer-menu {
+  --icon-color: white;
   a {
     &:hover {
       [data-type='link-text'] {

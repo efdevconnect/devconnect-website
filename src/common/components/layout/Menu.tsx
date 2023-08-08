@@ -208,6 +208,7 @@ export const FooterMenu = (props: any) => {
             key={menuItem.text}
             href={menuItem.url}
             onClick={props.onClickMenuItem}
+            indicateExternal
           >
             {menuItem.text}
           </Link>
@@ -245,7 +246,7 @@ export const Menu = (props: any) => {
         }
 
         return (
-          <Link className={menuItem.customClass} key={menuItem.text} href={menuItem.url}>
+          <Link className={menuItem.customClass} key={menuItem.text} href={menuItem.url} indicateExternal>
             {menuItem.text}
           </Link>
         )
