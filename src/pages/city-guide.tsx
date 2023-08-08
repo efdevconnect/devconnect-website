@@ -753,12 +753,21 @@ const tabs = [
             <b>BiTaksi:</b> Uber-like app, locally-made.
           </p>
           <p>
-            <a href="https://www.marti.tech/">Marti</a> and <a href="https://fenix.life/index-tr.html">Fenix</a>: Shared
-            scooter apps are widely used. Marti has the “MartiTag” mode that works like Uber.
+            <Link indicateExternal href="https://www.marti.tech/">
+              Marti
+            </Link>{' '}
+            and{' '}
+            <Link indicateExternal href="https://fenix.life/index-tr.html">
+              Fenix
+            </Link>
+            : Shared scooter apps are widely used. Marti has the “MartiTag” mode that works like Uber.
           </p>
           <p>
-            <a href="https://www.isbike.istanbul/">**isbike</a>:** City bikes by the municipality. However, the city is
-            not very bikeable. There are some good bikeable zones at the coast, you can see them on the isbike map.
+            <Link indicateExternal href="https://www.isbike.istanbul/">
+              <b>isbike</b>
+            </Link>
+            : City bikes by the municipality. However, the city is not very bikeable. There are some good bikeable zones
+            at the coast, you can see them on the isbike map.
           </p>
           <p>
             <b>Moovit:</b> Route planning and real-time information on public transport.
@@ -792,14 +801,14 @@ const tabs = [
             <b>Resources and more information:</b>
           </p>
           <p>
-            <a href="https://istanbul-tourist-information.com/en/public-transport-in-istanbul/">
-              https://istanbul-tourist-information.com/en/public-transport-in-istanbul/
-            </a>
+            <Link indicateExternal href="https://istanbul-tourist-information.com/en/public-transport-in-istanbul/">
+              https://istanbul-tourist-information.com/en/public-transport-in-istanbul
+            </Link>
           </p>
           <p>
-            <a href="https://www.chasingthedonkey.com/getting-around-istanbul-transport/">
-              https://www.chasingthedonkey.com/getting-around-istanbul-transport/
-            </a>
+            <Link indicateExternal href="https://www.chasingthedonkey.com/getting-around-istanbul-transport/">
+              https://www.chasingthedonkey.com/getting-around-istanbul-transport
+            </Link>
           </p>
         </div>
       )
@@ -836,9 +845,18 @@ const tabs = [
             <li>
               In case you think you were overcharged or have a problem take note of the taxi plate. You can file a
               complaint at the “White Desk” of the municipality by calling “153”, from the{' '}
-              <a href="https://cozummerkezi.ibb.istanbul/application/cozummerkezi">website</a>,{' '}
-              <a href="https://play.google.com/store/apps/details?id=com.tr.gov.ibb.istanbulsenin">Android</a>, or{' '}
-              <a href="https://apps.apple.com/tr/app/lstanbul-senin/id1534342254?l=tr">Apple</a> apps.
+              <Link indicateExternal href="https://cozummerkezi.ibb.istanbul/application/cozummerkezi">
+                website
+              </Link>
+              ,{' '}
+              <Link indicateExternal href="https://play.google.com/store/apps/details?id=com.tr.gov.ibb.istanbulsenin">
+                Android
+              </Link>
+              , or{' '}
+              <Link indicateExternal href="https://apps.apple.com/tr/app/lstanbul-senin/id1534342254?l=tr">
+                Apple
+              </Link>{' '}
+              apps.
             </li>
           </ul>
           <p>
@@ -847,9 +865,9 @@ const tabs = [
           <p>
             Many locals view the cats as communally-owned pets rather than traditional strays, and it&apos;s common to
             feed them. Here there is a documentary about cats in Istanbul: “Kedi”{' '}
-            <a href="https://www.youtube.com/watch?v=PpG0z-npFIY&amp;ab_channel=vlogbrothers">
+            <Link indicateExternal href="https://www.youtube.com/watch?v=PpG0z-npFIY&amp;ab_channel=vlogbrothers">
               https://www.youtube.com/watch?v=PpG0z-npFIY&amp;ab_channel=vlogbrothers
-            </a>
+            </Link>
           </p>
           <p>
             <b>Be friendly</b> 🙂
@@ -906,8 +924,7 @@ const tabs = [
               <b>Earthquake safety</b>: While Istanbul was not affected by the heavy earthquakes in Turkey and Syria in
               February 2023, earthquake safety might be on some of your minds. It is difficult to predict the occurrence
               of an earthquake. For earthquake preparedness, it is good to inform yourself about the safety of the
-              district you are staying. The Cowork venue (ICC) has been{' '}
-              <a href="LINK">certified for resistance to earthquakes</a>.
+              district you are staying. The Cowork venue (ICC) has been certified for resistance to earthquakes.
             </li>
           </ul>
           <p>
