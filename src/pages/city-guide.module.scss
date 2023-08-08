@@ -372,10 +372,13 @@
 
       .image {
         flex-shrink: 0;
-        height: 100%;
+        height: 258px;
+        width: 165px;
+        min-height: 100%;
 
         img {
           object-fit: cover;
+          width: 100%;
           height: 100%;
         }
       }

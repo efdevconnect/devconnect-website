@@ -29,6 +29,10 @@ import MyNameIsRed from 'assets/images/city-guide/media/my-name-is-red.png'
 import Distant from 'assets/images/city-guide/media/distant.png'
 import FromRussiaWithLove from 'assets/images/city-guide/media/from-russia-with-love.png'
 import CrossingTheBridge from 'assets/images/city-guide/media/crossing-the-bridge.png'
+import LayersOfIstanbul from 'assets/images/city-guide/media/layers-of-istanbul.png'
+import OrientExpress from 'assets/images/city-guide/media/murder-orient-express.png'
+import Peace from 'assets/images/city-guide/media/peace.png'
+import Skyfall from 'assets/images/city-guide/media/skyfall.png'
 import TheCat from 'assets/images/city-guide/media/the-cat.png'
 
 const tabs = [
@@ -359,7 +363,7 @@ const tabs = [
     },
   },
   {
-    text: 'Where to stay',
+    text: 'Where to Stay',
     value: 'where-to-stay',
     content: () => {
       return (
@@ -525,7 +529,7 @@ const tabs = [
                     ' Orhan Pamuk is a Nobel Prize winner author who was raised in Istanbul. All of his books are related to Istanbul. If you are interested in Postmodernism in Literature, you can find no better narrative builder than Pamuk. You can also read "Snow", and "The Museum of Innocence" from Pamuk',
                 },
                 {
-                  thumbnail: JohnFreelyIstanbul,
+                  thumbnail: OrientExpress,
                   thumbnailAlt: 'Bookcover: Murder on the Orient Express',
                   title: 'Murder on the Orient Express',
                   author: 'Agatha Christie',
@@ -533,7 +537,7 @@ const tabs = [
                     "Do you like detective novels? Agatha Christie's work can help you get to know Istanbul.",
                 },
                 {
-                  thumbnail: JohnFreelyIstanbul,
+                  thumbnail: Peace,
                   thumbnailAlt: 'Bookcover: Peace',
                   title: 'Peace',
                   author: 'Ahmet Hamdi Tanpınar',
@@ -579,7 +583,7 @@ const tabs = [
                     'In this film, you can see the legendary “Orient Express” Train line that connects Paris to Istanbul.',
                 },
                 {
-                  thumbnail: JohnFreelyIstanbul,
+                  thumbnail: Skyfall,
                   thumbnailAlt: 'Movie poster: Skyfall',
                   title: 'Skyfall',
                   author: 'James Bond',
@@ -625,7 +629,7 @@ const tabs = [
                     'A profile of İstanbul and its unique people, seen through the eyes of the most mysterious and beloved animal humans have ever known, the Cat.',
                 },
                 {
-                  thumbnail: JohnFreelyIstanbul,
+                  thumbnail: LayersOfIstanbul,
                   thumbnailAlt: 'Movie poster: Layers of Istanbul (Netflix)',
                   title: 'Layers of Istanbul (Netflix)',
                   author: '',
