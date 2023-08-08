@@ -50,18 +50,15 @@ const tabs = [
             <b>Timezone</b>: GMT+3 (all year, as Turkey has no daylight savings time)
           </p> */}
           <p className="big-text">
-            <b>Visa requirements</b>: Get your Visa before your travels! Most visitors require an{' '}
-            <Link indicateExternal href="https://www.evisa.gov.tr/en/">
-              e-Visa
-            </Link>
-            . Visitors from some countries can{' '}
-            <Link indicateExternal href="https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa">
-              stay with a tourist visa
-            </Link>
-            .{' '}
+            <b>Visa requirements</b>: Get your Visa before your travels,{' '}
+            <Link href="https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa">if you need one</Link>!
           </p>
           <p className="big-text">
-            Need a Visa invitation letter? Write us at help@devconnect.org (you&apos;ll need to purchase{' '}
+            Need a Visa invitation letter? Write us at{' '}
+            <Link indicateExternal href="mailto:help@devconnect.org">
+              help@devconnect.org
+            </Link>{' '}
+            (you&apos;ll need to purchase{' '}
             <Link indicateExternal href="/cowork">
               Devconnect Cowork
             </Link>{' '}
@@ -348,7 +345,11 @@ const tabs = [
             <Link indicateExternal href="https://twitter.com/kaanuzdogan/status/1684913443759968256?s=20">
               here is a restaurant guide
             </Link>{' '}
-            put together by a local community member.{' '}
+            put together by a local community member. There is also{' '}
+            <Link indicateExternal href="https://www.instagram.com/thegoodday_istanbul">
+              this lovely Instagram account
+            </Link>{' '}
+            for inspiration about Istanbul&apos;s city, culture, local shops, and nature.
           </p>
 
           <Link
@@ -375,46 +376,45 @@ const tabs = [
           </p>
 
           <div className={css['areas']}>
-            <div
-              className={`${css['header']} margin-top-much-less extra-large-text orange border-bottom margin-bottom-much-less`}
-            >
-              Nişantaşı/Maçka and Osmanbey
-            </div>
-            <p className="big-text">
-              The Devconnect Cowork is right between these two neighborhoods! They are considered central, and elegant
-              districts. Taksim and Osmanbey stations are both approximately a 7-minute walking distance from the ICC.
-            </p>
             <div className={css['area']}>
-              <div className="large-text margin-bottom-much-less bold">Şişli</div>
+              <div className="large-text orange margin-bottom-much-less bold">Nişantaşı/Maçka and Osmanbey</div>
+              <p>
+                {' '}
+                The Devconnect Cowork is right between these two neighborhoods! They are considered central, and elegant
+                districts. Taksim and Osmanbey stations are both approximately a 7-minute walking distance from the ICC.
+              </p>
+            </div>
+            <div className={css['area']}>
+              <div className="large-text orange margin-bottom-much-less bold">Şişli</div>
               <p> You can reach the ICC venue by walking from many areas in Şişli.</p>
             </div>
             <div className={css['area']}>
-              <div className="large-text margin-bottom-much-less bold">Beyoğlu</div>
+              <div className="large-text orange margin-bottom-much-less bold">Beyoğlu</div>
               <p>
                 You can reach Beyoğlu via public transport in about 20 minutes. In the neighborhood, you find the famous
                 Taksim Square and Istiklal Street, known for their nightlife, and restaurant options.
               </p>
             </div>
             <div className={css['area']}>
-              <div className="large-text margin-bottom-much-less bold">Karaköy/Galata</div>
+              <div className="large-text orange margin-bottom-much-less bold">Karaköy/Galata</div>
               <p>
                 Trendy neighborhood, known for its art galleries, boutiques, and cafes. It takes about 15-20 minutes by
                 public transport to the ICC.
               </p>
             </div>
             <div className={css['area']}>
-              <div className="large-text margin-bottom-much-less bold">Beşiktaş</div>A hipster neighborhood close to the
-              Bosphorus, filled with bars, cafes, restaurants, and a large student population. It takes 15-20 minutes by
-              public transport from Beşiktaş Meydan to the ICC venue.{' '}
+              <div className="large-text orange margin-bottom-much-less bold">Beşiktaş</div>A hipster neighborhood close
+              to the Bosphorus, filled with bars, cafes, restaurants, and a large student population. It takes 15-20
+              minutes by public transport from Beşiktaş Meydan to the ICC venue.{' '}
             </div>
             <div className={css['area']}>
-              <div className="large-text margin-bottom-much-less bold">Üsküdar</div>
+              <div className="large-text orange margin-bottom-much-less bold">Üsküdar</div>
               is a good and affordable alternative on the Asian side, very local with few tourists. The frequent ferries
               allow easy access to the European side with a 10-minute ride to Beşiktaş and a ~40 minutes metro
               connection under the sea to the historical peninsula. Ferries are operating until late.{' '}
             </div>
             <div className={css['area']}>
-              <div className="large-text margin-bottom-much-less bold">The Historic Peninsula</div>
+              <div className="large-text orange margin-bottom-much-less bold">The Historic Peninsula</div>
               <p>
                 {' '}
                 The touristic center, including the neighborhood <b>Sultanahmet</b> with many famous landmarks like the
@@ -427,7 +427,7 @@ const tabs = [
               </p>
             </div>
             <div className={css['area']}>
-              <div className="large-text margin-bottom-much-less bold">Moda in Kadıköy (far, but nice)</div>
+              <div className="large-text orange margin-bottom-much-less bold">Moda in Kadıköy (far, but nice)</div>
               <b>Moda in Kadıköy</b> is one of the most beautiful, hip, and modern districts. It has a lovely coast,
               many good restaurants, cafes and bars. The district attracts most students and upper-middle-class young
               adults. However, Kadıköy is far from the venue, requiring a ~1-hour ride with public transport. It might
@@ -721,8 +721,18 @@ const tabs = [
             <b>Bus</b>: Most widely used form of public transport in Istanbul, with around 500 lines and 8,000 stops.
           </p>
           <p>
-            <b>Ferry (Vapur)</b>: A fun way to cross the Bosphorus between the European and Asian sides of Istanbul.
+            <b>Ferry (Vapur)</b>: There&apos;s lots of public ferries crossing the Bosphorus between the European and
+            Asian sides.{' '}
+            <Link
+              indicateExternal
+              href="https://file.notion.so/f/s/4017bdb4-e7b2-4bb8-9c30-90a7cf4c27dc/Sefer-Haritasi-Line-Map-2022.pdf?id=2d225240-dc8a-4cbe-96ed-5206edd1b887&table=block&spaceId=29b26582-476c-4221-baee-adf2ad16f913&expirationTimestamp=1691599673061&signature=YAYiT4YQRW9xLbOoQbG95-Q57zK-fEj0DwIo3ioRqYI&downloadName=Sefer-Haritasi-Line-Map-2022.pdf"
+            >
+              Here is a Map with all lines
+            </Link>
+            , but the most used ones are Kadikoy and Uskudar on the Asian side, and the two-sided ferries from Besiktas,
+            Kabatas, and Karakoy.
           </p>
+
           <p>
             <b>Dolmuş (shared taxis)</b>: These minibuses are more affordable than taxis, you just hop on and pay cash
             in the vehicle.{' '}
@@ -730,6 +740,11 @@ const tabs = [
           <p>
             <b>Marmaray:</b> The rail connection between European and Asian Istanbul via a tunnel beneath the Bosphorus.
           </p>
+          <p>
+            <b>Bosphorus taxis</b>: You can easily transfer from Bebek to Nisantası, Taksim, and other areas close to
+            Bosphorus.
+          </p>
+
           <p>
             👉 To use all public transportation in Istanbul you will need the <b>Istanbulkart</b>. You can simply get
             the card and top it up at kiosks near metro stations, piers, and bus stations. 💵 Approximate costs: 9.90 TL
@@ -843,6 +858,10 @@ const tabs = [
               you&apos;re driving.
             </li>
             <li>
+              There can indeed be extra fees for crossing highways, bridges, and tunnels, and taxi drivers might ask you
+              for it.
+            </li>
+            <li>
               In case you think you were overcharged or have a problem take note of the taxi plate. You can file a
               complaint at the “White Desk” of the municipality by calling “153”, from the{' '}
               <Link indicateExternal href="https://cozummerkezi.ibb.istanbul/application/cozummerkezi">
@@ -924,7 +943,14 @@ const tabs = [
               <b>Earthquake safety</b>: While Istanbul was not affected by the heavy earthquakes in Turkey and Syria in
               February 2023, earthquake safety might be on some of your minds. It is difficult to predict the occurrence
               of an earthquake. For earthquake preparedness, it is good to inform yourself about the safety of the
-              district you are staying. The Cowork venue (ICC) has been certified for resistance to earthquakes.
+              district you are staying. The Cowork venue (ICC) has been{' '}
+              <Link
+                indicateExternal
+                href="https://file.notion.so/f/s/b126a495-9ef3-4aea-abd2-7c4173cf4812/Earthquake_Document.pdf?id=468bd166-37b1-4f86-9cad-53fbd24bd641&table=block&spaceId=29b26582-476c-4221-baee-adf2ad16f913&expirationTimestamp=1691599896320&signature=WDTG6yuDOC_ZXVNqFG925JvXDtLjOOctaelyCAm9sjw&downloadName=Earthquake+Document.pdf"
+              >
+                certified for being suitable in terms of earthquake regulations legislation
+              </Link>
+              .
             </li>
           </ul>
           <p>

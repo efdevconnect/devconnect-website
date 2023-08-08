@@ -55,13 +55,22 @@ const FAQ = [
         <>
           <p className="bold">Volunteer</p>
           <p>
-            We will be looking for volunteers for Devconnect Istanbul soon! Follow [@
-            EFDevconnect](twitter.com/efdevconnect) to stay up to date.
+            We will be looking for volunteers for Devconnect Istanbul soon! Follow{' '}
+            <Link indicateExternal href="https://twitter.com/efdevconnect">
+              @EFDevconnect
+            </Link>{' '}
+            to stay up to date.
           </p>
           <p className="bold">Be an event host</p>
           <p>
-            If you want to organize an event during Devconnect, head over to the [event host
-            guide](https://www.notion.so/ef-events/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022?pvs=4).
+            If you want to organize an event during Devconnect, head over to the{' '}
+            <Link
+              indicateExternal
+              href="https://www.notion.so/ef-events/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022?pvs=4"
+            >
+              event host guide
+            </Link>
+            .
           </p>
           <p className="bold">Media</p>
           <p>

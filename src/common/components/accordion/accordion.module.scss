@@ -9,9 +9,9 @@
 
   .accordion {
     &.always-open {
-      .toggle {
+      > .toggle {
         cursor: auto;
-        svg {
+        > svg {
           display: none;
         }
       }

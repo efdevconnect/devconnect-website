@@ -92,8 +92,8 @@ const menuItems = (pathname: string) => [
       },
       {
         text: 'Volunteer',
-        external: true,
-        url: 'https://forms.gle/tEf9UAcn7sHbkQau5',
+        // external: true,
+        url: '/cowork#volunteer', // cowork#volunteer'https://forms.gle/tEf9UAcn7sHbkQau5',
       },
       {
         text: 'Press Inquiry',

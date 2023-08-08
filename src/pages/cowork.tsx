@@ -29,6 +29,177 @@ import SwipeToScroll from 'common/components/swipe-to-scroll'
 import CoworkHero from 'assets/images/cowork-gallery/cowork.png'
 import PlayIcon from 'assets/icons/play.svg'
 
+const volunteerFAQ = [
+  {
+    text: 'Is this Volunteer Application just for the Cowork Space?',
+    value: '1',
+    content: () => {
+      return (
+        <p className="tab-content">
+          Yes, this Volunteer Application is just for the Cowork Space. To apply to a specific event happening during
+          Devconnect week, you must contact the organizer of that event listed on the{' '}
+          <Link href="/schedule">Devconnect Schedule</Link>.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'What are the requirements to volunteer for the event?',
+    value: '2',
+    content: () => {
+      return (
+        <p>
+          We welcome volunteers of all backgrounds and experiences. You must be at least 18 years old to apply or obtain
+          parental/guardian permission. A passion to learn is highly valued.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'What volunteer roles are available for the event?',
+    value: '3',
+    content: () => {
+      return (
+        <p>
+          Various volunteer roles, including registration support, speaker support, and more. You can indicate your
+          preferred roles in the application, but specific roles will be assigned closer to the event by our team
+        </p>
+      )
+    },
+  },
+  {
+    text: 'How many hours am I expected to volunteer during the event?',
+    value: '4',
+    content: () => {
+      return (
+        <p>
+          The time commitment will vary based on your chosen role and availability. Volunteers typically serve in shifts
+          but will not be required to volunteer the entire week — we want you to enjoy Devconnect too!
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Will there be any training provided for volunteers?',
+    value: '5',
+    content: () => {
+      return (
+        <p>
+          Yes, selected volunteers will receive training and orientation—both virtual and in-person—before the event to
+          ensure you are well-prepared for your role.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Is there any compensation for volunteering?',
+    value: '6',
+    content: () => {
+      return (
+        <p>
+          As a volunteer, you will not receive monetary compensation. However, you will gain valuable experience,
+          networking opportunities, and access to select event areas.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Can I volunteer for more than one role or shift?',
+    value: '7',
+    content: () => {
+      return (
+        <p>
+          While we appreciate your enthusiasm, it's recommended to focus on one role and shift to ensure the best
+          experience and avoid overcommitment. We will be selecting ~100 volunteers to support the event to ensure each
+          person can also go enjoy Devconnect while not on shift.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Will I have time to attend sessions or workshops as a volunteer?',
+    value: '8',
+    content: () => {
+      return (
+        <p>
+          Volunteers will have the opportunity to experience parts of the event. However, your primary responsibility
+          during your shift will be to support the event's smooth operation.
+        </p>
+      )
+    },
+  },
+  {
+    text: ' Are there any age restrictions for volunteers?',
+    value: '9',
+    content: () => {
+      return (
+        <p>
+          Yes, volunteers must be at least 18 years old to participate in the event, or have the written approval of
+          their Parent or Guardian.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Do I need to have experience in Ethereum or blockchain technology to volunteer?',
+    value: '10',
+    content: () => {
+      return (
+        <p>
+          Prior experience in Ethereum or blockchain is not necessary. We value enthusiasm and a willingness to learn.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Can I volunteer with my friends or as a group?',
+    value: '11',
+    content: () => {
+      return (
+        <p>
+          It would be highly valuable to share the volunteer application with friends, although the opportunity to
+          volunteer together is not guaranteed.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Is transportation and accommodation provided for volunteers coming from out of town?',
+    value: '12',
+    content: () => {
+      return (
+        <p>
+          Unfortunately, we cannot provide transportation or accommodation for volunteers. However, we can recommend
+          nearby lodging options for your convenience.
+        </p>
+      )
+    },
+  },
+  {
+    text: 'Will there be breaks and meals provided during my volunteer shift?',
+    value: '13',
+    content: () => {
+      return <p>Yes, volunteers will have scheduled breaks during their shifts, and meals will be provided on shift.</p>
+    },
+  },
+  {
+    text: 'What should I wear during my volunteer shift?',
+    value: '14',
+    content: () => {
+      return <p>Comfortable attire and closed-toe shoes are generally recommended.</p>
+    },
+  },
+  {
+    text: 'Can I bring personal belongings with me during my shift?',
+    value: '15',
+    content: () => {
+      return (
+        <p>We recommend bringing only essential items, as secure storage options may be limited during the event.</p>
+      )
+    },
+  },
+]
+
 // const waves = [
 //   {
 //     status: 'sold out',
@@ -135,6 +306,10 @@ const Cowork: NextPage = (props: any) => {
                   {
                     text: 'Ticketing Info',
                     value: 'ticketing',
+                  },
+                  {
+                    text: 'Volunteer',
+                    value: 'volunteer',
                   },
                 ]}
               />
@@ -318,6 +493,60 @@ const Cowork: NextPage = (props: any) => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="section margin-bottom" id="volunteer">
+        <div className={`${css['volunteer']}`}>
+          <Accordion className={css['accordion']}>
+            <AccordionItem
+              alwaysOpen
+              title={<p className="orange uppercase section-header bold">Volunteering</p>}
+              id="volunteer"
+            >
+              <p className="margin-bottom-less large-text">
+                We're looking for volunteers! Volunteering is often a good first step into the Ethereum ecosystem. If
+                you want to experience the event from behind the scenes and contribute to its success, apply here as a
+                volunteer for the Devconnect Cowork.
+              </p>
+              <Link
+                indicateExternal
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeCDR0RyJaqhqxuSmfYnkdvx3GrTbJ2iBm0Td0BfiHnnm70qw/viewform"
+                offset="32"
+                className={`button sm orange margin-bottom-much-less`}
+              >
+                Volunteer Application Form
+              </Link>
+              <div className={`section-header grey bold margin-top-less`} id="first-come-first-serve">
+                Frequently Asked Questions
+              </div>
+              <Accordion>
+                {volunteerFAQ.map(faq => {
+                  return (
+                    <AccordionItem
+                      key={faq.text}
+                      title={<b>{faq.text}</b>}
+                      id={faq.value}
+                      alwaysOpen
+                      // ref={faq.value === 'organizers' ? organizersRef : undefined}
+                    >
+                      {faq.content && faq.content()}
+                    </AccordionItem>
+                  )
+                })}
+              </Accordion>
+
+              <p className="margin-top-less big-text tab-content">
+                If you have any other questions or need further information, please feel free to reach out to our
+                Volunteer Coordinator at{' '}
+                <Link indicateExternal href="mailto:kokeb.solomon@ethereum.org">
+                  kokeb.solomon@ethereum.org
+                </Link>
+                <br /> <br />
+                We look forward to welcoming you to our passionate volunteer team for Devconnect!
+              </p>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
 
