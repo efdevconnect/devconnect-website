@@ -170,7 +170,7 @@ const tabs = [
                 &mdash; dilara aka buzagi | pepethe.lens 🌿 (@thebuzagi){' '}
                 <a href="https://twitter.com/thebuzagi/status/1685999231201423360?ref_src=twsrc%5Etfw">July 31, 2023</a>
               </blockquote>
-              <blockquote className="twitter-tweet" data-dnt="true">
+              {/* <blockquote className="twitter-tweet" data-dnt="true">
                 <p lang="en" dir="ltr">
                   Hey people! Are you excited for Devconnect Istanbul? <br />
                   Cause we are very excited to host you in our home and I wanted to share some videos from daily life.{' '}
@@ -179,7 +179,7 @@ const tabs = [
                 </p>
                 &mdash; Alamalu (@alamaluu){' '}
                 <a href="https://twitter.com/alamaluu/status/1685361500528021504?ref_src=twsrc%5Etfw">July 29, 2023</a>
-              </blockquote>
+              </blockquote> */}
 
               <blockquote className="twitter-tweet" data-dnt="true">
                 <p lang="en" dir="ltr">
