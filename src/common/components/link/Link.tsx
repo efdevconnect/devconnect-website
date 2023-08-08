@@ -23,13 +23,17 @@ export const useDraggableLink = () => {
     onMouseMove: () => {
       dragging.current = true
     },
-    onClick: (e: React.SyntheticEvent) => {
-      e.stopPropagation()
-
+    onClickCapture: (e: React.SyntheticEvent) => {
       if (dragging.current) {
+        e.stopPropagation()
         e.preventDefault()
       }
     },
+    // onClick: (e: React.SyntheticEvent) => {
+    //   if (dragging.current) {
+    //     e.preventDefault()
+    //   }
+    // },
     draggable: false,
   }
 }

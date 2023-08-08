@@ -939,8 +939,6 @@ export const Tabs = (props: any) => {
               className={className}
               {...linkAttributes}
               onClick={(e: any) => {
-                linkAttributes.onClick(e)
-
                 if (props.accordionRefs && props.accordionRefs.current[tab.value]) {
                   props.accordionRefs.current[tab.value].open()
                 }
@@ -1048,6 +1046,11 @@ const List = (props: any) => {
 
 const CityGuide: NextPage = () => {
   const accordionRefs = React.useRef({} as { [key: string]: any })
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <>
@@ -1146,7 +1149,7 @@ const CityGuide: NextPage = () => {
               </div>
 
               <div className={css['right']}>
-                <p className="grey section-header margin-bottom-much-less">Quick Tips</p>
+                <p className={`${css['quick-tips-header']} grey section-header margin-bottom-much-less`}>Quick Tips</p>
                 <List accordionRefs={accordionRefs} />
               </div>
             </div>
@@ -1162,7 +1165,7 @@ const CityGuide: NextPage = () => {
             <p className="section-header orange margin-top-less margin-bottom-much-less" id="experience-the-city">
               Experience The City
             </p>
-            <div>{tabs[2].content()}</div>
+            <div>{mounted && tabs[2].content()}</div>
 
             {/* <p className="section-header orange margin-top-less">Before Devconnect</p> */}
             <Accordion>

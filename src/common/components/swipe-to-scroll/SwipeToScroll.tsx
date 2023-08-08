@@ -12,6 +12,7 @@ type SwipeToScrollProps = {
 
 const SwipeToScroll = (props: SwipeToScrollProps) => {
   const el = React.useRef<any>()
+  const isDragging = React.useRef(false)
   const [maxScrolled, setMaxScrolled] = React.useState(0)
   const lastX = React.useRef(0)
   // const focusCompleted = React.useRef(false)
@@ -66,11 +67,13 @@ const SwipeToScroll = (props: SwipeToScrollProps) => {
     el.current.style.transform = `translateX(-${lastX.current}px)`
 
     if (down) {
+      isDragging.current = true
       el.current.style.cursor = 'grabbing'
-      el.current.classList.add(css['dragging'])
+      // el.current.classList.add(css['dragging'])
     } else {
+      isDragging.current = false
       el.current.style.cursor = 'auto'
-      el.current.classList.remove(css['dragging'])
+      // el.current.classList.remove(css['dragging'])
     }
   })
 
@@ -88,6 +91,13 @@ const SwipeToScroll = (props: SwipeToScrollProps) => {
           observe(element)
         }}
         className={css['swipe-to-scroll']}
+        // onClickCapture={e => {
+        //   console.log('click capture here')
+        //   if (isDragging.current) {
+        //     e.stopPropagation()
+        //     e.preventDefault()
+        //   }
+        // }}
       >
         {props.children}
       </div>

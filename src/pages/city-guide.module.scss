@@ -111,8 +111,16 @@
     .right {
       flex-shrink: 0;
 
+      .quick-tips-header {
+        display: none;
+      }
+
       @media (min-width: $screen-lg) {
         flex-basis: 50%;
+
+        .quick-tips-header {
+          display: block;
+        }
       }
 
       .list {
@@ -305,7 +313,7 @@
     gap: 16px;
 
     > * {
-      min-width: 120px !important;
+      min-width: 250px !important;
       max-width: 100% !important;
     }
   }
