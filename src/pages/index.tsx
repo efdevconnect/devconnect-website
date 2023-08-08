@@ -993,21 +993,21 @@ const Home: NextPage = (props: any) => {
           </div> */}
 
           <Scene growVertically growNaturally className={`${css['scene-faq']}`}>
-            <Observer>
-              <div className="section">
-                <h1 className="section-header orange border-top padding-top-less">Blog Posts</h1>
+            {/* <Observer> */}
+            <div className="section">
+              <h1 className="section-header orange border-top padding-top-less">Blog Posts</h1>
 
-                <BlogReel blogs={props.blogs} />
+              <BlogReel blogs={props.blogs} />
 
-                <div className="padding-bottom-less border-bottom "></div>
-              </div>
-            </Observer>
+              <div className="padding-bottom-less border-bottom "></div>
+            </div>
+            {/* </Observer> */}
           </Scene>
 
           <Scene growVertically growNaturally className={`${css['scene-faq']} section`}>
-            <Observer>
-              <div className={`clear-vertical`}>
-                {/* <div className="columns border-bottom margin-bottom padding-bottom">
+            {/* <Observer> */}
+            <div className={`clear-vertical`}>
+              {/* <div className="columns border-bottom margin-bottom padding-bottom">
                   <div className="left">
                     <h1 className="section-header grey">Are you New to Ethereum?</h1>
                     <p className="big-text margin-top-less">
@@ -1044,26 +1044,26 @@ const Home: NextPage = (props: any) => {
                   </div>
                 </div> */}
 
-                <h1 className="section-header orange">Frequently Asked Questions</h1>
+              <h1 className="section-header orange">Frequently Asked Questions</h1>
 
-                <div className={`${css['accordion']} tab-content`} id="faq">
-                  <Accordion>
-                    {FAQ.map(faq => {
-                      return (
-                        <AccordionItem
-                          key={faq.text}
-                          title={faq.text}
-                          id={faq.value}
-                          ref={faq.value === 'organizers' ? organizersRef : undefined}
-                        >
-                          {faq.content && faq.content()}
-                        </AccordionItem>
-                      )
-                    })}
-                  </Accordion>
-                </div>
+              <div className={`${css['accordion']} tab-content`} id="faq">
+                <Accordion>
+                  {FAQ.map(faq => {
+                    return (
+                      <AccordionItem
+                        key={faq.text}
+                        title={faq.text}
+                        id={faq.value}
+                        ref={faq.value === 'organizers' ? organizersRef : undefined}
+                      >
+                        {faq.content && faq.content()}
+                      </AccordionItem>
+                    )
+                  })}
+                </Accordion>
               </div>
-            </Observer>
+            </div>
+            {/* </Observer> */}
           </Scene>
         </main>
 
