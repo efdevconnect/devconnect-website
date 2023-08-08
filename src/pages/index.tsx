@@ -67,10 +67,7 @@ const FAQ = [
           <p>
             You want to cover Devconnect? Cool! Write us at press@devconnect.org for more info, or inquire to obtain a
             media pass that grants you access to the Devconnect Cowork{' '}
-            <Link
-              href="https://docs.google.com/forms/d/1O7N0GQgyB9e7He6XtFKFu1zVwOM5a9HtO_pEOTctsr8/prefill"
-              indicateExternal
-            >
+            <Link href="https://forms.gle/se7hd5Sz5x8Lkoj87 " indicateExternal>
               here
             </Link>
             . <span className="bold">We, the Devconnect team, are currently not seeking media partnerships.</span>
