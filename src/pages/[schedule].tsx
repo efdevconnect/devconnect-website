@@ -319,8 +319,6 @@ const Timeline = (props: any) => {
           style={gridPlacement}
           {...draggableAttributes}
           onClick={e => {
-            draggableAttributes.onClick(e)
-
             if (!e.defaultPrevented) {
               setEventModalOpen(event.ID)
             }
