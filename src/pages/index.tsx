@@ -715,59 +715,59 @@ const Home: NextPage = (props: any) => {
             {/* <div className={`${css['background']} expand`}>
               <Image src={BluePrint} objectFit="contain" alt="Building outline" />
             </div> */}
-            <Observer>
-              <div className="section" id="about">
-                <h1 className="section-header clear-vertical" style={{ zIndex: 1 }}>
-                  <span className="orange">WHY DEVCONNECT</span>
-                </h1>
+            {/* <Observer> */}
+            <div className="section" id="about">
+              <h1 className="section-header clear-vertical" style={{ zIndex: 1 }}>
+                <span className="orange">WHY DEVCONNECT</span>
+              </h1>
 
-                <div className={`columns margin-bottom`}>
-                  <div className="left fill-45">
-                    <div>
-                      <p className={css['big-description']}>
-                        Devconnect aims to bring together Ethereum&apos;s most important{' '}
-                        <b>
-                          <span className={css['red-underline']}>builders</span>, researchers, and its community.
-                        </b>
-                      </p>
+              <div className={`columns margin-bottom`}>
+                <div className="left fill-45">
+                  <div>
+                    <p className={css['big-description']}>
+                      Devconnect aims to bring together Ethereum&apos;s most important{' '}
+                      <b>
+                        <span className={css['red-underline']}>builders</span>, researchers, and its community.
+                      </b>
+                    </p>
 
-                      <p className="large-text margin-top-less">
-                        At Devconnect events, you can have deep discussions about trending topics in Ethereum, and
-                        collaborate in person on problems you are currently trying to solve. The Devconnect Cowork is a
-                        place to network, and meet the people working in Ethereum. And on the side, you can explore the
-                        rich history and culture of Istanbul.
-                      </p>
-                    </div>
-
-                    <div className={`margin-top ${css['nowrap']}`}>
-                      <Link href="/cowork" className={`button wide orange-fill ${css['cowork-tickets-button']}`}>
-                        <PlayIcon className="icon large-text" /> COWORK TICKETS
-                      </Link>
-                      <Link
-                        href="/city-guide"
-                        className={`button wide orange margin-left-less ${css['city-guide-button']}`}
-                        indicateExternal
-                      >
-                        City Guide
-                      </Link>
-                    </div>
+                    <p className="large-text margin-top-less">
+                      At Devconnect events, you can have deep discussions about trending topics in Ethereum, and
+                      collaborate in person on problems you are currently trying to solve. The Devconnect Cowork is a
+                      place to network, and meet the people working in Ethereum. And on the side, you can explore the
+                      rich history and culture of Istanbul.
+                    </p>
                   </div>
-                  <div className="right">
-                    <div className="aspect">
-                      <iframe
-                        width="100%"
-                        height="100%"
-                        src="https://www.youtube.com/embed/6X0yIUq7fpc"
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
+
+                  <div className={`margin-top ${css['nowrap']}`}>
+                    <Link href="/cowork" className={`button wide orange-fill ${css['cowork-tickets-button']}`}>
+                      <PlayIcon className="icon large-text" /> COWORK TICKETS
+                    </Link>
+                    <Link
+                      href="/city-guide"
+                      className={`button wide orange margin-left-less ${css['city-guide-button']}`}
+                      indicateExternal
+                    >
+                      City Guide
+                    </Link>
+                  </div>
+                </div>
+                <div className="right">
+                  <div className="aspect">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/6X0yIUq7fpc"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
                   </div>
                 </div>
               </div>
-            </Observer>
+            </div>
+            {/* </Observer> */}
 
             <div className={css['background-cityscape']}>
               <ImageNew src={bgMerged} alt="Istanbul inspired cityscape background" />
