@@ -500,7 +500,7 @@ const Cowork: NextPage = (props: any) => {
         <div className={`${css['volunteer']}`}>
           <Accordion className={css['accordion']}>
             <AccordionItem
-              alwaysOpen
+              // alwaysOpen
               title={<p className="orange uppercase section-header bold">Volunteering</p>}
               id="volunteer"
             >

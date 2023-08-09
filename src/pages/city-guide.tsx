@@ -365,6 +365,7 @@ const tabs = [
   },
   {
     text: 'Where to Stay',
+    alwaysOpen: true,
     value: 'where-to-stay',
     content: () => {
       return (
@@ -476,6 +477,7 @@ const tabs = [
   },
   {
     text: 'History and Culture',
+    alwaysOpen: true,
     value: 'history-and-culture',
     content: () => {
       return (
@@ -750,11 +752,11 @@ const tabs = [
             the card and top it up at kiosks near metro stations, piers, and bus stations. 💵 Approximate costs: 9.90 TL
             ($0.4) each way
           </p>
-          <p>
+          {/* <p>
             🦄 Cowork attendees also have the option to pre-order a discounted metro card when they purchase their
             Cowork ticket. Metro cards will then be available for pickup at registration and pre-registration for those
             who selected them.{' '}
-          </p>
+          </p> */}
           <h2 id="transportation-apps">Transportation apps</h2>
           <p>
             <b>İstanbulkart</b>: Official transport app. A Turkish mobile number might be needed (you can get one with a
@@ -1219,6 +1221,7 @@ const CityGuide: NextPage = () => {
                   <AccordionItem
                     key={tab.value}
                     // title={tab.text}
+                    // alwaysOpen={tab.alwaysOpen}
                     title={<p className="uppercase orange large-text bold">{tab.text}</p>}
                     id={tab.value}
                     ref={el => (accordionRefs.current[tab.value] = el)}
