@@ -7,12 +7,14 @@ html,
 body,
 #__next {
   height: 100%;
-  font-family: 'Roboto', sans-serif;
+  // font-family: 'Roboto', sans-serif;
+  // font-family: 'Inter', sans-serif;
 }
 
 body {
   color: $white;
   // background: linear-gradient(60deg, #0d0d20, #161627, #312046, #121212);
+  font-family: var(--font-roboto);
   overflow-x: hidden;
 }
 
@@ -56,7 +58,7 @@ $max-content-width: $content-width + ($side-gap * 2);
 
 .section-header {
   font-size: 36px;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: var(--font-roboto-condensed);
   letter-spacing: 0.2px;
   font-weight: 700;
   text-transform: uppercase;
@@ -157,11 +159,11 @@ $max-content-width: $content-width + ($side-gap * 2);
 }
 
 .primary {
-  font-family: 'Roboto';
+  font-family: var(--font-roboto);
 }
 
 .secondary {
-  font-family: 'Roboto Condensed';
+  font-family: var(--font-roboto-condensed);
 }
 
 .underline {

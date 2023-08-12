@@ -5,11 +5,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Roboto&display=swap&Oswald:wght@700"
-            rel="stylesheet"
-          />
-
           {process.env.NODE_ENV === 'production' && (
             <script
               type="text/javascript"
