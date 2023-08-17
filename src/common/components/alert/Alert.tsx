@@ -17,7 +17,7 @@ const Alert = (props: AlertProps) => {
 
   // if (alertHidden) return null
 
-  return (
+  const body = (
     <div className={className}>
       <div className={css['title']}>
         <AlertIcon />
@@ -29,6 +29,8 @@ const Alert = (props: AlertProps) => {
       </div> */}
     </div>
   )
+
+  return body
 }
 
 export default Alert

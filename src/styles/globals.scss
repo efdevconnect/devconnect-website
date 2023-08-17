@@ -221,6 +221,7 @@ $max-content-width: $content-width + ($side-gap * 2);
   &.xs {
     height: 32px;
     font-size: inherit;
+    @include small-text;
     padding: 0 12px;
   }
 

@@ -22,11 +22,15 @@ import Dropdown from 'common/components/dropdown'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import Alert from 'common/components/alert'
 import { useRouter } from 'next/dist/client/router'
+import StarFill from 'assets/icons/star-fill.svg'
+import Star from 'assets/icons/star.svg'
 // @ts-ignore
 import Toggle from 'react-toggle'
 import Retro from 'common/components/pages/event/retro'
 import { CopyToClipboard } from 'common/components/copy-to-clipboard/CopyToClipboard'
 import Tooltip from 'common/components/tooltip'
+import ShareIcon from 'assets/icons/share.svg'
+import { useSearchParams } from 'next/navigation'
 
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
@@ -219,6 +223,104 @@ const createPlacementTracker = () => {
   }
 }
 
+const Favorite = ({ event, favorites }: any) => {
+  const isFavorited = favorites.favoriteEvents.some((favoritedEvent: any) => event.ShortID === favoritedEvent)
+
+  return (
+    <div className={`${css['hover-overlay']} ${isFavorited ? css['favorited'] : ''}`}>
+      {/* <Tooltip arrow title="Create a custom schedule by favoriting events you are interested in!"> */}
+      <div
+        className={css['favorite']}
+        onClick={e => {
+          if (favorites.sharedEvents) {
+            alert('You are currently viewing a shared schedule. Exit sharing view to return to your schedule.')
+          }
+
+          if (isFavorited) {
+            favorites.setFavoriteEvents(
+              favorites.favoriteEvents.filter((favoriteEvent: any) => favoriteEvent !== event.ShortID)
+            )
+          } else {
+            favorites.setFavoriteEvents(favorites.favoriteEvents.concat(event.ShortID))
+          }
+
+          e.stopPropagation()
+        }}
+      >
+        {isFavorited ? <StarFill /> : <Star />}
+      </div>
+      {/* </Tooltip> */}
+    </div>
+  )
+}
+
+const useFavorites = (events: any, edition: Edition): any => {
+  const [favoriteEventsLoaded, setFavoriteEventsLoaded] = React.useState(false)
+  const [favoriteEvents, setFavoriteEvents] = React.useState<string[]>([])
+  const [sharedEvents, setSharedEvents] = React.useState<string[] | null>(null)
+  const [sharedTitle, setSharedTitle] = React.useState<string | null>(null)
+  const [onlyShowSharedEvents, setOnlyShowSharedEvents] = React.useState(true)
+  const [shareTitleInput, setShareTitleInput] = React.useState('')
+  const searchParams = useSearchParams()
+  const share = searchParams.get('share')
+  const shareTitle = searchParams.get('share_title')
+  const storageID = `${edition}_schedule_favorites`
+
+  // Load events from localStorage
+  React.useEffect(() => {
+    let items = localStorage.getItem(storageID)
+
+    if (items) items = JSON.parse(items)
+
+    if (Array.isArray(items)) {
+      setFavoriteEvents(items)
+    }
+
+    setFavoriteEventsLoaded(true)
+  }, [])
+
+  React.useEffect(() => {
+    if (share) {
+      const ids = JSON.parse(share)
+
+      if (shareTitle) setSharedTitle(shareTitle)
+      setSharedEvents(ids)
+    }
+  }, [share])
+
+  // Whenever favorites change, persist to localStorage
+  React.useEffect(() => {
+    if (favoriteEventsLoaded) {
+      localStorage.setItem(storageID, JSON.stringify(favoriteEvents))
+    }
+  }, [favoriteEvents, favoriteEventsLoaded])
+
+  const exportFavorites = () => {
+    const shareParams = JSON.stringify(favoriteEvents.sort())
+
+    let url = window.location.origin + window.location.pathname
+
+    url += `?share=${shareParams}`
+
+    if (shareTitleInput) url += `&share_title=${shareTitleInput}`
+
+    navigator.clipboard.writeText(url)
+  }
+
+  return {
+    favoriteEvents: sharedEvents || favoriteEvents,
+    setFavoriteEvents,
+    sharedEvents,
+    sharedTitle,
+    onlyShowSharedEvents,
+    setOnlyShowSharedEvents,
+    setSharedEvents,
+    shareTitleInput,
+    setShareTitleInput,
+    exportFavorites,
+  }
+}
+
 // Timeline view (as opposed to list view)
 const Timeline = (props: any) => {
   const { min, sortedEvents, events: defaultSortEvents, scheduleDuration, eventsByDay } = props
@@ -237,7 +339,7 @@ const Timeline = (props: any) => {
 
   React.useEffect(() => {
     const path = router.asPath
-    const anchor = path.split('#').pop()
+    const anchor = path.split('#').slice(1).pop()
 
     if (anchor) {
       const decoded = decodeURI(anchor)
@@ -305,6 +407,12 @@ const Timeline = (props: any) => {
           className={(() => {
             let className = `${css['event']} ${css[event['Stable ID']]}`
 
+            const isFavorited = props.favorites.favoriteEvents.some(
+              (favoritedEvent: any) => event.ShortID === favoritedEvent
+            )
+
+            if (props.favorites.sharedEvents && !isFavorited) className += ` ${css['faded']}`
+
             if (props.edition === 'istanbul') {
               className += ` ${css['domain-based']}`
               if (event['Domain']) className += ` ${css['domain']}`
@@ -325,11 +433,7 @@ const Timeline = (props: any) => {
           }}
           data-id={event.ID}
         >
-          {/* <div className={css['hover-overlay']}>
-            <Tooltip arrow title="Create a custom schedule by favoriting events you are interested in!">
-              <div className={css['favorite']}>Favorite</div>
-            </Tooltip>
-          </div> */}
+          <Favorite event={event} favorites={props.favorites} />
 
           <div className={css['content']}>
             {event['Stable ID'] === 'Cowork' && (
@@ -633,11 +737,11 @@ const EventLinks = (props: any) => {
               <div className={css['add-to-calendar-modal-content']}>
                 <p className="bold uppercase">Add event to your calendar:</p>
 
-                <a {...icsAttributes} className="button sm small-text">
+                <a {...icsAttributes} className="button white sm small-text">
                   Download (.ICS)
                 </a>
 
-                <Link indicateExternal href={googleCalUrl.href} className="button sm small-text">
+                <Link indicateExternal href={googleCalUrl.href} className="button white sm small-text">
                   Google Calendar
                 </Link>
               </div>
@@ -980,7 +1084,7 @@ const List = (props: any) => {
   )
 }
 
-const useFilter = (events: any, edition: 'istanbul' | 'amsterdam') => {
+const useFilter = (events: any, edition: Edition) => {
   const keysToFilterOn = ['Category', 'Difficulty', 'Attend']
   const [filters, setFilters] = React.useState({} as { [key: string]: any })
   const filterableValues = {} as { [key: string]: Set<string> }
@@ -1053,6 +1157,8 @@ const useFilter = (events: any, edition: 'istanbul' | 'amsterdam') => {
 }
 
 const Filter = (props: any) => {
+  const [openShareModal, setOpenShareModal] = React.useState(false)
+
   return (
     <div className={`${css['filter']} small-text`}>
       {/* <p className={`${css['filter-text']} bold`}>Filter:</p> */}
@@ -1079,26 +1185,69 @@ const Filter = (props: any) => {
         )
       })}
 
-      {/* <label className={css['toggle']}>
-        <Toggle
-          defaultChecked={props.hideSoldOut}
-          icons={false}
-          onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
-        />
-        <span className="bold small-text">Hide sold out events</span>
-      </label> */}
-
-      {props.edition === 'istanbul' && (
+      <div className={css['toggles']}>
         <label className={css['toggle']}>
           <Toggle
-            defaultChecked={props.showOnlyDomainSpecific}
+            defaultChecked={props.hideSoldOut}
             icons={false}
-            onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
+            onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
           />
-
-          <span className="bold small-text">Only Ecosystem Events</span>
+          <span className="bold small-text">Only Favorited Events</span>
         </label>
-      )}
+
+        {props.edition === 'istanbul' && (
+          <label className={css['toggle']}>
+            <Toggle
+              defaultChecked={props.showOnlyDomainSpecific}
+              icons={false}
+              onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
+            />
+
+            <span className="bold small-text">Only Ecosystem Events</span>
+          </label>
+        )}
+
+        <label className={css['toggle']}>
+          <Toggle
+            defaultChecked={props.hideSoldOut}
+            icons={false}
+            onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
+          />
+          <span className="bold small-text">Hide Sold Out</span>
+        </label>
+      </div>
+
+      <div className="bold tag tiny-text uppercase" onClick={() => setOpenShareModal(true)}>
+        <span>Share Your Schedule</span> <ShareIcon />
+        <Modal
+          // className={css['add-to-calendar-modal']}
+          open={openShareModal}
+          close={() => setOpenShareModal(!openShareModal)}
+          noCloseIcon
+        >
+          <div className={css['share-schedule-modal']}>
+            <p className="bold">Name your schedule:</p>
+            <input
+              type="text"
+              value={props.favorites.shareTitleInput}
+              onChange={e => props.favorites.setShareTitleInput(e.target.value)}
+              placeholder=""
+            />
+            {/* <CopyToClipboard url="" onShare={props.favorites.exportFavorites} /> */}
+            <p className="bold">What others will see:</p>
+            <p className="bold small-text margin-top-much-less margin-bottom-less">
+              <i>You are viewing {props.favorites.shareTitleInput || ' a shared schedule'}</i>
+            </p>
+
+            <CopyToClipboard>
+              <button className="button xs orange" onClick={props.favorites.exportFavorites}>
+                <span>Share Schedule</span>
+                <ShareIcon />
+              </button>
+            </CopyToClipboard>
+          </div>
+        </Modal>
+      </div>
     </div>
   )
 }
@@ -1138,14 +1287,11 @@ const scheduleViewHOC = (Component: any) => {
   const ComponentWithScheduleView = (props: any) => {
     const [scheduleView, setScheduleView] = React.useState('timeline')
 
-    const router = useRouter()
-
     useEffect(() => {
       const hash = window.location.hash
 
       if (hash && hash === '#list') {
         setScheduleView('list')
-        router.replace(router.pathname)
       }
     }, [])
 
@@ -1155,35 +1301,14 @@ const scheduleViewHOC = (Component: any) => {
   return ComponentWithScheduleView
 }
 
-// TODO: Get feedback then implement
-// const useScheduleSharing = () => {
-//   const [viewShared, setViewShared] = React.useState();
-//   const [sharedEvents, setSharedEvents] = React.useState();
-
-//   useEffect(() => {
-
-//   }, [])
-
-//   return {
-//     sharedEvents,
-
-//   }
-
-//   /*
-//     1) Add "attending/favorite" toggle to events, saving the data to localStorage
-//     2) Add "share" button which generates a url based on favorited events:
-//       https://devconnect.org/schedule?share=[a,b,c,...]
-//     3) Opening the share link opens the schedule in a "special" mode with a fixed "you are viewing someone elses schedule" message that can be cleared to return to the normal schedule
-//        3.1) Maybe add an option to "import" the shared events into the local schedule?
-
-//     1) Add toggle to show only attending/favorited events
-//   */
-// }
-
 const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const { scheduleView, setScheduleView } = props
-  const { events, ...filterAttributes } = useFilter(props.events, props.edition)
+  let { events, ...filterAttributes } = useFilter(props.events, props.edition)
+  const favorites = useFavorites(events, props.edition)
 
+  if (favorites.sharedEvents && favorites.onlyShowSharedEvents) {
+    events = events.filter((event: any) => favorites.sharedEvents.includes(event.ShortID))
+  }
   const scheduleHelpers = useScheduleData(events)
   const accordionRefs = React.useRef({} as { [key: string]: any })
 
@@ -1206,16 +1331,51 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
       >
         <p className="uppercase extra-large-text bold secondary title">
           {(() => {
-            if (props.edition === 'istanbul') return 'Istanbul 2023'
-            if (props.edition === 'amsterdam') return 'Past Events - Amsterdam 2022'
+            if (props.edition === 'istanbul') return 'Schedule - Istanbul 2023'
+            if (props.edition === 'amsterdam') return 'Schedule - Amsterdam 2022'
           })()}
         </p>
       </Hero>
 
-      <div className={`${css['schedule']} section ${css[`edition-${props.edition}`]}`}>
-        <div className="fade-in-up clear-vertical">
+      {favorites.sharedEvents && (
+        <div className={css['shared-schedule-overlay']}>
+          <div className={css['info-box']}>
+            <p className="big-text bold">You are viewing {favorites.sharedTitle || 'a shared schedule'}</p>
+            <div className={css['actions']}>
+              {/* <button className="sm button white">Merge shared events into own calendar</button> */}
+              <button className="sm button orange-fill" onClick={() => favorites.setSharedEvents(null)}>
+                Return to your schedule
+              </button>
+              <button
+                className="sm button orange-fill margin-left-much-less"
+                onClick={() => favorites.setOnlyShowSharedEvents(!favorites.onlyShowSharedEvents)}
+              >
+                Show all events
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {props.edition === 'istanbul' && (
+        <div className={`${css['alert-bg']} section`}>
+          <p className="bold small-text padding-top-less padding-bottom-less">
+            👉 REMEMBER, EACH EVENT DURING DEVCONNECT IS INDEPENDENTLY HOSTED AND YOU WILL REQUIRE TICKETS FOR EACH
+            EVENT YOU WISH TO ATTEND. YOU WILL FIND TICKETING INFORMATION FOR EACH EVENT SOON.
+          </p>
+        </div>
+      )}
+
+      <div className={`${css['schedule']} ${css[`edition-${props.edition}`]}`}>
+        {favorites.sharedEvents === null && (
+          <div className={`section ${css['filter-bar']}`}>
+            <Filter events={events} {...filterAttributes} edition={props.edition} favorites={favorites} />
+          </div>
+        )}
+
+        <div className="section">
           {props.edition !== 'istanbul' && <Retro />}
-          <div className={`${css['header-row']}`}>
+          {/* <div className={`${css['header-row']}`}>
             <h1 className="extra-large-text uppercase bold">
               {(() => {
                 if (props.edition === 'istanbul') return 'Schedule'
@@ -1241,64 +1401,56 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                 </button>
               </div>
             </div>
-          </div>
-
-          {props.edition === 'istanbul' && (
-            <Alert title="Important">
-              <p className="bold">
-                👉 Remember, each event during Devconnect is independently hosted and you will require tickets for each
-                event you wish to attend. You will find ticketing information for each event soon.
-              </p>
-            </Alert>
-          )}
+          </div> */}
 
           <div className={`${css['top-bar']}`}>
-            <Filter events={events} {...filterAttributes} edition={props.edition} />
-            <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
+            <div className={css['second-row']}>
+              <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
 
-            {props.edition === 'amsterdam' && (
-              <div className={css['types']}>
-                <div className={css['all-welcome']}>
-                  <p>
-                    <span className={css['indicator']}>⬤</span>All welcome
-                  </p>
+              {props.edition === 'amsterdam' && (
+                <div className={css['types']}>
+                  <div className={css['all-welcome']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>All welcome
+                    </p>
+                  </div>
+                  <div className={css['intermediate']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>Intermediate
+                    </p>
+                  </div>
+                  <div className={css['advanced']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>Advanced
+                    </p>
+                  </div>
                 </div>
-                <div className={css['intermediate']}>
-                  <p>
-                    <span className={css['indicator']}>⬤</span>Intermediate
-                  </p>
-                </div>
-                <div className={css['advanced']}>
-                  <p>
-                    <span className={css['indicator']}>⬤</span>Advanced
-                  </p>
-                </div>
-              </div>
-            )}
+              )}
 
-            {props.edition === 'istanbul' && (
-              <div className={css['types']}>
-                <div className={css['advanced']}>
-                  <p>
-                    <span className={css['indicator']}>⬤</span>Cowork
-                  </p>
+              {props.edition === 'istanbul' && (
+                <div className={css['types']}>
+                  <div className={css['advanced']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>Cowork
+                    </p>
+                  </div>
+                  <div className={css['all-welcome']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>Ecosystem Events
+                    </p>
+                  </div>
+                  <div className={css['intermediate']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>Other Events
+                    </p>
+                  </div>
                 </div>
-                <div className={css['all-welcome']}>
-                  <p>
-                    <span className={css['indicator']}>⬤</span>Ecosystem Events
-                  </p>
-                </div>
-                <div className={css['intermediate']}>
-                  <p>
-                    <span className={css['indicator']}>⬤</span>Other Events
-                  </p>
-                </div>
-              </div>
-            )}
+              )}
 
-            {scheduleView === 'timeline' && (
-              <p className={`small-text bold uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
-            )}
+              {scheduleView === 'timeline' && (
+                <p className={`small-text bold uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
+              )}
+            </div>
           </div>
 
           {events.length === 0 ? (
@@ -1317,27 +1469,30 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
               {scheduleView === 'list' && (
                 <List {...scheduleHelpers} edition={props.edition} accordionRefs={accordionRefs} />
               )}
-              {scheduleView === 'timeline' && <Timeline {...scheduleHelpers} edition={props.edition} />}
+              {scheduleView === 'timeline' && (
+                <Timeline {...scheduleHelpers} favorites={favorites} edition={props.edition} />
+              )}
             </>
           )}
         </div>
-        {props.edition === 'istanbul' && (
-          <div className={css['organize-cta']}>
-            <Link
-              href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
-              className={`button white sm`}
-              indicateExternal
-            >
-              Add your own event
-            </Link>
-            <p>
-              Devconnect events are independently organized by the Ethereum community;{' '}
-              <b>if you have a great idea for an event, we encourage you to apply using the button above!</b>
-            </p>
-          </div>
-        )}
+        <div className="section margin-top">
+          {props.edition === 'istanbul' && (
+            <div className={css['organize-cta']}>
+              <Link
+                href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
+                className={`button white sm`}
+                indicateExternal
+              >
+                Add your own event
+              </Link>
+              <p>
+                Devconnect events are independently organized by the Ethereum community;{' '}
+                <b>if you have a great idea for an event, we encourage you to apply using the button above!</b>
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-
       <Footer />
     </>
   )
@@ -1448,7 +1603,7 @@ const formatResult = (result: any) => {
   // Insert a default value for time of day when unspecified
   if (!properties['Time of Day']) properties['Time of Day'] = 'ALL DAY'
 
-  return { ...properties, ID: result.id /* raw: result*/ }
+  return { ...properties, ID: result.id, ShortID: result.id.slice(0, 4) /* raw: result*/ }
 }
 
 export async function getStaticProps(context: any) {
@@ -1572,6 +1727,7 @@ const createKeyResolver =
     return keyMatch ? eventData[keyMatch] : undefined
   }
 
+// The notion tables for each event aren't the same - this normalizes the different column names by looking at multiple keys for each expected value
 const normalizeEvent = (eventData: any): FormattedNotionEvent => {
   const keyResolver = createKeyResolver(eventData)
 
@@ -1615,3 +1771,5 @@ type FormattedNotionEvent = {
   Domain: any
   Priority: any
 }
+
+type Edition = 'istanbul' | 'amsterdam'

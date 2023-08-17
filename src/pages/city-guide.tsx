@@ -54,15 +54,11 @@ const tabs = [
             <Link href="https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa">if you need one</Link>!
           </p>
           <p className="big-text">
-            Need a Visa invitation letter? Write us at{' '}
-            <Link indicateExternal href="mailto:help@devconnect.org">
-              help@devconnect.org
-            </Link>{' '}
-            (you&apos;ll need to purchase{' '}
-            <Link indicateExternal href="/cowork">
-              Devconnect Cowork
-            </Link>{' '}
-            ticket first)
+            Need a Visa invitation letter? You&apos;ll need a ticket for the Devconnect Cowork first, then you can{' '}
+            <Link href="https://forms.gle/zDQ6ax5Ukr75gDXt5" indicateExternal>
+              fill out this form
+            </Link>
+            . You will hear back from us via email within 2 weeks.
           </p>
 
           <p className="big-text bold margin-top-less">Istanbul Airports</p>
@@ -1271,21 +1267,21 @@ const CityGuide: NextPage = () => {
         </div>
       </div>
 
-      {/* <div className={css['map']} id="city-map">
+      <div className={css['map']} id="city-map">
         <div className={css['title']}>
           <div className={`section`}>
             <div className="clear-vertical">
-              <p className={`large-text bold uppercase`}>Notable Locations</p>
+              <p className={`large-text bold uppercase`}>Devconnect Venues</p>
             </div>
           </div>
         </div>
 
         <iframe
-          src="https://www.google.com/maps/d/embed?mid=143AuN51prJpx6M62b9xMTAwdXNm-dstJ&hl=en&ehbc=2E312F"
+          src="https://www.google.com/maps/d/embed?mid=1LBiKhOl9rfvkVf2QloJIL539Sr6xrXo&ehbc=2E312F"
           width="100%"
           height="100%"
         ></iframe>
-      </div> */}
+      </div>
 
       <Footer />
     </>

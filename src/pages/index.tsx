@@ -96,7 +96,11 @@ const FAQ = [
             <Link href="/cowork" indicateExternal>
               ticket for the Devconnect Cowork
             </Link>{' '}
-            first, then you can write us at support@devconnect.org.
+            first, then you can
+            <Link href="https://forms.gle/zDQ6ax5Ukr75gDXt5" indicateExternal>
+              fill out this form
+            </Link>
+            . You will hear back from us via email within 2 weeks.
           </p>
         </>
       )

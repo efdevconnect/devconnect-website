@@ -126,3 +126,12 @@ $standard-gap: 32px;
     font-size: 2em;
   }
 }
+
+@mixin alert-blue {
+  background: #ece9ff;
+
+  .title {
+    --icon-color: #6664d3;
+    color: #6664d3;
+  }
+}

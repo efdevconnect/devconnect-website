@@ -18,12 +18,8 @@
   }
 
   &.blue {
-    background: #ece9ff;
-
-    .title {
-      --icon-color: #6664d3;
-      color: #6664d3;
-    }
+    @include alert-blue;
+    color: black;
   }
 
   .title {
