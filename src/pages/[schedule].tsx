@@ -1234,7 +1234,7 @@ const Filter = (props: any) => {
           <div className={css['share-schedule-modal']}>
             <p className="margin-bottom-less small-text">
               Note: This will be a snapshot of your currently favorited events. Any subsequent updates to your favorites
-              won't change the snapshot.
+              won&apos;t change the snapshot.
             </p>
 
             <p className="bold">Name your schedule:</p>
