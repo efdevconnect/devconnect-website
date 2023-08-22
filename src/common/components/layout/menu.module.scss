@@ -180,6 +180,7 @@ $width-right-column: 190px;
     justify-content: space-between;
     align-items: center;
     padding-right: 16px;
+    opacity: 0.6;
 
     svg {
       margin-left: 8px;
@@ -257,8 +258,9 @@ $width-right-column: 190px;
   position: fixed;
   flex-direction: column;
   padding-top: 24px;
-  background: #0d0d36;
-  // background: linear-gradient(60deg, #0d0d20, #191930, #0e0915, #121212);
+  // background: #0d0d36;
+  background: linear-gradient(60deg, #323232 30%, #1e1c1c);
+  // background: radial-gradient(circle at 0% 200%,rgba(28, 42, 76, 0.7) 30%,rgba(2,0,36,0) 70%);
   bottom: 0px;
   z-index: 19;
   top: 0px;

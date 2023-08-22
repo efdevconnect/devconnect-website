@@ -349,11 +349,18 @@ const tabs = [
           </p>
 
           <Link
-            className="button orange margin-top-less"
+            className="button orange margin-top-less margin-right-less"
             href="https://kaanuzdogan.com/kaans-foodie-guide-during-devconnect-istanbul"
           >
             <PinIcon />
             Restaurant Guide
+          </Link>
+          <Link
+            className="button orange margin-top-less"
+            href="https://www.google.com/maps/d/edit?mid=1eX7T0uqj9dfXHBFcw2mH9qXGfQtdr0A&usp=sharing"
+          >
+            <PinIcon />
+            Food Map
           </Link>
         </div>
       )

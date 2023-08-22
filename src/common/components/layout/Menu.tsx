@@ -179,7 +179,7 @@ export const FooterMenu = (props: any) => {
 
   return (
     <div className={css['footer-menu']} id="footer-menu">
-      <AnchorLink href="#__next" id="back-to-top" className={`${css['back-to-top']} dark-grey`}>
+      <AnchorLink href="#__next" id="back-to-top" className={`${css['back-to-top']}`}>
         Back to top <ArrowUpIcon />
       </AnchorLink>
 

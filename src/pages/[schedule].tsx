@@ -279,6 +279,7 @@ const useFavorites = (events: any, edition: Edition): any => {
     setFavoriteEventsLoaded(true)
   }, [])
 
+  // If share was defined in the url, enter "shared viewing mode"
   React.useEffect(() => {
     if (share) {
       const ids = JSON.parse(share)
@@ -300,7 +301,7 @@ const useFavorites = (events: any, edition: Edition): any => {
 
     let url = window.location.origin + window.location.pathname
 
-    url += `?share=${shareParams}`
+    url += `?edition=${edition}&share=${shareParams}`
 
     if (shareTitleInput) url += `&share_title=${shareTitleInput}`
 
@@ -1188,11 +1189,11 @@ const Filter = (props: any) => {
       <div className={css['toggles']}>
         <label className={css['toggle']}>
           <Toggle
-            defaultChecked={props.hideSoldOut}
+            // defaultChecked={props.showFavorites}
             icons={false}
-            onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
+            // onChange={() => props.setShowFavorites(!props.showFavorites)}
           />
-          <span className="bold small-text">Only Favorited Events</span>
+          <span className="bold small-text">Favorited Events</span>
         </label>
 
         {props.edition === 'istanbul' && (
@@ -1217,8 +1218,13 @@ const Filter = (props: any) => {
         </label>
       </div>
 
-      <div className="bold tag tiny-text uppercase" onClick={() => setOpenShareModal(true)}>
-        <span>Share Your Schedule</span> <ShareIcon />
+      <div
+        className={`bold tag tiny-text uppercase ${css['share-schedule-cta']}`}
+        onClick={() => setOpenShareModal(true)}
+      >
+        <span>
+          Share Schedule Snapshot <ShareIcon />
+        </span>
         <Modal
           // className={css['add-to-calendar-modal']}
           open={openShareModal}
@@ -1226,12 +1232,17 @@ const Filter = (props: any) => {
           noCloseIcon
         >
           <div className={css['share-schedule-modal']}>
+            <p className="margin-bottom-less small-text">
+              Note: This will be a snapshot of your currently favorited events. Any subsequent updates to your favorites
+              won't change the snapshot.
+            </p>
+
             <p className="bold">Name your schedule:</p>
             <input
               type="text"
               value={props.favorites.shareTitleInput}
               onChange={e => props.favorites.setShareTitleInput(e.target.value)}
-              placeholder=""
+              placeholder="Name your schedule"
             />
             {/* <CopyToClipboard url="" onShare={props.favorites.exportFavorites} /> */}
             <p className="bold">What others will see:</p>
@@ -1295,7 +1306,15 @@ const scheduleViewHOC = (Component: any) => {
       }
     }, [])
 
-    return <Component {...props} scheduleView={scheduleView} setScheduleView={setScheduleView} />
+    return (
+      <Component
+        {...props}
+        // Reset schedule components completely when edition changes - critical for favorites to work correctly
+        key={props.edition}
+        scheduleView={scheduleView}
+        setScheduleView={setScheduleView}
+      />
+    )
   }
 
   return ComponentWithScheduleView
@@ -1303,12 +1322,13 @@ const scheduleViewHOC = (Component: any) => {
 
 const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const { scheduleView, setScheduleView } = props
+  const favorites = useFavorites(props.events, props.edition)
   let { events, ...filterAttributes } = useFilter(props.events, props.edition)
-  const favorites = useFavorites(events, props.edition)
 
   if (favorites.sharedEvents && favorites.onlyShowSharedEvents) {
     events = events.filter((event: any) => favorites.sharedEvents.includes(event.ShortID))
   }
+
   const scheduleHelpers = useScheduleData(events)
   const accordionRefs = React.useRef({} as { [key: string]: any })
 

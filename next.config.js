@@ -16,6 +16,16 @@ module.exports = {
         destination: 'https://devconnect.org/schedule',
         permanent: false,
       },
+      {
+        source: '/schedule/istanbul',
+        destination: 'https://devconnect.org/schedule',
+        permanent: false,
+      },
+      {
+        source: '/schedule/amsterdam',
+        destination: 'https://devconnect.org/amsterdam',
+        permanent: false,
+      },
     ]
   },
   images: {
