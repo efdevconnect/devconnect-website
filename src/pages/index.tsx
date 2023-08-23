@@ -30,6 +30,7 @@ import { BlogPost } from 'types/BlogPost'
 import { BlogReel } from 'common/components/blog-posts/BlogPosts'
 import ShapesImage from 'assets/images/shapes.png'
 import useDimensions from 'react-cool-dimensions'
+import moment from 'moment'
 // import BluePrint from 'assets/images/blueprint-bg.png'
 // import VideoPlaceholder from 'assets/images/devconnect-video-placeholder.png'
 // import YoutubeIcon from 'assets/icons/youtube.svg'
@@ -45,6 +46,31 @@ import useDimensions from 'react-cool-dimensions'
 // const Cube = dynamic(() => import('common/components/cube'), {
 //   ssr: false,
 // })
+
+function getTimeUntilNovember13InTurkey() {
+  // Create a Date object for the current date
+  const currentDate = moment.utc()
+
+  // Set the target date to November 13th of the current year
+  const targetDate = moment.utc([2023, 10, 13]) // Note: Month is 0-based, so 10 represents November.
+
+  // Calculate the time difference in milliseconds
+  const timeDifference = targetDate.diff(currentDate) - 1000 * 60 * 60 * 3 // add 3 hours for turkey time (UTC+3)
+
+  // Calculate days, hours, minutes, and seconds
+  const days = Math.max(Math.floor(timeDifference / (1000 * 60 * 60 * 24)), 0)
+  const hours = Math.max(Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)), 0)
+  const minutes = Math.max(Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)), 0)
+  const seconds = Math.max(Math.floor((timeDifference % (1000 * 60)) / 1000), 0)
+
+  // Return the time difference as an object
+  return {
+    days,
+    hours,
+    minutes,
+    seconds,
+  }
+}
 
 const FAQ = [
   {
@@ -594,6 +620,21 @@ const Home: NextPage = (props: any) => {
   const [hehe, setHehe] = React.useState(false)
   const organizersRef = React.useRef<any>()
   const splineRef = React.useRef<any>()
+
+  const [timeToEvent, setTimeToEvent] = React.useState<string | null>(null)
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const timeLeft = getTimeUntilNovember13InTurkey()
+
+      setTimeToEvent(
+        `${timeLeft.days} days, ${timeLeft.hours} hours, ${timeLeft.minutes} minutes and ${timeLeft.seconds} seconds`
+      )
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
+
   // const [width, setWidth] = React.useState(0)
   // const { observe } = useDimensions({
   //   onResize: ({ observe, unobserve, width, height, entry }) => {
@@ -668,10 +709,12 @@ const Home: NextPage = (props: any) => {
                     {/* <span>Devconnect</span> <span>is</span> <span className={css['red-underline']}>back!</span> */}
                   </p>
 
-                  <p style={{ maxWidth: '575px', marginBottom: '20px' }} className="big-text">
+                  <p style={{ maxWidth: '575px', marginBottom: '12px' }} className="big-text">
                     Devconnect is a week-long gathering of independent Ethereum events to learn, share, and{' '}
                     <b>make progress together</b>.
                   </p>
+
+                  <p className="bold margin-bottom-less big-text">See you in {timeToEvent} 😇</p>
 
                   <Link href="#about" className={`button transparent ${css['video-recap-button']}`}>
                     <span>ISTANBUL, Türkiye</span>

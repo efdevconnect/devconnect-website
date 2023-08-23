@@ -531,7 +531,7 @@ const Timeline = (props: any) => {
             const weekday = day.format('ddd')
             const date = day.format('MMM DD')
             const noEventsForDay = !eventsByDay[index]
-            const now = momentTZ.tz(moment(), 'Europe/Amsterdam')
+            const now = momentTZ.tz(moment(), 'Europe/Istanbul')
             const dayIsActive = day.isSame(now, 'day')
 
             if (noEventsForDay) return null
@@ -801,7 +801,7 @@ const ListDayHeader = React.forwardRef((props: any, ref: any) => {
   // const [open, setOpen] = React.useState(true)
   const day = props.date.format('dddd')
   const date = props.date.format('MMM DD')
-  const now = momentTZ.tz(moment(), 'Europe/Amsterdam')
+  const now = momentTZ.tz(moment(), 'Europe/Istanbul')
   const dayIsActive = props.date.isSame(now, 'day')
   const [open, setOpen] = React.useState(dayIsActive)
 
@@ -1481,7 +1481,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
             <>
               {/* <div className={`${css['top-bar']}`}>
                 <p className={`${css['timezone']} small-text`}>
-                  {momentTZ.tz('Europe/Amsterdam').format('HH:mm')} (UTC/GMT +1)
+                  {momentTZ.tz('Europe/Istanbul').format('HH:mm')} (UTC/GMT +1)
                 </p>
                 {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Drag for more →</p>}
               </div> */}

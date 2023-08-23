@@ -45,7 +45,7 @@ module.exports = {
       plugins: [
         // Only include tz data for the zone we use
         new MomentTimezoneDataPlugin({
-          matchZones: /^Europe\/Amsterdam/,
+          matchZones: /^Europe\/Istanbul/,
         }),
         new webpack.DefinePlugin({
           devMode: process.env.NODE_ENV !== 'production',
