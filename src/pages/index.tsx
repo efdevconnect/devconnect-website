@@ -1105,7 +1105,7 @@ const Home: NextPage = (props: any) => {
                     return (
                       <AccordionItem
                         key={faq.text}
-                        title={faq.text}
+                        title={<div className="bold">{faq.text}</div>}
                         id={faq.value}
                         ref={faq.value === 'organizers' ? organizersRef : undefined}
                       >
