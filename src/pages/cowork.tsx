@@ -500,7 +500,7 @@ const Cowork: NextPage = (props: any) => {
         <div className={`${css['volunteer']}`}>
           <Accordion className={css['accordion']}>
             <AccordionItem
-              // alwaysOpen
+              alwaysOpen
               title={<p className="orange uppercase section-header bold">Volunteering</p>}
               id="volunteer"
             >
@@ -508,6 +508,10 @@ const Cowork: NextPage = (props: any) => {
                 We&apos;re looking for volunteers! Volunteering is often a good first step into the Ethereum ecosystem.
                 If you want to experience the event from behind the scenes and contribute to its success, apply here as
                 a volunteer for the Devconnect Cowork.
+              </p>
+              <p className="big-text margin-bottom-less">
+                As a volunteer, you will not receive monetary compensation. However, you will gain valuable experience,
+                networking opportunities, and access to select event areas.
               </p>
               <Link
                 indicateExternal
@@ -517,34 +521,38 @@ const Cowork: NextPage = (props: any) => {
               >
                 Volunteer Application Form
               </Link>
-              <div className={`section-header grey bold margin-top-less`} id="first-come-first-serve">
-                Frequently Asked Questions
-              </div>
-              <Accordion>
-                {volunteerFAQ.map(faq => {
-                  return (
-                    <AccordionItem
-                      key={faq.text}
-                      title={<b>{faq.text}</b>}
-                      id={faq.value}
-                      alwaysOpen
-                      // ref={faq.value === 'organizers' ? organizersRef : undefined}
-                    >
-                      {faq.content && faq.content()}
-                    </AccordionItem>
-                  )
-                })}
-              </Accordion>
-
-              <p className="margin-top-less big-text tab-content">
-                If you have any other questions or need further information, please feel free to reach out to our
-                Volunteer Coordinator at{' '}
-                <Link indicateExternal href="mailto:kokeb.solomon@ethereum.org">
-                  kokeb.solomon@ethereum.org
-                </Link>
-                <br /> <br />
-                We look forward to welcoming you to our passionate volunteer team for Devconnect!
-              </p>
+              <AccordionItem
+                title={
+                  <div className={`grey bold`} id="first-come-first-serve">
+                    Frequently Asked Questions
+                  </div>
+                }
+              >
+                <Accordion className={css['no-margin-top']}>
+                  {volunteerFAQ.map(faq => {
+                    return (
+                      <AccordionItem
+                        key={faq.text}
+                        title={<b>{faq.text}</b>}
+                        id={faq.value}
+                        alwaysOpen
+                        // ref={faq.value === 'organizers' ? organizersRef : undefined}
+                      >
+                        {faq.content && faq.content()}
+                      </AccordionItem>
+                    )
+                  })}
+                </Accordion>
+                <p className="margin-top-less bold tab-content margin-left-much-less">
+                  If you have any other questions or need further information, please feel free to reach out to our
+                  Volunteer Coordinator at{' '}
+                  <Link indicateExternal href="mailto:kokeb.solomon@ethereum.org">
+                    kokeb.solomon@ethereum.org
+                  </Link>
+                  <br /> <br />
+                  We look forward to welcoming you to our passionate volunteer team for Devconnect!
+                </p>
+              </AccordionItem>
             </AccordionItem>
           </Accordion>
         </div>

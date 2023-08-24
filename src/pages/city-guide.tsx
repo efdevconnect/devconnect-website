@@ -54,7 +54,7 @@ const tabs = [
             <Link href="https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa">if you need one</Link>!
           </p>
           <p className="big-text">
-            Need a Visa invitation letter? You&apos;ll need a ticket for the Devconnect Cowork first, then you can{' '}
+            Need a Visa invitation letter? You&apos;ll need a ticket for the Devconnect Cowork first, then you can&nbsp;
             <Link href="https://forms.gle/zDQ6ax5Ukr75gDXt5" indicateExternal>
               fill out this form
             </Link>
