@@ -51,8 +51,8 @@ function getTimeUntilNovember13InTurkey() {
   // Create a Date object for the current date
   const currentDate = moment.utc()
 
-  // Set the target date to November 13th of the current year
-  const targetDate = moment.utc([2023, 10, 13]) // Note: Month is 0-based, so 10 represents November.
+  // Set the target date to November 13th, 8 am, turkey time
+  const targetDate = moment.utc([2023, 10, 13, 8]) // Note: Month is 0-based, so 10 represents November.
 
   // Calculate the time difference in milliseconds
   const timeDifference = targetDate.diff(currentDate) - 1000 * 60 * 60 * 3 // add 3 hours for turkey time (UTC+3)
@@ -620,6 +620,7 @@ const Home: NextPage = (props: any) => {
   const [hehe, setHehe] = React.useState(false)
   const organizersRef = React.useRef<any>()
   const splineRef = React.useRef<any>()
+  const [mounted, setMounted] = React.useState(false)
 
   const [timeToEvent, setTimeToEvent] = React.useState<string | null>(null)
 
@@ -631,6 +632,8 @@ const Home: NextPage = (props: any) => {
         `${timeLeft.days} days, ${timeLeft.hours} hours, ${timeLeft.minutes} minutes and ${timeLeft.seconds} seconds`
       )
     }, 1000)
+
+    setMounted(true)
 
     return () => clearInterval(interval)
   }, [])
@@ -714,7 +717,7 @@ const Home: NextPage = (props: any) => {
                     <b>make progress together</b>.
                   </p>
 
-                  <p className="bold margin-bottom-less big-text">See you in {timeToEvent} 😇</p>
+                  <p className="bold margin-bottom-less big-text">See you in {mounted ? timeToEvent : ''}!</p>
 
                   <Link href="#about" className={`button transparent ${css['video-recap-button']}`}>
                     <span>ISTANBUL, Türkiye</span>

@@ -262,6 +262,7 @@ const useFavorites = (events: any, edition: Edition): any => {
   const [onlyShowSharedEvents, setOnlyShowSharedEvents] = React.useState(true)
   const [shareTitleInput, setShareTitleInput] = React.useState('')
   const searchParams = useSearchParams()
+  const router = useRouter()
   const share = searchParams.get('share')
   const shareTitle = searchParams.get('share_title')
   const storageID = `${edition}_schedule_favorites`
@@ -308,6 +309,12 @@ const useFavorites = (events: any, edition: Edition): any => {
     navigator.clipboard.writeText(url)
   }
 
+  const exitSharedMode = () => {
+    router.replace(window.location.origin + window.location.pathname, undefined)
+
+    setSharedEvents(null)
+  }
+
   return {
     favoriteEvents: sharedEvents || favoriteEvents,
     setFavoriteEvents,
@@ -319,6 +326,7 @@ const useFavorites = (events: any, edition: Edition): any => {
     shareTitleInput,
     setShareTitleInput,
     exportFavorites,
+    exitSharedMode,
   }
 }
 
@@ -434,7 +442,7 @@ const Timeline = (props: any) => {
           }}
           data-id={event.ID}
         >
-          <Favorite event={event} favorites={props.favorites} />
+          {props.edition === 'istanbul' && <Favorite event={event} favorites={props.favorites} />}
 
           <div className={css['content']}>
             {event['Stable ID'] === 'Cowork' && (
@@ -1191,9 +1199,9 @@ const Filter = (props: any) => {
           <Toggle
             // defaultChecked={props.showFavorites}
             icons={false}
-            // onChange={() => props.setShowFavorites(!props.showFavorites)}
+            onChange={() => props.setShowFavorites(!props.showFavorites)}
           />
-          <span className="bold small-text">Favorited Events</span>
+          <span className="bold small-text">Favorites</span>
         </label>
 
         {props.edition === 'istanbul' && (
@@ -1204,7 +1212,7 @@ const Filter = (props: any) => {
               onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
             />
 
-            <span className="bold small-text">Only Ecosystem Events</span>
+            <span className="bold small-text">Only Ecosystem</span>
           </label>
         )}
 
@@ -1349,12 +1357,21 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
           if (props.edition === 'amsterdam') return 'Amsterdam'
         })()}
       >
-        <p className="uppercase extra-large-text bold secondary title">
-          {(() => {
-            if (props.edition === 'istanbul') return 'Schedule - Istanbul 2023'
-            if (props.edition === 'amsterdam') return 'Schedule - Amsterdam 2022'
-          })()}
-        </p>
+        <div className={css['hero-content']}>
+          <p className="uppercase extra-large-text bold secondary title">
+            {(() => {
+              if (props.edition === 'istanbul') return 'Schedule - Istanbul 2023'
+              if (props.edition === 'amsterdam') return 'Schedule - Amsterdam 2022'
+            })()}
+          </p>
+          <Link
+            href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
+            className={`button black sm margin-top-much-less`}
+            indicateExternal
+          >
+            Host An Event
+          </Link>
+        </div>
       </Hero>
 
       {favorites.sharedEvents && (
@@ -1363,7 +1380,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
             <p className="big-text bold">You are viewing {favorites.sharedTitle || 'a shared schedule'}</p>
             <div className={css['actions']}>
               {/* <button className="sm button white">Merge shared events into own calendar</button> */}
-              <button className="sm button orange-fill" onClick={() => favorites.setSharedEvents(null)}>
+              <button className="sm button orange-fill" onClick={favorites.exitSharedMode}>
                 Return to your schedule
               </button>
               <button
@@ -1387,7 +1404,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
       )}
 
       <div className={`${css['schedule']} ${css[`edition-${props.edition}`]}`}>
-        {favorites.sharedEvents === null && (
+        {props.edition === 'istanbul' && favorites.sharedEvents === null && (
           <div className={`section ${css['filter-bar']}`}>
             <Filter events={events} {...filterAttributes} edition={props.edition} favorites={favorites} />
           </div>
@@ -1425,7 +1442,24 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
 
           <div className={`${css['top-bar']}`}>
             <div className={css['second-row']}>
-              <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
+              <div className={`${css['view']} small-text`}>
+                <div className={css['options']}>
+                  <button
+                    className={`${scheduleView === 'timeline' && css['selected']} ${css['switch']}`}
+                    onClick={() => setScheduleView('timeline')}
+                  >
+                    <CalendarIcon />
+                    <p className={`${css['text']} small-text bold`}>Timeline</p>
+                  </button>
+                  <button
+                    className={`${scheduleView === 'list' && css['selected']} ${css['switch']}`}
+                    onClick={() => setScheduleView('list')}
+                  >
+                    <ListIcon style={{ fontSize: '1.1em' }} />
+                    <p className={`${css['text']} small-text bold`}>List</p>
+                  </button>
+                </div>
+              </div>
 
               {props.edition === 'amsterdam' && (
                 <div className={css['types']}>
@@ -1466,6 +1500,8 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                   </div>
                 </div>
               )}
+
+              <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
 
               {scheduleView === 'timeline' && (
                 <p className={`small-text bold uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>

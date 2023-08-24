@@ -3,6 +3,19 @@
 .hero {
   --tile-size: 60px;
   z-index: 1;
+
+  .hero-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+
+    @media (max-width: $screen-lg) {
+      :global(.button) {
+        display: none !important;
+      }
+    }
+  }
 }
 
 .edition-istanbul {
@@ -50,66 +63,6 @@
       margin-bottom: 20px;
       margin-bottom: 8px;
     }
-
-    .view {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      text-transform: uppercase;
-      color: $monochrome-6;
-      background: #f8f8f8;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-      border-radius: 44px;
-      padding: 0px 20px;
-      width: 100%;
-      margin-top: 16px;
-
-      @media (min-width: $screen-md) {
-        width: auto;
-        margin-top: 0px;
-      }
-
-      .options {
-        display: flex;
-        flex-grow: 1;
-        justify-content: space-evenly;
-        align-items: center;
-        // margin-left: 16px;
-
-        .switch {
-          all: unset;
-          height: 100%;
-          margin: 15px 0px;
-          padding: 6px 15px;
-          display: flex;
-          align-items: center;
-          text-align: center;
-          cursor: pointer;
-
-          .text {
-            margin-left: 8px;
-          }
-
-          svg {
-            font-size: 1.2em;
-          }
-
-          &.selected {
-            color: white;
-            border-radius: 14px;
-            background: #6664d3;
-
-            * {
-              fill: white;
-            }
-          }
-
-          * {
-            fill: #666666;
-          }
-        }
-      }
-    }
   }
 
   .top-bar {
@@ -118,25 +71,23 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    // margin-top: -16px;
     margin-bottom: 4px;
-    // padding: 16px 0px;
-
-    > * {
-      // padding-top: 16px;
-    }
 
     .second-row {
       margin-top: 16px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       width: 100%;
     }
 
     .types {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
+      margin-left: 16px;
+      margin-bottom: 2px;
+      flex-grow: 1;
       align-items: center;
 
       > * {
@@ -974,7 +925,7 @@
   flex-direction: row;
   width: 100%;
   gap: 8px;
-  
+
   .filter-text {
     display: none;
 
@@ -985,13 +936,15 @@
 
   .toggles {
     display: flex;
-    // justify-content: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     flex-grow: 1;
     gap: 8px;
-  }
 
+    @media (max-width: $screen-xl) {
+      justify-content: center;
+    }
+  }
 
   > div {
     [role='button'] {
@@ -1020,12 +973,11 @@
   border: 1px solid $monochrome-6;
   color: $monochrome-8;
   cursor: pointer;
-  padding: 8px 12px;
+  padding: 6px 12px;
   border-radius: 2px;
   // display: none;
   display: inline-flex;
   align-items: center;
-  font-family: 'Roboto';
 
   &:first-child {
     margin-right: 8px;
@@ -1042,9 +994,10 @@
   span {
     display: flex;
     flex-direction: column;
+    align-self: center;
 
     > * {
-      font-size: 0.6em;
+      font-size: 0.5em;
     }
   }
 
@@ -1167,5 +1120,77 @@
   svg {
     margin-left: 4px;
     font-size: 0.8em;
+  }
+}
+
+.view {
+  display: flex;
+  align-items: center;
+  // justify-content: space-between;
+  text-transform: uppercase;
+  color: $monochrome-6;
+  // background: #f8f8f8;
+  // box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  // border-radius: 44px;
+  // padding: 0px 20px;
+  // width: 100%;
+  // margin-top: 16px;
+
+
+  @media (min-width: $screen-md) {
+    width: auto;
+    margin-top: 0px;
+  }
+
+  .options {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-evenly;
+    align-items: center;
+
+    .switch {
+      all: unset;
+      height: 100%;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+
+      .text {
+        margin-left: 8px;
+      }
+
+      svg {
+        font-size: 1.2em;
+      }
+
+      &.selected {
+        color: white;
+        // border-radius: 14px;
+        border: 1px solid #414141;
+        background: #414141;
+
+        &:first-child() {
+          border-right: none;
+        }
+
+        &:last-child() {
+          border-left: none;
+        }
+
+        * {
+          fill: white;
+        }
+      }
+
+      &:not(&.selected) {
+        border: 1px solid #868686;
+      }
+
+      * {
+        fill: #666666;
+      }
+    }
   }
 }
