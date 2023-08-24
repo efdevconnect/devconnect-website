@@ -1,4 +1,5 @@
 import next, { NextPage } from 'next'
+import Image from 'next/image'
 import React, { useEffect } from 'react'
 import { Client } from '@notionhq/client'
 import css from './[schedule].module.scss'
@@ -28,8 +29,8 @@ import Star from 'assets/icons/star.svg'
 import Toggle from 'react-toggle'
 import Retro from 'common/components/pages/event/retro'
 import { CopyToClipboard } from 'common/components/copy-to-clipboard/CopyToClipboard'
-import Tooltip from 'common/components/tooltip'
 import ShareIcon from 'assets/icons/share.svg'
+import FilterMiss from 'assets/images/404.png'
 import { useSearchParams } from 'next/navigation'
 
 const sortEvents = (a: any, b: any) => {
@@ -1522,7 +1523,11 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
 
           {events.length === 0 ? (
             <div className={css['no-results']}>
-              <p>No matches for this filter</p>
+              <Image src={FilterMiss} alt="Guy unable to find an Ethereum artifact" />
+              <p className="bold large-text margin-top-much-less margin-bottom">
+                There are no events matching this filter! Try something else!
+              </p>
+              {/* <p>No matches for this filter</p> */}
             </div>
           ) : (
             <>

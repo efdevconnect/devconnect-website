@@ -965,7 +965,13 @@
 
 .no-results {
   display: flex;
-  height: 200px;
+  flex-direction: column;
+  align-items: center;
+  // height: 200px;
+  img {
+    max-height: 40vh;
+    object-fit: contain;
+  }
 }
 
 .expand-list {
