@@ -1093,12 +1093,14 @@ const List = (props: any) => {
   )
 }
 
-const useFilter = (events: any, edition: Edition) => {
+const useFilter = (events: any, edition: Edition, favorites: any) => {
   const keysToFilterOn = ['Category', 'Difficulty', 'Attend']
   const [filters, setFilters] = React.useState({} as { [key: string]: any })
   const filterableValues = {} as { [key: string]: Set<string> }
   const [hideSoldOut, setHideSoldOut] = React.useState(false)
+  // Filter out events that aren't ecosystem related:
   const [showOnlyDomainSpecific, setShowOnlyDomainSpecific] = React.useState(false)
+  const [showFavorites, setShowFavorites] = React.useState(false)
 
   // Run through events collecting all the possible values to filter on for the specified keys above - looks a bit messy but w/e
   // Could hardcode the filter values too but this is future proof if someone changes the range of possible values for any of the above fields
@@ -1130,6 +1132,12 @@ const useFilter = (events: any, edition: Edition) => {
       return false
     }
 
+    if (showFavorites) {
+      const eventIsFavorited = favorites.favoriteEvents.some((favoritedEvent: any) => event.ShortID === favoritedEvent)
+
+      if (!eventIsFavorited) return false
+    }
+
     if (activeFilters.length > 0) {
       return activeFilters.every(key => {
         const activeFilter = filters[key]
@@ -1149,6 +1157,8 @@ const useFilter = (events: any, edition: Edition) => {
     filterableValues,
     hideSoldOut,
     setHideSoldOut,
+    showFavorites,
+    setShowFavorites,
     showOnlyDomainSpecific,
     setShowOnlyDomainSpecific,
     filters,
@@ -1197,7 +1207,7 @@ const Filter = (props: any) => {
       <div className={css['toggles']}>
         <label className={css['toggle']}>
           <Toggle
-            // defaultChecked={props.showFavorites}
+            defaultChecked={props.showFavorites}
             icons={false}
             onChange={() => props.setShowFavorites(!props.showFavorites)}
           />
@@ -1331,8 +1341,9 @@ const scheduleViewHOC = (Component: any) => {
 const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const { scheduleView, setScheduleView } = props
   const favorites = useFavorites(props.events, props.edition)
-  let { events, ...filterAttributes } = useFilter(props.events, props.edition)
+  let { events, ...filterAttributes } = useFilter(props.events, props.edition, favorites)
 
+  // Override filters if viewing shared events
   if (favorites.sharedEvents && favorites.onlyShowSharedEvents) {
     events = events.filter((event: any) => favorites.sharedEvents.includes(event.ShortID))
   }
