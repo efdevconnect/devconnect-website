@@ -364,6 +364,18 @@ a {
   margin-right: 8px;
   text-transform: uppercase;
 
+  &.black {
+    background: #494c50;
+    color: white;
+    --icon-color: white;
+    border: none;
+
+    &:hover {
+      color: rgb(205, 205, 205);
+      --icon-color: rgb(173, 173, 173);
+    }
+  }
+
   &.purple {
     background: #e7e3ff;
   }

@@ -1238,7 +1238,7 @@ const Filter = (props: any) => {
       </div>
 
       <div
-        className={`bold tag tiny-text uppercase ${css['share-schedule-cta']}`}
+        className={`bold black tag tiny-text uppercase ${css['share-schedule-cta']}`}
         onClick={() => setOpenShareModal(true)}
       >
         <span>
