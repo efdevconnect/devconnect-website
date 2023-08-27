@@ -1151,8 +1151,7 @@ const CityGuide: NextPage = () => {
                 </p>
                 <p className="bold big-text">Our destination for Devconnect 2023 is Istanbul!</p>
                 <br />
-                {/* Our destination for Devconnect 2023 is Istanbul! */}
-                <p className="big-text margin-bottom-less tab-content">
+                <p className="big-text margin-bottom-less">
                   One could argue that it is exactly the right time for us to go to Istanbul with Devconnect. Türkiye
                   has seen{' '}
                   <Link
