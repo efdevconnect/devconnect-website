@@ -115,7 +115,11 @@ const Dropdown = React.forwardRef((props: DropdownProps, externalRef: any) => {
 
   return (
     <div {...triggerProps}>
-      {currentSelection ? <p>{currentSelection.text}</p> : <p className={css['placeholder']}>{props.placeholder}</p>}
+      {currentSelection ? (
+        <p className="bold">{currentSelection.text}</p>
+      ) : (
+        <p className={`${css['placeholder']} bold`}>{props.placeholder}</p>
+      )}
       <Icon />
 
       {foldoutContent}

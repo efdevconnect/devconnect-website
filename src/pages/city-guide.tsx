@@ -1149,32 +1149,51 @@ const CityGuide: NextPage = () => {
                 <p className={`${css['title']} uppercase bold`}>
                   <span className="orange">TURKIYE</span> - [ TUR-KI-YEHHHH ]
                 </p>
-
-                <p className="bold big-text">Hoşgeldiniz, Ethereum explorers, to Istanbul!</p>
-
+                <p className="bold big-text">Our destination for Devconnect 2023 is Istanbul!</p>
                 <br />
-
-                <p className="big-text">
+                {/* Our destination for Devconnect 2023 is Istanbul! */}
+                <p className="big-text margin-bottom-less tab-content">
+                  One could argue that it is exactly the right time for us to go to Istanbul with Devconnect. Türkiye
+                  has seen{' '}
+                  <Link
+                    href="https://www.reuters.com/technology/cryptoverse-digital-coins-lure-inflation-weary-argentines-turks-2023-05-02/"
+                    indicateExternal
+                  >
+                    one of the highest crypto adoption rates
+                  </Link>{' '}
+                  in recent years. This can remind us of the positive impact Ethereum can have, offering financial
+                  inclusion and empowerment. There are multiple active blockchain university clubs and a thriving
+                  Ethereum community in Türkiye.
+                </p>
+                <p className="big-text margin-bottom-less">
+                  Apart from that, Istanbul has a rich culture and heritage because it is home to many cultures and
+                  bridges two continents, Europe and Asia. It is a popular destination for visitors with a major
+                  international airport (IST). It's very affordable to live, public transport is efficient and cheap,
+                  hospitality is genuine, and there's a lot to explore: bazaars, kebaps, baklava, and the Bosporus
+                  strait.
+                </p>
+                <p>
+                  This guide aims to equip you with everything needed for the best Devconnect experience in Istanbul.
+                  For once, you don't have to DYOR because we've done it for you. From accommodation recommendations to
+                  getting around in the city and tips from locals, you can consider this your ultimate Devconnect travel
+                  resource.
+                </p>
+                {/* <p className="big-text">
                   Our destination for Devconnect 2023 is Istanbul - A city that is home to many cultures and bridges two
                   continents, Europe and Asia.
                 </p>
-
                 <br />
-
                 <p className="big-text">
                   It&apos;s a popular destination for visitors because it&apos;s easy to reach via its major
                   international airport (IST), it&apos;s very affordable to live, public transport is efficient and
                   cheap, hospitality is genuine, and there&apos;s a lot to explore: bazaars, spices, kebaps, baklava,
                   the Bosporus strait, and the city&apos;s rich culture and heritage.
                 </p>
-
                 <br />
-
                 <p>
                   This guide aims to prepare you for the best Devconnect experience in Istanbul, providing you with
                   resources and covering more than just the basics.
-                </p>
-
+                </p> */}
                 {/* <br />
 
                 <div className={css['call-to-action']}>

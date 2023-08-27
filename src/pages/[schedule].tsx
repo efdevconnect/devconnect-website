@@ -311,7 +311,7 @@ const useFavorites = (events: any, edition: Edition): any => {
   }
 
   const exitSharedMode = () => {
-    router.replace(window.location.origin + window.location.pathname, undefined)
+    router.replace(window.location.origin + window.location.pathname, undefined, { shallow: true })
 
     setSharedEvents(null)
   }
