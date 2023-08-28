@@ -1167,15 +1167,15 @@ const CityGuide: NextPage = () => {
                 <p className="big-text margin-bottom-less">
                   Apart from that, Istanbul has a rich culture and heritage because it is home to many cultures and
                   bridges two continents, Europe and Asia. It is a popular destination for visitors with a major
-                  international airport (IST). It's very affordable to live, public transport is efficient and cheap,
-                  hospitality is genuine, and there's a lot to explore: bazaars, kebaps, baklava, and the Bosporus
-                  strait.
+                  international airport (IST). It&apos;s very affordable to live, public transport is efficient and
+                  cheap, hospitality is genuine, and there&apos;s a lot to explore: bazaars, kebaps, baklava, and the
+                  Bosporus strait.
                 </p>
                 <p>
                   This guide aims to equip you with everything needed for the best Devconnect experience in Istanbul.
-                  For once, you don't have to DYOR because we've done it for you. From accommodation recommendations to
-                  getting around in the city and tips from locals, you can consider this your ultimate Devconnect travel
-                  resource.
+                  For once, you don&apos;t have to DYOR because we&apos;ve done it for you. From accommodation
+                  recommendations to getting around in the city and tips from locals, you can consider this your
+                  ultimate Devconnect travel resource.
                 </p>
                 {/* <p className="big-text">
                   Our destination for Devconnect 2023 is Istanbul - A city that is home to many cultures and bridges two
