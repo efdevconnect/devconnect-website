@@ -708,7 +708,7 @@ const EventLinks = (props: any) => {
   }
 
   return (
-    <div className={`${css['event-links']} small-text uppercase`}>
+    <div className={`${css['event-links']} tiny-text uppercase`}>
       {event.URL && event.URL.length > 0 ? (
         <Link href={event.URL} indicateExternal>
           Visit website
@@ -797,7 +797,7 @@ const LearnMore = (props: { open: boolean; close: () => void; event: any; editio
 
 const ListTableHeader = () => {
   return (
-    <div className={`uppercase ${css['list-table-header']} ${css['list-grid']}`}>
+    <div className={`uppercase bold ${css['list-table-header']} ${css['list-grid']}`}>
       <div className={css['col-1']}>Date & Time</div>
       <div className={css['col-2']}>Event</div>
       <div className={css['col-3']}>Organizers</div>
@@ -830,8 +830,8 @@ const ListDayHeader = React.forwardRef((props: any, ref: any) => {
     <div>
       <div className={className} onClick={() => setOpen(!open)}>
         <div className={css['date']}>
-          <p className="section-header thin large-text">{dayIsActive ? 'TODAY' : day}</p>
-          <p className="section-header thin small-text">{date}</p>
+          <p className="thin big-text uppercase bold">{dayIsActive ? 'TODAY' : day}</p>
+          <p className="thin small-text uppercase bold">{date}</p>
         </div>
 
         <div className={css['toggle-open']}>{open ? <ChevronUp /> : <ChevronDown />}</div>
@@ -866,8 +866,8 @@ const ListEventDesktop = (props: any) => {
       <div className={`${css['list-grid']} ${css['content']} `}>
         <div className={`${css['date']} ${css['col-1']}`}>
           <div>
-            <p className="big-text uppercase">
-              {formattedDate} — <br /> <span className="big-text">{timeOfDay}</span>
+            <p className="uppercase bold">
+              {formattedDate} — <br /> <span className="">{timeOfDay}</span>
               {/* {props.event['Stable ID'] === 'Cowork' && (
                 <>
                   <br />
@@ -876,23 +876,23 @@ const ListEventDesktop = (props: any) => {
               )} */}
             </p>
             {isMultiDayEvent && (
-              <p className={`${css['end-date']} tiny-text uppercase`}>
+              <p className={`${css['end-date']} tiny-text bold uppercase`}>
                 {formattedStartDate} — {formattedEndDate}
               </p>
             )}
           </div>
 
           {isMultiDayEvent && (
-            <div className={`tag purple tiny-text-em ${css['multi-day-indicator']}`}>Multi-day Event</div>
+            <div className={`tag bold purple tiny-text-em ${css['multi-day-indicator']}`}>Multi-day Event</div>
           )}
-          {props.event['Stable ID'] === 'Cowork' && (
+          {/* {props.event['Stable ID'] === 'Cowork' && (
             <div className={css['cowork-image']}>
               {(() => {
-                if (props.edition === 'amsterdam') return <DevconnectAmsterdam />
-                if (props.edition === 'istanbul') return <DevconnectIstanbul />
+                // if (props.edition === 'amsterdam') return <DevconnectAmsterdam />
+                // if (props.edition === 'istanbul') return <DevconnectIstanbul />
               })()}
             </div>
-          )}
+          )} */}
         </div>
 
         <div className={`${css['description']} ${css['col-2']}`}>
@@ -926,7 +926,7 @@ const ListEventDesktop = (props: any) => {
         </div>
 
         <div className={`${css['organizers']} ${css['col-3']}`}>
-          {props.event['Organizer'] && <p className={`uppercase ${css['organizers']}`}>{props.event['Organizer']}</p>}
+          {props.event['Organizer'] && <p className={`${css['organizers']}`}>{props.event['Organizer']}</p>}
         </div>
 
         <div className={`${css['attend']} ${css['col-4']}`}>
@@ -1270,7 +1270,7 @@ const Filter = (props: any) => {
             </p>
 
             <CopyToClipboard>
-              <button className="button xs orange" onClick={props.favorites.exportFavorites}>
+              <button className="button xs black" onClick={props.favorites.exportFavorites}>
                 <span>Share Schedule</span>
                 <ShareIcon />
               </button>

@@ -143,7 +143,7 @@
     .expand-container {
       display: none;
 
-      @media (min-width: $screen-md) {
+      @media (min-width: $screen-lg) {
         display: inline-block;
       }
     }
@@ -279,6 +279,7 @@
 
   .multi-day-indicator {
     align-self: flex-start;
+    transform: translateX(-3px);
   }
 }
 
@@ -341,13 +342,14 @@
 .list {
   .event-links {
     padding-left: 16px !important;
+    // display: none;
   }
 }
 
 .event-links {
   display: flex;
   align-items: center;
-  padding: 10px 8px;
+  padding: 8px 4px;
   color: var(--color);
   --icon-color: var(--color);
   background: var(--color-bg);
@@ -443,7 +445,7 @@
 .day-header,
 .list-table-header {
   background: #414141;
-  padding: 16px;
+  padding: 10px 16px;
   color: $monochrome-2;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
 
@@ -507,11 +509,11 @@
     }
 
     .col-2 {
-      grid-column: span 12;
+      grid-column: span 14;
     }
 
     .col-3 {
-      grid-column: span 5;
+      grid-column: span 4;
     }
 
     .col-4 {
@@ -571,6 +573,10 @@
         --icon-color: #{$monochrome-6};
       }
 
+      .description {
+        margin-right: 22px;
+      }
+
       .date {
         display: flex;
         justify-content: space-between;
@@ -586,7 +592,8 @@
       }
 
       .organizers {
-        color: $monochrome-6;
+        color: $monochrome-8;
+        font-weight: bold;
       }
     }
   }
@@ -623,7 +630,7 @@
       flex-direction: column;
 
       .title {
-        margin-bottom: 8px;
+        margin-bottom: 4px;
       }
 
       .body {
@@ -720,6 +727,7 @@
     min-width: 240px;
     padding: 10px;
     font-size: 12px;
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1025,7 +1033,7 @@
     display: none;
     margin-left: 8px;
 
-    @media (min-width: $screen-lg) {
+    @media (min-width: $screen-md) {
       display: inline-block;
     }
   }
