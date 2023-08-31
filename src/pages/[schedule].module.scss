@@ -355,6 +355,21 @@
   background: var(--color-bg);
   font-weight: bold;
   cursor: pointer;
+  width: 100%;
+
+  .actions {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 20px;
+  }
+
+  .favorite {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+  }
 
   &:hover {
     background: var(--color);
@@ -373,7 +388,6 @@
   }
 
   .add-to-calendar {
-    flex-grow: 1;
     display: flex;
     justify-content: flex-end;
     text-align: right;
@@ -553,9 +567,9 @@
     margin-top: 4px;
 
     .content {
-      padding: 16px;
+      padding: 12px 16px;
       padding-bottom: 8px;
-      margin-top: 4px;
+      // margin-top: 4px;
 
       .info {
         display: none;

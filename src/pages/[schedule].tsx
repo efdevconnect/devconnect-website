@@ -33,6 +33,113 @@ import ShareIcon from 'assets/icons/share.svg'
 import FilterMiss from 'assets/images/404.png'
 import { useSearchParams } from 'next/navigation'
 
+// ICS and google cal generator
+const generateCalendarExport = (events: any[], onlyFavorites?: boolean) => {
+  const ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
+  let googleCalUrl: any
+
+  events.forEach((eventData: any) => {
+    const { startDate, timeOfDayArray, endDate, isMultiDayEvent, event, shouldRepeatTimeOfDay } = eventData
+
+    const start = startDate.clone()
+    const end = endDate.clone()
+    const firstDay = timeOfDayArray[0]
+    const lastDay = timeOfDayArray[timeOfDayArray.length - 1]
+
+    const { calendarTime: startOfFirstDay } = sanitizeEventTime(firstDay.split('-')[0]) || { calendarTime: '000000' }
+    const { calendarTime: endOfLastDay } = sanitizeEventTime(lastDay.split('-')[1]) || { calendarTime: '000000' }
+
+    const description = (() => {
+      let humanReadableTimes: string[] = []
+
+      const allEventTimesValid = timeOfDayArray.every((time: string, index: number) => {
+        const startOfDay = sanitizeEventTime(time.split('-')[0])
+        const endOfDay = sanitizeEventTime(time.split('-')[1])
+        const timeIsValid = startOfDay && endOfDay
+
+        if (timeIsValid) {
+          const timeOfDay = `${startOfDay.normalizedEventTime} - ${endOfDay.normalizedEventTime}`
+
+          if (isMultiDayEvent && !shouldRepeatTimeOfDay) {
+            humanReadableTimes.push(`Day ${index + 1}: ${timeOfDay}`)
+          } else {
+            humanReadableTimes.push(`${timeOfDay}`)
+          }
+        }
+
+        return timeIsValid
+      })
+
+      if (!allEventTimesValid) return null
+
+      return `${event['Name']} - ${humanReadableTimes.join(', ')}`
+    })()
+
+    googleCalUrl = (() => {
+      const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE&ctz=Europe/Istanbul`)
+      // const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE`)
+
+      googleCalUrl.searchParams.append('text', `${event.Name}`)
+      googleCalUrl.searchParams.append('details', `${description}`)
+
+      if (event.Location.url) googleCalUrl.searchParams.append('location', `${event.Location.text}`)
+
+      return googleCalUrl
+    })()
+
+    if (isMultiDayEvent) {
+      // Have to add a day for multi-day events since the final day is not included in the range
+      // (if not, it will make a boundary at exactly midnight on the previous day since the dates default to 00:00 when no time is specified)
+      end.add(1, 'days')
+
+      googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
+
+      ics.push(
+        `BEGIN:VEVENT`,
+        `UID:${event.Name}`,
+        `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
+        `DTSTART:${start.format('YYYYMMDD')}`,
+        `DTEND:${end.format('YYYYMMDD')}`,
+        `SUMMARY:${event.Name}`,
+        `DESCRIPTION:${description}`,
+        event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
+        event.Location.url && `LOCATION:${event.Location.text}`,
+        `END:VEVENT`
+      )
+    } else {
+      googleCalUrl.searchParams.append(
+        'dates',
+        `${start.format('YYYYMMDD')}T${startOfFirstDay}/${end.format('YYYYMMDD')}T${endOfLastDay}`
+      )
+
+      ics.push(
+        `BEGIN:VEVENT`,
+        `UID:${event.Name}`,
+        `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
+        `DTSTART:${start.format('YYYYMMDD')}T${startOfFirstDay}`,
+        `DTEND:${end.format('YYYYMMDD')}T${endOfLastDay}`,
+        `SUMMARY:${event.Name}`,
+        `DESCRIPTION:${description}`,
+        event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
+        event.Location.url && `LOCATION:${event.Location.text}`,
+        `END:VEVENT`
+      )
+    }
+  })
+
+  ics.push(`END:VCALENDAR`)
+
+  const calendarName = events.length === 1 ? events[0].Name : 'Devconnect Week'
+
+  const file = new Blob([ics.filter((row: string) => !!row).join('\n')], { type: 'text/calendar' })
+  const icsAttributes = {
+    href: URL.createObjectURL(file),
+    download: `${calendarName}.ics`,
+  }
+
+  return { icsAttributes, googleCalUrl: googleCalUrl && googleCalUrl.href }
+}
+
 const sortEvents = (a: any, b: any) => {
   const aStartDay = moment(a.Date.startDate),
     aEndDay = moment(a.Date.endDate),
@@ -224,32 +331,109 @@ const createPlacementTracker = () => {
   }
 }
 
-const Favorite = ({ event, favorites }: any) => {
+const CalendarModal = ({ events, calendarModalOpen, setCalendarModalOpen, allowGoogle, favorites }: any) => {
+  if (!calendarModalOpen) return null
+
+  const { icsAttributes, googleCalUrl } = generateCalendarExport(
+    events.map((event: any) => {
+      return {
+        ...getFormattedEventData(event),
+        event,
+      }
+    })
+  )
+
+  const isGlobalExport = !!favorites // if favorites are passed as a prop its a global export
+  const hasMultipleEvents = isGlobalExport && events.length > 1
+
+  return (
+    <Modal
+      className={css['add-to-calendar-modal']}
+      open={calendarModalOpen}
+      close={() => setCalendarModalOpen(false)}
+      noCloseIcon
+    >
+      <div className={css['add-to-calendar-modal-content']}>
+        <p className="bold uppercase">Export {hasMultipleEvents ? 'events' : 'event'}:</p>
+
+        <a {...icsAttributes} className="button black sm small-text">
+          {hasMultipleEvents ? 'All events' : 'Download'} (.ICS)
+        </a>
+
+        {(() => {
+          if (favorites && favorites.favoriteEvents.length > 0) {
+            const { icsAttributes } = generateCalendarExport(
+              events
+                .filter((event: any) => {
+                  const eventIsFavorited = favorites.favoriteEvents.some(
+                    (favoritedEvent: any) => event.ShortID === favoritedEvent
+                  )
+
+                  if (!eventIsFavorited) return false
+
+                  return true
+                })
+                .map((event: any) => {
+                  return {
+                    ...getFormattedEventData(event),
+                    event,
+                  }
+                })
+            )
+
+            return (
+              <a {...icsAttributes} className="button black sm small-text">
+                Your Favorites (.ICS)
+              </a>
+            )
+          }
+          return null
+        })()}
+
+        {allowGoogle && (
+          <Link indicateExternal href={googleCalUrl} className="button black sm small-text">
+            Google Calendar
+          </Link>
+        )}
+      </div>
+    </Modal>
+  )
+}
+
+const Favorite = ({ event, favorites, noContainer }: any) => {
   const isFavorited = favorites.favoriteEvents.some((favoritedEvent: any) => event.ShortID === favoritedEvent)
+
+  const body = (
+    <div
+      className={css['favorite']}
+      onClick={e => {
+        if (favorites.sharedEvents) {
+          alert('You are currently viewing a shared schedule. Exit sharing view to return to your schedule.')
+        }
+
+        if (isFavorited) {
+          favorites.setFavoriteEvents(
+            favorites.favoriteEvents.filter((favoriteEvent: any) => favoriteEvent !== event.ShortID)
+          )
+        } else {
+          favorites.setFavoriteEvents(favorites.favoriteEvents.concat(event.ShortID))
+        }
+
+        e.stopPropagation()
+      }}
+    >
+      {isFavorited ? <StarFill /> : <Star />}
+    </div>
+  )
+
+  if (noContainer) {
+    return body
+  }
 
   return (
     <div className={`${css['hover-overlay']} ${isFavorited ? css['favorited'] : ''}`}>
       {/* <Tooltip arrow title="Create a custom schedule by favoriting events you are interested in!"> */}
-      <div
-        className={css['favorite']}
-        onClick={e => {
-          if (favorites.sharedEvents) {
-            alert('You are currently viewing a shared schedule. Exit sharing view to return to your schedule.')
-          }
-
-          if (isFavorited) {
-            favorites.setFavoriteEvents(
-              favorites.favoriteEvents.filter((favoriteEvent: any) => favoriteEvent !== event.ShortID)
-            )
-          } else {
-            favorites.setFavoriteEvents(favorites.favoriteEvents.concat(event.ShortID))
-          }
-
-          e.stopPropagation()
-        }}
-      >
-        {isFavorited ? <StarFill /> : <Star />}
-      </div>
+      {body}
       {/* </Tooltip> */}
     </div>
   )
@@ -512,6 +696,7 @@ const Timeline = (props: any) => {
             open={eventModalOpen === event.ID}
             close={() => setEventModalOpen('')}
             edition={props.edition}
+            favorites={props.favorites}
           />
         </div>
 
@@ -601,111 +786,7 @@ const EventMeta = (props: any) => {
 
 const EventLinks = (props: any) => {
   const [calendarModalOpen, setCalendarModalOpen] = React.useState(false)
-  const {
-    startDate,
-    timeOfDayArray,
-    endDate,
-    duration: eventDuration,
-    isMultiDayEvent,
-    event,
-    shouldRepeatTimeOfDay,
-  } = props
-  const start = startDate.clone()
-  const end = endDate.clone()
-  const firstDay = timeOfDayArray[0]
-  const lastDay = timeOfDayArray[timeOfDayArray.length - 1]
-
-  const { calendarTime: startOfFirstDay } = sanitizeEventTime(firstDay.split('-')[0]) || { calendarTime: '000000' }
-  const { calendarTime: endOfLastDay } = sanitizeEventTime(lastDay.split('-')[1]) || { calendarTime: '000000' }
-
-  const description = (() => {
-    let humanReadableTimes: string[] = []
-
-    const allEventTimesValid = timeOfDayArray.every((time: string, index: number) => {
-      const startOfDay = sanitizeEventTime(time.split('-')[0])
-      const endOfDay = sanitizeEventTime(time.split('-')[1])
-      const timeIsValid = startOfDay && endOfDay
-
-      if (timeIsValid) {
-        const timeOfDay = `${startOfDay.normalizedEventTime} - ${endOfDay.normalizedEventTime}`
-
-        if (isMultiDayEvent && !shouldRepeatTimeOfDay) {
-          humanReadableTimes.push(`Day ${index + 1}: ${timeOfDay}`)
-        } else {
-          humanReadableTimes.push(`${timeOfDay}`)
-        }
-      }
-
-      return timeIsValid
-    })
-
-    if (!allEventTimesValid) return null
-
-    return `${event['Name']} - ${humanReadableTimes.join(', ')}`
-  })()
-
-  const enableAddToCalendar = description !== null
-
-  const googleCalUrl = (() => {
-    const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE&ctz=Europe/Istanbul`)
-    // const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE`)
-
-    googleCalUrl.searchParams.append('text', `${event.Name}`)
-    googleCalUrl.searchParams.append('details', `${description}`)
-
-    if (event.Location.url) googleCalUrl.searchParams.append('location', `${event.Location.text}`)
-
-    return googleCalUrl
-  })()
-
-  const ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
-
-  if (isMultiDayEvent) {
-    // Have to add a day for multi-day events since the final day is not included in the range
-    // (if not, it will make a boundary at exactly midnight on the previous day since the dates default to 00:00 when no time is specified)
-    end.add(1, 'days')
-
-    googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${end.format('YYYYMMDD')}`)
-
-    ics.push(
-      `BEGIN:VEVENT`,
-      `UID:${event.Name}`,
-      `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
-      `DTSTART:${start.format('YYYYMMDD')}`,
-      `DTEND:${end.format('YYYYMMDD')}`,
-      `SUMMARY:${event.Name}`,
-      `DESCRIPTION:${description}`,
-      event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
-      event.Location.url && `LOCATION:${event.Location.text}`,
-      `END:VEVENT`
-    )
-  } else {
-    googleCalUrl.searchParams.append(
-      'dates',
-      `${start.format('YYYYMMDD')}T${startOfFirstDay}/${end.format('YYYYMMDD')}T${endOfLastDay}`
-    )
-
-    ics.push(
-      `BEGIN:VEVENT`,
-      `UID:${event.Name}`,
-      `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
-      `DTSTART:${start.format('YYYYMMDD')}T${startOfFirstDay}`,
-      `DTEND:${end.format('YYYYMMDD')}T${endOfLastDay}`,
-      `SUMMARY:${event.Name}`,
-      `DESCRIPTION:${description}`,
-      event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
-      event.Location.url && `LOCATION:${event.Location.text}`,
-      `END:VEVENT`
-    )
-  }
-
-  ics.push(`END:VCALENDAR`)
-
-  const file = new Blob([ics.filter((row: string) => !!row).join('\n')], { type: 'text/calendar' })
-  const icsAttributes = {
-    href: URL.createObjectURL(file),
-    download: `${event.Name}.ics`,
-  }
+  const { event } = props
 
   return (
     <div className={`${css['event-links']} tiny-text uppercase`}>
@@ -731,39 +812,27 @@ const EventLinks = (props: any) => {
         </Link>
       )}
 
-      {enableAddToCalendar && (
+      <div className={css['actions']}>
         <>
           <div className={css['add-to-calendar']}>
             <AddToCalendarIcon className={`big-text icon`} onClick={() => setCalendarModalOpen(true)} />
           </div>
 
-          {calendarModalOpen && (
-            <Modal
-              className={css['add-to-calendar-modal']}
-              open={calendarModalOpen}
-              close={() => setCalendarModalOpen(false)}
-              noCloseIcon
-            >
-              <div className={css['add-to-calendar-modal-content']}>
-                <p className="bold uppercase">Add event to your calendar:</p>
-
-                <a {...icsAttributes} className="button white sm small-text">
-                  Download (.ICS)
-                </a>
-
-                <Link indicateExternal href={googleCalUrl.href} className="button white sm small-text">
-                  Google Calendar
-                </Link>
-              </div>
-            </Modal>
-          )}
+          <CalendarModal
+            calendarModalOpen={calendarModalOpen}
+            setCalendarModalOpen={setCalendarModalOpen}
+            events={[event]}
+            allowGoogle
+          />
         </>
-      )}
+
+        {props.edition === 'istanbul' && <Favorite event={event} favorites={props.favorites} noContainer />}
+      </div>
     </div>
   )
 }
 
-const LearnMore = (props: { open: boolean; close: () => void; event: any; edition: any }) => {
+const LearnMore = (props: { open: boolean; close: () => void; event: any; favorites: any; edition: any }) => {
   let className = css['learn-more']
 
   return (
@@ -788,6 +857,7 @@ const LearnMore = (props: { open: boolean; close: () => void; event: any; editio
             event={props.event}
             timeline
             edition={props.edition}
+            favorites={props.favorites}
           />
         </div>
       </Modal>
@@ -867,7 +937,7 @@ const ListEventDesktop = (props: any) => {
         <div className={`${css['date']} ${css['col-1']}`}>
           <div>
             <p className="uppercase bold">
-              {formattedDate} — <br /> <span className="">{timeOfDay}</span>
+              {formattedDate} — <br /> <span className="small-text">{timeOfDay}</span>
               {/* {props.event['Stable ID'] === 'Cowork' && (
                 <>
                   <br />
@@ -944,7 +1014,7 @@ const ListEventDesktop = (props: any) => {
             ))}
         </div>
       </div>
-      <EventLinks {...props} />
+      <EventLinks {...props} favorites={props.favorites} />
     </div>
   )
 }
@@ -1062,9 +1132,19 @@ const ListEvent = (props: any) => {
   return (
     <>
       {/* List view as table (desktop) */}
-      <ListEventDesktop {...formattedEventData} event={props.event} edition={props.edition} />
+      <ListEventDesktop
+        {...formattedEventData}
+        event={props.event}
+        edition={props.edition}
+        favorites={props.favorites}
+      />
       {/* List view (mobile) */}
-      <ListEventMobile {...formattedEventData} event={props.event} edition={props.edition} />
+      <ListEventMobile
+        {...formattedEventData}
+        event={props.event}
+        edition={props.edition}
+        favorites={props.favorites}
+      />
     </>
   )
 }
@@ -1085,7 +1165,9 @@ const List = (props: any) => {
         return (
           <ListDayHeader key={index} date={day} ref={el => (props.accordionRefs.current[day.valueOf()] = el)}>
             {eventsForDay.map((event: any, index: number) => {
-              return <ListEvent event={event} key={index} day={day} edition={props.edition} />
+              return (
+                <ListEvent event={event} key={index} day={day} edition={props.edition} favorites={props.favorites} />
+              )
             })}
           </ListDayHeader>
         )
@@ -1178,6 +1260,7 @@ const useFilter = (events: any, edition: Edition, favorites: any) => {
 
 const Filter = (props: any) => {
   const [openShareModal, setOpenShareModal] = React.useState(false)
+  const [calendarModalOpen, setCalendarModalOpen] = React.useState(false)
 
   return (
     <div className={`${css['filter']} small-text`}>
@@ -1237,46 +1320,64 @@ const Filter = (props: any) => {
         </label>
       </div>
 
-      <div
-        className={`bold black tag tiny-text uppercase ${css['share-schedule-cta']}`}
-        onClick={() => setOpenShareModal(true)}
-      >
-        <span>
-          Share Schedule Snapshot <ShareIcon />
-        </span>
-        <Modal
-          // className={css['add-to-calendar-modal']}
-          open={openShareModal}
-          close={() => setOpenShareModal(!openShareModal)}
-          noCloseIcon
+      <div>
+        <div
+          className={`bold black tag tiny-text uppercase ${css['share-schedule-cta']}`}
+          onClick={() => setCalendarModalOpen(true)}
         >
-          <div className={css['share-schedule-modal']}>
-            <p className="margin-bottom-less small-text">
-              Note: This will be a snapshot of your currently favorited events. Any subsequent updates to your favorites
-              won&apos;t change the snapshot.
-            </p>
-
-            <p className="bold">Name your schedule:</p>
-            <input
-              type="text"
-              value={props.favorites.shareTitleInput}
-              onChange={e => props.favorites.setShareTitleInput(e.target.value)}
-              placeholder="Name your schedule"
+          <span>
+            <CalendarModal
+              calendarModalOpen={calendarModalOpen}
+              setCalendarModalOpen={setCalendarModalOpen}
+              events={props.events}
+              favorites={props.favorites}
             />
-            {/* <CopyToClipboard url="" onShare={props.favorites.exportFavorites} /> */}
-            <p className="bold">What others will see:</p>
-            <p className="bold small-text margin-top-much-less margin-bottom-less">
-              <i>You are viewing {props.favorites.shareTitleInput || ' a shared schedule'}</i>
-            </p>
+            Export (.ics)
+            <AddToCalendarIcon />
+          </span>
+        </div>
 
-            <CopyToClipboard>
-              <button className="button xs black" onClick={props.favorites.exportFavorites}>
-                <span>Share Schedule</span>
-                <ShareIcon />
-              </button>
-            </CopyToClipboard>
-          </div>
-        </Modal>
+        <div
+          className={`bold black tag tiny-text uppercase ${css['share-schedule-cta']} margin-left-much-less`}
+          onClick={() => setOpenShareModal(true)}
+        >
+          <span>
+            Share Schedule Snapshot <ShareIcon />
+          </span>
+          <Modal
+            // className={css['add-to-calendar-modal']}
+            open={openShareModal}
+            close={() => setOpenShareModal(!openShareModal)}
+            noCloseIcon
+          >
+            <div className={css['share-schedule-modal']}>
+              <p className="margin-bottom-less small-text">
+                Note: This will be a snapshot of your currently favorited events. Any subsequent updates to your
+                favorites won&apos;t change the snapshot.
+              </p>
+
+              <p className="bold">Name your schedule:</p>
+              <input
+                type="text"
+                value={props.favorites.shareTitleInput}
+                onChange={e => props.favorites.setShareTitleInput(e.target.value)}
+                placeholder="Name your schedule"
+              />
+              {/* <CopyToClipboard url="" onShare={props.favorites.exportFavorites} /> */}
+              <p className="bold">What others will see:</p>
+              <p className="bold small-text margin-top-much-less margin-bottom-less">
+                <i>You are viewing {props.favorites.shareTitleInput || ' a shared schedule'}</i>
+              </p>
+
+              <CopyToClipboard>
+                <button className="button xs black" onClick={props.favorites.exportFavorites}>
+                  <span>Share Schedule</span>
+                  <ShareIcon />
+                </button>
+              </CopyToClipboard>
+            </div>
+          </Modal>
+        </div>
       </div>
     </div>
   )
@@ -1539,7 +1640,12 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
               </div> */}
 
               {scheduleView === 'list' && (
-                <List {...scheduleHelpers} edition={props.edition} accordionRefs={accordionRefs} />
+                <List
+                  {...scheduleHelpers}
+                  edition={props.edition}
+                  accordionRefs={accordionRefs}
+                  favorites={favorites}
+                />
               )}
               {scheduleView === 'timeline' && (
                 <Timeline {...scheduleHelpers} favorites={favorites} edition={props.edition} />
