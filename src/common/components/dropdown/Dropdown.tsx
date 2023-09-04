@@ -118,7 +118,7 @@ const Dropdown = React.forwardRef((props: DropdownProps, externalRef: any) => {
       {currentSelection ? (
         <p className="bold">{currentSelection.text}</p>
       ) : (
-        <p className={`${css['placeholder']} bold`}>{props.placeholder}</p>
+        <p className={`${css['placeholder']}`}>{props.placeholder}</p>
       )}
       <Icon />
 

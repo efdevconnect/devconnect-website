@@ -349,7 +349,7 @@
 .event-links {
   display: flex;
   align-items: center;
-  padding: 8px 4px;
+  padding: 8px 18px;
   color: var(--color);
   --icon-color: var(--color);
   background: var(--color-bg);
@@ -1105,7 +1105,7 @@
     justify-content: center;
     align-items: center;
     padding: 16px;
-    background: rgba(11, 11, 11, 0.7);
+    background: rgba(11, 11, 11, 0.9);
     // background: linear-gradient(90deg, #4f69fabf 0%, #6e4ffad6 13.54%, #f93b3be3 59.35%, #29f4c18b 100%);
     // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
@@ -1114,6 +1114,14 @@
     .actions {
       margin-top: 8px;
       display: flex;
+
+      @media (max-width: $screen-md) {
+        > * {
+          &:last-child {
+            display: none;
+          }
+        }
+      }
     }
   }
 }

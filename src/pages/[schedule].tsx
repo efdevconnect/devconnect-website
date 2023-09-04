@@ -34,7 +34,7 @@ import FilterMiss from 'assets/images/404.png'
 import { useSearchParams } from 'next/navigation'
 
 // ICS and google cal generator
-const generateCalendarExport = (events: any[], onlyFavorites?: boolean) => {
+const generateCalendarExport = (events: any[]) => {
   const ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
   let googleCalUrl: any
 
@@ -46,8 +46,8 @@ const generateCalendarExport = (events: any[], onlyFavorites?: boolean) => {
     const firstDay = timeOfDayArray[0]
     const lastDay = timeOfDayArray[timeOfDayArray.length - 1]
 
-    const { calendarTime: startOfFirstDay } = sanitizeEventTime(firstDay.split('-')[0]) || { calendarTime: '000000' }
-    const { calendarTime: endOfLastDay } = sanitizeEventTime(lastDay.split('-')[1]) || { calendarTime: '000000' }
+    const { calendarTime: startOfFirstDay } = sanitizeEventTime(firstDay.split('-')[0]) || { calendarTime: null }
+    const { calendarTime: endOfLastDay } = sanitizeEventTime(lastDay.split('-')[1]) || { calendarTime: null }
 
     const description = (() => {
       let humanReadableTimes: string[] = []
@@ -70,14 +70,13 @@ const generateCalendarExport = (events: any[], onlyFavorites?: boolean) => {
         return timeIsValid
       })
 
-      if (!allEventTimesValid) return null
+      if (!allEventTimesValid) return event.Name
 
       return `${event['Name']} - ${humanReadableTimes.join(', ')}`
     })()
 
     googleCalUrl = (() => {
       const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE&ctz=Europe/Istanbul`)
-      // const googleCalUrl = new URL(`https://www.google.com/calendar/render?action=TEMPLATE`)
 
       googleCalUrl.searchParams.append('text', `${event.Name}`)
       googleCalUrl.searchParams.append('details', `${description}`)
@@ -107,17 +106,20 @@ const generateCalendarExport = (events: any[], onlyFavorites?: boolean) => {
         `END:VEVENT`
       )
     } else {
+      const timeOfDayStart = startOfFirstDay ? `T${startOfFirstDay}` : ''
+      const timeOfDayEnd = endOfLastDay ? `T${endOfLastDay}` : ''
+
       googleCalUrl.searchParams.append(
         'dates',
-        `${start.format('YYYYMMDD')}T${startOfFirstDay}/${end.format('YYYYMMDD')}T${endOfLastDay}`
+        `${start.format('YYYYMMDD')}${timeOfDayStart}/${end.format('YYYYMMDD')}${timeOfDayEnd}`
       )
 
       ics.push(
         `BEGIN:VEVENT`,
         `UID:${event.Name}`,
         `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
-        `DTSTART:${start.format('YYYYMMDD')}T${startOfFirstDay}`,
-        `DTEND:${end.format('YYYYMMDD')}T${endOfLastDay}`,
+        `DTSTART:${start.format('YYYYMMDD')}${timeOfDayStart}`,
+        `DTEND:${end.format('YYYYMMDD')}${timeOfDayEnd}`,
         `SUMMARY:${event.Name}`,
         `DESCRIPTION:${description}`,
         event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
@@ -129,7 +131,7 @@ const generateCalendarExport = (events: any[], onlyFavorites?: boolean) => {
 
   ics.push(`END:VCALENDAR`)
 
-  const calendarName = events.length === 1 ? events[0].Name : 'Devconnect Week'
+  const calendarName = events.length === 1 ? events[0].event.Name : 'Devconnect Week'
 
   const file = new Blob([ics.filter((row: string) => !!row).join('\n')], { type: 'text/calendar' })
   const icsAttributes = {
@@ -408,7 +410,7 @@ const Favorite = ({ event, favorites, noContainer }: any) => {
       className={css['favorite']}
       onClick={e => {
         if (favorites.sharedEvents) {
-          alert('You are currently viewing a shared schedule. Exit sharing view to return to your schedule.')
+          alert('You are currently viewing a shared schedule. Return to your schedule to edit your favorites.')
         }
 
         if (isFavorited) {
@@ -815,7 +817,7 @@ const EventLinks = (props: any) => {
       <div className={css['actions']}>
         <>
           <div className={css['add-to-calendar']}>
-            <AddToCalendarIcon className={`big-text icon`} onClick={() => setCalendarModalOpen(true)} />
+            <AddToCalendarIcon onClick={() => setCalendarModalOpen(true)} />
           </div>
 
           <CalendarModal
@@ -1295,7 +1297,7 @@ const Filter = (props: any) => {
             icons={false}
             onChange={() => props.setShowFavorites(!props.showFavorites)}
           />
-          <span className="bold small-text">Favorites</span>
+          <span className="small-text">Favorites</span>
         </label>
 
         {props.edition === 'istanbul' && (
@@ -1306,7 +1308,7 @@ const Filter = (props: any) => {
               onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
             />
 
-            <span className="bold small-text">Only Ecosystem</span>
+            <span className="small-text">Only Ecosystem</span>
           </label>
         )}
 
@@ -1316,7 +1318,7 @@ const Filter = (props: any) => {
             icons={false}
             onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
           />
-          <span className="bold small-text">Hide Sold Out</span>
+          <span className="small-text">Hide Sold Out</span>
         </label>
       </div>
 
@@ -1351,11 +1353,6 @@ const Filter = (props: any) => {
             noCloseIcon
           >
             <div className={css['share-schedule-modal']}>
-              <p className="margin-bottom-less small-text">
-                Note: This will be a snapshot of your currently favorited events. Any subsequent updates to your
-                favorites won&apos;t change the snapshot.
-              </p>
-
               <p className="bold">Name your schedule:</p>
               <input
                 type="text"
@@ -1365,8 +1362,15 @@ const Filter = (props: any) => {
               />
               {/* <CopyToClipboard url="" onShare={props.favorites.exportFavorites} /> */}
               <p className="bold">What others will see:</p>
-              <p className="bold small-text margin-top-much-less margin-bottom-less">
-                <i>You are viewing {props.favorites.shareTitleInput || ' a shared schedule'}</i>
+              <p className="bold large-text margin-top-much-less">
+                You are viewing {props.favorites.shareTitleInput || ' a shared schedule'}
+              </p>
+
+              <p className="margin-bottom-less margin-top-less small-text">
+                <i>
+                  (This will be a snapshot of your currently favorited events. Any subsequent updates to your favorites
+                  won&apos;t change the snapshot.)
+                </i>
               </p>
 
               <CopyToClipboard>
@@ -1490,14 +1494,34 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
       {favorites.sharedEvents && (
         <div className={css['shared-schedule-overlay']}>
           <div className={css['info-box']}>
-            <p className="big-text bold">You are viewing {favorites.sharedTitle || 'a shared schedule'}</p>
+            <p className="large-text bold">You are viewing {favorites.sharedTitle || 'a shared schedule'}</p>
             <div className={css['actions']}>
-              {/* <button className="sm button white">Merge shared events into own calendar</button> */}
-              <button className="sm button orange-fill" onClick={favorites.exitSharedMode}>
-                Return to your schedule
+              <button className="xs button black" onClick={favorites.exitSharedMode}>
+                Return to schedule
               </button>
               <button
-                className="sm button orange-fill margin-left-much-less"
+                className="xs button black margin-left-much-less"
+                onClick={() => {
+                  const yes = confirm(
+                    'This action will add every event from the current schedule to your local favorites. Proceed?'
+                  )
+
+                  if (yes) {
+                    const currentFavorites = favorites.favoriteEvents
+                    const sharedFavorites = favorites.sharedEvents
+
+                    const merged = Array.from(new Set(currentFavorites.concat(sharedFavorites)))
+
+                    favorites.setFavoriteEvents(merged)
+
+                    favorites.exitSharedMode()
+                  }
+                }}
+              >
+                Merge With Local Schedule
+              </button>
+              <button
+                className="xs button black margin-left-much-less"
                 onClick={() => favorites.setOnlyShowSharedEvents(!favorites.onlyShowSharedEvents)}
               >
                 Show all events
@@ -1562,14 +1586,14 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                     onClick={() => setScheduleView('timeline')}
                   >
                     <CalendarIcon />
-                    <p className={`${css['text']} small-text bold`}>Timeline</p>
+                    <p className={`${css['text']} small-text`}>Timeline</p>
                   </button>
                   <button
                     className={`${scheduleView === 'list' && css['selected']} ${css['switch']}`}
                     onClick={() => setScheduleView('list')}
                   >
                     <ListIcon style={{ fontSize: '1.1em' }} />
-                    <p className={`${css['text']} small-text bold`}>List</p>
+                    <p className={`${css['text']} small-text`}>List</p>
                   </button>
                 </div>
               </div>
