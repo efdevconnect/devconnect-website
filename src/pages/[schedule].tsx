@@ -106,20 +106,32 @@ const generateCalendarExport = (events: any[]) => {
         `END:VEVENT`
       )
     } else {
-      const timeOfDayStart = startOfFirstDay ? `T${startOfFirstDay}` : ''
-      const timeOfDayEnd = endOfLastDay ? `T${endOfLastDay}` : ''
+      const timeOfDayStart = startOfFirstDay ? `T${startOfFirstDay}` : 'T000000'
+      const timeOfDayEnd = endOfLastDay ? `T${endOfLastDay}` : 'T000000'
+      let endDate = end
 
-      googleCalUrl.searchParams.append(
-        'dates',
-        `${start.format('YYYYMMDD')}${timeOfDayStart}/${end.format('YYYYMMDD')}${timeOfDayEnd}`
-      )
+      const isAllDayEvent = timeOfDayStart === 'T000000' && timeOfDayEnd === 'T000000'
+
+      // If single day event and no times are specified, we create an "all day event" in the calendar
+      if (isAllDayEvent) {
+        // No time of day for google for all day events https://stackoverflow.com/questions/37335415/link-to-add-all-day-event-to-google-calendar
+        googleCalUrl.searchParams.append('dates', `${start.format('YYYYMMDD')}/${endDate.format('YYYYMMDD')}`)
+
+        // https://stackoverflow.com/questions/1716237/single-day-all-day-appointments-in-ics-files- ics requires adding a day to the end of the event ("midnight to start of next day")
+        endDate = endDate.clone().add(1, 'days')
+      } else {
+        googleCalUrl.searchParams.append(
+          'dates',
+          `${start.format('YYYYMMDD')}${timeOfDayStart}/${endDate.format('YYYYMMDD')}${timeOfDayEnd}`
+        )
+      }
 
       ics.push(
         `BEGIN:VEVENT`,
         `UID:${event.Name}`,
         `DTSTAMP:${moment.utc().format('YYYYMMDDTHHmmss')}`,
         `DTSTART:${start.format('YYYYMMDD')}${timeOfDayStart}`,
-        `DTEND:${end.format('YYYYMMDD')}${timeOfDayEnd}`,
+        `DTEND:${endDate.format('YYYYMMDD')}${timeOfDayEnd}`,
         `SUMMARY:${event.Name}`,
         `DESCRIPTION:${description}`,
         event.Location.url && `URL;VALUE=URI:${event.Location.url}`,
@@ -491,7 +503,7 @@ const useFavorites = (events: any, edition: Edition): any => {
 
     url += `?edition=${edition}&share=${shareParams}`
 
-    if (shareTitleInput) url += `&share_title=${shareTitleInput}`
+    if (shareTitleInput) url += `&share_title=${encodeURIComponent(shareTitleInput)}`
 
     navigator.clipboard.writeText(url)
   }
