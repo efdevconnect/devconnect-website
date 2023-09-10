@@ -615,6 +615,14 @@ const Scene = (props: any) => {
   )
 }
 
+const leftPadNumber = (number: number) => {
+  if (number < 10) {
+    return `0${number}`
+  }
+
+  return number
+}
+
 const Home: NextPage = (props: any) => {
   const [dateHovered, setDateHovered] = React.useState(false)
   const [hehe, setHehe] = React.useState(false)
@@ -629,7 +637,9 @@ const Home: NextPage = (props: any) => {
       const timeLeft = getTimeUntilNovember13InTurkey()
 
       setTimeToEvent(
-        `${timeLeft.days} days, ${timeLeft.hours} hours, ${timeLeft.minutes} minutes and ${timeLeft.seconds} seconds`
+        `${timeLeft.days}D:${leftPadNumber(timeLeft.hours)}H:${leftPadNumber(timeLeft.minutes)}M:${leftPadNumber(
+          timeLeft.seconds
+        )}S`
       )
     }, 1000)
 
@@ -685,7 +695,7 @@ const Home: NextPage = (props: any) => {
                     const width = mainEl.offsetWidth
 
                     if (width > 1100) {
-                      splineRef.current.setZoom(0.5)
+                      splineRef.current.setZoom(0.6)
                     } else if (width > 700) {
                       splineRef.current.setZoom(0.4)
                     } else {
@@ -706,23 +716,33 @@ const Home: NextPage = (props: any) => {
             <div className="section">
               <div className={css['info-container']}>
                 <div className={`${css['info']}`}>
-                  <p className={`bold ${css['big-description']}`}>
-                    Meet the builders of Ethereum
-                    {/* <span className={css['red-underline']}>Meet the builders of Ethereum </span> */}
-                    {/* <span>Devconnect</span> <span>is</span> <span className={css['red-underline']}>back!</span> */}
-                  </p>
+                  <div>
+                    <p className={`${css['big-description']}`}>
+                      Meet the builders of Ethereum
+                      {/* <span className={css['red-underline']}>Meet the builders of Ethereum </span> */}
+                      {/* <span>Devconnect</span> <span>is</span> <span className={css['red-underline']}>back!</span> */}
+                    </p>
 
-                  <p style={{ maxWidth: '575px', marginBottom: '12px' }} className="big-text">
-                    Devconnect is a week-long gathering of independent Ethereum events to learn, share, and{' '}
-                    <b>make progress together</b>.
-                  </p>
+                    <p style={{ maxWidth: '575px', marginBottom: '12px' }} className="big-text">
+                      Devconnect is a week-long gathering of independent Ethereum events to learn, share, and{' '}
+                      <b>make progress together</b>.
+                    </p>
 
-                  <p className="bold margin-bottom-less big-text">See you in {mounted ? timeToEvent : ''}!</p>
+                    <div className={css['buttons']}>
+                      <Link href="/cowork" className={`button orange wide ${css['ticket-button']}`}>
+                        <PlayIcon /> Get cowork tickets
+                      </Link>
 
-                  <Link href="#about" className={`button transparent ${css['video-recap-button']}`}>
-                    <span>ISTANBUL, Türkiye</span>
-                    <span>November 13-19, 2023</span>
-                  </Link>
+                      <Link href="#about" className={`button transparent ${css['video-recap-button']}`}>
+                        <span>ISTANBUL, Türkiye</span>
+                        <span>November 13-19, 2023</span>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className={css['countdown']}>
+                    <p className={css['countdown-header']}>Countdown</p>
+                    <p className={css['countdown-number']}>{mounted ? timeToEvent : ''}</p>
+                  </div>
                 </div>
               </div>
             </div>

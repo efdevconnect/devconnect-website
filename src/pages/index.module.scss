@@ -99,17 +99,89 @@
     }
   }
 
+  .info-container {
+    // position: absolute;
+    // display: flex;
+    // height: 100%;
+    // width: 100%;
+    // position: relative;
+    // background: yellow;
+    height: 500px;
+    position: relative;
+  }
+
   .info {
     position: absolute;
-    top: 60%;
+    width: 100%;
+    display: flex;
+    bottom: 15%;
+
+    .countdown {
+      color: $color-orange-2;
+      flex-grow: 1;
+      flex-direction: column;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+
+      .countdown-header {
+        text-transform: uppercase;
+      }
+
+      .countdown-number {
+        @include extra-large-text;
+        font-weight: bold;
+        color: #89BEEB;
+      }
+    }
 
     @media (max-width: $screen-lg) {
-      top: unset;
-      bottom: 100px;
+      flex-direction: column;
+      bottom: 8%;
+      // height: 100%;
+      // padding-top: 32px;
+
+      > * {
+        &:first-child {
+          order: 2;
+        }
+
+        &:nth-child(2) {
+          order: 1;
+        }
+      }
+
+      .countdown {
+        display: none;
+        .countdown-header {
+          font-size: 12px;
+        }
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
     }
 
     .place {
       font-weight: 700;
+    }
+
+    .buttons {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ticket-button {
+      margin-bottom: 16px;
+      [data-type="link-text"] {
+        display: flex;
+        align-items: center;
+    
+        svg {
+          font-size: 26px;
+          margin-right: 8px;
+        }
+      }
     }
 
     .video-recap-button {
@@ -865,11 +937,13 @@
 
 .big-description {
   // max-width: 700px;
-  font-size: 44px;
+  font-size: 60px;
+  // max-width: 600px;
+  width: min(100%, 500px);
   line-height: 56.25px;
 
   @media (max-width: $screen-lg) {
-    font-size: 24px;
+    font-size: 32px;
     line-height: 1em;
   }
 

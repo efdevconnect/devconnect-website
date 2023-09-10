@@ -99,7 +99,13 @@ export const Card = React.forwardRef((props: CardProps, ref: any) => {
     return (
       <div className="aspect">
         <div className={css['img-wrapper']}>
-          <Image alt={props.title} className={`${css['img']} ${css['not-gatsby']}`} src={props.imageUrl} fill />
+          <Image
+            alt={props.title}
+            className={`${css['img']} ${css['not-gatsby']}`}
+            src={props.imageUrl}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 40vw"
+          />
         </div>
       </div>
     )
