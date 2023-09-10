@@ -114,10 +114,7 @@ const FAQ = [
         <>
           <p>
             To inquire about obtaining a media pass for Devconnect,{' '}
-            <Link
-              href="https://docs.google.com/forms/d/1O7N0GQgyB9e7He6XtFKFu1zVwOM5a9HtO_pEOTctsr8/prefill"
-              indicateExternal
-            >
+            <Link href="https://forms.gle/se7hd5Sz5x8Lkoj87" indicateExternal>
               please fill out this form.
             </Link>{' '}
           </p>
