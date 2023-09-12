@@ -140,10 +140,7 @@ const FAQ = [
         <>
           <p>
             To inquire about obtaining a media pass for Devconnect,{' '}
-            <Link
-              href="https://docs.google.com/forms/d/1O7N0GQgyB9e7He6XtFKFu1zVwOM5a9HtO_pEOTctsr8/prefill"
-              indicateExternal
-            >
+            <Link href="https://forms.gle/se7hd5Sz5x8Lkoj87" indicateExternal>
               please fill out this form.
             </Link>{' '}
           </p>
@@ -723,17 +720,17 @@ const Home: NextPage = (props: any) => {
                       {/* <span>Devconnect</span> <span>is</span> <span className={css['red-underline']}>back!</span> */}
                     </p>
 
-                    <p style={{ maxWidth: '575px', marginBottom: '12px' }} className="big-text">
+                    <p style={{ maxWidth: '575px', marginBottom: '12px', color: '#3b3b3b' }} className="big-text">
                       Devconnect is a week-long gathering of independent Ethereum events to learn, share, and{' '}
                       <b>make progress together</b>.
                     </p>
 
                     <div className={css['buttons']}>
-                      <Link href="/cowork" className={`button orange wide ${css['ticket-button']}`}>
+                      <Link href="/cowork" className={`button orange-fill wide ${css['ticket-button']}`}>
                         <PlayIcon /> Get cowork tickets
                       </Link>
 
-                      <Link href="#about" className={`button transparent ${css['video-recap-button']}`}>
+                      <Link href="#about" className={`button slick-purple ${css['video-recap-button']}`}>
                         <span>ISTANBUL, Türkiye</span>
                         <span>November 13-19, 2023</span>
                       </Link>

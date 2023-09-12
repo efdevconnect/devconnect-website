@@ -213,16 +213,18 @@ $max-content-width: $content-width + ($side-gap * 2);
     --icon-color: rgb(209, 209, 209);
   }
 
-  &.wide {
-    padding-left: 28px;
-    padding-right: 28px;
-  }
+
 
   &.xs {
     height: 32px;
     font-size: inherit;
     @include small-text;
     padding: 0 12px;
+  }
+
+  &.wide {
+    padding-left: 28px;
+    padding-right: 28px;
   }
 
   &.sm {
@@ -360,9 +362,17 @@ a {
   padding: 4px 8px;
   border-radius: 50px;
   background: white;
-  border: 1px solid black;
+  border: 1px solid rgb(181, 181, 181);
   margin-right: 8px;
-  text-transform: uppercase;
+  // text-transform: uppercase;
+
+  &.clickable {
+    &:hover {
+      cursor: pointer;
+      color: rgb(94, 94, 94);
+      --icon-color: rgb(173, 173, 173);
+    }
+  }
 
   &.black {
     background: #494c50;
@@ -378,6 +388,10 @@ a {
 
   &.purple {
     background: #e7e3ff;
+  }
+
+  &.slick-purple {
+    @include slick-purple
   }
 
   &.red {
@@ -601,5 +615,18 @@ $border: 1px solid $monochrome-5;
   
   &:last-child {
     border-bottom: none;
+  }
+}
+
+.slick-purple {
+  background: #ECE9FF;
+  --icon-color: #6664D3;
+  border: 1px solid #6664D3;
+
+  &:hover {
+    cursor: pointer;
+    background: white;
+    color: black;
+    --icon-color: black;
   }
 }

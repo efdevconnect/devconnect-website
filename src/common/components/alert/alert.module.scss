@@ -17,6 +17,13 @@
     }
   }
 
+  &:global(.sm) {
+    padding: 5px 10px !important;
+  }
+  // &.sm {
+    
+  // }
+
   &.blue {
     @include alert-blue;
     color: black;

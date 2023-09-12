@@ -135,3 +135,16 @@ $standard-gap: 32px;
     color: #6664d3;
   }
 }
+
+@mixin slick-purple {
+  background: #ECE9FF;
+  --icon-color: #6664D3;
+  border: 1px solid #6664D3;
+
+  &:hover {
+    cursor: pointer;
+    background: white;
+    color: black;
+    --icon-color: black;
+  }
+}

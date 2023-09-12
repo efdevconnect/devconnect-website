@@ -32,6 +32,11 @@ import { CopyToClipboard } from 'common/components/copy-to-clipboard/CopyToClipb
 import ShareIcon from 'assets/icons/share.svg'
 import FilterMiss from 'assets/images/404.png'
 import { useSearchParams } from 'next/navigation'
+import ScheduleDownloadIcon from 'assets/icons/schedule_download.svg'
+import TwirlIcon from 'assets/icons/twirl.svg'
+import FilterIcon from 'assets/icons/filter.svg'
+import SearchIcon from 'assets/icons/search.svg'
+import ListComponent from 'common/components/list'
 
 // ICS and google cal generator
 const generateCalendarExport = (events: any[]) => {
@@ -1191,13 +1196,24 @@ const List = (props: any) => {
 }
 
 const useFilter = (events: any, edition: Edition, favorites: any) => {
+  const [filterOpen, setFilterOpen] = React.useState(true)
   const keysToFilterOn = ['Category', 'Difficulty', 'Attend']
-  const [filters, setFilters] = React.useState({} as { [key: string]: any })
+  // const [filters, setFilters] = React.useState({} as { [key: string]: any })
+  const [categoryFilter, setCategoryFilter] = React.useState<any>([])
+  const [statusFilter, setStatusFilter] = React.useState<any>([])
+  const [difficultyFilter, setDifficultyFilter] = React.useState([])
   const filterableValues = {} as { [key: string]: Set<string> }
   const [hideSoldOut, setHideSoldOut] = React.useState(false)
   // Filter out events that aren't ecosystem related:
   const [showOnlyDomainSpecific, setShowOnlyDomainSpecific] = React.useState(false)
   const [showFavorites, setShowFavorites] = React.useState(false)
+  const [textSearch, setTextSearch] = React.useState('')
+
+  // Localstorage sync here
+  React.useEffect(() => {
+    // localStorage blabla
+    console.log('filter updated sync localstorage')
+  }, [showFavorites, showOnlyDomainSpecific, hideSoldOut, textSearch])
 
   // Run through events collecting all the possible values to filter on for the specified keys above - looks a bit messy but w/e
   // Could hardcode the filter values too but this is future proof if someone changes the range of possible values for any of the above fields
@@ -1218,7 +1234,7 @@ const useFilter = (events: any, edition: Edition, favorites: any) => {
     })
   })
 
-  const activeFilters = Object.keys(filters)
+  // const activeFilters = Object.keys(filters)
 
   const filteredEvents = events.filter((event: any) => {
     if (hideSoldOut && ['sold out', 'applications closed'].includes(event['Attend'] && event['Attend'].toLowerCase())) {
@@ -1229,26 +1245,39 @@ const useFilter = (events: any, edition: Edition, favorites: any) => {
       return false
     }
 
+    if (textSearch.length > 0 && !event.Name.toLowerCase().includes(textSearch.toLowerCase())) return false
+
     if (showFavorites) {
       const eventIsFavorited = favorites.favoriteEvents.some((favoritedEvent: any) => event.ShortID === favoritedEvent)
 
       if (!eventIsFavorited) return false
     }
 
-    if (activeFilters.length > 0) {
-      return activeFilters.every(key => {
-        const activeFilter = filters[key]
+    if (difficultyFilter.length > 0) {
+      // @ts-ignore
+      const difficultyMatch = difficultyFilter.includes(event['Difficulty'])
 
-        if (Array.isArray(event[key])) return event[key].includes(activeFilter)
+      if (!difficultyMatch) return false
+    }
 
-        return activeFilter === event[key]
-      })
+    if (statusFilter.length > 0) {
+      const statusMatch = statusFilter.includes(event['Attend'])
+
+      if (!statusMatch) return false
+    }
+
+    if (categoryFilter.length > 0) {
+      const categoryMatch = categoryFilter.some((category: any) => event['Category'].includes(category))
+
+      if (!categoryMatch) return false
     }
 
     return true
   })
 
   return {
+    filterOpen,
+    setFilterOpen,
     events: filteredEvents,
     keysToFilterOn,
     filterableValues,
@@ -1258,142 +1287,180 @@ const useFilter = (events: any, edition: Edition, favorites: any) => {
     setShowFavorites,
     showOnlyDomainSpecific,
     setShowOnlyDomainSpecific,
-    filters,
-    onChange: (key: string, value: string) => {
-      const nextFilter = {
-        ...filters,
-        [key]: value,
-      } as { [key: string]: string }
-
-      if (!value) delete nextFilter[key]
-
-      setFilters(nextFilter)
+    textSearch,
+    setTextSearch,
+    difficultyFilter,
+    setDifficultyFilter,
+    categoryFilter,
+    setCategoryFilter,
+    statusFilter,
+    setStatusFilter,
+    reset: () => {
+      setStatusFilter([])
+      setDifficultyFilter([])
+      setCategoryFilter([])
+      setShowOnlyDomainSpecific(false)
+      setHideSoldOut(false)
+      setShowFavorites(false)
     },
   }
 }
 
 const Filter = (props: any) => {
-  const [openShareModal, setOpenShareModal] = React.useState(false)
-  const [calendarModalOpen, setCalendarModalOpen] = React.useState(false)
-
   return (
     <div className={`${css['filter']} small-text`}>
-      {/* <p className={`${css['filter-text']} bold`}>Filter:</p> */}
-      {props.keysToFilterOn.map((key: string, index: number) => {
-        const valuesToFilterBy = props.filterableValues[key]
-
-        if (!valuesToFilterBy) return null
-
-        return (
-          <div key={key}>
-            <Dropdown
-              pushFromLeft={index !== props.keysToFilterOn.length - 1}
-              placeholder={key}
-              value={props.filters[key]}
-              onChange={val => props.onChange(key, val)}
-              options={Array.from(props.filterableValues[key]).map(filterValue => {
-                return {
-                  text: filterValue,
-                  value: filterValue,
-                }
-              })}
-            />
-          </div>
-        )
-      })}
-
-      <div className={css['toggles']}>
-        <label className={css['toggle']}>
-          <Toggle
-            defaultChecked={props.showFavorites}
-            icons={false}
-            onChange={() => props.setShowFavorites(!props.showFavorites)}
-          />
-          <span className="small-text">Favorites</span>
-        </label>
-
-        {props.edition === 'istanbul' && (
-          <label className={css['toggle']}>
-            <Toggle
-              defaultChecked={props.showOnlyDomainSpecific}
-              icons={false}
-              onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
-            />
-
-            <span className="small-text">Only Ecosystem</span>
-          </label>
-        )}
-
-        <label className={css['toggle']}>
-          <Toggle
-            defaultChecked={props.hideSoldOut}
-            icons={false}
-            onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
-          />
-          <span className="small-text">Hide Sold Out</span>
-        </label>
+      <div className={css['controls']}>
+        <p className="bold small-text">Filter</p>
+        <div className="tag sm tiny-text slick-purple" onClick={props.reset}>
+          Reset
+        </div>
       </div>
 
-      <div>
-        <div
-          className={`bold black tag tiny-text uppercase ${css['share-schedule-cta']}`}
-          onClick={() => setCalendarModalOpen(true)}
-        >
-          <span>
-            <CalendarModal
-              calendarModalOpen={calendarModalOpen}
-              setCalendarModalOpen={setCalendarModalOpen}
-              events={props.events}
-              favorites={props.favorites}
-            />
-            Export (.ics)
-            <AddToCalendarIcon />
-          </span>
+      <div className={css['main-filter']}>
+        <ListComponent
+          className="border-top"
+          items={[
+            {
+              id: '1',
+              content: (
+                <div className={css['list-toggle-item']}>
+                  <p>Favorites</p>
+                  <label className={css['toggle']}>
+                    <Toggle
+                      checked={props.showFavorites}
+                      icons={false}
+                      onChange={() => props.setShowFavorites(!props.showFavorites)}
+                    />
+                  </label>
+                </div>
+              ),
+            },
+            {
+              id: '2',
+              content: (
+                <div className={css['list-toggle-item']}>
+                  <p>Ecosystem Only</p>
+                  <label className={css['toggle']}>
+                    <Toggle
+                      checked={props.showOnlyDomainSpecific}
+                      icons={false}
+                      onChange={() => props.setShowOnlyDomainSpecific(!props.showOnlyDomainSpecific)}
+                    />
+                  </label>
+                </div>
+              ),
+            },
+            {
+              id: '',
+              content: (
+                <div className={css['list-toggle-item']}>
+                  <p>Hide Sold Out</p>
+                  <label className={css['toggle']}>
+                    <Toggle
+                      icons={false}
+                      checked={props.hideSoldOut}
+                      onChange={() => props.setHideSoldOut(!props.hideSoldOut)}
+                    />
+                  </label>
+                </div>
+              ),
+            },
+          ]}
+        />
+      </div>
+
+      <div className={css['experience']}>
+        <p className="bold margin-bottom-much-less">Experience</p>
+        <div className={css['tags']}>
+          {Array.from(props.filterableValues['Difficulty']).map((filterableValue: any) => {
+            const isActive = props.difficultyFilter.includes(filterableValue)
+
+            const onChange = () => {
+              if (isActive) {
+                props.setDifficultyFilter(props.difficultyFilter.filter((filter: any) => filter !== filterableValue))
+              } else {
+                props.setDifficultyFilter(props.difficultyFilter.concat(filterableValue))
+              }
+            }
+            return (
+              <div
+                key={filterableValue}
+                className={`tag xs tiny-text clickable ${isActive ? 'slick-purple' : ''}`}
+                onClick={onChange}
+              >
+                {filterableValue}
+              </div>
+            )
+          })}
         </div>
+      </div>
 
-        <div
-          className={`bold black tag tiny-text uppercase ${css['share-schedule-cta']} margin-left-much-less`}
-          onClick={() => setOpenShareModal(true)}
-        >
-          <span>
-            Share Schedule Snapshot <ShareIcon />
-          </span>
-          <Modal
-            // className={css['add-to-calendar-modal']}
-            open={openShareModal}
-            close={() => setOpenShareModal(!openShareModal)}
-            noCloseIcon
-          >
-            <div className={css['share-schedule-modal']}>
-              <p className="bold">Name your schedule:</p>
-              <input
-                type="text"
-                value={props.favorites.shareTitleInput}
-                onChange={e => props.favorites.setShareTitleInput(e.target.value)}
-                placeholder="Name your schedule"
-              />
-              {/* <CopyToClipboard url="" onShare={props.favorites.exportFavorites} /> */}
-              <p className="bold">What others will see:</p>
-              <p className="bold large-text margin-top-much-less">
-                You are viewing {props.favorites.shareTitleInput || ' a shared schedule'}
-              </p>
+      <p className="bold">Category</p>
 
-              <p className="margin-bottom-less margin-top-less small-text">
-                <i>
-                  (This will be a snapshot of your currently favorited events. Any subsequent updates to your favorites
-                  won&apos;t change the snapshot.)
-                </i>
-              </p>
+      <div className={css['secondary-filter']}>
+        <ListComponent
+          className="border-top"
+          items={Array.from(props.filterableValues['Category']).map((filterValue: any) => {
+            const isChecked = props.categoryFilter.includes(filterValue)
 
-              <CopyToClipboard>
-                <button className="button xs black" onClick={props.favorites.exportFavorites}>
-                  <span>Share Schedule</span>
-                  <ShareIcon />
-                </button>
-              </CopyToClipboard>
-            </div>
-          </Modal>
-        </div>
+            return {
+              id: filterValue,
+              content: (
+                <label htmlFor={filterValue}>
+                  <div className={css['list-toggle-item']}>
+                    <p>{filterValue}</p>
+                    <input
+                      type="checkbox"
+                      id={filterValue}
+                      checked={isChecked}
+                      onChange={e => {
+                        if (isChecked) {
+                          props.setCategoryFilter(props.categoryFilter.filter((filter: any) => filter !== filterValue))
+                        } else {
+                          props.setCategoryFilter(props.categoryFilter.concat(filterValue))
+                        }
+                      }}
+                    />
+                  </div>
+                </label>
+              ),
+            }
+          })}
+        />
+      </div>
+
+      <p className="bold">Status</p>
+
+      <div className={css['secondary-filter']}>
+        <ListComponent
+          className="border-top"
+          items={Array.from(props.filterableValues['Attend']).map((filterValue: any) => {
+            const isChecked = props.statusFilter.includes(filterValue)
+
+            return {
+              id: filterValue,
+              content: (
+                <label htmlFor={filterValue}>
+                  <div className={css['list-toggle-item']}>
+                    <p>{filterValue}</p>
+                    <input
+                      type="checkbox"
+                      id={filterValue}
+                      checked={isChecked}
+                      onChange={e => {
+                        if (isChecked) {
+                          props.setStatusFilter(props.statusFilter.filter((filter: any) => filter !== filterValue))
+                        } else {
+                          props.setStatusFilter(props.statusFilter.concat(filterValue))
+                        }
+                      }}
+                    />
+                  </div>
+                </label>
+              ),
+            }
+          })}
+        />
       </div>
     </div>
   )
@@ -1457,9 +1524,15 @@ const scheduleViewHOC = (Component: any) => {
 }
 
 const Schedule: NextPage = scheduleViewHOC((props: any) => {
+  const [openShareModal, setOpenShareModal] = React.useState(false)
+  const [calendarModalOpen, setCalendarModalOpen] = React.useState(false)
   const { scheduleView, setScheduleView } = props
   const favorites = useFavorites(props.events, props.edition)
-  let { events, ...filterAttributes } = useFilter(props.events, props.edition, favorites)
+  let { events, filterOpen, setFilterOpen, textSearch, setTextSearch, ...filterAttributes } = useFilter(
+    props.events,
+    props.edition,
+    favorites
+  )
 
   // Override filters if viewing shared events
   if (favorites.sharedEvents && favorites.onlyShowSharedEvents) {
@@ -1470,10 +1543,10 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const accordionRefs = React.useRef({} as { [key: string]: any })
 
   React.useEffect(() => {
-    if (filterAttributes.filters) {
-      Object.values(accordionRefs.current).forEach(acc => acc && acc.open && acc.open())
-    }
-  }, [filterAttributes.filters])
+    // if (filterAttributes.filters) {
+    Object.values(accordionRefs.current).forEach(acc => acc && acc.open && acc.open())
+    // }
+  }, [textSearch])
 
   return (
     <>
@@ -1495,7 +1568,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
           </p>
           <Link
             href="https://ef-events.notion.site/How-to-organize-an-event-during-Devconnect-4175048066254f48ae85679a35c94022"
-            className={`button black sm margin-top-much-less`}
+            className={`button orange-fill sm margin-top-much-less`}
             indicateExternal
           >
             Host An Event
@@ -1544,20 +1617,38 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
       )}
 
       {props.edition === 'istanbul' && (
-        <div className={`${css['alert-bg']} section`}>
-          <p className="bold small-text padding-top-less padding-bottom-less">
-            👉 REMEMBER, EACH EVENT DURING DEVCONNECT IS INDEPENDENTLY HOSTED AND YOU WILL REQUIRE TICKETS FOR EACH
-            EVENT YOU WISH TO ATTEND. YOU WILL FIND TICKETING INFORMATION FOR EACH EVENT SOON.
-          </p>
+        <div className="section">
+          <Alert title="Important" className={`sm ${css['alert']}`}>
+            <p className="bold small-text padding-top-less padding-bottom-less">
+              👉 Remember, <u>each event during Devconnect is independently hosted</u> and you will require tickets for
+              each event you wish to attend. You will find each ticketing information below.
+            </p>
+          </Alert>
         </div>
+        // <div className={`${css['alert-bg']} section`}>
+        //   <p className="bold small-text padding-top-less padding-bottom-less">
+        //     👉 REMEMBER, EACH EVENT DURING DEVCONNECT IS INDEPENDENTLY HOSTED AND YOU WILL REQUIRE TICKETS FOR EACH
+        //     EVENT YOU WISH TO ATTEND. YOU WILL FIND TICKETING INFORMATION FOR EACH EVENT SOON.
+        //   </p>
+        // </div>
       )}
 
+      {/* <div className="section">
+        <div className={css['misc-bar']} style={{ color: 'black' }}>
+          <div>
+            <p>List picker</p>
+          </div>
+          <div>"Legends?"</div>
+          <div>Exports</div>
+        </div>
+      </div> */}
+
       <div className={`${css['schedule']} ${css[`edition-${props.edition}`]}`}>
-        {props.edition === 'istanbul' && favorites.sharedEvents === null && (
+        {/* {props.edition === 'istanbul' && favorites.sharedEvents === null && (
           <div className={`section ${css['filter-bar']}`}>
             <Filter events={events} {...filterAttributes} edition={props.edition} favorites={favorites} />
           </div>
-        )}
+        )} */}
 
         <div className="section">
           {props.edition !== 'istanbul' && <Retro />}
@@ -1589,7 +1680,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
             </div>
           </div> */}
 
-          <div className={`${css['top-bar']}`}>
+          {/* <div className={`${css['top-bar']}`}>
             <div className={css['second-row']}>
               <div className={`${css['view']} small-text`}>
                 <div className={css['options']}>
@@ -1656,39 +1747,214 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                 <p className={`small-text bold uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
               )}
             </div>
+          </div> */}
+          <div className={css['top-bar']}>
+            <div className={css['second-row']}>
+              <div className={`${css['view']} small-text`}>
+                <div className={css['options']}>
+                  <button
+                    className={`${scheduleView === 'timeline' && css['selected']} ${css['switch']}`}
+                    onClick={() => setScheduleView('timeline')}
+                  >
+                    <CalendarIcon />
+                    <p className={`${css['text']} small-text`}>Timeline</p>
+                  </button>
+                  <button
+                    className={`${scheduleView === 'list' && css['selected']} ${css['switch']}`}
+                    onClick={() => setScheduleView('list')}
+                  >
+                    <ListIcon style={{ fontSize: '1.1em' }} />
+                    <p className={`${css['text']} small-text`}>List</p>
+                  </button>
+                </div>
+              </div>
+
+              {props.edition === 'amsterdam' && (
+                <div className={css['types']}>
+                  <div className={css['all-welcome']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>All welcome
+                    </p>
+                  </div>
+                  <div className={css['intermediate']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>Intermediate
+                    </p>
+                  </div>
+                  <div className={css['advanced']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>Advanced
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {props.edition === 'istanbul' && (
+                <div className={css['types']}>
+                  <div className={css['advanced']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>Cowork
+                    </p>
+                  </div>
+                  <div className={css['all-welcome']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>Ecosystem Events
+                    </p>
+                  </div>
+                  <div className={css['intermediate']}>
+                    <p>
+                      <span className={css['indicator']}>⬤</span>Other Events
+                    </p>
+                  </div>
+                </div>
+              )}
+              <div>
+                <div
+                  className={`slick-purple button wide xs uppercase ${css['share-schedule-cta']}`}
+                  onClick={() => setCalendarModalOpen(true)}
+                >
+                  <span>
+                    <CalendarModal
+                      calendarModalOpen={calendarModalOpen}
+                      setCalendarModalOpen={setCalendarModalOpen}
+                      events={props.events}
+                      favorites={favorites}
+                    />
+                    Export (.ics)
+                    <ScheduleDownloadIcon />
+                  </span>
+                </div>
+
+                <div
+                  className={`slick-purple button wide xs ${css['share-schedule-cta']} margin-left-much-less`}
+                  onClick={() => setOpenShareModal(true)}
+                >
+                  <div>
+                    Share Schedule Snapshot <TwirlIcon />
+                  </div>
+                  <Modal
+                    // className={css['add-to-calendar-modal']}
+                    open={openShareModal}
+                    close={() => setOpenShareModal(!openShareModal)}
+                    noCloseIcon
+                  >
+                    <div className={css['share-schedule-modal']}>
+                      <p className="bold">Name your schedule:</p>
+                      <input
+                        type="text"
+                        value={favorites.shareTitleInput}
+                        onChange={e => favorites.setShareTitleInput(e.target.value)}
+                        placeholder="Name your schedule"
+                      />
+                      {/* <CopyToClipboard url="" onShare={favorites.exportFavorites} /> */}
+                      <p className="bold">What others will see:</p>
+                      <p className="bold large-text margin-top-much-less">
+                        You are viewing {favorites.shareTitleInput || ' a shared schedule'}
+                      </p>
+
+                      <p className="margin-bottom-less margin-top-less small-text">
+                        <i>
+                          (This will be a snapshot of your currently favorited events. Any subsequent updates to your
+                          favorites won&apos;t change the snapshot.)
+                        </i>
+                      </p>
+
+                      <CopyToClipboard>
+                        <button className="button xs black" onClick={favorites.exportFavorites}>
+                          <span>Share Schedule</span>
+                          <ShareIcon />
+                        </button>
+                      </CopyToClipboard>
+                    </div>
+                  </Modal>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {events.length === 0 ? (
-            <div className={css['no-results']}>
-              <Image src={FilterMiss} alt="Guy unable to find an Ethereum artifact" />
-              <p className="bold large-text margin-top-much-less margin-bottom">
-                There are no events matching this filter! Try something else!
-              </p>
-              {/* <p>No matches for this filter</p> */}
-            </div>
-          ) : (
-            <>
-              {/* <div className={`${css['top-bar']}`}>
-                <p className={`${css['timezone']} small-text`}>
-                  {momentTZ.tz('Europe/Istanbul').format('HH:mm')} (UTC/GMT +1)
-                </p>
-                {scheduleView === 'calendar' && <p className={`small-text ${css['swipe']}`}>Drag for more →</p>}
-              </div> */}
+          <div className={css['first-row-above-schedule']}>
+            <div className={css['filter-toggle']}>
+              <button onClick={() => setFilterOpen(!filterOpen)}>
+                <FilterIcon />
+              </button>
 
-              {scheduleView === 'list' && (
-                <List
-                  {...scheduleHelpers}
-                  edition={props.edition}
-                  accordionRefs={accordionRefs}
-                  favorites={favorites}
-                />
-              )}
-              {scheduleView === 'timeline' && (
-                <Timeline {...scheduleHelpers} favorites={favorites} edition={props.edition} />
-              )}
-            </>
-          )}
+              <div className={css['active-filters']}>
+                <p className="small-text">Current filter:</p>
+                <p className="bold">
+                  {(() => {
+                    // console.log(filterAttributes, 'fitler attributes')
+                    const computeFilterShorthand = (filter: { [key: string]: boolean }, key: string) => {
+                      const filterAsKeys = Object.keys(filter)
+
+                      if (filterAsKeys.length === 0) return
+                      if (filterAsKeys.length === 1) return filterAsKeys[0]
+
+                      return `${key} (${filterAsKeys.length})`
+                    }
+
+                    return 'None'
+
+                    // return (
+                    //   [
+                    //     computeFilterShorthand(selectedTracks, 'Track'),
+                    //     computeFilterShorthand(selectedSessionTypes, 'Session Type'),
+                    //     computeFilterShorthand(selectedExpertise, 'Expertise'),
+                    //     computeFilterShorthand(selectedRooms, 'Room'),
+                    //   ]
+                    //     .filter(val => !!val)
+                    //     .join(', ') || 'No filter applied'
+                    // )
+                  })()}
+                </p>
+              </div>
+            </div>
+
+            <div className={css['text-search-wrapper']}>
+              <div className={css['text-search']}>
+                <input value={textSearch} onChange={e => setTextSearch(e.target.value)} placeholder="Find an Event" />
+                <SearchIcon />
+              </div>
+            </div>
+
+            {scheduleView === 'timeline' && (
+              <p className={`small-text bold uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
+            )}
+          </div>
+
+          <div className={css['schedule-wrapper']}>
+            {filterOpen && (
+              <div className={css['filter-new']}>
+                <Filter events={events} {...filterAttributes} edition={props.edition} favorites={favorites} />
+              </div>
+            )}
+
+            {events.length === 0 ? (
+              <div className={css['no-results']}>
+                <Image src={FilterMiss} alt="Guy unable to find an Ethereum artifact" />
+                <p className="bold large-text margin-top-much-less margin-bottom">
+                  There are no events matching this filter! Try something else!
+                </p>
+              </div>
+            ) : (
+              <>
+                {scheduleView === 'list' && (
+                  <List
+                    {...scheduleHelpers}
+                    edition={props.edition}
+                    accordionRefs={accordionRefs}
+                    favorites={favorites}
+                  />
+                )}
+                {scheduleView === 'timeline' && (
+                  <div>
+                    <Timeline {...scheduleHelpers} favorites={favorites} edition={props.edition} />
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
+
         <div className="section margin-top">
           {props.edition === 'istanbul' && (
             <div className={css['organize-cta']}>

@@ -68,7 +68,7 @@
     height: 150px;
     z-index: 1;
     opacity: 1;
-    background: linear-gradient(90deg, #4F6AFA 0%, #6D4FFA 13.54%, #F93B3B 59.35%, #29F4C1 100%);
+    background: linear-gradient(90deg, #4F6AFA 0%, #6D4FFA 13.54%, #ec7272 59.35%, #29F4C1 100%);
     -webkit-mask-image: -webkit-gradient(linear, left 0%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
   }
 
@@ -100,12 +100,6 @@
   }
 
   .info-container {
-    // position: absolute;
-    // display: flex;
-    // height: 100%;
-    // width: 100%;
-    // position: relative;
-    // background: yellow;
     height: 500px;
     position: relative;
   }
@@ -138,8 +132,6 @@
     @media (max-width: $screen-lg) {
       flex-direction: column;
       bottom: 8%;
-      // height: 100%;
-      // padding-top: 32px;
 
       > * {
         &:first-child {
@@ -184,11 +176,11 @@
       }
     }
 
-    .video-recap-button {
+    .video-recap-button, .aticket-button {
       // background: none;
       position: relative;
       background-clip: padding-box;
-      border: solid 1px transparent;
+      // border: solid 1px transparent;
       color: black !important;
       --icon-color: black !important;
       opacity: 1;
@@ -242,11 +234,11 @@
           left: 0;
           // background: teal;
           // background: linear-gradient(60deg, #06060f, #151526, #100a17, #121212);
-          background: rgba(255, 255, 255, 0.4);
-          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          background: rgba(255, 255, 255, 0.65);
+          // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
           backdrop-filter: blur(5px);
           -webkit-backdrop-filter: blur(5px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          // border: 1px solid rgba(255, 255, 255, 0.3);
           margin: -1px;
           border-radius: inherit;
           z-index: 2;
@@ -265,7 +257,8 @@
         margin: -2px;
         color: black;
         border-radius: inherit;
-        background: teal;
+        // opacity: 0.;
+        // background: teal;
         background: linear-gradient(45deg, #a08bff, #ff8563, #25d2df);
         // background: #1a1a1a;
       }
@@ -274,6 +267,7 @@
 
     .big-description {
       margin-bottom: 16px;
+      width: min(100%, 500px);
 
       @media (max-width: $screen-lg) {
         margin-bottom: 8px;
@@ -939,7 +933,6 @@
   // max-width: 700px;
   font-size: 60px;
   // max-width: 600px;
-  width: min(100%, 500px);
   line-height: 56.25px;
 
   @media (max-width: $screen-lg) {

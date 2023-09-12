@@ -5,6 +5,7 @@ import AlertIcon from 'assets/icons/alert.svg'
 
 type AlertProps = {
   title: string
+  className?: string
   children: React.ReactNode
   color?: 'orange' | 'blue'
 }
@@ -14,6 +15,8 @@ const Alert = (props: AlertProps) => {
   let className = css['alert']
 
   className += ` ${css[props.color || 'blue']}`
+
+  if (props.className) className += ` ${props.className}`
 
   // if (alertHidden) return null
 
