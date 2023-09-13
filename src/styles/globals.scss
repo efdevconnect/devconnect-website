@@ -181,7 +181,7 @@ $max-content-width: $content-width + ($side-gap * 2);
   border-radius: 44px;
   background: #e8e8e8;
   // box-shadow: 0px 2px 4px 1.8px rgba(0, 0, 0, 0.18);
-  border: 1px solid black;
+  border: 1px solid rgb(181, 181, 181);
   height: 64px;
   align-self: flex-start;
   font-family: inherit;
@@ -192,6 +192,10 @@ $max-content-width: $content-width + ($side-gap * 2);
   color: black;
   --icon-color: black;
   cursor: pointer;
+
+  &:hover {
+    border: 1px solid rgb(92, 92, 92);
+  }
 
   [data-type='link-text'] {
     text-decoration: none !important;

@@ -23,8 +23,8 @@ import Dropdown from 'common/components/dropdown'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import Alert from 'common/components/alert'
 import { useRouter } from 'next/dist/client/router'
-import StarFill from 'assets/icons/star-fill.svg'
-import Star from 'assets/icons/star.svg'
+// import StarFill from 'assets/icons/star-fill.svg'
+// import Star from 'assets/icons/star.svg'
 // @ts-ignore
 import Toggle from 'react-toggle'
 import Retro from 'common/components/pages/event/retro'
@@ -37,6 +37,9 @@ import TwirlIcon from 'assets/icons/twirl.svg'
 import FilterIcon from 'assets/icons/filter.svg'
 import SearchIcon from 'assets/icons/search.svg'
 import ListComponent from 'common/components/list'
+import StarNormal from 'assets/icons/star-normal.svg'
+import StarHover from 'assets/icons/star-hover.svg'
+import StarFill from 'assets/icons/star-fill.svg'
 
 // ICS and google cal generator
 const generateCalendarExport = (events: any[]) => {
@@ -420,11 +423,18 @@ const CalendarModal = ({ events, calendarModalOpen, setCalendarModalOpen, allowG
 }
 
 const Favorite = ({ event, favorites, noContainer }: any) => {
+  const [hovered, setHovered] = React.useState(false)
   const isFavorited = favorites.favoriteEvents.some((favoritedEvent: any) => event.ShortID === favoritedEvent)
 
   const body = (
     <div
       className={css['favorite']}
+      onMouseEnter={() => {
+        setHovered(true)
+      }}
+      onMouseLeave={() => {
+        setHovered(false)
+      }}
       onClick={e => {
         if (favorites.sharedEvents) {
           alert('You are currently viewing a shared schedule. Return to your schedule to edit your favorites.')
@@ -441,7 +451,7 @@ const Favorite = ({ event, favorites, noContainer }: any) => {
         e.stopPropagation()
       }}
     >
-      {isFavorited ? <StarFill /> : <Star />}
+      {isFavorited ? <StarFill /> : <StarNormal />}
     </div>
   )
 
@@ -559,7 +569,7 @@ const Timeline = (props: any) => {
 
       const el = document.querySelector(`[data-id="${decoded}"]`)
 
-      const selectedEvent = sortedEvents.find((event: any) => event.ID === decoded)
+      const selectedEvent = sortedEvents.find((event: any) => event.ShortID === decoded)
 
       if (!selectedEvent) return
 
@@ -646,8 +656,6 @@ const Timeline = (props: any) => {
           }}
           data-id={event.ID}
         >
-          {props.edition === 'istanbul' && <Favorite event={event} favorites={props.favorites} />}
-
           <div className={css['content']}>
             {event['Stable ID'] === 'Cowork' && (
               <div className={css['image']}>
@@ -659,16 +667,19 @@ const Timeline = (props: any) => {
             )}
             <div className={css['content-inner']}>
               <div className={css['top']}>
-                <p className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}>
-                  {event.Name}
-                </p>
+                <div className={css['title-bar']}>
+                  <p className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}>
+                    {event.Name}
+                  </p>
+                  {props.edition === 'istanbul' && <Favorite event={event} favorites={props.favorites} />}
+                </div>
 
                 {event['Time of Day'] && (
                   <div className={css['when']}>
                     {Array.from(Array(totalDays)).map((_, index: number) => {
                       const time = timeOfDayArray[index]
                       const useDayIndicator = !!timeOfDayArray[1] && totalDays > 1
-                      const sameTimeEveryDay = shouldRepeatTimeOfDay && totalDays > 1 && time !== 'ALL DAY'
+                      const sameTimeEveryDay = shouldRepeatTimeOfDay && totalDays > 1 && time !== 'All day'
 
                       // if (event['Stable ID'] !== 'Cowork') return null
                       if (!time) return null
@@ -890,7 +901,7 @@ const ListTableHeader = () => {
       <div className={css['col-1']}>Date & Time</div>
       <div className={css['col-2']}>Event</div>
       <div className={css['col-3']}>Organizers</div>
-      <div className={css['col-4']}>Attend</div>
+      <div className={css['col-4']}>Status</div>
     </div>
   )
 }
@@ -955,7 +966,7 @@ const ListEventDesktop = (props: any) => {
       <div className={`${css['list-grid']} ${css['content']} `}>
         <div className={`${css['date']} ${css['col-1']}`}>
           <div>
-            <p className="uppercase bold">
+            <p className="bold">
               {formattedDate} — <br /> <span className="small-text">{timeOfDay}</span>
               {/* {props.event['Stable ID'] === 'Cowork' && (
                 <>
@@ -1024,12 +1035,12 @@ const ListEventDesktop = (props: any) => {
               <Link
                 href={props.event.URL}
                 indicateExternal
-                className={`${css['ticket-availability']} purple small-text uppercase`}
+                className={`${css['ticket-availability']} purple small-text`}
               >
                 {props.event['Attend']}
               </Link>
             ) : (
-              <p className={`${css['ticket-availability']} purple small-text uppercase`}>{props.event['Attend']}</p>
+              <p className={`${css['ticket-availability']} purple small-text`}>{props.event['Attend']}</p>
             ))}
         </div>
       </div>
@@ -1069,7 +1080,7 @@ const ListEventMobile = (props: any) => {
           )}
 
           <div className={css['share-icon']}>
-            <CopyToClipboard url={`${window.location.href.split('#')[0]}#${encodeURI(props.event.ID)}`} />
+            <CopyToClipboard url={`${window.location.href.split('#')[0]}#${encodeURI(props.event.ShortID)}`} />
           </div>
         </div>
 
@@ -1085,7 +1096,7 @@ const ListEventMobile = (props: any) => {
 
         <div className={css['date']}>
           <p className={`small-text uppercase ${css['time-of-day']}`}>
-            {formattedDate} — <br /> <span className="large-text">{timeOfDay}</span>
+            {formattedDate} — <br /> <span className="text">{timeOfDay}</span>
             {/* {props.event['Stable ID'] === 'Cowork' && (
               <>
                 <br />
@@ -1753,6 +1764,20 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
               <div className={`${css['view']} small-text`}>
                 <div className={css['options']}>
                   <button
+                    className={`${scheduleView === 'timeline' && css['selected']} white button xs`}
+                    onClick={() => setScheduleView('timeline')}
+                  >
+                    <CalendarIcon />
+                    <p className={`${css['text']} small-text`}>Timeline</p>
+                  </button>
+                  <button
+                    className={`${scheduleView === 'list' && css['selected']} white button xs`}
+                    onClick={() => setScheduleView('list')}
+                  >
+                    <ListIcon style={{ fontSize: '0.8em' }} />
+                    <p className={`${css['text']} small-text`}>List</p>
+                  </button>
+                  {/* <button
                     className={`${scheduleView === 'timeline' && css['selected']} ${css['switch']}`}
                     onClick={() => setScheduleView('timeline')}
                   >
@@ -1765,7 +1790,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                   >
                     <ListIcon style={{ fontSize: '1.1em' }} />
                     <p className={`${css['text']} small-text`}>List</p>
-                  </button>
+                  </button> */}
                 </div>
               </div>
 
@@ -1880,30 +1905,38 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
 
               <div className={css['active-filters']}>
                 <p className="small-text">Current filter:</p>
-                <p className="bold">
+                <p className="bold tiny-text">
                   {(() => {
-                    // console.log(filterAttributes, 'fitler attributes')
-                    const computeFilterShorthand = (filter: { [key: string]: boolean }, key: string) => {
-                      const filterAsKeys = Object.keys(filter)
+                    const {
+                      categoryFilter,
+                      difficultyFilter,
+                      statusFilter,
+                      hideSoldOut,
+                      showFavorites,
+                      showOnlyDomainSpecific,
+                    } = filterAttributes
 
-                      if (filterAsKeys.length === 0) return
-                      if (filterAsKeys.length === 1) return filterAsKeys[0]
+                    const computeFilterShorthand = (key: string, filters: string[]) => {
+                      if (filters.length === 0) return
+                      if (filters.length === 1) return filters[0]
 
-                      return `${key} (${filterAsKeys.length})`
+                      return `${key} (${filters.length})`
                     }
 
-                    return 'None'
-
-                    // return (
-                    //   [
-                    //     computeFilterShorthand(selectedTracks, 'Track'),
-                    //     computeFilterShorthand(selectedSessionTypes, 'Session Type'),
-                    //     computeFilterShorthand(selectedExpertise, 'Expertise'),
-                    //     computeFilterShorthand(selectedRooms, 'Room'),
-                    //   ]
-                    //     .filter(val => !!val)
-                    //     .join(', ') || 'No filter applied'
-                    // )
+                    return (
+                      [
+                        computeFilterShorthand('Categories', categoryFilter),
+                        computeFilterShorthand('Experience', difficultyFilter),
+                        showFavorites ? 'Favorites' : null,
+                        computeFilterShorthand('Status', statusFilter),
+                        hideSoldOut ? 'No sold out' : null,
+                        ,
+                        showOnlyDomainSpecific ? 'Ecosystem' : null,
+                        ,
+                      ]
+                        .filter(val => !!val)
+                        .join(', ') || 'None'
+                    )
                   })()}
                 </p>
               </div>
@@ -2081,7 +2114,7 @@ const formatResult = (result: any) => {
   })
 
   // Insert a default value for time of day when unspecified
-  if (!properties['Time of Day']) properties['Time of Day'] = 'ALL DAY'
+  if (!properties['Time of Day']) properties['Time of Day'] = 'All day'
 
   return { ...properties, ID: result.id, ShortID: result.id.slice(0, 4) /* raw: result*/ }
 }
