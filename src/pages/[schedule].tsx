@@ -1,4 +1,4 @@
-import next, { NextPage } from 'next'
+import { NextPage } from 'next'
 import Image from 'next/image'
 import React, { useEffect } from 'react'
 import { Client } from '@notionhq/client'
@@ -19,12 +19,9 @@ import Link, { useDraggableLink } from 'common/components/link'
 import Modal from 'common/components/modal'
 import ScheduleBackgroundAmsterdam from 'assets/images/schedule-bg.svg'
 import DevconnectIstanbul from 'assets/images/istanbul-logo-with-eth.svg'
-import Dropdown from 'common/components/dropdown'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
 import Alert from 'common/components/alert'
 import { useRouter } from 'next/dist/client/router'
-// import StarFill from 'assets/icons/star-fill.svg'
-// import Star from 'assets/icons/star.svg'
 // @ts-ignore
 import Toggle from 'react-toggle'
 import Retro from 'common/components/pages/event/retro'
@@ -38,7 +35,6 @@ import FilterIcon from 'assets/icons/filter.svg'
 import SearchIcon from 'assets/icons/search.svg'
 import ListComponent from 'common/components/list'
 import StarNormal from 'assets/icons/star-normal.svg'
-import StarHover from 'assets/icons/star-hover.svg'
 import StarFill from 'assets/icons/star-fill.svg'
 
 // ICS and google cal generator
@@ -746,7 +742,7 @@ const Timeline = (props: any) => {
           <DevconnectIstanbul style={{ maxWidth: '300px', width: '400px', opacity: 0.15, right: '16px' }} />
         )}
       </div>
-      <SwipeToScroll /*focusRef={todayRef}*/ noBounds stopped={eventModalOpen !== ''}>
+      <SwipeToScroll noBounds>
         <div className={css['timeline']}>
           {events}
 
@@ -804,12 +800,6 @@ const EventMeta = (props: any) => {
             )
           })}
       </div>
-
-      {/* {props.event['Difficulty'] && (
-        <div className={`tiny-text-em ${css['difficulty-based']} ${css[props.event.Difficulty]}`}>
-          Difficulty: {props.event.Difficulty}
-        </div>
-      )} */}
     </div>
   )
 }
@@ -1207,9 +1197,9 @@ const List = (props: any) => {
 }
 
 const useFilter = (events: any, edition: Edition, favorites: any) => {
-  const [filterOpen, setFilterOpen] = React.useState(true)
+  const [filterOpen, setFilterOpen] = React.useState(false)
+  const [mobileFilterOpen, setMobileFilterOpen] = React.useState(false)
   const keysToFilterOn = ['Category', 'Difficulty', 'Attend']
-  // const [filters, setFilters] = React.useState({} as { [key: string]: any })
   const [categoryFilter, setCategoryFilter] = React.useState<any>([])
   const [statusFilter, setStatusFilter] = React.useState<any>([])
   const [difficultyFilter, setDifficultyFilter] = React.useState([])
@@ -1287,6 +1277,8 @@ const useFilter = (events: any, edition: Edition, favorites: any) => {
   })
 
   return {
+    mobileFilterOpen,
+    setMobileFilterOpen,
     filterOpen,
     setFilterOpen,
     events: filteredEvents,
@@ -1539,11 +1531,16 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const [calendarModalOpen, setCalendarModalOpen] = React.useState(false)
   const { scheduleView, setScheduleView } = props
   const favorites = useFavorites(props.events, props.edition)
-  let { events, filterOpen, setFilterOpen, textSearch, setTextSearch, ...filterAttributes } = useFilter(
-    props.events,
-    props.edition,
-    favorites
-  )
+  let {
+    events,
+    mobileFilterOpen,
+    setMobileFilterOpen,
+    filterOpen,
+    setFilterOpen,
+    textSearch,
+    setTextSearch,
+    ...filterAttributes
+  } = useFilter(props.events, props.edition, favorites)
 
   // Override filters if viewing shared events
   if (favorites.sharedEvents && favorites.onlyShowSharedEvents) {
@@ -1636,270 +1633,142 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
             </p>
           </Alert>
         </div>
-        // <div className={`${css['alert-bg']} section`}>
-        //   <p className="bold small-text padding-top-less padding-bottom-less">
-        //     👉 REMEMBER, EACH EVENT DURING DEVCONNECT IS INDEPENDENTLY HOSTED AND YOU WILL REQUIRE TICKETS FOR EACH
-        //     EVENT YOU WISH TO ATTEND. YOU WILL FIND TICKETING INFORMATION FOR EACH EVENT SOON.
-        //   </p>
-        // </div>
       )}
 
-      {/* <div className="section">
-        <div className={css['misc-bar']} style={{ color: 'black' }}>
-          <div>
-            <p>List picker</p>
-          </div>
-          <div>"Legends?"</div>
-          <div>Exports</div>
-        </div>
-      </div> */}
-
       <div className={`${css['schedule']} ${css[`edition-${props.edition}`]}`}>
-        {/* {props.edition === 'istanbul' && favorites.sharedEvents === null && (
-          <div className={`section ${css['filter-bar']}`}>
-            <Filter events={events} {...filterAttributes} edition={props.edition} favorites={favorites} />
-          </div>
-        )} */}
-
         <div className="section">
           {props.edition !== 'istanbul' && <Retro />}
-          {/* <div className={`${css['header-row']}`}>
-            <h1 className="extra-large-text uppercase bold">
-              {(() => {
-                if (props.edition === 'istanbul') return 'Schedule'
-                if (props.edition === 'amsterdam') return 'Amsterdam 2022 Schedule'
-              })()}
-            </h1>
-
-            <div className={`${css['view']} small-text`}>
-              <div className={css['options']}>
-                <button
-                  className={`${scheduleView === 'list' && css['selected']} ${css['switch']}`}
-                  onClick={() => setScheduleView('list')}
-                >
-                  <ListIcon style={{ fontSize: '1.1em' }} />
-                  <p className={`${css['text']} small-text`}>List</p>
-                </button>
-                <button
-                  className={`${scheduleView === 'timeline' && css['selected']} ${css['switch']}`}
-                  onClick={() => setScheduleView('timeline')}
-                >
-                  <CalendarIcon />
-                  <p className={`${css['text']} small-text`}>Timeline</p>
-                </button>
-              </div>
-            </div>
-          </div> */}
-
-          {/* <div className={`${css['top-bar']}`}>
-            <div className={css['second-row']}>
-              <div className={`${css['view']} small-text`}>
-                <div className={css['options']}>
-                  <button
-                    className={`${scheduleView === 'timeline' && css['selected']} ${css['switch']}`}
-                    onClick={() => setScheduleView('timeline')}
-                  >
-                    <CalendarIcon />
-                    <p className={`${css['text']} small-text`}>Timeline</p>
-                  </button>
-                  <button
-                    className={`${scheduleView === 'list' && css['selected']} ${css['switch']}`}
-                    onClick={() => setScheduleView('list')}
-                  >
-                    <ListIcon style={{ fontSize: '1.1em' }} />
-                    <p className={`${css['text']} small-text`}>List</p>
-                  </button>
-                </div>
-              </div>
-
-              {props.edition === 'amsterdam' && (
-                <div className={css['types']}>
-                  <div className={css['all-welcome']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>All welcome
-                    </p>
-                  </div>
-                  <div className={css['intermediate']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>Intermediate
-                    </p>
-                  </div>
-                  <div className={css['advanced']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>Advanced
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {props.edition === 'istanbul' && (
-                <div className={css['types']}>
-                  <div className={css['advanced']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>Cowork
-                    </p>
-                  </div>
-                  <div className={css['all-welcome']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>Ecosystem Events
-                    </p>
-                  </div>
-                  <div className={css['intermediate']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>Other Events
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              <Expand accordionRefs={accordionRefs} scheduleView={scheduleView} />
-
-              {scheduleView === 'timeline' && (
-                <p className={`small-text bold uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
-              )}
-            </div>
-          </div> */}
-          <div className={css['top-bar']}>
-            <div className={css['second-row']}>
-              <div className={`${css['view']} small-text`}>
-                <div className={css['options']}>
-                  <button
-                    className={`${scheduleView === 'timeline' && css['selected']} white button xs`}
-                    onClick={() => setScheduleView('timeline')}
-                  >
-                    <CalendarIcon />
-                    <p className={`${css['text']} small-text`}>Timeline</p>
-                  </button>
-                  <button
-                    className={`${scheduleView === 'list' && css['selected']} white button xs`}
-                    onClick={() => setScheduleView('list')}
-                  >
-                    <ListIcon style={{ fontSize: '0.8em' }} />
-                    <p className={`${css['text']} small-text`}>List</p>
-                  </button>
-                  {/* <button
-                    className={`${scheduleView === 'timeline' && css['selected']} ${css['switch']}`}
-                    onClick={() => setScheduleView('timeline')}
-                  >
-                    <CalendarIcon />
-                    <p className={`${css['text']} small-text`}>Timeline</p>
-                  </button>
-                  <button
-                    className={`${scheduleView === 'list' && css['selected']} ${css['switch']}`}
-                    onClick={() => setScheduleView('list')}
-                  >
-                    <ListIcon style={{ fontSize: '1.1em' }} />
-                    <p className={`${css['text']} small-text`}>List</p>
-                  </button> */}
-                </div>
-              </div>
-
-              {props.edition === 'amsterdam' && (
-                <div className={css['types']}>
-                  <div className={css['all-welcome']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>All welcome
-                    </p>
-                  </div>
-                  <div className={css['intermediate']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>Intermediate
-                    </p>
-                  </div>
-                  <div className={css['advanced']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>Advanced
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {props.edition === 'istanbul' && (
-                <div className={css['types']}>
-                  <div className={css['advanced']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>Cowork
-                    </p>
-                  </div>
-                  <div className={css['all-welcome']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>Ecosystem Events
-                    </p>
-                  </div>
-                  <div className={css['intermediate']}>
-                    <p>
-                      <span className={css['indicator']}>⬤</span>Other Events
-                    </p>
-                  </div>
-                </div>
-              )}
-              <div>
-                <div
-                  className={`slick-purple button wide xs uppercase ${css['share-schedule-cta']}`}
-                  onClick={() => setCalendarModalOpen(true)}
-                >
-                  <span>
-                    <CalendarModal
-                      calendarModalOpen={calendarModalOpen}
-                      setCalendarModalOpen={setCalendarModalOpen}
-                      events={props.events}
-                      favorites={favorites}
-                    />
-                    Export (.ics)
-                    <ScheduleDownloadIcon />
-                  </span>
-                </div>
-
-                <div
-                  className={`slick-purple button wide xs ${css['share-schedule-cta']} margin-left-much-less`}
-                  onClick={() => setOpenShareModal(true)}
-                >
-                  <div>
-                    Share Schedule Snapshot <TwirlIcon />
-                  </div>
-                  <Modal
-                    // className={css['add-to-calendar-modal']}
-                    open={openShareModal}
-                    close={() => setOpenShareModal(!openShareModal)}
-                    noCloseIcon
-                  >
-                    <div className={css['share-schedule-modal']}>
-                      <p className="bold">Name your schedule:</p>
-                      <input
-                        type="text"
-                        value={favorites.shareTitleInput}
-                        onChange={e => favorites.setShareTitleInput(e.target.value)}
-                        placeholder="Name your schedule"
-                      />
-                      {/* <CopyToClipboard url="" onShare={favorites.exportFavorites} /> */}
-                      <p className="bold">What others will see:</p>
-                      <p className="bold large-text margin-top-much-less">
-                        You are viewing {favorites.shareTitleInput || ' a shared schedule'}
-                      </p>
-
-                      <p className="margin-bottom-less margin-top-less small-text">
-                        <i>
-                          (This will be a snapshot of your currently favorited events. Any subsequent updates to your
-                          favorites won&apos;t change the snapshot.)
-                        </i>
-                      </p>
-
-                      <CopyToClipboard>
-                        <button className="button xs black" onClick={favorites.exportFavorites}>
-                          <span>Share Schedule</span>
-                          <ShareIcon />
-                        </button>
-                      </CopyToClipboard>
+          <div className={css['top-bar-wrapper']}>
+            <SwipeToScroll noBounds scrollIndicatorDirections={{ right: true, left: true }}>
+              <div className={css['top-bar']}>
+                <div className={css['second-row']}>
+                  <div className={`${css['view']} small-text`}>
+                    <div className={css['options']}>
+                      <button
+                        className={`${scheduleView === 'timeline' && css['selected']} white button xs`}
+                        onClick={() => setScheduleView('timeline')}
+                      >
+                        <CalendarIcon />
+                        <p className={`${css['text']} small-text`}>Timeline</p>
+                      </button>
+                      <button
+                        className={`${scheduleView === 'list' && css['selected']} white button xs`}
+                        onClick={() => setScheduleView('list')}
+                      >
+                        <ListIcon style={{ fontSize: '0.8em' }} />
+                        <p className={`${css['text']} small-text`}>List</p>
+                      </button>
                     </div>
-                  </Modal>
+                  </div>
+
+                  {props.edition === 'amsterdam' && (
+                    <div className={css['types']}>
+                      <div className={css['all-welcome']}>
+                        <p>
+                          <span className={css['indicator']}>⬤</span>All welcome
+                        </p>
+                      </div>
+                      <div className={css['intermediate']}>
+                        <p>
+                          <span className={css['indicator']}>⬤</span>Intermediate
+                        </p>
+                      </div>
+                      <div className={css['advanced']}>
+                        <p>
+                          <span className={css['indicator']}>⬤</span>Advanced
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {props.edition === 'istanbul' && (
+                    <div className={css['types']}>
+                      <div className={css['advanced']}>
+                        <p>
+                          <span className={css['indicator']}>⬤</span>Cowork
+                        </p>
+                      </div>
+                      <div className={css['all-welcome']}>
+                        <p>
+                          <span className={css['indicator']}>⬤</span>Ecosystem Events
+                        </p>
+                      </div>
+                      <div className={css['intermediate']}>
+                        <p>
+                          <span className={css['indicator']}>⬤</span>Other Events
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  <div>
+                    <div
+                      className={`slick-purple button wide xs uppercase ${css['share-schedule-cta']}`}
+                      onClick={() => setCalendarModalOpen(true)}
+                    >
+                      <span>
+                        <CalendarModal
+                          calendarModalOpen={calendarModalOpen}
+                          setCalendarModalOpen={setCalendarModalOpen}
+                          events={props.events}
+                          favorites={favorites}
+                        />
+                        Export (.ics)
+                        <ScheduleDownloadIcon />
+                      </span>
+                    </div>
+
+                    <div
+                      className={`slick-purple button wide xs ${css['share-schedule-cta']} margin-left-much-less`}
+                      onClick={() => setOpenShareModal(true)}
+                    >
+                      <div>
+                        Share Schedule Snapshot <TwirlIcon />
+                      </div>
+                      <Modal
+                        // className={css['add-to-calendar-modal']}
+                        open={openShareModal}
+                        close={() => setOpenShareModal(!openShareModal)}
+                        noCloseIcon
+                      >
+                        <div className={css['share-schedule-modal']}>
+                          <p className="bold">Name your schedule:</p>
+                          <input
+                            type="text"
+                            value={favorites.shareTitleInput}
+                            onChange={e => favorites.setShareTitleInput(e.target.value)}
+                            placeholder="Name your schedule"
+                          />
+                          {/* <CopyToClipboard url="" onShare={favorites.exportFavorites} /> */}
+                          <p className="bold">What others will see:</p>
+                          <p className="bold large-text margin-top-much-less">
+                            You are viewing {favorites.shareTitleInput || ' a shared schedule'}
+                          </p>
+
+                          <p className="margin-bottom-less margin-top-less small-text">
+                            <i>
+                              (This will be a snapshot of your currently favorited events. Any subsequent updates to
+                              your favorites won&apos;t change the snapshot.)
+                            </i>
+                          </p>
+
+                          <CopyToClipboard>
+                            <button className="button xs black" onClick={favorites.exportFavorites}>
+                              <span>Share Schedule</span>
+                              <ShareIcon />
+                            </button>
+                          </CopyToClipboard>
+                        </div>
+                      </Modal>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </SwipeToScroll>
           </div>
 
           <div className={css['first-row-above-schedule']}>
             <div className={css['filter-toggle']}>
-              <button onClick={() => setFilterOpen(!filterOpen)}>
+              <button className={css['filter-toggle-desktop']} onClick={() => setFilterOpen(!filterOpen)}>
                 <FilterIcon />
               </button>
 
@@ -1956,9 +1825,12 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
 
           <div className={css['schedule-wrapper']}>
             {filterOpen && (
-              <div className={css['filter-new']}>
-                <Filter events={events} {...filterAttributes} edition={props.edition} favorites={favorites} />
-              </div>
+              <>
+                <div className={css['filter-foldout']}>
+                  <Filter events={events} {...filterAttributes} edition={props.edition} favorites={favorites} />
+                </div>
+                <div className={css['fade']} />
+              </>
             )}
 
             {events.length === 0 ? (
