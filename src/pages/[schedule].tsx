@@ -41,6 +41,8 @@ import Tooltip from 'common/components/tooltip'
 import CalendarPlus from 'assets/icons/calendar-plus.svg'
 import CalendarMenu from 'assets/icons/calendar-menu.svg'
 import InfoIcon from 'assets/icons/info.svg'
+import ExportModalImage from 'assets/images/schedule/modal-export.png'
+import ShareModalImage from 'assets/images/schedule/modal-share.png'
 
 // ICS and google cal generator
 const generateCalendarExport = (events: any[]) => {
@@ -1739,47 +1741,73 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                         <div>
                           Share Schedule Snapshot <TwirlIcon />
                         </div>
-                        <Modal
-                          // className={css['add-to-calendar-modal']}
-                          open={openShareModal}
-                          close={() => setOpenShareModal(!openShareModal)}
-                          noCloseIcon
-                        >
-                          <div className={css['share-schedule-modal']}>
-                            <p className="bold">Name your schedule:</p>
-                            <input
-                              type="text"
-                              value={favorites.shareTitleInput}
-                              onChange={e => favorites.setShareTitleInput(e.target.value)}
-                              placeholder="Name your schedule"
-                            />
-                            {/* <CopyToClipboard url="" onShare={favorites.exportFavorites} /> */}
-                            <p className="bold">What others will see:</p>
-                            <p className="bold large-text margin-top-much-less">
-                              You are viewing {favorites.shareTitleInput || ' a shared schedule'}
-                            </p>
-
-                            <p className="margin-bottom-less margin-top-less small-text">
-                              <i>
-                                (This will be a snapshot of your currently favorited events. Any subsequent updates to
-                                your favorites won&apos;t change the snapshot.)
-                              </i>
-                            </p>
-
-                            <CopyToClipboard>
-                              <button className="button xs black" onClick={favorites.exportFavorites}>
-                                <span>Share Schedule</span>
-                                <ShareIcon />
-                              </button>
-                            </CopyToClipboard>
-                          </div>
-                        </Modal>
                       </div>
                     </div>
                   )}
                 </div>
               </div>
             </SwipeToScroll>
+
+            <Modal
+              // className={css['add-to-calendar-modal']}
+              open={openShareModal}
+              close={() => setOpenShareModal(!openShareModal)}
+              noCloseIcon
+            >
+              <div className={css['share-schedule-modal']} draggable="false">
+                {/* <div className="aspect wide"> */}
+
+                <div className={css['header']}>
+                  <Image src={ShareModalImage} alt="Twirl graphic" quality={100} />
+                  <div className={css['content']}>
+                    <p className={css['meta']}>Share snapshot</p>
+                    <p className="bold uppercase">Name your Devconnect Snapshot</p>
+
+                    <div className={css['standard-input']}>
+                      <input
+                        type="text"
+                        value={favorites.shareTitleInput}
+                        onChange={e => favorites.setShareTitleInput(e.target.value)}
+                        placeholder="Name"
+                      />
+                      <SearchIcon />
+                    </div>
+                  </div>
+                </div>
+
+                <div className={css['description']}>
+                  <p className="bold margin-bottom-much-less">Share a snapshot of your personal schedule</p>
+                  <p className="small-text">
+                    Create a shareable link of your favorited events on this device to share with others, or to
+                    view/import on another device.
+                  </p>
+                </div>
+
+                <div className={css['action']}>
+                  <p className="bold small-text">What others will see</p>
+                  <p className={`${css['preview']} bold`}>
+                    You are currently viewing{' '}
+                    <span className="orange bold">{favorites.shareTitleInput || 'a shared schedule snapshot'}</span>
+                  </p>
+
+                  <CopyToClipboard>
+                    <button className={`button orange-fill sm`} onClick={favorites.exportFavorites}>
+                      <span>Share Schedule</span>
+                      <TwirlIcon />
+                    </button>
+                  </CopyToClipboard>
+                </div>
+
+                <p className={css['notice']}>
+                  <span className="bold small-text">Notice</span>
+                  <br />
+                  <span className="tiny-text orange uppercase bold">
+                    This will be a snapshot of your currently favorited events on this device. Any subsequent updates to
+                    your favorites won't change the snapshot shared.
+                  </span>
+                </p>
+              </div>
+            </Modal>
           </div>
 
           <div className={css['first-row-above-schedule']}>
