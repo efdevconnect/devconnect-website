@@ -63,14 +63,14 @@
     margin-bottom: 16px;
     color: $monochrome-6;
 
-    @media (min-width: $screen-md) {
+    @media (min-width: $screen-lg) {
       margin-bottom: 20px;
       margin-bottom: 8px;
     }
   }
 
   .top-bar-wrapper {
-    @media (max-width: $screen-md) {
+    @media (max-width: $screen-lg) {
       grid-column: 2 / 4;
     }
   }
@@ -1362,7 +1362,7 @@
   // }
   // --override-display-swipe: none;
 
-  @media (max-width: $screen-md) {
+  @media (max-width: $screen-lg) {
     grid-column: 2 / 4;
   }
 
@@ -1521,6 +1521,7 @@
   border-bottom: 1px solid rgba(102, 100, 211, 0.40);
   @media (max-width: $screen-lg) {
     grid-column: 1 / 4;
+    text-align: center;
   }
 }
 
