@@ -27,7 +27,6 @@ import { useRouter } from 'next/dist/client/router'
 import Toggle from 'react-toggle'
 import Retro from 'common/components/pages/event/retro'
 import { CopyToClipboard } from 'common/components/copy-to-clipboard/CopyToClipboard'
-import ShareIcon from 'assets/icons/share.svg'
 import FilterMiss from 'assets/images/404.png'
 import { useSearchParams } from 'next/navigation'
 import ScheduleDownloadIcon from 'assets/icons/schedule_download.svg'
@@ -43,6 +42,7 @@ import CalendarMenu from 'assets/icons/calendar-menu.svg'
 import InfoIcon from 'assets/icons/info.svg'
 import ExportModalImage from 'assets/images/schedule/modal-export.png'
 import ShareModalImage from 'assets/images/schedule/modal-share.png'
+import EventAdd from 'assets/icons/event_added.svg'
 
 // ICS and google cal generator
 const generateCalendarExport = (events: any[]) => {
@@ -379,47 +379,68 @@ const CalendarModal = ({ events, calendarModalOpen, setCalendarModalOpen, allowG
       noCloseIcon
     >
       <div className={css['add-to-calendar-modal-content']}>
-        <p className="bold uppercase">Export {hasMultipleEvents ? 'events' : 'event'}:</p>
+        <div className={css['modal-header']}>
+          <Image src={ExportModalImage} alt="Twirl graphic" quality={100} />
+          <div className={css['content']}>
+            <p className={css['meta']}>Export schedule</p>
+          </div>
+        </div>
 
-        <a {...icsAttributes} className="button black sm small-text">
-          {hasMultipleEvents ? 'All events' : 'Download'} (.ICS)
-        </a>
+        <div className={css['description']}>
+          <p className="bold margin-bottom-much-less">Export Schedule to Calendar (.ICS)</p>
+          <p className="small-text">Download the .ICS file to upload to your favorite calendar app.</p>
+        </div>
 
-        {(() => {
-          if (favorites && favorites.favoriteEvents.length > 0) {
-            const { icsAttributes } = generateCalendarExport(
-              events
-                .filter((event: any) => {
-                  const eventIsFavorited = favorites.favoriteEvents.some(
-                    (favoritedEvent: any) => event.ShortID === favoritedEvent
-                  )
+        <div className={css['buttons']}>
+          {(() => {
+            if (favorites && favorites.favoriteEvents.length > 0) {
+              const { icsAttributes } = generateCalendarExport(
+                events
+                  .filter((event: any) => {
+                    const eventIsFavorited = favorites.favoriteEvents.some(
+                      (favoritedEvent: any) => event.ShortID === favoritedEvent
+                    )
 
-                  if (!eventIsFavorited) return false
+                    if (!eventIsFavorited) return false
 
-                  return true
-                })
-                .map((event: any) => {
-                  return {
-                    ...getFormattedEventData(event),
-                    event,
-                  }
-                })
-            )
+                    return true
+                  })
+                  .map((event: any) => {
+                    return {
+                      ...getFormattedEventData(event),
+                      event,
+                    }
+                  })
+              )
 
-            return (
-              <a {...icsAttributes} className="button black sm small-text">
-                Your Favorites (.ICS)
-              </a>
-            )
-          }
-          return null
-        })()}
+              return (
+                <a {...icsAttributes} className="button orange-fill sm small-text">
+                  <StarNormal /> Your Favorites (.ICS)
+                </a>
+              )
+            }
+            return null
+          })()}
 
-        {allowGoogle && (
-          <Link indicateExternal href={googleCalUrl} className="button black sm small-text">
-            Google Calendar
-          </Link>
-        )}
+          <a {...icsAttributes} className="button orange sm small-text">
+            <EventAdd /> {hasMultipleEvents ? 'All events' : 'Download'} (.ICS)
+          </a>
+
+          {allowGoogle && (
+            <Link indicateExternal href={googleCalUrl} className="button orange-fill sm small-text">
+              Google Calendar
+            </Link>
+          )}
+        </div>
+
+        <p className={css['notice']}>
+          <span className="bold small-text">Notice</span>
+          <br />
+          <span className="tiny-text orange uppercase bold">
+            Event information will not be updated once you export the schedule to your personal calendar. please make
+            sure to visit the schedule closer to event date to make sure your events have not had any changes.
+          </span>
+        </p>
       </div>
     </Modal>
   )
@@ -1029,15 +1050,11 @@ const ListEventDesktop = (props: any) => {
         <div className={`${css['attend']} ${css['col-4']}`}>
           {props.event['Attend'] &&
             (props.event['URL'] ? (
-              <Link
-                href={props.event.URL}
-                indicateExternal
-                className={`${css['ticket-availability']} purple small-text`}
-              >
+              <Link href={props.event.URL} indicateExternal className={`${css['ticket-availability']} small-text`}>
                 {props.event['Attend']}
               </Link>
             ) : (
-              <p className={`${css['ticket-availability']} purple small-text`}>{props.event['Attend']}</p>
+              <p className={`${css['ticket-availability']} small-text`}>{props.event['Attend']}</p>
             ))}
         </div>
       </div>
@@ -1135,12 +1152,12 @@ const ListEventMobile = (props: any) => {
             <Link
               href={props.event.URL}
               indicateExternal
-              className={`${css['ticket-availability']} bold border-top border-bottom purple small-text uppercase`}
+              className={`${css['ticket-availability']} bold border-top border-bottom small-text uppercase`}
             >
               {props.event['Attend']}
             </Link>
           ) : (
-            <p className={`${css['ticket-availability']} bold border-top border-bottom purple small-text uppercase`}>
+            <p className={`${css['ticket-availability']} bold border-top border-bottom small-text uppercase`}>
               {props.event['Attend']}
             </p>
           ))}
@@ -1541,7 +1558,7 @@ const SharingViewActions = (props: any) => {
           }}
           {...draggableLinkAttributes}
         >
-          Merge With Your Schedule <CalendarPlus />
+          Import To Your Schedule <CalendarPlus />
         </button>
         <button
           className={`sm wide button transparent white ${css['reveal']}`}
@@ -1723,12 +1740,6 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                         onClick={() => setCalendarModalOpen(true)}
                       >
                         <span>
-                          <CalendarModal
-                            calendarModalOpen={calendarModalOpen}
-                            setCalendarModalOpen={setCalendarModalOpen}
-                            events={props.events}
-                            favorites={favorites}
-                          />
                           Export (.ics)
                           <ScheduleDownloadIcon />
                         </span>
@@ -1748,16 +1759,16 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
               </div>
             </SwipeToScroll>
 
-            <Modal
-              // className={css['add-to-calendar-modal']}
-              open={openShareModal}
-              close={() => setOpenShareModal(!openShareModal)}
-              noCloseIcon
-            >
-              <div className={css['share-schedule-modal']} draggable="false">
-                {/* <div className="aspect wide"> */}
+            <CalendarModal
+              calendarModalOpen={calendarModalOpen}
+              setCalendarModalOpen={setCalendarModalOpen}
+              events={props.events}
+              favorites={favorites}
+            />
 
-                <div className={css['header']}>
+            <Modal open={openShareModal} close={() => setOpenShareModal(!openShareModal)} noCloseIcon>
+              <div className={css['share-schedule-modal']} draggable="false">
+                <div className={css['modal-header']}>
                   <Image src={ShareModalImage} alt="Twirl graphic" quality={100} />
                   <div className={css['content']}>
                     <p className={css['meta']}>Share snapshot</p>
@@ -1785,14 +1796,16 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
 
                 <div className={css['action']}>
                   <p className="bold small-text">What others will see</p>
-                  <p className={`${css['preview']} bold`}>
+                  <p className={`${css['preview']}`}>
                     You are currently viewing{' '}
-                    <span className="orange bold">{favorites.shareTitleInput || 'a shared schedule snapshot'}</span>
+                    <span className="orange bold underline">
+                      {favorites.shareTitleInput || 'a shared schedule snapshot'}.
+                    </span>
                   </p>
 
                   <CopyToClipboard>
                     <button className={`button orange-fill sm`} onClick={favorites.exportFavorites}>
-                      <span>Share Schedule</span>
+                      <span>Share Your Schedule</span>
                       <TwirlIcon />
                     </button>
                   </CopyToClipboard>
@@ -1803,7 +1816,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                   <br />
                   <span className="tiny-text orange uppercase bold">
                     This will be a snapshot of your currently favorited events on this device. Any subsequent updates to
-                    your favorites won't change the snapshot shared.
+                    your favorites won&apos;t change the snapshot shared.
                   </span>
                 </p>
               </div>
