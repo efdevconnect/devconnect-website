@@ -20,6 +20,7 @@ import Modal from 'common/components/modal'
 import ScheduleBackgroundAmsterdam from 'assets/images/schedule-bg.svg'
 import DevconnectIstanbul from 'assets/images/istanbul-logo-with-eth.svg'
 import DevconnectAmsterdam from 'assets/images/amsterdam-logo-with-eth.svg'
+import DevconnectIstanbulText from 'assets/images/istanbul-logo-text.svg'
 import Alert from 'common/components/alert'
 import { useRouter } from 'next/dist/client/router'
 // @ts-ignore
@@ -36,6 +37,10 @@ import SearchIcon from 'assets/icons/search.svg'
 import ListComponent from 'common/components/list'
 import StarNormal from 'assets/icons/star-normal.svg'
 import StarFill from 'assets/icons/star-fill.svg'
+import Tooltip from 'common/components/tooltip'
+import CalendarPlus from 'assets/icons/calendar-plus.svg'
+import CalendarMenu from 'assets/icons/calendar-menu.svg'
+import InfoIcon from 'assets/icons/info.svg'
 
 // ICS and google cal generator
 const generateCalendarExport = (events: any[]) => {
@@ -520,7 +525,7 @@ const useFavorites = (events: any, edition: Edition): any => {
   }
 
   const exitSharedMode = () => {
-    router.replace(window.location.origin + window.location.pathname, undefined, { shallow: true })
+    router.push(window.location.origin + window.location.pathname, undefined, { shallow: true })
 
     setSharedEvents(null)
   }
@@ -1500,6 +1505,54 @@ const Expand = (props: any) => {
   )
 }
 
+// Had to pull this out because nested in conditional and need hooks
+const SharingViewActions = (props: any) => {
+  const draggableLinkAttributes = useDraggableLink()
+
+  return (
+    <SwipeToScroll noBounds scrollIndicatorDirections={{ right: true }}>
+      <div className={css['actions']}>
+        <button
+          className={`${css['exit']} sm wide button purple`}
+          onClick={props.favorites.exitSharedMode}
+          {...draggableLinkAttributes}
+        >
+          Return to your schedule <CalendarIcon />
+        </button>
+        <button
+          className="sm wide button slick-purple"
+          onClick={() => {
+            const yes = confirm(
+              'This action will add every event from the current schedule to your local favorites. Proceed?'
+            )
+
+            if (yes) {
+              const currentFavorites = props.favorites.favoriteEvents
+              const sharedFavorites = props.favorites.sharedEvents
+
+              const merged = Array.from(new Set(currentFavorites.concat(sharedFavorites)))
+
+              props.favorites.setFavoriteEvents(merged)
+
+              props.favorites.exitSharedMode()
+            }
+          }}
+          {...draggableLinkAttributes}
+        >
+          Merge With Your Schedule <CalendarPlus />
+        </button>
+        <button
+          className={`sm wide button transparent white ${css['reveal']}`}
+          onClick={() => props.favorites.setOnlyShowSharedEvents(!props.favorites.onlyShowSharedEvents)}
+          {...draggableLinkAttributes}
+        >
+          Reveal all events <CalendarMenu />
+        </button>
+      </div>
+    </SwipeToScroll>
+  )
+}
+
 const scheduleViewHOC = (Component: any) => {
   const ComponentWithScheduleView = (props: any) => {
     const [scheduleView, setScheduleView] = React.useState('timeline')
@@ -1584,46 +1637,6 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
         </div>
       </Hero>
 
-      {favorites.sharedEvents && (
-        <div className={css['shared-schedule-overlay']}>
-          <div className={css['info-box']}>
-            <p className="large-text bold">You are viewing {favorites.sharedTitle || 'a shared schedule'}</p>
-            <div className={css['actions']}>
-              <button className="xs button black" onClick={favorites.exitSharedMode}>
-                Return to schedule
-              </button>
-              <button
-                className="xs button black margin-left-much-less"
-                onClick={() => {
-                  const yes = confirm(
-                    'This action will add every event from the current schedule to your local favorites. Proceed?'
-                  )
-
-                  if (yes) {
-                    const currentFavorites = favorites.favoriteEvents
-                    const sharedFavorites = favorites.sharedEvents
-
-                    const merged = Array.from(new Set(currentFavorites.concat(sharedFavorites)))
-
-                    favorites.setFavoriteEvents(merged)
-
-                    favorites.exitSharedMode()
-                  }
-                }}
-              >
-                Merge With Local Schedule
-              </button>
-              <button
-                className="xs button black margin-left-much-less"
-                onClick={() => favorites.setOnlyShowSharedEvents(!favorites.onlyShowSharedEvents)}
-              >
-                Show all events
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {props.edition === 'istanbul' && (
         <div className="section">
           <Alert title="Important" className={`sm ${css['alert']}`}>
@@ -1700,67 +1713,70 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                       </div>
                     </div>
                   )}
-                  <div>
-                    <div
-                      className={`slick-purple button wide xs uppercase ${css['share-schedule-cta']}`}
-                      onClick={() => setCalendarModalOpen(true)}
-                    >
-                      <span>
-                        <CalendarModal
-                          calendarModalOpen={calendarModalOpen}
-                          setCalendarModalOpen={setCalendarModalOpen}
-                          events={props.events}
-                          favorites={favorites}
-                        />
-                        Export (.ics)
-                        <ScheduleDownloadIcon />
-                      </span>
-                    </div>
 
-                    <div
-                      className={`slick-purple button wide xs ${css['share-schedule-cta']} margin-left-much-less`}
-                      onClick={() => setOpenShareModal(true)}
-                    >
-                      <div>
-                        Share Schedule Snapshot <TwirlIcon />
-                      </div>
-                      <Modal
-                        // className={css['add-to-calendar-modal']}
-                        open={openShareModal}
-                        close={() => setOpenShareModal(!openShareModal)}
-                        noCloseIcon
+                  {favorites.sharedEvents === null && (
+                    <div>
+                      <div
+                        className={`slick-purple button wide xs uppercase ${css['share-schedule-cta']}`}
+                        onClick={() => setCalendarModalOpen(true)}
                       >
-                        <div className={css['share-schedule-modal']}>
-                          <p className="bold">Name your schedule:</p>
-                          <input
-                            type="text"
-                            value={favorites.shareTitleInput}
-                            onChange={e => favorites.setShareTitleInput(e.target.value)}
-                            placeholder="Name your schedule"
+                        <span>
+                          <CalendarModal
+                            calendarModalOpen={calendarModalOpen}
+                            setCalendarModalOpen={setCalendarModalOpen}
+                            events={props.events}
+                            favorites={favorites}
                           />
-                          {/* <CopyToClipboard url="" onShare={favorites.exportFavorites} /> */}
-                          <p className="bold">What others will see:</p>
-                          <p className="bold large-text margin-top-much-less">
-                            You are viewing {favorites.shareTitleInput || ' a shared schedule'}
-                          </p>
+                          Export (.ics)
+                          <ScheduleDownloadIcon />
+                        </span>
+                      </div>
 
-                          <p className="margin-bottom-less margin-top-less small-text">
-                            <i>
-                              (This will be a snapshot of your currently favorited events. Any subsequent updates to
-                              your favorites won&apos;t change the snapshot.)
-                            </i>
-                          </p>
-
-                          <CopyToClipboard>
-                            <button className="button xs black" onClick={favorites.exportFavorites}>
-                              <span>Share Schedule</span>
-                              <ShareIcon />
-                            </button>
-                          </CopyToClipboard>
+                      <div
+                        className={`slick-purple button wide xs ${css['share-schedule-cta']} margin-left-much-less`}
+                        onClick={() => setOpenShareModal(true)}
+                      >
+                        <div>
+                          Share Schedule Snapshot <TwirlIcon />
                         </div>
-                      </Modal>
+                        <Modal
+                          // className={css['add-to-calendar-modal']}
+                          open={openShareModal}
+                          close={() => setOpenShareModal(!openShareModal)}
+                          noCloseIcon
+                        >
+                          <div className={css['share-schedule-modal']}>
+                            <p className="bold">Name your schedule:</p>
+                            <input
+                              type="text"
+                              value={favorites.shareTitleInput}
+                              onChange={e => favorites.setShareTitleInput(e.target.value)}
+                              placeholder="Name your schedule"
+                            />
+                            {/* <CopyToClipboard url="" onShare={favorites.exportFavorites} /> */}
+                            <p className="bold">What others will see:</p>
+                            <p className="bold large-text margin-top-much-less">
+                              You are viewing {favorites.shareTitleInput || ' a shared schedule'}
+                            </p>
+
+                            <p className="margin-bottom-less margin-top-less small-text">
+                              <i>
+                                (This will be a snapshot of your currently favorited events. Any subsequent updates to
+                                your favorites won&apos;t change the snapshot.)
+                              </i>
+                            </p>
+
+                            <CopyToClipboard>
+                              <button className="button xs black" onClick={favorites.exportFavorites}>
+                                <span>Share Schedule</span>
+                                <ShareIcon />
+                              </button>
+                            </CopyToClipboard>
+                          </div>
+                        </Modal>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </SwipeToScroll>
@@ -1768,7 +1784,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
 
           <div className={css['first-row-above-schedule']}>
             <div className={css['filter-toggle']}>
-              <button className={css['filter-toggle-desktop']} onClick={() => setFilterOpen(!filterOpen)}>
+              <button className={filterOpen ? css['active'] : ''} onClick={() => setFilterOpen(!filterOpen)}>
                 <FilterIcon />
               </button>
 
@@ -1798,7 +1814,7 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                         computeFilterShorthand('Experience', difficultyFilter),
                         showFavorites ? 'Favorites' : null,
                         computeFilterShorthand('Status', statusFilter),
-                        hideSoldOut ? 'No sold out' : null,
+                        hideSoldOut ? 'Not sold out' : null,
                         ,
                         showOnlyDomainSpecific ? 'Ecosystem' : null,
                         ,
@@ -1860,7 +1876,8 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
           </div>
         </div>
 
-        <div className="section margin-top">
+        <div className="margin-top" />
+        {/* <div className="section margin-top">
           {props.edition === 'istanbul' && (
             <div className={css['organize-cta']}>
               <Link
@@ -1876,7 +1893,44 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
               </p>
             </div>
           )}
-        </div>
+        </div> */}
+
+        {favorites.sharedEvents && (
+          <div className={css['shared-schedule-overlay']}>
+            <div className="section">
+              <div className={css['info-box']}>
+                <div className={css['left']}>
+                  <DevconnectIstanbulText />
+                  <div className={css['snapshot-meta']}>
+                    Schedule
+                    <br />
+                    <span>Snapshot</span>
+                    <br />
+                    <TwirlIcon />
+                    <br />
+                  </div>
+                  <div className={css['currently-viewing']}>
+                    <div className={css['divider']}></div>
+                    <p className={css['text']}>
+                      You are currently viewing{' '}
+                      <span className={css['info-icon']}>
+                        <Tooltip
+                          arrow
+                          title="This schedule was created by another user. You can create your own snapshot by favoriting events and creating a snapshot url."
+                        >
+                          <InfoIcon />
+                        </Tooltip>
+                      </span>
+                    </p>
+                    <p className={css['snapshot-title']}>{favorites.sharedTitle || 'A SHARED schedule snapshot'}</p>
+                  </div>
+                  {/* <p className="large-text bold">You are viewing {favorites.sharedTitle || 'a shared schedule'}</p> */}
+                </div>
+                <SharingViewActions favorites={favorites} />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </>
@@ -1988,7 +2042,7 @@ const formatResult = (result: any) => {
   // Insert a default value for time of day when unspecified
   if (!properties['Time of Day']) properties['Time of Day'] = 'All day'
 
-  return { ...properties, ID: result.id, ShortID: result.id.slice(0, 4) /* raw: result*/ }
+  return { ...properties, ID: result.id, ShortID: result.id.slice(0, 5) /* raw: result*/ }
 }
 
 export async function getStaticProps(context: any) {

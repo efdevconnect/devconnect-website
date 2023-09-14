@@ -19,15 +19,15 @@
 }
 
 .edition-istanbul {
-  --first-edition-color-1: #40a088;
+  --first-edition-color-1: #85c3b4;
   --first-edition-color-2: #f8fffe;
-  --first-edition-color-3: #addbd1;
+  --first-edition-color-3: #c8efe6;
   --second-edition-color-1: #d78bfd;
   --second-edition-color-2: hsl(274, 64%, 98%);
   --second-edition-color-3: #f3e4ff;
-  --third-edition-color-1: #ff6644;
+  --third-edition-color-1: #ff8c72;
   --third-edition-color-2: #fff5f3;
-  --third-edition-color-3: #ffdcd5;
+  --third-edition-color-3: #fbe9e6;
 }
 
 .edition-amsterdam {
@@ -94,23 +94,18 @@
       align-items: center;
       width: 100%;
 
+      // Some padding for scrolling gradient
+      @media (max-width: $screen-sm) {
+        > * {
+          &:last-child {
+            padding-right: 32px;
+          }
+        }
+      }
+
       > * {
         flex-shrink: 0;
       }
-
-      // @media (max-width: $screen-lg) {
-      //   .types {
-      //     margin-left: 0px;
-      //     margin-top: 12px;
-      //   }
-      //   flex-direction: column;
-      //   align-items: flex-start;
-      // }
-
-      // @media (max-width: $screen-md) {
-      //   flex-direction: column;
-      //   align-items: flex-start;
-      // }
     }
 
     .types {
@@ -121,7 +116,7 @@
       flex-grow: 1;
       align-items: center;
       margin-right: 16px;
-
+      
       > * {
         display: flex;
         align-items: center;
@@ -246,8 +241,9 @@
 
   &.domain-based {
     &.Cowork {
-      background: none !important;
-      --color-bg: none !important;
+      // background: none !important;
+      // --color-bg: none !important;
+      --color-bg: var(--third-edition-color-3) !important;
       border-color: var(--third-edition-color-1) !important;
       --color: var(--third-edition-color-1) !important;
   
@@ -445,7 +441,7 @@
   // Desktop + cursor devices (not touch)
   @media (min-width: $screen-lg) and (hover: hover) {
     background: var(--color-bg);
-    color: var(--color);
+    // color: var(--color);
     display: block;
     left: 0px;
     right: 0px;
@@ -1109,32 +1105,154 @@
 }
 
 .shared-schedule-overlay {
-  position: fixed;
+  position: sticky;
   bottom: 0px;
   width: 100%;
+  color: white;
+  --icon-color: white;
   display: flex;
-  justify-content: center;
-  z-index: 2;
+  background: rgba(9, 9, 36, 0.85);
+  backdrop-filter: blur(2px);
+  z-index: 6;
+  overflow: hidden;
 
   .info-box {
     display: flex;
     width: 100%;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 16px;
-    background: rgba(11, 11, 11, 0.9);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    justify-content: space-between;
+    padding: 16px 0px;
+    padding-bottom: 8px;
+
+
+    @media (max-width: 1300px) {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      grid-column: 2 / 4;
+
+      .left {
+        padding-bottom: 6px;
+        margin-bottom: 12px;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+        justify-content: space-between !important;
+
+        .snapshot-meta {
+          display: none !important;
+        }
+
+        .currently-viewing { 
+          margin-left: 0px !important;
+        }
+
+        svg {
+          display: none !important;
+        }
+      }
+    }
+
+    .left {
+      display: flex;
+      justify-content: center;
+
+      .snapshot-meta {
+        margin-left: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: space-between;
+        color: #6664D3;
+        --icon-color: #6664D3;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 10.249px; 
+        letter-spacing: 0.018px;
+        text-transform: uppercase;
+
+        svg {
+          font-size: 12px;
+        }
+      }
+
+      .currently-viewing {
+        display: flex;
+        flex-direction: column;
+        margin-left: 28px;
+        font-size: 13px;
+
+        @media (max-width: $screen-sm) {
+          font-size: 10px !important;
+          svg {
+            display: none !important;
+          }
+        }
+
+        .divider {
+          width: 137px;
+          height: 3px;
+          margin-bottom: 4px;
+          flex-shrink: 0;
+          background: #FF4E26;
+        }
+
+        .text {
+          color: #9f9f9f;
+          letter-spacing: 0.7px;
+          text-transform: uppercase;
+          --icon-color: #FF4E26;
+          margin-bottom: 2px;
+
+          .info-icon {
+            display: inline-flex;
+            font-size: 12px;
+            transform: translateY(2px);
+            cursor: pointer;
+          }
+        }
+
+        .snapshot-title {
+          font-weight: 700;
+          letter-spacing: 0.7px;
+          text-transform: uppercase;
+        }
+      }
+    }
 
     .actions {
-      margin-top: 8px;
       display: flex;
+      padding-bottom: 8px;
 
-      @media (max-width: $screen-md) {
-        > * {
-          &:last-child {
-            display: none;
+      button {
+        flex-shrink: 0;
+        margin-right: 12px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        font-size: 13px;
+
+        svg {
+          font-size: 14px;
+          margin-left: 9px;
+          transform: translateY(-1px);
+        }
+
+        &.exit {
+          border: 1px solid #6664D3;
+          background: #6664D3;
+        }
+
+        &.reveal {
+          color: white;
+          --icon-color: white;
+          background: transparent;
+        }
+
+        &:last-child {
+          margin-right: 0px;
+
+          @media (max-width: 900px) {
+            // margin-right: 100px;
           }
         }
       }
@@ -1272,6 +1390,7 @@
     align-items: center;
 
     button {
+      border-radius: 4px;
       cursor: pointer;
       display: flex;
       width: 42px;
@@ -1285,7 +1404,12 @@
       background: #FFF;
 
       &:hover {
-        background: rgb(241, 241, 241); 
+        @include slick-purple;
+      }
+
+      &.active {
+        @include slick-purple;
+        --icon-color: black;
       }
     }
 
@@ -1371,7 +1495,7 @@
 
   @media (max-width: $screen-lg) {
     position: absolute;
-    opacity: 0.95;
+    // opacity: 0.95;
     margin-right: 0px;
   }
 }
