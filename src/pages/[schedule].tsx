@@ -1798,9 +1798,8 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                   <p className="bold small-text">What others will see</p>
                   <p className={`${css['preview']}`}>
                     You are currently viewing{' '}
-                    <span className="orange bold underline">
-                      {favorites.shareTitleInput || 'a shared schedule snapshot'}.
-                    </span>
+                    <span className="orange bold underline">{favorites.shareTitleInput || 'a shared schedule'}</span>
+                    &nbsp;snapshot.
                   </p>
 
                   <CopyToClipboard>
@@ -1963,7 +1962,9 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                         </Tooltip>
                       </span>
                     </p>
-                    <p className={css['snapshot-title']}>{favorites.sharedTitle || 'A SHARED schedule snapshot'}</p>
+                    <p className={css['snapshot-title']}>
+                      <span className="orange">{favorites.sharedTitle || 'a shared schedule'}</span> snapshot
+                    </p>
                   </div>
                   {/* <p className="large-text bold">You are viewing {favorites.sharedTitle || 'a shared schedule'}</p> */}
                 </div>
