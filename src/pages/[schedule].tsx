@@ -437,8 +437,8 @@ const CalendarModal = ({ events, calendarModalOpen, setCalendarModalOpen, allowG
           <span className="bold small-text">Notice</span>
           <br />
           <span className="tiny-text orange uppercase bold">
-            Event information will not be updated once you export the schedule to your personal calendar. please make
-            sure to visit the schedule closer to event date to make sure your events have not had any changes.
+            Event information will not be updated once you export the schedule to your personal calendar. PLEASE VISIT
+            THE SCHEDULE CLOSER TO EVENT DATE TO MAKE SURE YOUR EVENTS HAVE NOT HAD ANY CHANGES
           </span>
         </p>
       </div>
