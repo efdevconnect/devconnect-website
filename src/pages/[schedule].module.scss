@@ -20,13 +20,13 @@
 
 .edition-istanbul {
   --first-edition-color-1: #85c3b4;
-  --first-edition-color-2: #f8fffe;
+  --first-edition-color-2: #eefcfa;
   --first-edition-color-3: #c8efe6;
   --second-edition-color-1: #d78bfd;
   --second-edition-color-2: hsl(274, 64%, 98%);
   --second-edition-color-3: #f3e4ff;
   --third-edition-color-1: #ff8c72;
-  --third-edition-color-2: #fff5f3;
+  --third-edition-color-2: #fcf6f5;
   --third-edition-color-3: #fbe9e6;
 }
 
@@ -246,6 +246,7 @@
       --color-bg: var(--third-edition-color-3) !important;
       border-color: var(--third-edition-color-1) !important;
       --color: var(--third-edition-color-1) !important;
+      background: var(--third-edition-color-2) !important;
   
       // &:before {
       //   content: '';
