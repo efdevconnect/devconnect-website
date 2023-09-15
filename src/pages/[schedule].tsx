@@ -695,7 +695,7 @@ const Timeline = (props: any) => {
                   <p className={`large-text-em bold ${css['title']} ${totalDays === 1 ? css['single-day'] : ''}`}>
                     {event.Name}
                   </p>
-                  {props.edition === 'istanbul' && <Favorite event={event} favorites={props.favorites} />}
+                  <Favorite event={event} favorites={props.favorites} />
                 </div>
 
                 {event['Time of Day'] && (
