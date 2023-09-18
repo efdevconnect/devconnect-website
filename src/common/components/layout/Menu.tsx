@@ -16,6 +16,7 @@ import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { createPortal } from 'react-dom'
 import { Footer } from 'pages/index'
 import { useRouter } from 'next/router'
+import FarcasterIcon from 'assets/icons/farcaster.svg'
 
 const MultiLink = (props: any) => {
   const [open, setOpen] = React.useState(false)
@@ -219,6 +220,9 @@ export const FooterMenu = (props: any) => {
         <a target="_blank" rel="noreferrer" href="https://t.me/efdevconnect">
           <TelegramIcon style={{ fill: 'white' }} />
         </a>
+        <a target="_blank" rel="noreferrer" href="https://warpcast.com/efdevconnect">
+          <FarcasterIcon style={{ fill: 'white' }} />
+        </a>
       </div>
     </div>
   )
@@ -257,6 +261,10 @@ export const Menu = (props: any) => {
         </a>
         <a target="_blank" rel="noreferrer" href="https://t.me/efdevconnect">
           <TelegramIcon style={{ fill: 'white' }} />
+        </a>
+
+        <a target="_blank" rel="noreferrer" href="https://warpcast.com/efdevconnect">
+          <FarcasterIcon style={{ fill: 'white' }} />
         </a>
       </div>
     </div>
