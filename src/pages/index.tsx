@@ -691,7 +691,7 @@ const Home: NextPage = (props: any) => {
 
                     const width = mainEl.offsetWidth
 
-                    if (width > 1100) {
+                    if (width > 1500) {
                       splineRef.current.setZoom(0.6)
                     } else if (width > 700) {
                       splineRef.current.setZoom(0.4)
