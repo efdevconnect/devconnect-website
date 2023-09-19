@@ -1623,10 +1623,16 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
   const accordionRefs = React.useRef({} as { [key: string]: any })
 
   React.useEffect(() => {
-    // if (filterAttributes.filters) {
     Object.values(accordionRefs.current).forEach(acc => acc && acc.open && acc.open())
-    // }
-  }, [textSearch])
+  }, [
+    filterAttributes.statusFilter,
+    filterAttributes.difficultyFilter,
+    filterAttributes.categoryFilter,
+    filterAttributes.hideSoldOut,
+    filterAttributes.showOnlyDomainSpecific,
+    filterAttributes.showFavorites,
+    textSearch,
+  ])
 
   return (
     <>
@@ -1866,17 +1872,17 @@ const Schedule: NextPage = scheduleViewHOC((props: any) => {
                 </p>
               </div>
             </div>
-
             <div className={css['text-search-wrapper']}>
               <div className={css['text-search']}>
                 <input value={textSearch} onChange={e => setTextSearch(e.target.value)} placeholder="Find an Event" />
                 <SearchIcon />
               </div>
             </div>
-
             {scheduleView === 'timeline' && (
               <p className={`small-text bold uppercase ${css['swipe']}`}>Hold and drag schedule for more →</p>
             )}
+
+            <Expand scheduleView={scheduleView} accordionRefs={accordionRefs} />
           </div>
 
           <div className={css['schedule-wrapper']}>

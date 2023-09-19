@@ -9,6 +9,7 @@ import AreasToStayCityCenter from 'assets/images/city-guide/city-center.png'
 import AreasToStayEast from 'assets/images/city-guide/east.png'
 import AreasToStaySouth from 'assets/images/city-guide/south.png'
 import AreasToStayWest from 'assets/images/city-guide/west.png'
+import Script from 'next/script'
 import Image from 'next/legacy/image'
 import css from './city-guide.module.scss'
 import { SEO } from 'common/components/SEO'
@@ -730,7 +731,8 @@ const tabs = [
             Asian sides.{' '}
             <Link
               indicateExternal
-              href="https://file.notion.so/f/s/4017bdb4-e7b2-4bb8-9c30-90a7cf4c27dc/Sefer-Haritasi-Line-Map-2022.pdf?id=2d225240-dc8a-4cbe-96ed-5206edd1b887&table=block&spaceId=29b26582-476c-4221-baee-adf2ad16f913&expirationTimestamp=1691599673061&signature=YAYiT4YQRW9xLbOoQbG95-Q57zK-fEj0DwIo3ioRqYI&downloadName=Sefer-Haritasi-Line-Map-2022.pdf"
+              // href="https://file.notion.so/f/s/4017bdb4-e7b2-4bb8-9c30-90a7cf4c27dc/Sefer-Haritasi-Line-Map-2022.pdf?id=2d225240-dc8a-4cbe-96ed-5206edd1b887&table=block&spaceId=29b26582-476c-4221-baee-adf2ad16f913&expirationTimestamp=1691599673061&signature=YAYiT4YQRW9xLbOoQbG95-Q57zK-fEj0DwIo3ioRqYI&downloadName=Sefer-Haritasi-Line-Map-2022.pdf"
+              href="/files/ferry-map.pdf"
             >
               Here is a Map with all lines
             </Link>
@@ -949,10 +951,7 @@ const tabs = [
               February 2023, earthquake safety might be on some of your minds. It is difficult to predict the occurrence
               of an earthquake. For earthquake preparedness, it is good to inform yourself about the safety of the
               district you are staying. The Cowork venue (ICC) has been{' '}
-              <Link
-                indicateExternal
-                href="https://file.notion.so/f/s/b126a495-9ef3-4aea-abd2-7c4173cf4812/Earthquake_Document.pdf?id=468bd166-37b1-4f86-9cad-53fbd24bd641&table=block&spaceId=29b26582-476c-4221-baee-adf2ad16f913&expirationTimestamp=1691599896320&signature=WDTG6yuDOC_ZXVNqFG925JvXDtLjOOctaelyCAm9sjw&downloadName=Earthquake+Document.pdf"
-              >
+              <Link indicateExternal href="/files/earthquake_document.pdf">
                 certified for being suitable in terms of earthquake regulations legislation
               </Link>
               .
@@ -1103,9 +1102,9 @@ const CityGuide: NextPage = () => {
   return (
     <>
       <SEO title="City Guide" description="Devconnect city guide" />
-      <Head>
-        <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
-      </Head>
+      {/* <Head> */}
+      <Script async src="https://platform.twitter.com/widgets.js" charSet="utf-8" />
+      {/* </Head> */}
       <Hero
         className={css['city-guide-hero']}
         backgroundClassName={css['background']}
