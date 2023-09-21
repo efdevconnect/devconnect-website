@@ -1500,6 +1500,19 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+
+  .favorite-filter-highlight {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    --icon-color: #8F78FB;
+
+    svg {
+      transform: translateY(-1px);
+      font-size: 16px;
+      margin-left: 8px;
+    }
+  }
 }
 
 

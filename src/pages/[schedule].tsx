@@ -1351,7 +1351,10 @@ const Filter = (props: any) => {
               id: '1',
               content: (
                 <div className={css['list-toggle-item']}>
-                  <p>Favorites</p>
+                  <p className={css['favorite-filter-highlight']}>
+                    <span>Favorites</span>
+                    <StarFill />
+                  </p>
                   <label className={css['toggle']}>
                     <Toggle
                       checked={props.showFavorites}
