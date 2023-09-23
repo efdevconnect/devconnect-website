@@ -44,6 +44,8 @@ import ExportModalImage from 'assets/images/schedule/modal-export.png'
 import ShareModalImage from 'assets/images/schedule/modal-share.png'
 import EventAdd from 'assets/icons/event_added.svg'
 
+const favoritedEventsThisSession = new Set()
+
 // ICS and google cal generator
 const generateCalendarExport = (events: any[]) => {
   const ics = [`BEGIN:VCALENDAR`, `PRODID:devconnect.org`, `METHOD:PUBLISH`, `VERSION:2.0`, `CALSCALE:GREGORIAN`]
@@ -470,6 +472,15 @@ const Favorite = ({ event, favorites, noContainer }: any) => {
           )
         } else {
           favorites.setFavoriteEvents(favorites.favoriteEvents.concat(event.ShortID))
+
+          // @ts-ignore
+          const matomo = window && window._paq
+
+          if (matomo && !favoritedEventsThisSession.has(event.ID)) {
+            matomo.push(['trackEvent', 'Event Favorite Click', `EVENT_ID:${event.ID}`, `EVENT_NAME:${event.Name}`])
+
+            favoritedEventsThisSession.add(event.ID)
+          }
         }
 
         e.stopPropagation()
