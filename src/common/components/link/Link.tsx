@@ -13,27 +13,35 @@ type LinkProps = {
   [key: string]: any
 }
 
-export const useDraggableLink = () => {
+export const useDraggableLink = (thresholdPixels = 5) => {
+  const mouseDownPosition = React.useRef({ x: 0, y: 0 })
   const dragging = React.useRef(false)
 
-  return {
-    onMouseDown: () => {
-      dragging.current = false
-    },
-    onMouseMove: () => {
+  const onMouseDown = (e: any) => {
+    dragging.current = false
+    mouseDownPosition.current = { x: e.clientX, y: e.clientY }
+  }
+
+  const onMouseMove = (e: any) => {
+    const deltaX = Math.abs(e.clientX - mouseDownPosition.current.x)
+    const deltaY = Math.abs(e.clientY - mouseDownPosition.current.y)
+
+    if (deltaX > thresholdPixels || deltaY > thresholdPixels) {
       dragging.current = true
-    },
-    onClickCapture: (e: React.SyntheticEvent) => {
-      if (dragging.current) {
-        e.stopPropagation()
-        e.preventDefault()
-      }
-    },
-    // onClick: (e: React.SyntheticEvent) => {
-    //   if (dragging.current) {
-    //     e.preventDefault()
-    //   }
-    // },
+    }
+  }
+
+  const onClickCapture = (e: any) => {
+    if (dragging.current) {
+      e.stopPropagation()
+      e.preventDefault()
+    }
+  }
+
+  return {
+    onMouseDown,
+    onMouseMove,
+    onClickCapture,
     draggable: false,
   }
 }
