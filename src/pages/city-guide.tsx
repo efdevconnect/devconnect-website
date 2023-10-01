@@ -375,6 +375,28 @@ const tabs = [
     content: () => {
       return (
         <div className={`tab-content ${css['getting-around']}`}>
+          <Alert title="Hotel Discounts" className="margin-bottom-less tab-content">
+            <p className="margin-bottom-much-less bold">
+              🏠We have secured discounted rates with several hotels in the vicinity of the Istanbul Congress Center,
+              the Devconnect Cowork venue!
+            </p>
+            <p className="margin-bottom-much-less bold">
+              We expect the available rooms to fill up within a few days, so please submit your booking request asap.
+              The rooms are allocated on first come first served basis.
+            </p>
+            <p className="bold">
+              Booking for a group, or have questions? Please contact Kerry Botensten{' '}
+              <Link indicateExternal href="mailto:kerry@tripsha.com">
+                kerry@tripsha.com
+              </Link>
+              &nbsp;or&nbsp;
+              <Link indicateExternal href="https://t.me/kerrybotes">
+                telegram
+              </Link>
+              .
+            </p>
+          </Alert>
+
           <p className="large-text">
             The Bosporus Strait divides Istanbul&apos;s neighborhoods into two sides: the European side and the Asian
             side. The Devconnect Cowork venue and probably most Devconnect venues will be located on the European side.
@@ -1226,31 +1248,7 @@ const CityGuide: NextPage = () => {
             >
               Getting to Istanbul
             </p>
-            <div>
-              <Alert title="Hotel Discounts" className="margin-bottom-less tab-content">
-                <p className="margin-bottom-much-less bold">
-                  🏠We have secured discounted rates with several hotels in the vicinity of the Istanbul Congress
-                  Center, the Devconnect Cowork venue!
-                </p>
-                <p className="margin-bottom-much-less bold">
-                  We expect the available rooms to fill up within a few days, so please submit your booking request
-                  asap. The rooms are allocated on first come first served basis.
-                </p>
-                <p className="bold">
-                  Booking for a group, or have questions? Please contact Kerry Botensten{' '}
-                  <Link indicateExternal href="mailto:kerry@tripsha.com">
-                    kerry@tripsha.com
-                  </Link>
-                  &nbsp;or&nbsp;
-                  <Link indicateExternal href="https://t.me/kerrybotes">
-                    telegram
-                  </Link>
-                  .
-                </p>
-              </Alert>
-
-              {tabs[1].content()}
-            </div>
+            <div>{tabs[1].content()}</div>
 
             <p className="section-header orange margin-top-less margin-bottom-much-less" id="experience-the-city">
               Experience The City
