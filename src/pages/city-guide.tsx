@@ -1096,7 +1096,17 @@ const List = (props: any) => {
       <div className={css['row']}>
         <div className={`${css['left']} uppercase`}>
           {/* <Visa className={`${css['icon']} icon`} /> */}
-          <p className="bold">🏠 Hotel Discounts</p>
+          <AnchorLink
+            href={`#where-to-stay`}
+            className={`uppercase hover-underline generic`}
+            onClick={(e: any) => {
+              if (props.accordionRefs.current['where-to-stay']) {
+                props.accordionRefs.current['where-to-stay'].open()
+              }
+            }}
+          >
+            <p className="bold">🏠 Hotel Discounts</p>
+          </AnchorLink>
         </div>
         <AnchorLink
           href={`#where-to-stay`}
