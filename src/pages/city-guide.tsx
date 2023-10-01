@@ -1092,6 +1092,25 @@ const List = (props: any) => {
           <b>Average November weather</b>: 9ºC(47ºF) to 15ºC (59ºF)
         </div>
       </div>
+
+      <div className={css['row']}>
+        <div className={`${css['left']} uppercase`}>
+          {/* <Visa className={`${css['icon']} icon`} /> */}
+          <p className="bold">🏠 Hotel Discounts</p>
+        </div>
+        <AnchorLink
+          href={`#where-to-stay`}
+          className={`${css['right']} orange uppercase tiny-text hover-underline generic`}
+          onClick={(e: any) => {
+            if (props.accordionRefs.current['where-to-stay']) {
+              props.accordionRefs.current['where-to-stay'].open()
+            }
+          }}
+        >
+          Contact
+        </AnchorLink>
+      </div>
+
       {/* <div className={css['row']}>
         <div className={`${css['left']} uppercase`}>
           <Water className={`${css['icon']} icon`} />
