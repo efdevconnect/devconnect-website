@@ -22,10 +22,12 @@ const Alert = (props: AlertProps) => {
 
   const body = (
     <div className={className}>
-      <div className={css['title']}>
-        <AlertIcon />
-        <p>{props.title}</p>
-      </div>
+      {props.title && (
+        <div className={css['title']}>
+          <AlertIcon />
+          <p>{props.title}</p>
+        </div>
+      )}
       <div className={css['body']}>{props.children}</div>
       {/* <div className={css['close']} onClick={() => setAlertHidden(true)}>
         <CloseIcon />
