@@ -551,7 +551,7 @@ const useFavorites = (events: any, edition: Edition): any => {
 
     let url = window.location.origin + window.location.pathname
 
-    url += `?edition=${edition}&share=${shareParams}`
+    url += `?edition=${encodeURIComponent(edition)}&share=${encodeURIComponent(shareParams)}`
 
     if (shareTitleInput) url += `&share_title=${encodeURIComponent(shareTitleInput)}`
 
