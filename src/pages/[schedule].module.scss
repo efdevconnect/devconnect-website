@@ -1511,6 +1511,11 @@
   @media (max-width: $screen-lg) {
     position: absolute;
     margin-right: 0px;
+    margin-left: 64px;
+  }
+
+  @media (max-width: $screen-md) {
+    margin-left: 16px;
   }
 }
 
