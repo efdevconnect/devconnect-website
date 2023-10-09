@@ -359,7 +359,7 @@ const tabs = [
           </Link>
           <Link
             className="button orange margin-top-less"
-            href="https://www.google.com/maps/d/edit?mid=1eX7T0uqj9dfXHBFcw2mH9qXGfQtdr0A&usp=sharing"
+            href="https://www.google.com/maps/d/u/0/edit?mid=1eX7T0uqj9dfXHBFcw2mH9qXGfQtdr0A&usp=sharing"
           >
             <PinIcon />
             Food Map
