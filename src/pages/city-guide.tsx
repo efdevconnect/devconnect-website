@@ -56,18 +56,31 @@ const tabs = [
             <Link href="https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa">if you need one</Link>!
           </p> */}
           <p className="big-text">
-            <b>Need a Visa invitation letter?</b> You&apos;ll need a ticket for the Devconnect Cowork first, then you
-            can&nbsp;
-            <Link href="https://forms.gle/zDQ6ax5Ukr75gDXt5" indicateExternal>
+            <b>Need a Visa invitation letter?</b> Check if you need a visa{' '}
+            <Link
+              indicateExternal
+              href="https://team.notion.site/pse-team/Istanbul-Tourist-Visa-30-90-days-E-Visa-Public-5f83cc372a224c1e9b3ed6d6170aa0a8"
+            >
+              here
+            </Link>
+            &nbsp;and if you need an invitation letter, you can{' '}
+            <Link indicateExternal href="https://forms.gle/zDQ6ax5Ukr75gDXt5">
               fill out this form
             </Link>
-            . You will hear back from us via email within 2 weeks.
+            . You will need to purchase a{' '}
+            <Link indicateExternal href="https://devconnect.org/cowork">
+              Cowork ticket
+            </Link>{' '}
+            before we can issue a letter.
           </p>
 
           <p className="big-text margin-top-less">
             <b>Wifi: </b>
-            Be prepared that wifi in most public spaces in Istanbul might give you a connectivity hiccup. We recommend
-            getting the largest package of Airalo already before you land in Istanbul.
+            It&apos;s always nice to be connected while on-the-go or have a backup in case of poor connectivity: We
+            recommend purchasing a local SIM card or a large package of an e-SIM. We have secured discounts for you!{' '}
+            <Link href="https://www.airalo.com/turkey-esim">Airalo</Link> offers a 20% discount for all Devconnect
+            cowork attendees to receive 20% off their chosen data package with the code “DEVCONNECT” up until 30th
+            November, 2023.
           </p>
 
           <p className="big-text">
@@ -274,9 +287,12 @@ const tabs = [
             <b>"The shoe shiner scam"</b>
           </p>
           <p>
-            Beware of shoe shiners in Istanbul who may drop their brush near you, then offer to shine your shoe in
-            gratitude - they will greatly overcharge you out of claimed desperation, so politely decline. Stick to
-            regular shoe shiners at their stools to avoid being scammed
+            Beware of shoe shiners in Istanbul who may{' '}
+            <Link indicateExternal href="https://turkishtravelblog.com/shoe-shine-scam-istanbul/">
+              drop their brush near you
+            </Link>
+            , then offer to shine your shoe in gratitude - they will greatly overcharge you out of claimed desperation,
+            so politely decline. Stick to regular shoe shiners at their stools to avoid being scammed.
           </p>
           <p>
             <b>Negotiate on markets</b>
