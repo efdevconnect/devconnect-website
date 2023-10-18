@@ -77,10 +77,17 @@ const tabs = [
           <p className="big-text margin-top-less">
             <b>Wifi: </b>
             It&apos;s always nice to be connected while on-the-go or have a backup in case of poor connectivity: We
-            recommend purchasing a local SIM card or a large package of an e-SIM. We have secured discounts for you!{' '}
-            <Link href="https://www.airalo.com/turkey-esim">Airalo</Link> offers a 20% discount for all Devconnect
-            cowork attendees to receive 20% off their chosen data package with the code “DEVCONNECT” up until 30th
-            November, 2023.
+            recommend purchasing a local SIM card or a large package of an e-SIM. We have secured discounts from two
+            different e-SIM providers for you:
+            <br />
+            <br />
+            <b>a)</b> The local provider <Link href="https://roamless.com/">Roamless</Link> offers you 2GB for free and
+            when they are used, you get another $5 free credit if you add $20 or more into your Roamless wallet. Use the
+            code "DEVCONNECT".
+            <br />
+            <b>b)</b> <Link href="https://www.airalo.com/turkey-esim">Airalo</Link> offers a 20% discount for all
+            Devconnect cowork attendees to receive 20% off their chosen data package with the code “DEVCONNECT” up until
+            30th November, 2023.
           </p>
 
           <p className="big-text">
