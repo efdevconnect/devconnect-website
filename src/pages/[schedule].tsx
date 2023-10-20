@@ -2124,6 +2124,15 @@ const formatResult = (result: any) => {
 
   // Insert a default value for time of day when unspecified
   if (!properties['Time of Day']) properties['Time of Day'] = 'All day'
+  // Prepend https to url if it's not an internal link (e.g. /cowork) and if https is not specified in case the event host forgot
+  if (properties['URL']) {
+    const isInternal = properties['URL'].startsWith('/')
+    const noHttp = !properties['URL'].startsWith('http')
+
+    if (noHttp && !isInternal) {
+      properties['URL'] = `https://${properties['URL']}`
+    }
+  }
 
   return { ...properties, ID: result.id, ShortID: result.id.slice(0, 5) /* raw: result*/ }
 }
