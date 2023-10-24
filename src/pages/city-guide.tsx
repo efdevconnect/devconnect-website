@@ -206,6 +206,14 @@ const tabs = [
               minutes by public transport from Beşiktaş Meydan to the ICC venue.{' '}
             </div>
           </div>
+
+          <Link
+            className="button orange margin-top-less margin-right-less"
+            href="https://itublockchain.notion.site/itublockchain/Accommodation-Guide-by-ITU-Blockchain-261d65cdd210452aa7f7679f5583164e"
+          >
+            <PinIcon />
+            Accommodation Guide by ITU
+          </Link>
         </div>
       )
     },
@@ -262,6 +270,14 @@ const tabs = [
               <b>Google Maps or Moovit:</b> for route planning and real-time information on public transport.
             </li>
           </ul>
+
+          <Link
+            className="button orange margin-top-less margin-right-less"
+            href="https://itublockchain.notion.site/itublockchain/Tourist-Guide-by-ITU-Blockchain-e09893e5555b4f8e9b4c6ae854b599cd "
+          >
+            <PinIcon />
+            Tourist Guide by ITU
+          </Link>
         </div>
       )
     },
@@ -417,6 +433,23 @@ const tabs = [
             </Link>
             .{' '}
           </p>
+
+          <p>
+            Curious how the city has developed over time? Here are some videos showing Istanbul in the{' '}
+            <Link indicateExternal href="https://www.youtube.com/watch?v=Pejti3plPAg">
+              1920s
+            </Link>
+            ,{' '}
+            <Link indicateExternal href="https://www.youtube.com/watch?v=wO2-ownJAYc">
+              1930s
+            </Link>
+            , and{' '}
+            <Link indicateExternal href="https://www.youtube.com/watch?v=fK09Vz75EyQ">
+              1960s
+            </Link>
+            .
+          </p>
+
           <p className="">
             If you want to delve deeper into understanding Istanbul&apos;s culture, you can get started with some of the
             following movie and book recommendations from a local.{' '}
