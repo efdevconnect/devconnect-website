@@ -557,6 +557,7 @@ export const Footer = ({ inFoldoutMenu, onClickMenuItem }: FooterProps) => {
                   <p className="tiny-text">Crafted and curated with passion ♥ ✨ at the Ethereum Foundation.</p>
                   <p className={`${css['copyright']} tiny-text`}>
                     © {new Date().getFullYear()} — Ethereum Foundation. All Rights Reserved.
+                    (<Link href="https://github.com/efdevconnect/devconnect-website">source code</Link>)
                   </p>
                 </div>
 
